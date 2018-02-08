@@ -26,11 +26,11 @@ override: false
 
 # For example, you put your favicons into `hexo-site/source/images` directory.
 # Then need to rename & redefine they on any other names, otherwise icons from Next will rewrite your custom icons in Hexo.
-favicon:
-  small: /images/favicon-16x16-next.png
-  medium: /images/favicon-32x32-next.png
-  apple_touch_icon: /images/apple-touch-icon-next.png
-  safari_pinned_tab: /images/logo.svg
+favicon: 
+  small: /images/favicon.ico#/images/favicon-16x16-next.png
+  #medium: /images/favicon-32x32-next.png
+  #apple_touch_icon: /images/apple-touch-icon-next.png
+  #safari_pinned_tab: /images/logo.svg
   #android_manifest: /images/manifest.json
   #ms_browserconfig: /images/browserconfig.xml
 
@@ -378,9 +378,9 @@ changyan:
 # You can get your appid and appkey from https://leancloud.cn
 # more info please open https://valine.js.org
 valine:
-  enable: false
-  appid:  # your leancloud application appid
-  appkey:  # your leancloud application appkey
+  enable: true
+  appid:  EdodKu35EbSo4VoLhJYQMd09-gzGzoHsz# your leancloud application appid
+  appkey:  qpErN7JcsIzusWGMNuw1QcxN# your leancloud application appkey
   notify: false # mail notifier , https://github.com/xCss/Valine/wiki
   verify: false # Verification code
   placeholder: Just go go # comment box placeholder
@@ -551,15 +551,15 @@ busuanzi_count:
   # count values only if the other configs are false
   enable: false
   # custom uv span for the whole site
-  site_uv: true
+  site_uv: false
   site_uv_header: <i class="fa fa-user"></i>
   site_uv_footer:
   # custom pv span for the whole site
-  site_pv: true
+  site_pv: false
   site_pv_header: <i class="fa fa-eye"></i>
   site_pv_footer:
   # custom pv span for one page only
-  page_pv: true
+  page_pv: false
   page_pv_header: <i class="fa fa-file-o"></i>
   page_pv_footer:
 
