@@ -6,13 +6,13 @@
 title: Stay Hungary
 subtitle: Programming is an art form
 description: 人所恐惧的不是孤独本身，而是害怕承认人本生而孤独的事实
-author: dengxiaojun
+author: 邓小俊
 language: zh-Hans
 timezone:
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
-url: http://yoursite.com
+url: https://coldjune.github.io
 root: /
 permalink: :year/:month/:day/:title/
 permalink_defaults:
@@ -72,7 +72,7 @@ pagination_dir: page
 # Extensions
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
-plugins: hexo-generate-feed
+#plugins: hexo-generate-feed
 theme: next
 
 # Deployment
