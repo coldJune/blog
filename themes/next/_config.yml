@@ -352,7 +352,7 @@ han: false
 
 # Baidu Analytics ID
 #baidu_analytics:
-
+baidu_site_verification: true
 # Duoshuo ShortName
 #duoshuo_shortname:
 
