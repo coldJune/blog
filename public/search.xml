@@ -1,8 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title><![CDATA[Hello World]]></title>
-    <url>%2F2018%2F02%2F08%2Fhello-world%2F</url>
-    <content type="text"><![CDATA[Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick Start Create a new post1$ hexo new "My New Post" More info: Writing Run server1$ hexo server More info: Server Generate static files1$ hexo generate More info: Generating Deploy to remote sites1$ hexo deploy More info: Deployment]]></content>
+    <title><![CDATA[Python正则表达式(一)]]></title>
+    <url>%2F2018%2F02%2F09%2FPython%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F-%E4%B8%80%2F</url>
+    <content type="text"><![CDATA[在Python的学习过程中，正则表达式始终是一道绕不过去的坎.无论提取服务器日志文件还是爬取网页，正则表达式始终扮演着至关重要的角色。下面便对自己学习过程中的一些正则表达式基础做一个总结。 特殊符号和字符 表示法 描述 正则表达式示例 备注 符号 literal 匹配文本字符串的字面值literal foo 只是匹配foo，相当于取等 re1&#124; re2 匹配正则表达式re1或re2 foo&#124; bar 匹配foo或者bar，二选一 . 匹配任何字符(除了\n之外) a.a 匹配axa、aaa、aca等，两个a中间可以是除了\n的任意字符 ^ 匹配字符串起始部分 ^Foo 匹配Foo，不匹配aFoo $ 匹配字符串终止部分 Bar$ 只匹配Bar,不匹配aBar等 * 匹配0次或者多次前面出现的正则表达式 [A-Za-z0-9]* 匹配任意多个字母或数字 + 匹配1次或者多次前面出现的正则表达式 [A-Za-z0-9]+ 匹配一到多个个字母或数字 ? 匹配0次或者1次前面出现的正则表达式 [A-Za-z0-9] 要么有一个字母或数字要么没有 {N} 匹配N次前面出现的正则表达式 [0-9]{3} 匹配三个数字 {M,N} 匹配M~N次前面出现的正则表达式 [0-9]{5,9} 匹配5到9个数字(包括5个和9个) […] 匹配来自字符集的任意单一字符 [aeiou] 匹配一个元音字母 [..x~y..] 匹配x~y范围内的任意单一字符 [A-Za-z] 匹配任意一个英文字母 [^…] 不匹配此字符集中出现的任何一个字符，包括某一范围的字符(如果在此字符集中出现) [\^aeiou][\^A-Za-z0-9] 匹配一个非元音字母和一个非字母数字字符 (*&#124;+&#124;?&#124;{})? 用于匹配上面频繁出现/重复出现符号的非贪婪版本(*、+、?、{}) .*?[a-z] (非贪婪是指尽可能少的匹配) (…) 匹配封闭的正则表达式,然后另存为子组 f(oo&#124; u)bar 匹配foobar,fubar 特殊字符 \d 匹配任何十进制数字，与[0-9]一致(\D和\d相反，不匹配任何非数值型的数字) data\d+.txt 匹配data1.txt、data12.txt \w 匹配任何字母数字字符，与[A-Za-z0-9]相同(\W与之相反) [A-Za-z_]\w+ 匹配任意字母或_加一个或多个字母数字字符(asda,_asda) \s 匹配任何空格字符，与[\n\t\r\v\f]相同(\S与之相反) of\sthe 匹配of the (\n:换行符&#124;\t:水平制表符&#124;\r:回车&#124;\v:垂直制表符&#124;\f:换页符) \b 匹配任何单词边界(\B与之相反) \bThe\b 匹配of The a，不匹配ofThe a \N 匹配已保存的子组N(与上面(…)配合使用) price:\16 匹配price:和前面第16个子组的值 \c 逐字匹配任何特殊字符(即仅按字面意义匹配，不包含特殊含义，\为对特殊字符的转义表示) * 匹配* \A(\Z) 匹配字符串的起始(结束)(另见上面的^和$) \ADear 匹配以Dear开头的 扩展表示法 （?iLmsux） 在正则表达式中嵌入一个或多个特殊”标记”参数(或者通过函数/方法) （?x）,(?im) (?:…) 表示一个匹配不用保存的分组 (?:\w+.)* 匹配任意多个一个或多个字母数字字符与.的组合但不保存改分组 (?P…) 像一个仅由name标识而不是数字ID标识的正则分组匹配 (?P) 给匹配的分组命名为data (?P=name) 在同一个字符串中匹配由(?P)分组之前的文本 (?P=data) 匹配名字为data的串 (?#…) 表示注释，所有内容都被忽略 (?#comment) (?=…) 匹配条件是如果…出现在之后的位置，而不使用输入字符串；称作正向前视断言 (?=.com) 如果一个字符串后面跟着“.com”才做匹配操作，并不适用任何目标字符串 (?!…) 匹配条件是如果…不出现在之后的位置，而不使用输入字符串；称作负向前视断言 (?!.net) 如果一个字符串后面不是跟着“.net”，才做匹配操作 (?&lt;=…) 匹配条件是如果…出现在之前的位置，而不使用输入字符串；称作正向后视断言 (?&lt;=800-) 如果字符串之前为“800-”才做匹配，并不使用任何输入字符串 (?&lt;!…) 匹配条件是如果…不出现在之前的位置，而不使用输入字符串；称作负向后视断言 (?&lt;!192\.168\.) 如果一个字符串之前不是“192.168.”才做匹配，并不适用任何输入字符串 (?(id/name)Y&#124;N 如果分组所提供的id或name(名称)存在，就返回正则表达式的条件匹配Y，如果不存在，就返回N;N是可选项 (?(1)y&#124;x) 如果一个匹配组1(\1)存在就y匹配；否则，就与x匹配 以上为正则表达式的一些基本的符号定义与用法，熟练掌握这些符号是写出高效表达式的基础。]]></content>
+      <categories>
+        <category>Python</category>
+      </categories>
+      <tags>
+        <tag>Python</tag>
+        <tag>正则表达式</tag>
+      </tags>
   </entry>
 </search>
