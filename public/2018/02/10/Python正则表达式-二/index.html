@@ -90,7 +90,7 @@
 <meta property="og:site_name" content="Stay Hungary">
 <meta property="og:description" content="正则表达式的匹配规则基本已经在上一篇博文中全部罗列出来了，下面便是结合到具体语言进行学习和练习了。由于个人兴趣和想要专研的方向，在这里将会使用Python 1 语言进行描述。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-02-11T08:15:13.256Z">
+<meta property="og:updated_time" content="2018-02-11T08:18:55.912Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Python正则表达式(二)">
 <meta name="twitter:description" content="正则表达式的匹配规则基本已经在上一篇博文中全部罗列出来了，下面便是结合到具体语言进行学习和练习了。由于个人兴趣和想要专研的方向，在这里将会使用Python 1 语言进行描述。">
@@ -383,7 +383,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  2,207
+                  2,209
                 </span>
               
 
@@ -458,7 +458,7 @@
 <td style="text-align:center">与findall()函数相同，但返回的不是一个列表，而是一个迭代器。对于每一次匹配，迭代器都返回一个匹配对象</td>
 </tr>
 <tr>
-<td style="text-align:center">split(pattern, string, max=)</td>
+<td style="text-align:center">split(pattern, string, max=0)</td>
 <td style="text-align:center">根据正则表达式的模式分隔符，split函数将字符串分割为列表，然后返回成功的列表，分割最多操作max次(默认分割所有匹配成功的位置)</td>
 </tr>
 <tr>
@@ -546,7 +546,7 @@
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#sub()</span></span><br><span class="line">re.sub(<span class="string">'car'</span>, <span class="string">'cat'</span>, <span class="string">'My car is not only a car.'</span>) <span class="comment">#模式匹配字符串</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="string">'My cat is not only a cat.'</span>                         <span class="comment">#输出结果</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#subn()</span></span><br><span class="line">re.subn(<span class="string">'car'</span>, <span class="string">'cat'</span>, <span class="string">'My car is not only a car.'</span>) <span class="comment">#模式匹配字符串</span></span><br><span class="line"></span><br><span class="line">(<span class="string">'My cat is not only a cat.'</span>, <span class="number">2</span>)                   <span class="comment">#输出结果</span></span><br></pre></td></tr></table></figure>
 </blockquote>
 </li>
-<li><p><em>split(pattern, string, max=)</em></p>
+<li><p><em>split(pattern, string, max=0)</em></p>
 <blockquote>
 <p>正则表达式对象的 <em>split()</em> 方法和字符串的工作方式类似，但它是基于正则表达式的模式分割字符串。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">re.split(<span class="string">':'</span>, <span class="string">'str1:str2:str3'</span>)               <span class="comment">#模式匹配字符串</span></span><br><span class="line"></span><br><span class="line">[<span class="string">'str1'</span>, <span class="string">'str2'</span>, <span class="string">'str3'</span>]                      <span class="comment">#输出结果，与'str1:str2:str3'.split(':')相同</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#split()复杂用法</span></span><br><span class="line"><span class="comment">#使用split()基于逗号分割字符串，如果空格紧跟在5个数字或者两个大写字母之后，就用split()分割该空格</span></span><br><span class="line"><span class="comment">#使用(?=)正向前视断言，不适用输入字符串 而是使用后面的空格作为分割字符串</span></span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line">DATA = (</span><br><span class="line">  <span class="string">'Mountain View, CA 94040'</span>,</span><br><span class="line">  <span class="string">'Sunnyvale, CA'</span>,</span><br><span class="line">  <span class="string">'Los Altos, 94023'</span>,</span><br><span class="line">  <span class="string">'Cupertino 95014'</span>,</span><br><span class="line">  <span class="string">'Palo Alto CA'</span>,</span><br><span class="line">)</span><br><span class="line"><span class="keyword">for</span> datum <span class="keyword">in</span> DATA:</span><br><span class="line">    print(re.split(<span class="string">', |(?= (?:\d&#123;5&#125;|[A-Z]&#123;2&#125;)) '</span>, datum))</span><br><span class="line"></span><br><span class="line"><span class="comment">#输出结果</span></span><br><span class="line">[<span class="string">'Mountain View'</span>, <span class="string">'CA'</span>, <span class="string">'94040'</span>]</span><br><span class="line">[<span class="string">'Sunnyvale'</span>, <span class="string">'CA'</span>]</span><br><span class="line">[<span class="string">'Los Altos'</span>, <span class="string">'94023'</span>]</span><br><span class="line">[<span class="string">'Cupertino'</span>, <span class="string">'95014'</span>]</span><br><span class="line">[<span class="string">'Palo Alto'</span>, <span class="string">'CA'</span>]</span><br></pre></td></tr></table></figure>
@@ -559,7 +559,7 @@
 <h4 id="重复、特殊字符5以及分组"><a href="#重复、特殊字符5以及分组" class="headerlink" title="重复、特殊字符5以及分组"></a>重复、特殊字符<sup id="fnref:5"><a href="#fn:5" rel="footnote">5</a></sup>以及分组</h4><blockquote>
 <p><code>?</code>操作符表示前面的模式出现零次或一次<br><code>+</code>操作符表示前面的模式出现至少一次<br><code>*</code>操作符表示前面的模式出现任意次(包括0次)<br>分组从左起第一个括号开始算第一个分组<br>  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">m  = re.match(<span class="string">'(\w(\w\w))-(\d\d\d)'</span>,<span class="string">'abc-123'</span>)</span><br><span class="line">m.group()                           <span class="comment">#完整匹配</span></span><br><span class="line"><span class="string">'abc-123'</span>                           <span class="comment">#输出结果</span></span><br><span class="line"></span><br><span class="line">m.group(<span class="number">1</span>)                          <span class="comment">#第一组</span></span><br><span class="line"><span class="string">'abc'</span>                               <span class="comment">#输出结果    </span></span><br><span class="line"></span><br><span class="line">m.group(<span class="number">2</span>)                          <span class="comment">#第二组</span></span><br><span class="line"><span class="string">'bc'</span>                                <span class="comment">#输出结果</span></span><br><span class="line"></span><br><span class="line">m.group(<span class="number">3</span>)                          <span class="comment">#第三组</span></span><br><span class="line"><span class="string">'123'</span>                               <span class="comment">#输出结果</span></span><br><span class="line"></span><br><span class="line">m.groups()                          <span class="comment">#全部子组</span></span><br><span class="line">(<span class="string">'abc'</span>, <span class="string">'bc'</span>, <span class="string">'123'</span>)                <span class="comment">#输出结果</span></span><br></pre></td></tr></table></figure></p>
 </blockquote>
-<div id="footnotes"><hr><div id="footnotelist"><ol style="list-style:none; padding-left: 0;"><li id="fn:1"><span style="display: inline-block; vertical-align: top; padding-right: 10px;">1.</span><span style="display: inline-block; vertical-align: top;">这里Python指代的是Python3.6.4</span><a href="#fnref:1" rev="footnote"> ↩</a></li><li id="fn:2"><span style="display: inline-block; vertical-align: top; padding-right: 10px;">2.</span><span style="display: inline-block; vertical-align: top;">预编译可以提升执行效率，而 <code>re.compile()</code> 方法提供了这个功能。模块函数会对已编译的对象进行缓存，<br>所以无论使用 <code>match()</code> 和 <code>search()</code> 在执行时编译的正则表达式,还是使用 <code>compile()</code> 编译的表达式,<br>在再次使用时都会查询缓存。但使用 <code>compile()</code> 同样可以节省查询缓存的时间</span><a href="#fnref:2" rev="footnote"> ↩</a></li><li id="fn:3"><span style="display: inline-block; vertical-align: top; padding-right: 10px;">3.</span><span style="display: inline-block; vertical-align: top;">除了正则表达式对象之外，还有另外一个对象类型：<strong>匹配对象</strong>。<br>这些是成功调用 <code>match()</code> 和 <code>search()</code> 返回的对象。</span><a href="#fnref:3" rev="footnote"> ↩</a></li><li id="fn:4"><span style="display: inline-block; vertical-align: top; padding-right: 10px;">4.</span><span style="display: inline-block; vertical-align: top;">如果遇到无法调用 <code>next()</code>方法，可以使用 <code>__next__()</code>方法代替。</span><a href="#fnref:4" rev="footnote"> ↩</a></li><li id="fn:5"><span style="display: inline-block; vertical-align: top; padding-right: 10px;">5.</span><span style="display: inline-block; vertical-align: top;">特殊字符的详情可以参考<a href="http://coldjune.com/2018/02/09/Python%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F-%E4%B8%80/">上一篇博文</a></span><a href="#fnref:5" rev="footnote"> ↩</a></li></ol></div></div>
+<div id="footnotes"><hr><div id="footnotelist"><ol style="list-style:none; padding-left: 0;"><li id="fn:1"><span style="display: inline-block; vertical-align: top; padding-right: 10px;">1.</span><span style="display: inline-block; vertical-align: top;">这里Python指代的是Python3.6.4</span><a href="#fnref:1" rev="footnote"> ↩</a></li><li id="fn:2"><span style="display: inline-block; vertical-align: top; padding-right: 10px;">2.</span><span style="display: inline-block; vertical-align: top;">预编译可以提升执行效率，而 <code>re.compile()</code> 方法提供了这个功能。模块函数会对已编译的对象进行缓存，所以无论使用 <code>match()</code> 和 <code>search()</code> 在执行时编译的正则表达式,还是使用 <code>compile()</code> 编译的表达式,在再次使用时都会查询缓存。但使用 <code>compile()</code> 同样可以节省查询缓存的时间</span><a href="#fnref:2" rev="footnote"> ↩</a></li><li id="fn:3"><span style="display: inline-block; vertical-align: top; padding-right: 10px;">3.</span><span style="display: inline-block; vertical-align: top;">除了正则表达式对象之外，还有另外一个对象类型：<strong>匹配对象</strong>。这些是成功调用 <code>match()</code> 和 <code>search()</code> 返回的对象。</span><a href="#fnref:3" rev="footnote"> ↩</a></li><li id="fn:4"><span style="display: inline-block; vertical-align: top; padding-right: 10px;">4.</span><span style="display: inline-block; vertical-align: top;">如果遇到无法调用 <code>next()</code>方法，可以使用 <code>__next__()</code>方法代替。</span><a href="#fnref:4" rev="footnote"> ↩</a></li><li id="fn:5"><span style="display: inline-block; vertical-align: top; padding-right: 10px;">5.</span><span style="display: inline-block; vertical-align: top;">特殊字符的详情可以参考<a href="http://coldjune.com/2018/02/09/Python%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F-%E4%B8%80/">上一篇博文</a></span><a href="#fnref:5" rev="footnote"> ↩</a></li></ol></div></div>
       
     </div>
     
@@ -658,6 +658,10 @@
 
           <div class="post-nav-prev post-nav-item">
             
+              <a href="/2018/02/12/Python正则表达式-三/" rel="prev" title="Python正则表达式(三)">
+                Python正则表达式(三) <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
       
@@ -733,7 +737,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-count">3</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -822,7 +826,7 @@
     
       <span class="post-meta-item-text">博文包含字数&#58;</span>
     
-    <span title="博文包含字数">3.5k</span>
+    <span title="博文包含字数">5.0k</span>
   
 </div>
 
