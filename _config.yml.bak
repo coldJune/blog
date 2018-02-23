@@ -81,7 +81,7 @@ theme: next
 deploy:
 - type: git
   repo:
-        github: https://github.com/coldJune/coldJune.github.io.git
+        github: git@github.com:coldJune/coldJune.github.io.git
         coding: https://git.coding.net/coldJune/coldJune.github.io.git
   branch: master
 - type: baidu_url_submitter
