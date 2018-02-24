@@ -11,17 +11,19 @@ description:
 使用Python的一些模块来创建网络应用程序
 <!--More-->
 ## socket()函数模块
-要创建套接字，必须使用`socket.socket()`函数`socket(socket_family, socket_type, protocol = 0)`,
-其中`socket_family`是 *AF_UNIX* 或 *AF_INET*,`socket_type`是 *SOCK_STREAM* 或 *SOCK_DGRAM*。[^1]
-`protocol`通常省略，默认为0。
-1. >创建TCP/IP套接字
-   ```Python
-   tcpSock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-   ```
-2. >创建UDP/IP套接字
-   ```Python
+要创建套接字，必须使用`socket.socket()`函数`socket(socket_family, socket_type, protocol = 0)`,其中`socket_family`是 *AF_UNIX*或 *AF_INET*,`socket_type`是 *SOCK_STREAM* 或 *SOCK_DGRAM*。[^1]`protocol`通常省略，默认为0。
+
+* >创建TCP/IP套接字
+
+    ```Python
+    tcpSock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    ```
+
+* >创建UDP/IP套接字
+
+    ```Python
    udpSock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-   ```
+    ```
 
 ### 套接字对象内接方法
 |         名称         |                                 描述                                  |
@@ -99,6 +101,7 @@ description:
 
 ### TCP服务器
 * 下面是TCP服务器端的通用伪码，这是设计服务器的一种方式，可根据需求修改来操作服务器
+
   ```Python
   ss = socket()                 #创建服务器套接字
   ss.bind()                     #套接字与地址绑定
@@ -112,6 +115,7 @@ description:
   ```
 
 * TCP时间戳服务器
+
   ```Python
   #!usr/bin/python3
   # -*- coding:UTF-8 -*-
@@ -156,7 +160,9 @@ description:
 
   ```
 ### TCP客户端
+
 * 下面是TCP客户端的通用伪码
+
   ```Python
   cs = socket()           #创建客户端套接字
   cs.connect()            #尝试连接服务器
@@ -164,7 +170,9 @@ description:
       cs.send()/cs.recv   #对话(发送/接收)
   cs.close()              #关闭客户端套接字
   ```
+
 * TCP时间戳客户端
+
   ```Python
   #!usr/bin/python3
   # -*- coding: UTF-8 -*-
@@ -202,16 +210,22 @@ description:
   # 关闭客户端
   tcpCliSock.close()
   ```
+
 ### TCP服务器和客户端运行结果
+  
   在运行程序时，必须 **首先运行服务器** 程序，然后再运行客户端程序。如果先运行客户端程序，将会报未连接到服务器的错误。
   按正确的顺序启动程序后，在客户端输入信息，将会接收到加上时间戳处理后的信息，如果直接输入回车，将会关闭客户端，而服务器将会等待下一个连接请求
+
 * 服务器运行结果
+ 
   ```
   waiting for connection...
   ...connected from: ('127.0.0.1', 53220)
   waiting for connection...
   ```
+
 * 客户端运行结果
+ 
   ```
   > hello
   [Fri Feb 23 14:22:58 2018] hello
@@ -224,8 +238,11 @@ description:
   ```
 
 ## 创建UDP服务器/客户端
+
 ### UDP服务器
+
 * 下面是UDP服务器的伪码
+  
   ```Python
   ss = socket()                           #创建服务器套接字
   ss.bind()                               #绑定服务器套接字
@@ -233,7 +250,9 @@ description:
       cs = ss.recvfrom()/ss.sendto()      #关闭(接收/发送)
   ss.close()                              #关闭服务器套接字
   ```
+
 * UDP时间戳服务器
+  
   ```Python
   #!usr/bin/python3
   # -*- coding:UTF-8 -*-
@@ -260,15 +279,20 @@ description:
       print('...received from and returned to:', addr)
 
   ```
+
 ### UDP客户端
+
 * 下面是客户端的伪码
+
   ```Python
   cs = socket()                         #创建客户端套接字
   comm_loop:                            #通信循环
       cs.sendto()/cs.recvfrom()         #对话(发送/接收)
   cs.close()                            #关闭客户端套接字
   ```
+
 * UDP时间戳客户端
+
  ```Python
  #!usr/bin/python3
   # -*- coding:UTF-8 -*-
@@ -294,9 +318,13 @@ description:
   udpClienSock.close()
 
  ```
+
 ### UDP服务器和客户端运行结果
+
   因为UDP面向无连接的服务，所以程序的启动顺序没有要求。当服务器处理完一个数据报之后在等待下一个继续处理
+
 * 服务器运行结果
+
   ```
   waiting for message...
   ...received from and returned to: ('127.0.0.1', 51434)
@@ -304,7 +332,9 @@ description:
   ...received from and returned to: ('127.0.0.1', 51434)
   waiting for message...
   ```
+
 * 客户端运行结果
+
   ```
   >hello
   [Fri Feb 23 15:23:57 2018] hello
@@ -314,4 +344,5 @@ description:
 
   Process finished with exit code 0
   ```
+
 [^1]: *AF_UNIX* 是基于文件的套接字，代表 *地址家族(address family):UNIX*，*AF_INET* 是基于网络的套接字，代表 *地址家族：因特网*， *AF_INET6* 用于底6版因特网协议(IPv6)寻址。 *SOCK_STREAM* 表示面向连接的TCP套接字， *SOCK_DGRAM* 代表无连接的UDP套接字。
