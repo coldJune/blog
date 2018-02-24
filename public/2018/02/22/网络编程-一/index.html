@@ -90,7 +90,7 @@
 <meta property="og:site_name" content="Stay Hungary">
 <meta property="og:description" content="使用Python的一些模块来创建网络应用程序">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-02-23T07:31:50.758Z">
+<meta property="og:updated_time" content="2018-02-24T01:38:37.996Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="网络编程(一)">
 <meta name="twitter:description" content="使用Python的一些模块来创建网络应用程序">
@@ -383,7 +383,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  2,002
+                  2,535
                 </span>
               
 
@@ -399,7 +399,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  9
+                  11
                 </span>
               
             </div>
@@ -434,7 +434,7 @@
 </blockquote>
 </li>
 </ol>
-<h2 id="套接字对象内接方法"><a href="#套接字对象内接方法" class="headerlink" title="套接字对象内接方法"></a>套接字对象内接方法</h2><table>
+<h3 id="套接字对象内接方法"><a href="#套接字对象内接方法" class="headerlink" title="套接字对象内接方法"></a>套接字对象内接方法</h3><table>
 <thead>
 <tr>
 <th style="text-align:center">名称</th>
@@ -580,6 +580,133 @@
 </tr>
 </tbody>
 </table>
+<h3 id="socket模块属性"><a href="#socket模块属性" class="headerlink" title="socket模块属性"></a>socket模块属性</h3><table>
+<thead>
+<tr>
+<th style="text-align:center">属性名称</th>
+<th style="text-align:center">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">数据属性</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">AF_UNIX、AF_INET、AF_INET6、AF_NETLINK、AF_TIPC</td>
+<td style="text-align:center">Python中支持的套接字地址家族</td>
+</tr>
+<tr>
+<td style="text-align:center">SO_STREAM、SO_DGRAM</td>
+<td style="text-align:center">套接字类型(TCP=流，UDP=数据报)</td>
+</tr>
+<tr>
+<td style="text-align:center">has_ipv6</td>
+<td style="text-align:center">指示是否支持IPv6的布尔标记</td>
+</tr>
+<tr>
+<td style="text-align:center">异常</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">error</td>
+<td style="text-align:center">套接字相关错误</td>
+</tr>
+<tr>
+<td style="text-align:center">herror</td>
+<td style="text-align:center">主机和地址相关错误</td>
+</tr>
+<tr>
+<td style="text-align:center">gaierror</td>
+<td style="text-align:center">地址相关错误</td>
+</tr>
+<tr>
+<td style="text-align:center">timeout</td>
+<td style="text-align:center">超时时间</td>
+</tr>
+<tr>
+<td style="text-align:center">函数</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">socket()</td>
+<td style="text-align:center">以给定的地址家族、套接字类型和协议类型(可选) 创建一个套接字对象</td>
+</tr>
+<tr>
+<td style="text-align:center">socketpair()</td>
+<td style="text-align:center">以给定的地址家族、套接字类型和协议类型(可选) 创建一个套接字对象</td>
+</tr>
+<tr>
+<td style="text-align:center">create_connection()</td>
+<td style="text-align:center">常规函数，它接收一个地址(主机号，端口号)对，返回套接字对象</td>
+</tr>
+<tr>
+<td style="text-align:center">fromfd()</td>
+<td style="text-align:center">以一个打开的文件描述符创建一个套接字对象</td>
+</tr>
+<tr>
+<td style="text-align:center">ssl()</td>
+<td style="text-align:center">通过套接字启动一个安全套接字层连接；不执行证书验证</td>
+</tr>
+<tr>
+<td style="text-align:center">getaddrinfo()</td>
+<td style="text-align:center">获取一个五元组序列形式的地址信息</td>
+</tr>
+<tr>
+<td style="text-align:center">getnameinfo()</td>
+<td style="text-align:center">给定一个套接字地址，返回(主机名，端口号)二元组</td>
+</tr>
+<tr>
+<td style="text-align:center">getfqdn()</td>
+<td style="text-align:center">返回完整的域名</td>
+</tr>
+<tr>
+<td style="text-align:center">gethostname()</td>
+<td style="text-align:center">返回当前主机名</td>
+</tr>
+<tr>
+<td style="text-align:center">gethostbyname()</td>
+<td style="text-align:center">将一个主机名映射到它的IP地址</td>
+</tr>
+<tr>
+<td style="text-align:center">gethostbyname_ex()</td>
+<td style="text-align:center">gethostbyname()的扩展版本，它返回主机名、别名主机集合和IP地址列表</td>
+</tr>
+<tr>
+<td style="text-align:center">gethostbyaddr()</td>
+<td style="text-align:center">讲一个IP地址映射到DNS信息；返回与gethostbyname_ex()相同的三元组</td>
+</tr>
+<tr>
+<td style="text-align:center">getprotobyname()</td>
+<td style="text-align:center">将一个协议名(如‘TCP’)映射到一个数字</td>
+</tr>
+<tr>
+<td style="text-align:center">getservbyname()/getservbyport()</td>
+<td style="text-align:center">将一个服务名映射到一个端口号，或者反过来；对于任何一个函数来说，协议名都是可选的</td>
+</tr>
+<tr>
+<td style="text-align:center">ntohl()/ntohs()</td>
+<td style="text-align:center">将来自网络的整数装换为主机字节序</td>
+</tr>
+<tr>
+<td style="text-align:center">htonl()/htons()</td>
+<td style="text-align:center">将来自主机的整数转换为网络字节序</td>
+</tr>
+<tr>
+<td style="text-align:center">inet_aton()/inet_ntoa()</td>
+<td style="text-align:center">将IP地址八进制字符串转换成32位的包格式，或者反过来(仅用于IPv4地址)</td>
+</tr>
+<tr>
+<td style="text-align:center">inet_pton()/inet_ntop()</td>
+<td style="text-align:center">将IP地址字符串转换成打包的二进制格式，或者反过来(同时适用于IPv4和IPv6)</td>
+</tr>
+<tr>
+<td style="text-align:center">getdefaulttimeout()/setdefaulttimeout()</td>
+<td style="text-align:center">以秒(浮点数)为单位返回默认套接字超时时间；以秒(浮点数)为单位设置默认套接字超时时间</td>
+</tr>
+</tbody>
+</table>
+<p>详情参阅<a href="https://docs.python.org/3/library/socket.html?highlight=socket#module-socket" target="_blank" rel="noopener">socket模块文档</a></p>
 <h2 id="创建TCP服务器-客户端"><a href="#创建TCP服务器-客户端" class="headerlink" title="创建TCP服务器/客户端"></a>创建TCP服务器/客户端</h2><h3 id="TCP服务器"><a href="#TCP服务器" class="headerlink" title="TCP服务器"></a>TCP服务器</h3><ul>
 <li><p>下面是TCP服务器端的通用伪码，这是设计服务器的一种方式，可根据需求修改来操作服务器</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">ss = socket()                 <span class="comment">#创建服务器套接字</span></span><br><span class="line">ss.bind()                     <span class="comment">#套接字与地址绑定</span></span><br><span class="line">ss.listen()                   <span class="comment">#监听连接</span></span><br><span class="line">inf_loop:                     <span class="comment">#服务器无线循环</span></span><br><span class="line">    cs = ss.accept()          <span class="comment">#接受客户端连接</span></span><br><span class="line">    comm_loop:                <span class="comment">#通信循环</span></span><br><span class="line">        cs.recv()/cs.send()   <span class="comment">#对话(接收/发送)</span></span><br><span class="line">    cs.close()                <span class="comment">#关闭客户端套接字</span></span><br><span class="line">ss.close()                    <span class="comment">#关闭服务器套接字</span></span><br></pre></td></tr></table></figure>
@@ -657,7 +784,7 @@
   <p><span>本文标题:</span><a href="/2018/02/22/网络编程-一/">网络编程(一)</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 邓小俊 的个人博客">邓小俊</a></p>
   <p><span>发布时间:</span>2018年02月22日 - 15:02</p>
-  <p><span>最后更新:</span>2018年02月23日 - 15:02</p>
+  <p><span>最后更新:</span>2018年02月24日 - 09:02</p>
   <p><span>原始链接:</span><a href="/2018/02/22/网络编程-一/" title="网络编程(一)">http://coldjune.com/2018/02/22/网络编程-一/</a>
     <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://coldjune.com/2018/02/22/网络编程-一/"  aria-label="复制成功！"></i></span>
   </p>
@@ -728,6 +855,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/02/24/网络编程-二/" rel="prev" title="网络编程(二)">
+                网络编程(二) <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -804,7 +935,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-count">5</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -859,7 +990,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#socket-函数模块"><span class="nav-number">1.</span> <span class="nav-text">socket()函数模块</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#套接字对象内接方法"><span class="nav-number">2.</span> <span class="nav-text">套接字对象内接方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建TCP服务器-客户端"><span class="nav-number">3.</span> <span class="nav-text">创建TCP服务器/客户端</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#TCP服务器"><span class="nav-number">3.1.</span> <span class="nav-text">TCP服务器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TCP客户端"><span class="nav-number">3.2.</span> <span class="nav-text">TCP客户端</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TCP服务器和客户端运行结果"><span class="nav-number">3.3.</span> <span class="nav-text">TCP服务器和客户端运行结果</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建UDP服务器-客户端"><span class="nav-number">4.</span> <span class="nav-text">创建UDP服务器/客户端</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#UDP服务器"><span class="nav-number">4.1.</span> <span class="nav-text">UDP服务器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#UDP客户端"><span class="nav-number">4.2.</span> <span class="nav-text">UDP客户端</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#UDP服务器和客户端运行结果"><span class="nav-number">4.3.</span> <span class="nav-text">UDP服务器和客户端运行结果</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#socket-函数模块"><span class="nav-number">1.</span> <span class="nav-text">socket()函数模块</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#套接字对象内接方法"><span class="nav-number">1.1.</span> <span class="nav-text">套接字对象内接方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#socket模块属性"><span class="nav-number">1.2.</span> <span class="nav-text">socket模块属性</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建TCP服务器-客户端"><span class="nav-number">2.</span> <span class="nav-text">创建TCP服务器/客户端</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#TCP服务器"><span class="nav-number">2.1.</span> <span class="nav-text">TCP服务器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TCP客户端"><span class="nav-number">2.2.</span> <span class="nav-text">TCP客户端</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TCP服务器和客户端运行结果"><span class="nav-number">2.3.</span> <span class="nav-text">TCP服务器和客户端运行结果</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建UDP服务器-客户端"><span class="nav-number">3.</span> <span class="nav-text">创建UDP服务器/客户端</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#UDP服务器"><span class="nav-number">3.1.</span> <span class="nav-text">UDP服务器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#UDP客户端"><span class="nav-number">3.2.</span> <span class="nav-text">UDP客户端</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#UDP服务器和客户端运行结果"><span class="nav-number">3.3.</span> <span class="nav-text">UDP服务器和客户端运行结果</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -893,7 +1024,7 @@
     
       <span class="post-meta-item-text">博文包含字数&#58;</span>
     
-    <span title="博文包含字数">7.0k</span>
+    <span title="博文包含字数">9.3k</span>
   
 </div>
 

@@ -71,7 +71,7 @@
 
 
 
-  <meta name="keywords" content="Python,正则表达式," />
+  <meta name="keywords" content="Python,网络编程," />
 
 
 
@@ -82,18 +82,18 @@
 
 
 
-<meta name="description" content="在之前的两篇博文中，已经对正则表达式基本及核心的知识点进行了罗列和总结。而对于正则表达式的使用却缺乏实践。本文将基于《Python核心编程(第三版)》的练习题进行一些练习。">
-<meta name="keywords" content="Python,正则表达式">
+<meta name="description" content="上篇对Python中的socket模块的简单应用做了描述和记录，下面便是对SocketServer模块和Twisted框架做一个简要的记录">
+<meta name="keywords" content="Python,网络编程">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Python正则表达式(三)">
-<meta property="og:url" content="http://coldjune.com/2018/02/12/Python正则表达式-三/index.html">
+<meta property="og:title" content="网络编程(二)">
+<meta property="og:url" content="http://coldjune.com/2018/02/24/网络编程-二/index.html">
 <meta property="og:site_name" content="Stay Hungary">
-<meta property="og:description" content="在之前的两篇博文中，已经对正则表达式基本及核心的知识点进行了罗列和总结。而对于正则表达式的使用却缺乏实践。本文将基于《Python核心编程(第三版)》的练习题进行一些练习。">
+<meta property="og:description" content="上篇对Python中的socket模块的简单应用做了描述和记录，下面便是对SocketServer模块和Twisted框架做一个简要的记录">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-02-22T07:38:59.798Z">
+<meta property="og:updated_time" content="2018-02-24T04:19:17.402Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Python正则表达式(三)">
-<meta name="twitter:description" content="在之前的两篇博文中，已经对正则表达式基本及核心的知识点进行了罗列和总结。而对于正则表达式的使用却缺乏实践。本文将基于《Python核心编程(第三版)》的练习题进行一些练习。">
+<meta name="twitter:title" content="网络编程(二)">
+<meta name="twitter:description" content="上篇对Python中的socket模块的简单应用做了描述和记录，下面便是对SocketServer模块和Twisted框架做一个简要的记录">
 
 
 
@@ -123,13 +123,13 @@
 
 
 
-  <link rel="canonical" href="http://coldjune.com/2018/02/12/Python正则表达式-三/"/>
+  <link rel="canonical" href="http://coldjune.com/2018/02/24/网络编程-二/"/>
 
 
 
 
 
-  <title>Python正则表达式(三) | Stay Hungary</title>
+  <title>网络编程(二) | Stay Hungary</title>
   
 
 
@@ -289,7 +289,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://coldjune.com/2018/02/12/Python正则表达式-三/">
+    <link itemprop="mainEntityOfPage" href="http://coldjune.com/2018/02/24/网络编程-二/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="邓小俊">
@@ -306,7 +306,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Python正则表达式(三)</h1>
+          <h1 class="post-title" itemprop="name headline">网络编程(二)</h1>
         
 
         <div class="post-meta">
@@ -318,8 +318,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-12T09:55:17+08:00">
-                2018-02-12
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-24T09:40:06+08:00">
+                2018-02-24
               </time>
             
 
@@ -358,7 +358,7 @@
 
           
           
-             <span id="/2018/02/12/Python正则表达式-三/" class="leancloud_visitors" data-flag-title="Python正则表达式(三)">
+             <span id="/2018/02/24/网络编程-二/" class="leancloud_visitors" data-flag-title="网络编程(二)">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -383,7 +383,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1,442
+                  1,813
                 </span>
               
 
@@ -399,7 +399,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  7
+                  8
                 </span>
               
             </div>
@@ -420,80 +420,75 @@
       
 
       
-        <p>在之前的两篇博文中，已经对正则表达式基本及核心的知识点进行了罗列和总结。而对于正则表达式的使用却缺乏实践。本文将基于《Python核心编程(第三版)》的练习题进行一些练习。<br><a id="more"></a></p>
-<h2 id="正则表达式"><a href="#正则表达式" class="headerlink" title="正则表达式"></a>正则表达式</h2><ol>
-<li><blockquote>
-<p>识别后续的字符串：“bat”、“bit”、“but”、“hat”、“hit”或者“hut”。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> re</span><br><span class="line">mode = re.compile(<span class="string">r'bat|bit|but|hat|hit|hut'</span>)</span><br><span class="line"><span class="comment">#mode  = re.compile(r'[bh][iau]t')</span></span><br><span class="line">strs = [<span class="string">'bat'</span>, <span class="string">'bit'</span>, <span class="string">'but'</span>, <span class="string">'hat'</span>, <span class="string">'hit'</span>, <span class="string">'hut'</span>]</span><br><span class="line"><span class="keyword">for</span> s <span class="keyword">in</span> strs:</span><br><span class="line">    <span class="keyword">if</span> mode.match(s) <span class="keyword">is</span> <span class="keyword">not</span> <span class="keyword">None</span>:mode.match(s).group()</span><br><span class="line"></span><br><span class="line"><span class="comment">#输出结果</span></span><br><span class="line"><span class="string">'bat'</span></span><br><span class="line"><span class="string">'bit'</span></span><br><span class="line"><span class="string">'but'</span></span><br><span class="line"><span class="string">'hat'</span></span><br><span class="line"><span class="string">'hit'</span></span><br><span class="line"><span class="string">'hut'</span></span><br></pre></td></tr></table></figure>
-</blockquote>
+        <p>上篇对Python中的socket模块的简单应用做了描述和记录，下面便是对SocketServer模块和Twisted框架做一个简要的记录<br><a id="more"></a></p>
+<h2 id="socketserver模块"><a href="#socketserver模块" class="headerlink" title="socketserver模块"></a>socketserver模块</h2><p><a href="https://docs.python.org/3/library/socketserver.html?highlight=socketserver#module-socketserver" target="_blank" rel="noopener">socketserver</a>是标准库的一个高级模块，它的目标是简化很多样板代码，它们是创建网络客户端和服务器所必需的代码。</p>
+<h3 id="socketserver模块类"><a href="#socketserver模块类" class="headerlink" title="socketserver模块类"></a>socketserver模块类</h3><table>
+<thead>
+<tr>
+<th style="text-align:center">类</th>
+<th style="text-align:center">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">BaseServer</td>
+<td style="text-align:center">包含核心服务器功能和mix-in类的钩子；仅用于推导，这样不会创建这个类的实例；可以用TCPServer或UDPServer创建类的实例</td>
+</tr>
+<tr>
+<td style="text-align:center">TCPServer/UDPServer</td>
+<td style="text-align:center">基础的网络同步TCP/UDP服务器</td>
+</tr>
+<tr>
+<td style="text-align:center">UnixStreamServer/UnixDatagramServer</td>
+<td style="text-align:center">基于文件的基础同步TCP/UDP服务器</td>
+</tr>
+<tr>
+<td style="text-align:center">ForkingMixIn/ThreadingMixIn</td>
+<td style="text-align:center">核心派出或线程功能；只用作mix-in类与一个服务器类配合实现一些异步性；不能直接实例化这个类</td>
+</tr>
+<tr>
+<td style="text-align:center">ForkingTCPServer/ForkingUDPServer</td>
+<td style="text-align:center">ForkingMaxIn和TCPServer/UDPServer的组合</td>
+</tr>
+<tr>
+<td style="text-align:center">ThreadingTCPServer/ThreadingUDPServer</td>
+<td style="text-align:center">ThreadingMixIn和TCPServer/UDPServer的组合</td>
+</tr>
+<tr>
+<td style="text-align:center">BaseRequestHandler</td>
+<td style="text-align:center">包含处理服务请求的核心功能；仅用于推导，无法创建这个类的实例；可以使用StreamRequestHandler或DatagramRequestHandler创建类的实例</td>
+</tr>
+<tr>
+<td style="text-align:center">StreamRequestHandler/DatagramRequestHandler</td>
+<td style="text-align:center">实现TCP/UDP服务器的服务处理器</td>
+</tr>
+</tbody>
+</table>
+<h3 id="socketserver-TCP服务器-客户端"><a href="#socketserver-TCP服务器-客户端" class="headerlink" title="socketserver TCP服务器/客户端"></a>socketserver TCP服务器/客户端</h3><p>在原始服务器循环中，我们阻塞等待请求，当接收到请求时就对其提供服务，然后继续等待。在此处的服务器循环中，并非在服务器中创建代码，而是定义一个处理程序，当服务器接收到一个传入的请求时，服务器就可以调用</p>
+<h4 id="TCP服务器"><a href="#TCP服务器" class="headerlink" title="TCP服务器"></a>TCP服务器</h4>  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!usr/bin/python3</span></span><br><span class="line"><span class="comment"># -*- coding:UTF-8 -*-</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 导入socketserver相关的类和time.ctime()的全部属性</span></span><br><span class="line"><span class="keyword">from</span> socketserver <span class="keyword">import</span> (TCPServer <span class="keyword">as</span> TCP,</span><br><span class="line">                          StreamRequestHandler <span class="keyword">as</span> SRH)</span><br><span class="line"><span class="keyword">from</span> time <span class="keyword">import</span> ctime</span><br><span class="line"></span><br><span class="line">HOST = <span class="string">''</span></span><br><span class="line">PORT = <span class="number">12345</span></span><br><span class="line">ADDR = (HOST, PORT)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyRequestHandler</span><span class="params">(SRH)</span>:</span></span><br><span class="line">    <span class="comment"># MyRequestHandler继承自StreamRequestHandler</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">handle</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="comment"># 重写handle方法，当接收到一个客户端消息是，会调用handle()方法</span></span><br><span class="line">        print(<span class="string">'...connected from:'</span>, self.client_address)</span><br><span class="line">        <span class="comment"># StreamRequestHandler将输入和输出套接字看做类似文件的对象</span></span><br><span class="line">        <span class="comment"># 所以使用write()将字符串返回客户端，用readline()来获取客户端信息</span></span><br><span class="line">        self.wfile.write(bytes(<span class="string">'[%s] %s'</span> % (</span><br><span class="line">            ctime(), self.rfile.readline().decode(<span class="string">'utf-8'</span>)), <span class="string">'utf-8'</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 利用给定的主机信息和请求处理类创建了TCP服务器</span></span><br><span class="line"><span class="comment"># 然后无限循环地等待并服务于客户端请求</span></span><br><span class="line">tcpServ = TCP(ADDR, MyRequestHandler)</span><br><span class="line">print(<span class="string">'waiting for connection...'</span>)</span><br><span class="line">tcpServ.serve_forever()</span><br></pre></td></tr></table></figure>
+<h4 id="TCP客户端"><a href="#TCP客户端" class="headerlink" title="TCP客户端"></a>TCP客户端</h4>  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!usr/bin/python3</span></span><br><span class="line"><span class="comment"># -*- coding:UTF-8 -*-</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> socket <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">HOST = <span class="string">'127.0.0.1'</span></span><br><span class="line">PORT = <span class="number">12345</span></span><br><span class="line">BUFSIZE = <span class="number">1024</span></span><br><span class="line">ADDR = (HOST, PORT)</span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span> <span class="keyword">True</span>:</span><br><span class="line">    tcpSocket = socket(AF_INET, SOCK_STREAM)</span><br><span class="line">    tcpSocket.connect(ADDR)</span><br><span class="line">    data = input(<span class="string">'&gt; '</span>)</span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> data:</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line">    <span class="comment"># 因为处理程序类对待套接字通信像文件一样，所以必须发送行终止符。</span></span><br><span class="line">    <span class="comment"># 而服务器只是保留并重用这里发送的终止符</span></span><br><span class="line">    tcpSocket.send(bytes(<span class="string">'%s\r\n'</span> % data, <span class="string">'utf-8'</span>))</span><br><span class="line">    data = tcpSocket.recv(BUFSIZE)</span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> data:</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line">    <span class="comment"># 得到服务器返回的消息时，用strip()函数对其进行处理并使用print()自动提供的换行符</span></span><br><span class="line">    print(data.decode(<span class="string">'utf-8'</span>).strip())</span><br><span class="line">    tcpSocket.close()</span><br></pre></td></tr></table></figure>
+<h4 id="socketserver-TCP服务器和客户端运行结果"><a href="#socketserver-TCP服务器和客户端运行结果" class="headerlink" title="socketserver TCP服务器和客户端运行结果"></a>socketserver TCP服务器和客户端运行结果</h4><p>  在客户端启动的时候连接了一次服务器，而每一次发送一个请求连接一次，所以发送了三个请求连接了四次服务器</p>
+<ul>
+<li><p>TCP服务器运行结果</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">waiting for connection...</span><br><span class="line">...connected from: (&apos;127.0.0.1&apos;, 51835)</span><br><span class="line">...connected from: (&apos;127.0.0.1&apos;, 51877)</span><br><span class="line">...connected from: (&apos;127.0.0.1&apos;, 51893)</span><br><span class="line">...connected from: (&apos;127.0.0.1&apos;, 51901)</span><br></pre></td></tr></table></figure>
 </li>
-<li><blockquote>
-<p>匹配由单个空格分隔的任意单词对，也就是姓和名。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> re</span><br><span class="line">mode  = re.compile(<span class="string">r'^[A-Za-z]+ [A-Za-z]+$'</span>)</span><br><span class="line">strs = [<span class="string">'david Bob'</span>, <span class="string">'D.Jone Steven'</span>, <span class="string">'Lucy D May'</span>]</span><br><span class="line"><span class="keyword">for</span> s <span class="keyword">in</span> strs:</span><br><span class="line">    <span class="keyword">if</span> mode.match(s) <span class="keyword">is</span> <span class="keyword">not</span> <span class="keyword">None</span>:mode.match(s).group()</span><br><span class="line"></span><br><span class="line"><span class="comment">#输出结果</span></span><br><span class="line"><span class="string">'david Bob'</span></span><br></pre></td></tr></table></figure>
-</blockquote>
+<li><p>TCP客户端运行结果</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&gt; hello</span><br><span class="line">[Sat Feb 24 10:29:28 2018] hello</span><br><span class="line">&gt; hello</span><br><span class="line">[Sat Feb 24 10:29:44 2018] hello</span><br><span class="line">&gt; hi</span><br><span class="line">[Sat Feb 24 10:29:50 2018] hi</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
 </li>
-<li><blockquote>
-<p>匹配由单个逗号和单个空白符分隔的任何单词和单个字母，如姓氏的首字母。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> re</span><br><span class="line">mode = re.compile(<span class="string">r'[A-Za-z]+,\s[A-Za-z]+'</span>)</span><br><span class="line">strs = [<span class="string">'david, Bob'</span>, <span class="string">'D.Jone, Steven'</span>, <span class="string">'Lucy, D, May'</span>]</span><br><span class="line"><span class="keyword">for</span> s <span class="keyword">in</span> strs:</span><br><span class="line">    <span class="keyword">if</span> mode.match(s) <span class="keyword">is</span> <span class="keyword">not</span> <span class="keyword">None</span>:mode.match(s).group()</span><br><span class="line"></span><br><span class="line"><span class="comment">#输出结果</span></span><br><span class="line"><span class="string">'david, Bob'</span></span><br><span class="line"><span class="string">'Lucy, D'</span></span><br></pre></td></tr></table></figure>
-</blockquote>
+</ul>
+<h2 id="Twisted框架的简单使用"><a href="#Twisted框架的简单使用" class="headerlink" title="Twisted框架的简单使用"></a>Twisted框架的简单使用</h2><p>  Twisted是一个完整的事件驱动的网络框架，利用它既能使用也能开发完整的异步网络应用程序和协议。它不是Python标准库的一部分，所以需要单独<a href="https://www.lfd.uci.edu/~gohlke/pythonlibs/#twisted" target="_blank" rel="noopener">下载</a>和安装它<sup id="fnref:1"><a href="#fn:1" rel="footnote">1</a></sup>。<br>  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip3 install Twisted-17.9.0-cp36-cp36m-win_amd64.whl</span><br></pre></td></tr></table></figure></p>
+<p>  安装成功显示<br>  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Processing e:\迅雷下载\twisted-17.9.0-cp36-cp36m-win_amd64.whl</span><br><span class="line">Requirement already satisfied: Automat&gt;=0.3.0 in e:\python\python36\lib\site-packages (from Twisted==17.9.0)</span><br><span class="line">Requirement already satisfied: zope.interface&gt;=4.0.2 in e:\python\python36\lib\site-packages (from Twisted==17.9.0)</span><br><span class="line">Requirement already satisfied: incremental&gt;=16.10.1 in e:\python\python36\lib\site-packages (from Twisted==17.9.0)</span><br><span class="line">Requirement already satisfied: hyperlink&gt;=17.1.1 in e:\python\python36\lib\site-packages (from Twisted==17.9.0)</span><br><span class="line">Requirement already satisfied: constantly&gt;=15.1 in e:\python\python36\lib\site-packages (from Twisted==17.9.0)</span><br><span class="line">Requirement already satisfied: attrs in e:\python\python36\lib\site-packages (from Automat&gt;=0.3.0-&gt;Twisted==17.9.0)</span><br><span class="line">Requirement already satisfied: six in e:\python\python36\lib\site-packages (from Automat&gt;=0.3.0-&gt;Twisted==17.9.0)</span><br><span class="line">Requirement already satisfied: setuptools in e:\python\python36\lib\site-packages (from zope.interface&gt;=4.0.2-&gt;Twisted==17.9.0)</span><br><span class="line">Installing collected packages: Twisted</span><br><span class="line">Successfully installed Twisted-17.9.0</span><br></pre></td></tr></table></figure></p>
+<h3 id="Twisted-Reactor-TCP-服务器-客户端"><a href="#Twisted-Reactor-TCP-服务器-客户端" class="headerlink" title="Twisted Reactor TCP 服务器/客户端"></a>Twisted Reactor TCP 服务器/客户端</h3><h4 id="TCP服务器-1"><a href="#TCP服务器-1" class="headerlink" title="TCP服务器"></a>TCP服务器</h4>  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!usr/bin/python3</span></span><br><span class="line"><span class="comment"># -*- coding:UTF-8 -*-</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 常用模块导入，特别是twisted.internet的protocol和reactor</span></span><br><span class="line"><span class="keyword">from</span> twisted.internet <span class="keyword">import</span> protocol, reactor</span><br><span class="line"><span class="keyword">from</span> time <span class="keyword">import</span> ctime</span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置端口号</span></span><br><span class="line">PORT = <span class="number">12345</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TWServProtocol</span><span class="params">(protocol.Protocol)</span>:</span></span><br><span class="line">    <span class="comment"># 继承Protocol类</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">connectionMade</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="comment"># 重写connectionMade()方法</span></span><br><span class="line">        <span class="comment"># 当一个客户端连接到服务器是会执行这个方法</span></span><br><span class="line">        client = self.client = self.transport.getPeer().host</span><br><span class="line">        print(<span class="string">'...connected from:'</span>, client)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">dataReceived</span><span class="params">(self, data)</span>:</span></span><br><span class="line">        <span class="comment"># 重写dataReceived()方法</span></span><br><span class="line">        <span class="comment"># 当服务器接收到客户端通过网络发送的一些数据的时候会调用此方法</span></span><br><span class="line">        self.transport.write(bytes(<span class="string">'[%s] %s'</span> % (</span><br><span class="line">            ctime(), data.decode(<span class="string">'utf-8'</span>)), <span class="string">'utf-8'</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建一个协议工厂，每次得到一个接入连接是，制造协议的一个实例</span></span><br><span class="line"><span class="comment"># 在reactor中安装一个TCP监听器，以此检查服务请求</span></span><br><span class="line"><span class="comment"># 当接收到一个请求时，就是创建一个就是创建一个TWServProtocol实例来处理客户端事务</span></span><br><span class="line">factory = protocol.Factory()</span><br><span class="line">factory.protocol = TWServProtocol</span><br><span class="line">print(<span class="string">'waiting for connection...'</span>)</span><br><span class="line">reactor.listenTCP(PORT, factory)</span><br><span class="line">reactor.run()</span><br></pre></td></tr></table></figure>
+<h4 id="TCP客户端-1"><a href="#TCP客户端-1" class="headerlink" title="TCP客户端"></a>TCP客户端</h4>  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!usr/bin/python</span></span><br><span class="line"><span class="comment"># -*- coding:UTF-8 -*-</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> twisted.internet <span class="keyword">import</span>  protocol, reactor</span><br><span class="line"></span><br><span class="line">HOST = <span class="string">'127.0.0.1'</span></span><br><span class="line">PORT = <span class="number">12345</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TWClientProtocol</span><span class="params">(protocol.Protocol)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">sendData</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="comment"># 需要发送数据时调用</span></span><br><span class="line">        <span class="comment"># 会在一个循环中继续，直到不输入任何内容来关闭连接</span></span><br><span class="line">        data = input(<span class="string">'&gt; '</span>)</span><br><span class="line">        <span class="keyword">if</span> data:</span><br><span class="line">            print(<span class="string">'...send %s...'</span> % data)</span><br><span class="line">            self.transport.write(bytes(data, <span class="string">'utf-8'</span>))</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            self.transport.loseConnection()</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">connectionMade</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="comment">#</span></span><br><span class="line">        self.sendData()</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">dataReceived</span><span class="params">(self, data)</span>:</span></span><br><span class="line">        print(data.decode(<span class="string">'utf-8'</span>))</span><br><span class="line">        self.sendData()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TWClientFactory</span><span class="params">(protocol.ClientFactory)</span>:</span></span><br><span class="line">    <span class="comment"># 创建了一个客户端工厂</span></span><br><span class="line">    protocol = TWClientProtocol</span><br><span class="line">    clientConnectionLost = clientConnectionFailed = \</span><br><span class="line">        <span class="keyword">lambda</span> self, connector, reason: reactor.stop()</span><br><span class="line"><span class="comment"># 创建了一个到服务器的连接并运行reactor，实例化了客户端工厂</span></span><br><span class="line"><span class="comment"># 因为这里不是服务器，需要等待客户端与我们通信</span></span><br><span class="line"><span class="comment"># 并且这个工厂为每一次连接都创建一个新的协议对象。</span></span><br><span class="line"><span class="comment"># 客户端创建单个连接到服务器的协议对象，而服务器的工厂则创建一个来与客户端通信</span></span><br><span class="line">reactor.connectTCP(HOST, PORT, TWClientFactory())</span><br><span class="line">reactor.run()</span><br></pre></td></tr></table></figure>
+<h4 id="TCP服务器和客户端运行结果"><a href="#TCP服务器和客户端运行结果" class="headerlink" title="TCP服务器和客户端运行结果"></a>TCP服务器和客户端运行结果</h4><ul>
+<li><p>服务器结果</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">waiting for connection...</span><br><span class="line">...connected from: 127.0.0.1</span><br></pre></td></tr></table></figure>
 </li>
-<li><blockquote>
-<p>匹配所有有效Python 标识符<sup id="fnref:1"><a href="#fn:1" rel="footnote">1</a></sup>的集合。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> re</span><br><span class="line">mode = re.compile(<span class="string">r'[^0-9][\w_]+'</span>)<span class="comment">#用in排除关键字</span></span><br><span class="line">strs = [<span class="string">'1var'</span>, <span class="string">'v_ar'</span>, <span class="string">'_var'</span>, <span class="string">'var'</span>, <span class="string">'var_9'</span>, <span class="string">'var_'</span>]</span><br><span class="line"><span class="keyword">for</span> s <span class="keyword">in</span> strs:</span><br><span class="line">    <span class="keyword">if</span> mode.match(s) <span class="keyword">is</span> <span class="keyword">not</span> <span class="keyword">None</span>:mode.match(s).group()</span><br><span class="line"></span><br><span class="line"><span class="comment">#输出结果</span></span><br><span class="line"><span class="string">'v_ar'</span></span><br><span class="line"><span class="string">'_var'</span></span><br><span class="line"><span class="string">'var'</span></span><br><span class="line"><span class="string">'var_9'</span></span><br><span class="line"><span class="string">'var_'</span></span><br></pre></td></tr></table></figure>
-</blockquote>
+<li><p>客户端结果</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&gt; hello</span><br><span class="line">...send hello...</span><br><span class="line">[Sat Feb 24 11:19:49 2018] hello</span><br><span class="line">&gt; hi</span><br><span class="line">...send hi...</span><br><span class="line">[Sat Feb 24 11:20:02 2018] hi</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
 </li>
-<li><blockquote>
-<p>根据读者当地的格式，匹配街道地址（使你的正则表达式足够通用，来匹配任意数<br>量的街道单词，包括类型名称）。例如，美国街道地址使用如下格式：1180 Bordeaux<br>Drive。使你的正则表达式足够灵活，以支持多单词的街道名称，如3120 De la Cruz<br>Boulevard。</p>
- <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> re</span><br><span class="line">mode = re.compile(<span class="string">r'^\d&#123;4&#125;( [A-Z][a-z]+)+$'</span>)</span><br><span class="line">strs = [<span class="string">'1221 Bordeaux Drive'</span>, <span class="string">'54565 Bordeaux Drive'</span>, <span class="string">'Bordeaux Drive'</span>, <span class="string">'1221 Bordeaux Drive Drive'</span>]</span><br><span class="line"><span class="keyword">for</span> s <span class="keyword">in</span> strs:</span><br><span class="line">    <span class="keyword">if</span> mode.match(s) <span class="keyword">is</span> <span class="keyword">not</span> <span class="keyword">None</span>:mode.match(s).group()</span><br><span class="line"></span><br><span class="line"><span class="comment">#输出结果</span></span><br><span class="line"><span class="string">'1221 Bordeaux Drive'</span></span><br><span class="line"><span class="string">'1221 Bordeaux Drive Drive'</span></span><br></pre></td></tr></table></figure>
-</blockquote>
-</li>
-<li><blockquote>
-<p>匹配以“www”起始且以“.com”结尾的简单Web 域名；例如，www://www. yahoo.com/。<br>选做题：你的正则表达式也可以支持其他高级域名，如.edu、.net 等（例如，<br><a href="http://www.foothill.edu）。" target="_blank" rel="noopener">http://www.foothill.edu）。</a></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> re</span><br><span class="line">mode = re.compile(<span class="string">r'^(http[s]?://)?www\.(\w+\.)+(com|net|edu)$'</span>)</span><br><span class="line">strs=[<span class="string">'https://www.baidu.com'</span>, <span class="string">'http://www.bilibili.com'</span>, <span class="string">'www.baidu.com'</span>, <span class="string">'baidu.com'</span>, <span class="string">'www.cqupt.edu'</span>]</span><br><span class="line"><span class="keyword">for</span> s <span class="keyword">in</span> strs:</span><br><span class="line">    <span class="keyword">if</span> mode.match(s) <span class="keyword">is</span> <span class="keyword">not</span> <span class="keyword">None</span>:mode.match(s).group()</span><br><span class="line"></span><br><span class="line"><span class="comment">#输出结果</span></span><br><span class="line"><span class="string">'https://www.baidu.com'</span></span><br><span class="line"><span class="string">'http://www.bilibili.com'</span></span><br><span class="line"><span class="string">'www.baidu.com'</span></span><br><span class="line"><span class="string">'www.cqupt.edu'</span></span><br></pre></td></tr></table></figure>
-</blockquote>
-</li>
-<li><blockquote>
-<p>匹配所有能够表示Python 整数的字符串集。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> re</span><br><span class="line">mode = re.compile(<span class="string">r'^\d+[lL]?$'</span>)</span><br><span class="line">strs = [<span class="string">'123'</span>, <span class="string">'123l'</span>, <span class="string">'12312L'</span>]</span><br><span class="line"><span class="keyword">for</span> s <span class="keyword">in</span> strs:</span><br><span class="line">    <span class="keyword">if</span> mode.match(s) <span class="keyword">is</span> <span class="keyword">not</span> <span class="keyword">None</span>:mode.match(s).group()</span><br><span class="line"></span><br><span class="line"><span class="comment">#输出结果</span></span><br><span class="line"><span class="string">'123'</span></span><br><span class="line"><span class="string">'123l'</span></span><br><span class="line"><span class="string">'12312L'</span></span><br></pre></td></tr></table></figure>
-</blockquote>
-</li>
-<li><blockquote>
-<p>匹配所有能够表示Python 长整数的字符串集。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> re</span><br><span class="line">mode = re.compile(<span class="string">r'^\d+[lL]$'</span>)</span><br><span class="line">strs = [<span class="string">'123'</span>, <span class="string">'123l'</span>, <span class="string">'12312L'</span>]</span><br><span class="line"><span class="keyword">for</span> s <span class="keyword">in</span> strs:</span><br><span class="line">    <span class="keyword">if</span> mode.match(s) <span class="keyword">is</span> <span class="keyword">not</span> <span class="keyword">None</span>:mode.match(s).group()</span><br><span class="line"></span><br><span class="line"><span class="comment">#输出结果</span></span><br><span class="line"><span class="string">'123l'</span></span><br><span class="line"><span class="string">'12312L'</span></span><br></pre></td></tr></table></figure>
-</blockquote>
-</li>
-<li><blockquote>
-<p>匹配所有能够表示Python 浮点数的字符串集。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> re</span><br><span class="line">mode = re.compile(<span class="string">r'(0|[1-9]\d*)(\.\d+)?$'</span>)</span><br><span class="line">strs = [<span class="string">'00.10'</span>, <span class="string">'0.123'</span>, <span class="string">'12.23'</span>, <span class="string">'12'</span>, <span class="string">'12.36l'</span>]</span><br><span class="line"><span class="keyword">for</span> s <span class="keyword">in</span> strs:</span><br><span class="line">    <span class="keyword">if</span> mode.match(s) <span class="keyword">is</span> <span class="keyword">not</span> <span class="keyword">None</span>:mode.match(s).group()   </span><br><span class="line"></span><br><span class="line"><span class="comment">#输出结果</span></span><br><span class="line"><span class="string">'0.123'</span></span><br><span class="line"><span class="string">'12.23'</span></span><br><span class="line"><span class="string">'12'</span></span><br></pre></td></tr></table></figure>
-</blockquote>
-</li>
-<li><blockquote>
-<p>匹配所有能够表示Python 复数的字符串集。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> re</span><br><span class="line">mode = re.compile(<span class="string">r'^((0|[1-9]\d*)(\.\d+)?\+)?((0|[1-9]\d*)(\.\d+)?j)?$'</span>)</span><br><span class="line">strs = [<span class="string">'12.3+1.2j'</span>, <span class="string">'1+2j'</span>, <span class="string">'4j'</span>]</span><br><span class="line"><span class="keyword">for</span> s <span class="keyword">in</span> strs:</span><br><span class="line">    <span class="keyword">if</span> mode.match(s) <span class="keyword">is</span> <span class="keyword">not</span> <span class="keyword">None</span>:mode.match(s).group()   </span><br><span class="line"></span><br><span class="line"><span class="comment">#输出结果</span></span><br><span class="line"><span class="string">'12.3+1.2j'</span></span><br><span class="line"><span class="string">'1+2j'</span></span><br><span class="line"><span class="string">'4j'</span></span><br></pre></td></tr></table></figure>
-</blockquote>
-</li>
-<li><blockquote>
-<p>匹配所有能够表示有效电子邮件地址的集合（从一个宽松的正则表达式开始，然<br>后尝试使它尽可能严谨，不过要保持正确的功能）。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> re</span><br><span class="line">mode = re.compile(<span class="string">r'^\w+@(\w+\.)+(com|com\.cn|net)$'</span>)</span><br><span class="line">strs = [<span class="string">'12345@qq.com'</span>, <span class="string">'sina@163.com'</span>, <span class="string">'qq@sina.com.cn'</span>, <span class="string">'net@21cn.com'</span>, <span class="string">'new123@163.sina.com'</span>]</span><br><span class="line"><span class="keyword">for</span> s <span class="keyword">in</span> strs:</span><br><span class="line">    <span class="keyword">if</span> mode.match(s) <span class="keyword">is</span> <span class="keyword">not</span> <span class="keyword">None</span>:mode.match(s).group()   </span><br><span class="line"></span><br><span class="line"><span class="comment">#输出结果</span></span><br><span class="line"><span class="string">'12345@qq.com'</span></span><br><span class="line"><span class="string">'sina@163.com'</span></span><br><span class="line"><span class="string">'qq@sina.com.cn'</span></span><br><span class="line"><span class="string">'net@21cn.com'</span></span><br><span class="line"><span class="string">'new123@163.sina.com'</span></span><br></pre></td></tr></table></figure>
-</blockquote>
-</li>
-<li><blockquote>
-<p>type()。内置函数type()返回一个类型对象，如下所示，该对象将表示为一个Pythonic<br>类型的字符串。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> re</span><br><span class="line">mode = re.compile(<span class="string">r'&lt;type \'(.*)\'&gt;'</span>)</span><br><span class="line">strs = [<span class="string">'&lt;type \'int\'&gt;'</span>, <span class="string">'&lt;type \'float\'&gt;'</span>, <span class="string">'&lt;type \'builtin_function_or_method\'&gt;'</span>]</span><br><span class="line"><span class="keyword">for</span> s <span class="keyword">in</span> strs:</span><br><span class="line">    <span class="keyword">if</span> mode.match(s) <span class="keyword">is</span> <span class="keyword">not</span> <span class="keyword">None</span>:mode.match(s).group(<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">#输出结果</span></span><br><span class="line"><span class="string">'int'</span></span><br><span class="line"><span class="string">'float'</span></span><br><span class="line"><span class="string">'builtin_function_or_method'</span></span><br></pre></td></tr></table></figure>
-</blockquote>
-</li>
-<li><blockquote>
-<p>处理日期。1.2 节提供了来匹配单个或者两个数字字符串的正则表达式模式，来表示1～<br>9 的月份(0?[1-9])。创建一个正则表达式来表示标准日历中剩余三个月的数字。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> re</span><br><span class="line">mode = re.compile(<span class="string">r'1[0-2]'</span>)</span><br><span class="line">strs = [<span class="string">'10'</span>, <span class="string">'11'</span>, <span class="string">'12'</span>]</span><br><span class="line"><span class="keyword">for</span> s <span class="keyword">in</span> strs:</span><br><span class="line">     <span class="keyword">if</span> mode.match(s) <span class="keyword">is</span> <span class="keyword">not</span> <span class="keyword">None</span>:mode.match(s).group()</span><br><span class="line"></span><br><span class="line"><span class="comment">#输出结果</span></span><br><span class="line"><span class="string">'10'</span></span><br><span class="line"><span class="string">'11'</span></span><br><span class="line"><span class="string">'12'</span></span><br></pre></td></tr></table></figure>
-</blockquote>
-</li>
-<li><blockquote>
-<p>创建一个允许使用连字符的正则表达式，但是仅能用于正确的位置。例如，15 位的信用卡号<br>码使用4-6-5 的模式，表明4 个数字-连字符-6 个数字-连字符-5 个数字；16 位的信用卡号码使用4-4-4-4 的模式。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> re</span><br><span class="line">mode = re.compile(<span class="string">r'\d&#123;4&#125;-((\d&#123;6&#125;-\d&#123;5&#125;)|(\d&#123;4&#125;-\d&#123;4&#125;-\d&#123;4&#125;))'</span>)</span><br><span class="line">strs = [<span class="string">'1234-567890-12345'</span>, <span class="string">'1234-5678-8012-3456'</span>]</span><br><span class="line"><span class="keyword">for</span> s <span class="keyword">in</span> strs:</span><br><span class="line">    <span class="keyword">if</span> mode.match(s) <span class="keyword">is</span> <span class="keyword">not</span> <span class="keyword">None</span>:mode.match(s).group()</span><br><span class="line"></span><br><span class="line"><span class="comment">#输出结果</span></span><br><span class="line"><span class="string">'1234-567890-12345'</span></span><br><span class="line"><span class="string">'1234-5678-8012-3456'</span></span><br></pre></td></tr></table></figure>
-</blockquote>
-</li>
-</ol>
-<div id="footnotes"><hr><div id="footnotelist"><ol style="list-style:none; padding-left: 0;"><li id="fn:1"><span style="display: inline-block; vertical-align: top; padding-right: 10px;">1.</span><span style="display: inline-block; vertical-align: top;">标识符有字母、数字、下划线组成，但不能由数字开头</span><a href="#fnref:1" rev="footnote"> ↩</a></li></ol></div></div>
+</ul>
+<div id="footnotes"><hr><div id="footnotelist"><ol style="list-style:none; padding-left: 0;"><li id="fn:1"><span style="display: inline-block; vertical-align: top; padding-right: 10px;">1.</span><span style="display: inline-block; vertical-align: top;">需要安装python对应的版本和位数</span><a href="#fnref:1" rev="footnote"> ↩</a></li></ol></div></div>
       
     </div>
     
@@ -517,12 +512,12 @@
   <!-- JS库 sweetalert 可修改路径 -->
   <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-  <p><span>本文标题:</span><a href="/2018/02/12/Python正则表达式-三/">Python正则表达式(三)</a></p>
+  <p><span>本文标题:</span><a href="/2018/02/24/网络编程-二/">网络编程(二)</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 邓小俊 的个人博客">邓小俊</a></p>
-  <p><span>发布时间:</span>2018年02月12日 - 09:02</p>
-  <p><span>最后更新:</span>2018年02月22日 - 15:02</p>
-  <p><span>原始链接:</span><a href="/2018/02/12/Python正则表达式-三/" title="Python正则表达式(三)">http://coldjune.com/2018/02/12/Python正则表达式-三/</a>
-    <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://coldjune.com/2018/02/12/Python正则表达式-三/"  aria-label="复制成功！"></i></span>
+  <p><span>发布时间:</span>2018年02月24日 - 09:02</p>
+  <p><span>最后更新:</span>2018年02月24日 - 12:02</p>
+  <p><span>原始链接:</span><a href="/2018/02/24/网络编程-二/" title="网络编程(二)">http://coldjune.com/2018/02/24/网络编程-二/</a>
+    <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://coldjune.com/2018/02/24/网络编程-二/"  aria-label="复制成功！"></i></span>
   </p>
   <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
 </div>
@@ -554,7 +549,7 @@
           
             <a href="/tags/Python/" rel="tag"><i class="fa fa-tag"></i> Python</a>
           
-            <a href="/tags/正则表达式/" rel="tag"><i class="fa fa-tag"></i> 正则表达式</a>
+            <a href="/tags/网络编程/" rel="tag"><i class="fa fa-tag"></i> 网络编程</a>
           
         </div>
       
@@ -582,8 +577,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/02/10/Python正则表达式-二/" rel="next" title="Python正则表达式(二)">
-                <i class="fa fa-chevron-left"></i> Python正则表达式(二)
+              <a href="/2018/02/22/网络编程-一/" rel="next" title="网络编程(一)">
+                <i class="fa fa-chevron-left"></i> 网络编程(一)
               </a>
             
           </div>
@@ -591,10 +586,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/02/22/网络编程-一/" rel="prev" title="网络编程(一)">
-                网络编程(一) <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -726,7 +717,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#正则表达式"><span class="nav-number">1.</span> <span class="nav-text">正则表达式</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#socketserver模块"><span class="nav-number">1.</span> <span class="nav-text">socketserver模块</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#socketserver模块类"><span class="nav-number">1.1.</span> <span class="nav-text">socketserver模块类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#socketserver-TCP服务器-客户端"><span class="nav-number">1.2.</span> <span class="nav-text">socketserver TCP服务器/客户端</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#TCP服务器"><span class="nav-number">1.2.1.</span> <span class="nav-text">TCP服务器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#TCP客户端"><span class="nav-number">1.2.2.</span> <span class="nav-text">TCP客户端</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#socketserver-TCP服务器和客户端运行结果"><span class="nav-number">1.2.3.</span> <span class="nav-text">socketserver TCP服务器和客户端运行结果</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Twisted框架的简单使用"><span class="nav-number">2.</span> <span class="nav-text">Twisted框架的简单使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Twisted-Reactor-TCP-服务器-客户端"><span class="nav-number">2.1.</span> <span class="nav-text">Twisted Reactor TCP 服务器/客户端</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#TCP服务器-1"><span class="nav-number">2.1.1.</span> <span class="nav-text">TCP服务器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#TCP客户端-1"><span class="nav-number">2.1.2.</span> <span class="nav-text">TCP客户端</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#TCP服务器和客户端运行结果"><span class="nav-number">2.1.3.</span> <span class="nav-text">TCP服务器和客户端运行结果</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
