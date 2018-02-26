@@ -82,18 +82,18 @@
 
 
 
-<meta name="description" content="多线程编程对于以下编程任务是非常理想的：  本质上是异步的 需要多个并发活动 每个活动的处理顺序可能是不确定的(随机、不可预测的) 使用多线程或者类似Queue的共享数据结构可以将一个串行程序规划成几个执行特定任务的线程 UserRequestThread: 负责读取客户端输入。程序将创建多个线程，每个客户端一个，客户端的请求将会被放入队列中 RequestProcessor: 该线程负责从队列中">
+<meta name="description" content="多线程编程对于以下编程任务是非常理想的：  本质上是异步的 需要多个并发活动 每个活动的处理顺序可能是不确定的(随机、不可预测的)   使用多线程或者类似Queue的共享数据结构可以将一个串行程序规划成几个执行特定任务的线程  UserRequestThread: 负责读取客户端输入。程序将创建多个线程，每个客户端一个，客户端的请求将会被放入队列中 RequestProcessor: 该线程负责从">
 <meta name="keywords" content="Python,多线程">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Python多线程(一)">
 <meta property="og:url" content="http://coldjune.com/2018/02/24/Python多线程-一/index.html">
 <meta property="og:site_name" content="Stay Hungary">
-<meta property="og:description" content="多线程编程对于以下编程任务是非常理想的：  本质上是异步的 需要多个并发活动 每个活动的处理顺序可能是不确定的(随机、不可预测的) 使用多线程或者类似Queue的共享数据结构可以将一个串行程序规划成几个执行特定任务的线程 UserRequestThread: 负责读取客户端输入。程序将创建多个线程，每个客户端一个，客户端的请求将会被放入队列中 RequestProcessor: 该线程负责从队列中">
+<meta property="og:description" content="多线程编程对于以下编程任务是非常理想的：  本质上是异步的 需要多个并发活动 每个活动的处理顺序可能是不确定的(随机、不可预测的)   使用多线程或者类似Queue的共享数据结构可以将一个串行程序规划成几个执行特定任务的线程  UserRequestThread: 负责读取客户端输入。程序将创建多个线程，每个客户端一个，客户端的请求将会被放入队列中 RequestProcessor: 该线程负责从">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-02-26T07:51:08.777Z">
+<meta property="og:updated_time" content="2018-02-26T13:28:46.908Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Python多线程(一)">
-<meta name="twitter:description" content="多线程编程对于以下编程任务是非常理想的：  本质上是异步的 需要多个并发活动 每个活动的处理顺序可能是不确定的(随机、不可预测的) 使用多线程或者类似Queue的共享数据结构可以将一个串行程序规划成几个执行特定任务的线程 UserRequestThread: 负责读取客户端输入。程序将创建多个线程，每个客户端一个，客户端的请求将会被放入队列中 RequestProcessor: 该线程负责从队列中">
+<meta name="twitter:description" content="多线程编程对于以下编程任务是非常理想的：  本质上是异步的 需要多个并发活动 每个活动的处理顺序可能是不确定的(随机、不可预测的)   使用多线程或者类似Queue的共享数据结构可以将一个串行程序规划成几个执行特定任务的线程  UserRequestThread: 负责读取客户端输入。程序将创建多个线程，每个客户端一个，客户端的请求将会被放入队列中 RequestProcessor: 该线程负责从">
 
 
 
@@ -425,7 +425,10 @@
 <li>本质上是异步的</li>
 <li>需要多个并发活动</li>
 <li>每个活动的处理顺序可能是不确定的(随机、不可预测的)<!--Mare-->
-使用多线程或者类似Queue的共享数据结构可以将一个串行程序规划成几个执行特定任务的线程</li>
+</li>
+</ul>
+<p>使用多线程或者类似Queue的共享数据结构可以将一个串行程序规划成几个执行特定任务的线程</p>
+<ul>
 <li>UserRequestThread: 负责读取客户端输入。程序将创建多个线程，每个客户端一个，客户端的请求将会被放入队列中</li>
 <li>RequestProcessor: 该线程负责从队列中获取请求并进行处理，为第三个线程提供输出</li>
 <li>ReplyThread: 负责向用户输出，将结果传回给用户，或者把数据写到本地文件系统或者数据库中</li>
@@ -433,26 +436,25 @@
 <h2 id="线程和进程"><a href="#线程和进程" class="headerlink" title="线程和进程"></a>线程和进程</h2><ul>
 <li><p>进程</p>
 <blockquote>
-<p>计算机程序是储存在磁盘上的可执行二进制(或其他类型)的文件。<strong>进程</strong> （有时称为 <strong>重量级进程</strong>）则是一个执行中的程序。<br>  每一个进程都拥有自己的地址空间、内存、数据栈以及其他用于跟踪执行的辅助数据。操作系统管理其上的所有进程的执行，并为它们合理地分配时间。<br>进程可以通过 <strong>派生</strong>(fork或spawn)新的进程来执行任务,而进程之间的通信只能通过 <em>进程间通信(IPC)</em> 的方式共享信息</p>
+<p>计算机程序是储存在磁盘上的可执行二进制(或其他类型)的文件。<strong>进程</strong> （有时称为 <strong>重量级进程</strong>）则是一个执行中的程序。每一个进程都拥有自己的地址空间、内存、数据栈以及其他用于跟踪执行的辅助数据。操作系统管理其上的所有进程的执行，并为它们合理地分配时间。进程可以通过 <strong>派生</strong>(fork或spawn)新的进程来执行任务,而进程之间的通信只能通过 <em>进程间通信(IPC)</em> 的方式共享信息</p>
 </blockquote>
 </li>
 <li><p>线程</p>
 <blockquote>
-<p><strong>线程</strong>（有时称为 <strong>轻量级进程</strong>）共享相同的上下文。相当于在主进程中并行运行的一些“迷你进程”。当其他线程运行是，它可以被抢占（中断）<br>  和临时挂起（睡眠），这种做法叫 <em>让步(yielding)</em>。早单核CPU系统中，线程的实际规划是：每个线程运行一小会儿，然后让步给其他线程（再次排队<br>  等待更多的CPU时间）。在整个进程的执行当中，每个线程执行它自己特定的任务，在必要时和其他线程进行结果通信。</p>
+<p><strong>线程</strong>（有时称为 <strong>轻量级进程</strong>）共享相同的上下文。相当于在主进程中并行运行的一些“迷你进程”。当其他线程运行是，它可以被抢占（中断）和临时挂起（睡眠），这种做法叫 <em>让步(yielding)</em>。早单核CPU系统中，线程的实际规划是：每个线程运行一小会儿，然后让步给其他线程（再次排队等待更多的CPU时间）。在整个进程的执行当中，每个线程执行它自己特定的任务，在必要时和其他线程进行结果通信。</p>
 </blockquote>
 </li>
 </ul>
-<h2 id="线程与Python"><a href="#线程与Python" class="headerlink" title="线程与Python"></a>线程与Python</h2><h3 id="全局解释锁"><a href="#全局解释锁" class="headerlink" title="全局解释锁"></a>全局解释锁</h3><p>  对Python虚拟机的访问是由 <strong>全局解释锁(GIL)</strong> 控制的。这个锁用来保证同时只能有一个线程运行。在多线程环境中，Python虚拟机将按照下面的方式执行。</p>
+<h2 id="线程与Python"><a href="#线程与Python" class="headerlink" title="线程与Python"></a>线程与Python</h2><h3 id="全局解释锁"><a href="#全局解释锁" class="headerlink" title="全局解释锁"></a>全局解释锁</h3><p>  对Python虚拟机的访问是由<strong>全局解释锁(GIL)</strong> 控制的。这个锁用来保证同时只能有一个线程运行。在多线程环境中，Python虚拟机将按照下面的方式执行。</p>
 <ol>
 <li>设置GIL</li>
 <li>切换进一个线程去运行</li>
 <li>执行下面操作之一<br> a. 指定数量的字节码指令<br> b. 线程主动让出控制权(可以调用time.sleep(0)来完成)</li>
 <li>把线程设置回睡眠状态(切换出线程)</li>
 <li>解锁GIL</li>
-<li><p>重复上述步骤</p>
-<p>当调用外部代码(即，任意C/C++扩展的内置函数)时，GIL会保持锁定，直至函数执行结束。</p>
-</li>
+<li>重复上述步骤</li>
 </ol>
+<p>当调用外部代码(即，任意C/C++扩展的内置函数)时，GIL会保持锁定，直至函数执行结束。</p>
 <h3 id="退出线程"><a href="#退出线程" class="headerlink" title="退出线程"></a>退出线程</h3><p>  当一个线程完成函数的执行时，就会退出。还可以通过调用<code>thread.exit()</code>或者<code>sys.exit()</code>退出进程，或者抛出SystemExit异常，是线程退出。</p>
 <h2 id="thread模块"><a href="#thread模块" class="headerlink" title="_thread模块"></a>_thread模块</h2><p>  <a href="https://docs.python.org/3/library/_thread.html?highlight=_thread#module-_thread" target="_blank" rel="noopener">_thread模块</a>提供了派生线程、基本的同步数据结构(<em>锁对象(lock object)</em>,也叫 <em>原语锁</em>、<em>简单锁</em>、<em>互斥锁</em>、<em>互斥</em> 和 <em>二进制信号量</em>)</p>
 <ul>
@@ -505,7 +507,7 @@
   <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!usr/bin/python3</span></span><br><span class="line"><span class="comment"># -*- coding:UTF-8 -*-</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> _thread</span><br><span class="line"><span class="keyword">from</span> time <span class="keyword">import</span> ctime, sleep</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">loop_0</span><span class="params">()</span>:</span></span><br><span class="line">    print(<span class="string">'start loop_0 at:'</span>, ctime())</span><br><span class="line">    sleep(<span class="number">4</span>)</span><br><span class="line">    print(<span class="string">'loop_0 done at:'</span>, ctime())</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">loop_1</span><span class="params">()</span>:</span></span><br><span class="line">    print(<span class="string">'start loop_1 at:'</span>, ctime())</span><br><span class="line">    sleep(<span class="number">2</span>)</span><br><span class="line">    print(<span class="string">'loop_1 done at:'</span>, ctime())</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span><span class="params">()</span>:</span></span><br><span class="line">    print(<span class="string">'starting at:'</span>, ctime())</span><br><span class="line">    <span class="comment"># start_new_thread 方法即使要执行的</span></span><br><span class="line">    <span class="comment"># 函数不需要参数，也需要传递一个空元组</span></span><br><span class="line">    _thread.start_new_thread(loop_0, ())</span><br><span class="line">    _thread.start_new_thread(loop_1, ())</span><br><span class="line">    <span class="comment"># 阻止主线程的执行，保证其最后执行，</span></span><br><span class="line">    <span class="comment"># 后续去掉这种方式，引入锁的方式</span></span><br><span class="line">    sleep(<span class="number">6</span>)</span><br><span class="line">    print(<span class="string">'all done at'</span>, ctime())</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    main()</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>执行结果</p>
-<p>  在主线程中同时开启了两个线程，loop_1()由于只睡眠了2s，所以先执行完，其实执行完loo_0()，线程执行的总时间是最慢的那个线程(<em>loop_0()</em> )<br>  的运行时间</p>
+<p>  在主线程中同时开启了两个线程，loop_1()由于只睡眠了2s，所以先执行完，其实执行完loo_0()，线程执行的总时间是最慢的那个线程(<em>loop_0()</em> )的运行时间</p>
   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">starting at: Mon Feb 26 08:52:10 2018</span><br><span class="line">start loop_0 at: Mon Feb 26 08:52:10 2018</span><br><span class="line">start loop_1 at: Mon Feb 26 08:52:10 2018</span><br><span class="line">loop_1 done at: Mon Feb 26 08:52:12 2018</span><br><span class="line">loop_0 done at: Mon Feb 26 08:52:14 2018</span><br><span class="line">all done at Mon Feb 26 08:52:16 2018</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
@@ -686,7 +688,7 @@
   <p><span>本文标题:</span><a href="/2018/02/24/Python多线程-一/">Python多线程(一)</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 邓小俊 的个人博客">邓小俊</a></p>
   <p><span>发布时间:</span>2018年02月24日 - 16:02</p>
-  <p><span>最后更新:</span>2018年02月26日 - 15:02</p>
+  <p><span>最后更新:</span>2018年02月26日 - 21:02</p>
   <p><span>原始链接:</span><a href="/2018/02/24/Python多线程-一/" title="Python多线程(一)">http://coldjune.com/2018/02/24/Python多线程-一/</a>
     <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://coldjune.com/2018/02/24/Python多线程-一/"  aria-label="复制成功！"></i></span>
   </p>
