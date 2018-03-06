@@ -55,20 +55,20 @@ Python3 使用[urllib.parse](https://docs.python.org/3/library/urllib.parse.html
 下面将对每个方法进行演示,首先导入urllib.parse下面的所有方法
 `from urllib.parse import *`
 
-* **urllib.parse.urlparse(urlstring, scheme='',allow_fragments=True)**
+* *urllib.parse.urlparse(urlstring, scheme='',allow_fragments=True)*
 ```Python
 urlparse('http://coldjune.com/categories/')
 # 输出结果
 ParseResult(scheme='http', netloc='coldjune.com', path='/categories/', params='', query='', fragment='')
 ```
 
-* **urllib.parse.urlunparse(parts)**
+* *urllib.parse.urlunparse(parts)*
 ```Python
 urlunparse(('http', 'coldjune.com', '/categories/', '', '', ''))
 # 输出结果
 'http://coldjune.com/categories/'
 ```
-* **urllib.parse.urljoin(base,url,allow_fragments=True)**
+* *urllib.parse.urljoin(base,url,allow_fragments=True)*
 ```Python
 # 如果是绝对路径将整个替换除根域名以外的所有内容
 urljoin('http://coldjune.com/categories/1.html','/tags/2.html')
@@ -81,7 +81,7 @@ urljoin('http://coldjune.com/categories/1.html','tags/2.html')
 'http://coldjune.com/categories/tags/2.html'
 ```
 
-* **urllib.parse.quote(string,safe='/',encoding=None,errors=None)**
+* *urllib.parse.quote(string,safe='/',encoding=None,errors=None)*
 > 逗号、下划线、句号、斜线和字母数字这类符号不需要转换，其他均需转换。URL不能使用的字符前面会被加上百分号(%)同时转换为十六进制(%xx,xx表示这个字母的十六进制)
 
 ```Python
@@ -90,28 +90,28 @@ quote('http://www.~coldjune.com/tag categoriese?name=coold&search=6')
 'http%3A//www.%7Ecoldjune.com/tag%20categoriese%3Fname%3Dcoold%26search%3D6'
 ```
 
-* **urllib.parse.unquote(string,encoding='utf-8',errors='replace')**
+* *urllib.parse.unquote(string,encoding='utf-8',errors='replace')*
 ```Python
 unquote('http%3A//www.%7Ecoldjune.com/tag%20categoriese%3Fname%3Dcoold%26search%3D6')
 # 输出结果
 'http://www.~coldjune.com/tag categoriese?name=coold&search=6'
 ```
 
-* **urllib.parse.quote_plus(string,safe='',encoding,errors)**
+* *urllib.parse.quote_plus(string,safe='',encoding,errors)*
 ```Python
 quote_plus('http://www.~coldjune.com/tag categoriese?name=coold&search=6')
 # 输出结果
 'http%3A%2F%2Fwww.%7Ecoldjune.com%2Ftag+categoriese%3Fname%3Dcoold%26search%3D6'
 ```
 
-* **urllib.parse.unquote_plus(string,encoding='utf-8',errors='replace')**
+* *urllib.parse.unquote_plus(string,encoding='utf-8',errors='replace')*
 ```Python
 unquote_plus('http%3A%2F%2Fwww.%7Ecoldjune.com%2Ftag+categoriese%3Fname%3Dcoold%26search%3D6')
 # 输出结果
 'http://www.~coldjune.com/tag categoriese?name=coold&search=6'
 ```
 
-* **urllib.parse.urlencode(query,doseq=False,safe='',encoding=None,errors=None,quote_via=quote_plus)**
+* *urllib.parse.urlencode(query,doseq=False,safe='',encoding=None,errors=None,quote_via=quote_plus)*
 ```Python
 query={'name':'coldjune','search':'6'}
 urlencode(query)
@@ -126,7 +126,7 @@ urlencode(query)
 | urllib.request.urlopen(url, data=None, [timeout,]*,cafile=None, capath=None,cadefault=False,context=None) | 打开url(string或者Request对象)，data为发送给服务器的数据，timeout为超时属性， cafile,capath,cadefault为调用HTTPS请求时证书认证 |
 |                  urllib.request.urlretrieve(url,filename=None,reporthook=None,data=None)                  | 将url中的文件下载到filename或临时文件中(如果没有指定filename)；如果函数正在执行，reporthook将会获得下载的统计信息                                                                                                                               |
 
-#### **urllib.request.urlopen(url, data=None, [timeout,]*,cafile=None, capath=None,cadefault=False,context=None)**
+#### *urllib.request.urlopen(url, data=None, [timeout,]*,cafile=None, capath=None,cadefault=False,context=None)*
 >urlopen()打开url所指向的URL；如果没有给定协议或者下载方案，或者传入"file"方案，urlopen()会打开一个本地文件。对于所有的HTTP请求，使用"GET"请求，向Web服务器发送的请求字符串应该是url的一部分；使用"POST"请求，请求的字符串应该放到data变量中。连接成功后返回的是一个文件类型对象
 
 * urlopen()文件类型对象的方法
@@ -140,7 +140,72 @@ urlencode(query)
 |    f.info()     |       获取f的MIME头文件       |
 |   f.geturl()    |        返回f的真正URL         |
 
-#### **urllib.request.urlretrieve(url,filename=None,reporthook=None,data=None)**
+#### *urllib.request.urlretrieve(url,filename=None,reporthook=None,data=None)*
 >urlretrieve（）用于下载完整的HTML
 
 如果提供了reporthook函数，则在每块数据下载或传输完成后调用这个函数。调用使用目前读入的块数、块的字节数和文件的总字节数三个参数。`urlretrieve()`返回一个二元组(local_filename, headers)，local_filename是含有下载数据的本地文件名，headers是Web服务器响应后返回的一系列MIME文件头。
+
+### HTTP验证示例
+> 需要先启动本地的tomcat并访问tomcat地址
+
+```Python
+#!/usr/bin/python3
+# -*- coding:UTF-8 -*-
+
+import urllib.request
+import urllib.error
+import urllib.parse
+
+# 初始化过程
+# 后续脚本使用的常量
+LOGIN = 'wesly'
+PASSWD = "you'llNeverGuess"
+URL = 'http://localhost:8080/docs/setup.html'
+REALM = 'Secure Archive'
+
+
+def handler_version(url):
+    # 分配了一个基本处理程序类，添加了验证信息。
+    # 用该处理程序建立一个URL开启器
+    # 安装该开启器以便所有已打开的URL都能用到这些验证信息
+    hdlr = urllib.request.HTTPBasicAuthHandler()
+    hdlr.add_password(REALM,
+                      urllib.parse.urlparse(url)[1],
+                      LOGIN,
+                      PASSWD)
+    opener = urllib.request.build_opener(hdlr)
+    urllib.request.install_opener(opener=opener)
+    return url
+
+
+def request_version(url):
+    # 创建了一个Request对象，在HTTP请求中添加了简单的base64编码的验证头
+    # 该请求用来替换其中的URL字符串
+    from base64 import encodebytes
+    req = urllib.request.Request(url)
+    b64str = encodebytes(bytes('%s %s' % (LOGIN, PASSWD), 'utf-8'))[:-1]
+    req.add_header("Authorization", 'Basic %s' % b64str)
+    return req
+
+
+for funcType in ('handler', 'request'):
+    # 用两种技术分别打开给定的URL，并显示服务器返回的HTML页面的第一行
+    print('***Using %s:' % funcType.upper())
+    url = eval('%s_version' % funcType)(URL)
+    f = urllib.request.urlopen(url)
+    print(str(f.readline(), 'utf-8'))
+    f.close()
+```
+
+* 输出结果
+```
+***Using HANDLER:
+<!DOCTYPE html SYSTEM "about:legacy-compat">
+
+***Using REQUEST:
+<!DOCTYPE html SYSTEM "about:legacy-compat">
+```
+
+## Web客户端
+一个稍微复杂的Web客户端例子就是 *网络爬虫*。这些程序可以为了不同目的在因特网上探索和下载页面。
+> 通过起始地址(URL)，下载该页面和其他后续连接页面，但是仅限于那些与开始页面有相同域名的页面。
