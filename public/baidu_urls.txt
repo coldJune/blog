@@ -1,3 +1,4 @@
+http://coldjune.com/2018/03/08/CGI和WSGI/
 http://coldjune.com/2018/03/06/Python-Web客户端和服务器/
 http://coldjune.com/2018/03/06/OFFICE转换工具/
 http://coldjune.com/2018/03/04/全双工聊天室/

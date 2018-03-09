@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://coldjune.com/2018/03/08/CGI%E5%92%8CWSGI/</loc>
+    
+    <lastmod>2018-03-09T01:50:14.029Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://coldjune.com/2018/03/06/Python-Web%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%92%8C%E6%9C%8D%E5%8A%A1%E5%99%A8/</loc>
     
     <lastmod>2018-03-07T07:29:41.550Z</lastmod>
@@ -79,13 +86,6 @@
   </url>
   
   <url>
-    <loc>http://coldjune.com/2018/02/09/Python%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F-%E4%B8%80/</loc>
-    
-    <lastmod>2018-02-11T01:04:21.113Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://coldjune.com/categories/index.html</loc>
     
     <lastmod>2018-02-11T01:04:21.113Z</lastmod>
@@ -94,6 +94,13 @@
   
   <url>
     <loc>http://coldjune.com/tags/index.html</loc>
+    
+    <lastmod>2018-02-11T01:04:21.113Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://coldjune.com/2018/02/09/Python%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F-%E4%B8%80/</loc>
     
     <lastmod>2018-02-11T01:04:21.113Z</lastmod>
     
