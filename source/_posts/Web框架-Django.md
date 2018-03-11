@@ -121,3 +121,87 @@ python3 ./manage.py makemigrations
 ```
 python3 ./manage.py migrate
 ```
+
+### Python应用Shell
+#### 在Django中使用Python shell
+即使没有模版(view)或视图(controller)，也可以通过添加一些BlogPost项来测试数据模型。如果应用由RDBMS支持，则可以为每个blog项的表添加一个数据记录。如果使用的是NoSQL数据库，则需要向数据库中添加其他对象、文档或实体。通过以下命令启动shell(使用对应版本)：
+```
+python3 ./manage.py shell
+
+Python 3.6.4 (default, Jan  6 2018, 11:51:59)
+Type 'copyright', 'credits' or 'license' for more information
+IPython 6.2.1 -- An enhanced Interactive Python. Type '?' for help.
+In [1]:
+```
+[Django shell](https://docs.djangoproject.com/en/dev/intro/tutorial01/#playing-with-the-api)和标准的shell相比更专注于Django项目的环境，可以与视图函数和数据模型交互，这个shell会自动设置环境变量，包括sys.path，它可以访问Django与自己项目中的模块和包，否则需要手动配置。除了标准shell之外，还有其他的交互式解释器可供选择。Django更倾向于使用功能丰富的shell，如IPython和bpython，这些shell在普通的解释器基础上提供及其强大的功能。运行shell命令时，Django首先查找含有扩展功能的shell，如果没有回返回标准解释器。这里使用的是IPython。也可以使用 *-i*来强制使用普通解释器。
+```
+python3 ./manage.py shell -i python
+
+Python 3.6.4 (default, Jan  6 2018, 11:51:59)
+[GCC 4.2.1 Compatible Apple LLVM 9.0.0 (clang-900.0.39.2)] on darwin
+Type "help", "copyright", "credits" or "license" for more information.
+(InteractiveConsole)
+>>>
+```
+#### 测试数据模型
+在启动Python shell之后输入一些Python或IPython命令来测试应用及其数据模型。
+```
+In [1]: from datetime import datetime
+
+In [2]: from blog.models import BlogPost
+
+In [3]: BlogPost.objects.all()
+Out[3]: <QuerySet [<BlogPost: BlogPost object (1)>, <BlogPost: BlogPost object (2)>, <BlogPost: BlogPost object (3)>]>
+
+In [4]: bp = BlogPost(title='my blog', body='''
+   ...: my 1st blog...
+   ...: yoooo!''',
+   ...: timestamp=datetime.now())
+
+In [5]: bp
+Out[5]: <BlogPost: BlogPost object (None)>
+
+In [6]: bp.save()
+
+In [7]: BlogPost.objects.count()
+Out[7]: 4
+
+
+In [9]: bp = BlogPost.objects.all()[0]
+
+
+In [11]: print(bp.title)
+test shell
+
+
+In [13]: print(bp.body)
+
+my 1st blog post...
+yo!
+
+In [14]: bp.timestamp.ctime()
+Out[14]: 'Sun Mar 11 08:13:31 2018'
+```
+前两行命令导入相应的对象，第3步查询数据库中BlogPost对象，第4步是实例化一个BlogPost对象来向数据库中添加BlogPost对象，向其中传入对应属性的值(title、body和timestamp)。创建完对象后，需要通过BlogPost.save()方法将其写入到数据库中。完成创建和写入后，使用BlogPost.objects.count()方法确认数据库中对象的个数。然后获取BlogPost对象列表的第一个元素并获取对应属性的值。
+**在使用时间生成器datetime.now()之前先在setting.py文件中设置USE_TZ = False以使用当前时区**
+### Django管理应用
+admin应用让开发者在完成完整的UI之前验证处理数据的代码。
+#### 设置admin
+在 *setting.py*的`INSTALLED_APP`中添加`'django.contrib.admin',`，然后运行`python3 ./manage.py makemigrations`和`python3 ./manage.py migrate`两条命令来创建其对应的表。在admin设置完之后于 *urls.py*中设置url路径：
+```
+from django.contrib import admin
+from django.urls import path
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+]
+```
+最后应用程序需要告诉Django哪个模型需要在admin页面中显示并编辑，这时候就需要在应用的 *admin.py*中注册BlogPost：
+```
+from django.contrib import admin
+from blog import models
+# Register your models here.
+admin.site.register(models.BlogPost)
+```
+#### 使用admin
+使用命令`python3 ./manage.py runserver`启动服务，然后在浏览器中输入 *http://localhost:8000/admin* 访问admin页面。在访问之前使用`python3 manage.py createsuperuser`创建的超级用户的用户名和密码用于登录管理页面。
