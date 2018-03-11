@@ -188,7 +188,7 @@ Out[14]: 'Sun Mar 11 08:13:31 2018'
 admin应用让开发者在完成完整的UI之前验证处理数据的代码。
 #### 设置admin
 在 *setting.py*的`INSTALLED_APP`中添加`'django.contrib.admin',`，然后运行`python3 ./manage.py makemigrations`和`python3 ./manage.py migrate`两条命令来创建其对应的表。在admin设置完之后于 *urls.py*中设置url路径：
-```
+```Python
 from django.contrib import admin
 from django.urls import path
 
@@ -197,11 +197,53 @@ urlpatterns = [
 ]
 ```
 最后应用程序需要告诉Django哪个模型需要在admin页面中显示并编辑，这时候就需要在应用的 *admin.py*中注册BlogPost：
-```
+```Python
 from django.contrib import admin
 from blog import models
 # Register your models here.
 admin.site.register(models.BlogPost)
 ```
 #### 使用admin
-使用命令`python3 ./manage.py runserver`启动服务，然后在浏览器中输入 *http://localhost:8000/admin* 访问admin页面。在访问之前使用`python3 manage.py createsuperuser`创建的超级用户的用户名和密码用于登录管理页面。
+使用命令`python3 ./manage.py runserver`启动服务，然后在浏览器中输入 *http://localhost:8000/admin* 访问admin页面。在访问之前使用`python3 manage.py createsuperuser`创建的超级用户的用户名和密码用于登录管理页面。（账号：*root*，密码：*Aa123456*）
+为了更好地显示博文列表，更新blog/admin.py文件，使用新的BlogPostAdmin类：
+```Python
+from django.contrib import admin
+from blog import models
+# Register your models here.
+
+
+class BlogPostAdmin(admin.ModelAdmin):
+    list_display = ('title', 'timestamp')
+
+
+admin.site.register(models.BlogPost, BlogPostAdmin)
+
+```
+### 创建博客的用户界面
+Django shell和admin是针对于开发者的工具，而现在需要构建用户的界面。Web页面应该有以下几个经典组建：
+1. **模板**，用于显示通过Python类字典对象传入的信息
+2. **视图函数**，用于执行针对请求的核心逻辑。视图会从数据库中获取信息，并格式化显示结果
+3. **模式**，将传入的请求映射到对应的视图中，同时也可以将参数传递给视图
+Django是自底向上处理请求，它首先查找匹配的URL模式，接着调用对应的视图函数，最后将渲染好的数据通过模板展现给用户。构建应用可以按照如下顺序：
+1. 因为需要一些可观察对象，所以先创建基本的模板
+2. 设计一个简单的URL模式，让Django可以立刻访问应用
+3. 开发出一个视图函数原型，然后在此基础上迭代开发
+在构建应用过程中模板和URL模式不会发生太大的变化，而应用的核心是视图。这非常符合 *测试驱动模型(TDD)*的开发模式。
+#### [创建模板](https://docs.djangoproject.com/en/2.0/topics/templates/#tags)
+* 变量标签
+**变量标签**是由 *花括号({{……}})*括起来的内容，花括号内用于显示对象的内容。在变量标签中，可以使用Python风格的 *点分割标识*访问这些变量的属性。这些值可以是纯数据，也可以是可调用对象，如果是后者，会自动调用这些对象而无需添加圆括号"()"来表示这个函数或方法可调用。
+* 过滤器
+**过滤器**是在变量标签中使用的特殊函数，它能在标签中立即对变量进行处理。方法是在变量右边插入一个 *管道符号("|")*，接着跟上过滤器名称。`<h2>{{post.title | title}}</h2>`
+* 上下文
+**上下文**是一种特殊的Python字典，是传递给模板的变量。假设通过上下文传入的BlogPost对象称为"post"。通过上下文传入所有的博文，这样可以通过循环显示所有文章。
+* 块标签
+**块标签**通过花括号和百分号来表示：{%……%}，它们用于向HTML模版中插入如循环或判断这样的逻辑。
+
+将HTML模版代码保存到一个简单的模版文件中，命名为archive.html，放置在应用文件夹下的 **templates**目录下，模版名称任取，但模版目录一定是 *templates*
+```html
+{%for post in posts%}
+    <h2>{{post.title}}</h2>
+    <h2>{{post.timestamp}}</h2>
+    <h2>{{post.body}}</h2>
+{% endfor%}
+```
