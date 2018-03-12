@@ -1,6 +1,6 @@
 ---
 title: 'Web框架:Django(一)'
-date: 2018-03-09 15:39:07
+date: 2018-03-12 16:46:21
 categories: Python
 copyright: true
 tags:
@@ -16,14 +16,14 @@ description: Web框架可以用于提供Web应用的所有相关服务，如Web�
 ```
 * 项目和应用
 **项目** 是指的一系列文件，用来创建并运行一个完整的Web站点。在项目文件夹下，有一个或多个子文件夹，每个文件夹有特定的功能，称为 **应用**。应用不一定要位于项目文件夹中。应用可以专注于项目某一方面的功能，或可以作为通用组件，用于不同的项目。应用是一个具有特定功能的子模块，这些子模块组合起来就能完成Web站点的功能。
-1. 在Django中创建项目
+1. **在Django中创建项目**
 Django自带有一个名为`django-admin.py`/`django-admin.exe`的工具，它可以简.
 化任务。在POSIX平台上，一般在`/usr/local/bin`、`/usr/bin`这样的目录中。使用Windows系统会安装在Python包下的Scripts目录下，如`E:\Python\Python36\Scripts`。两种系统都应该确保文件位于PATH环境变量中。
 在项目文件加下执行命令创建项目:
 ```
 django-admin.py startproject mysite
 ```
-2. Django项目文件
+2. **Django项目文件**
 
 |   文件名    |        描述/用途         |
 |:-----------:|:------------------------:|
@@ -31,16 +31,18 @@ django-admin.py startproject mysite
 |   urls.py   |  全局URL配置("URLconf")  |
 | setting.py  |      项目相关的配置      |
 |  manage.py  |     应用的命令行接口     |
+
 * 运行开发服务器
 Django内置Web服务器，该服务器运行在本地，专门用于开发阶段，仅用于开发用途。使用开发服务器有以下几个优点：
 1. 可以直接运行与测试项目和应用，无需完整的生产环境
 2. 当改动Python源码文件并重新载入模块时，开发服务器会自动检测，无须每次编辑代码后手动重启
 3. 开发服务器知道如何为Django管理应用程序寻找和显示静态媒体文件，所以无须立即了解管理方面的内容
+
 >启动服务器
+
 ```
 python manage.py runserver
 ```
-
 ## 应用
 ### 创建应用
 在项目目录下使用如下命令创建一个应用：
@@ -48,6 +50,7 @@ python manage.py runserver
 python3 ./manage.py startapp blog
 ```
 这样就建立了一个blog目录，其中有如下内容：
+
 |  文件名   |                               描述/目的                               |
 | :-------: | :-------------------------------------------------------------------: |
 | __init.py |                         告诉Python这是一个包                          |
@@ -69,7 +72,7 @@ INSTALLED_APPS = [
 ```
 ### 创建模型添加数据库服务
 #### 创建模型
-models.py将定义博客的数据结构，首先创建一个基本类型。数据模型表示将会存储在数据库每条记录的数据类型。Django提供了许多[字段类型](https://docs.djangoproject.com/en/2.0/ref/models/fields/)，用来将数据映射到应用中。
+*models.py* 将定义博客的数据结构，首先创建一个基本类型。数据模型表示将会存储在数据库每条记录的数据类型。Django提供了许多[字段类型](https://docs.djangoproject.com/en/2.0/ref/models/fields/)，用来将数据映射到应用中。
 ```Python
 from django.db import models
 
@@ -114,7 +117,7 @@ DATABASES = {
 }
 ```
 #### 创建表
-使用 *makemigrations* 参数创建映射文件，当执行命令时Django会查找INSTALLED_APPS中列出的ing用的models.py文件。对于每个找到的模型，都会创建一个映射表。
+使用 *makemigrations* 参数创建映射文件，当执行命令时Django会查找INSTALLED_APPS中列出的应用的models.py文件。对于每个找到的模型，都会创建一个映射表。
 ```
 python3 ./manage.py makemigrations
 ```
@@ -243,21 +246,22 @@ Django是自底向上处理请求，它首先查找匹配的URL模式，接着�
 2. 设计一个简单的URL模式，让Django可以立刻访问应用
 3. 开发出一个视图函数原型，然后在此基础上迭代开发
 在构建应用过程中模板和URL模式不会发生太大的变化，而应用的核心是视图。这非常符合 *测试驱动模型(TDD)* 的开发模式。
+
 #### [创建模板](https://docs.djangoproject.com/en/2.0/topics/templates/#tags)
 * *变量标签*
 **变量标签** 是由 *花括号({{……}})* 括起来的内容，花括号内用于显示对象的内容。在变量标签中，可以使用Python风格的 *点分割标识* 访问这些变量的属性。这些值可以是纯数据，也可以是可调用对象，如果是后者，会自动调用这些对象而无需添加圆括号"()"来表示这个函数或方法可调用。
 
 * *过滤器*
-**过滤器** 是在变量标签中使用的特殊函数，它能在标签中立即对变量进行处理。方法是在变量右边插入一个 *管道符号("|")*，接着跟上过滤器名称。`<h2>{{post.title | title}}</h2>`
+**过滤器** 是在变量标签中使用的特殊函数，它能在标签中立即对变量进行处理。方法是在变量右边插入一个 *管道符号("|")*，接着跟上过滤器名称。`<h2> { { post.title | title } } </h2>`
 
 * *上下文*
 **上下文** 是一种特殊的Python字典，是传递给模板的变量。假设通过上下文传入的BlogPost对象称为"post"。通过上下文传入所有的博文，这样可以通过循环显示所有文章。
 
 * *块标签*
-**块标签** 通过花括号和百分号来表示：{%……%}，它们用于向HTML模版中插入如循环或判断这样的逻辑。
+**块标签** 通过花括号和百分号来表示：&#123;%…%&#125;，它们用于向HTML模版中插入如循环或判断这样的逻辑。
 
 将HTML模版代码保存到一个简单的模版文件中，命名为archive.html，放置在应用文件夹下的 **templates** 目录下，模版名称任取，但模版目录一定是 *templates*
-```html
+```Html
 {%for post in posts%}
     <h2>{{post.title}}</h2>
     <h2>{{post.timestamp}}</h2>
@@ -278,7 +282,7 @@ urlpatterns = [
     path('blog/', include('blog.urls'))
 ]
 ```
-*include()* 会移除当前的URL路径头，路径中剩下的部分传递给下游URLconf中的path()函数。（*当输入http://localhost:8080/blog/foo/bar这个URL时，项目的URLconf接收到的是blog/foo/bar，匹配blog找到一个include()函数，然后将foo/bar传递给mysite/blog/urls.py*）。上述代码中使用include()和未使用include()的区别在于使用include()传递的是 **字符串**，未使用include传递的是 **对象**。
+*include()* 会移除当前的URL路径头，路径中剩下的部分传递给下游URLconf中的path()函数。（*当输入'http://localhost:8080/blog/foo/bar' 这个URL时，项目的URLconf接收到的是blog/foo/bar，匹配blog找到一个include()函数，然后将foo/bar传递给mysite/blog/urls.py*）。上述代码中使用include()和未使用include()的区别在于使用include()传递的是 **字符串**，未使用include传递的是 **对象**。
 
 * 应用的URLconf
 在项目的URLconf中通过include()包含blog.urls，让匹配blog应用的URL将剩余的部分传递到blog应用中处理。在mysite/blog/urls.py(没有就创建),添加以下代码：
@@ -343,7 +347,9 @@ def archive(request):
     posts = BlogPost.objects.all().order_by('-timestamp')[:10]
     return render_to_response('archive.html', {'posts': posts})
 ```
+
 * 设置模型的默认排序方式
+
 如果在模型中设置首选的排序方式，其他基于Django的应用或访问这个数据的项目也会使用这个顺序。为了给模型设置默认顺序，需要创建一个名为 **Meta** 的内部类，在其中设置一个名为 **ordering** 的属性(models.py):
 ```Python
 class BlogPost(models.Model):
@@ -415,7 +421,7 @@ def create_blogpost(request):
     return HttpResponseRedirect('/blog')
 ```
 
-* 在完成上面的步骤之后，会发现创建表单的调用会被拦截报403的错误。这是因为Django有数据保留特性，不允许不安全的POST通过 *跨站点请求伪造（Cross-site Request Forgery,CSRF）* 来进行攻击。需要在HTML表单添加CSRF标记({%csrf_token%}):
+* 在完成上面的步骤之后，会发现创建表单的调用会被拦截报403的错误。这是因为Django有数据保留特性，不允许不安全的POST通过 *跨站点请求伪造（Cross-site Request Forgery,CSRF）* 来进行攻击。需要在HTML表单添加CSRF标记(&#123;% csrf_token %&#125;):
 ```Html
 <form action="/blog/create/" method="post">{%csrf_token%}
     Title:
@@ -484,4 +490,54 @@ def create_blogpost(request):
             post.save()
     # 重定向会/blog
     return HttpResponseRedirect('/blog')
+```
+
+### 添加测试
+Django通过扩展Python自带的单元测试模块来提供测试功能。Django还可以测试文档字符串(即docstring)，这称为 *文档测试(doctest)*
+>应用的tests.py
+
+```Python
+from django.test import TestCase
+from datetime import datetime
+from django.test.client import Client
+from blog.models import BlogPost
+# Create your tests here.
+
+
+class BlogPostTest(TestCase):
+    # 测试方法必须以“test_”开头，方法名后面的部分随意。
+    def test_obj_create(self):
+        # 这里仅仅通过测试确保对象成功创建，并验证标题内容
+        BlogPost.objects.create(
+            title='raw title', body='raw body', timestamp=datetime.now())
+        # 如果两个参数相等则测试成功，否则该测试失败
+        # 这里验证对象的数目和标题
+        self.assertEqual(1, BlogPost.objects.count())
+        self.assertEqual('raw title', BlogPost.objects.get(id=1).title)
+
+    def test_home(self):
+        # 在'/blog/'中调用应用的主页面，确保收到200这个HTTP返回码
+        response = self.client.get('/blog/')
+        self.assertIn(response.status_code, (200, ))
+
+    def test_slash(self):
+        # 测试确认重定向
+        response = self.client.get('/')
+        self.assertIn(response.status_code, (301, 302))
+
+    def test_empty_create(self):
+        # 测试'/blog/create/'生成的视图，测试在没有任何数据就错误地生成GET请求，
+        # 代码应该忽略掉这个请求，然后重定向到'/blog'
+        response = self.client.get('/blog/create/')
+        self.assertIn(response.status_code, (301, 302))
+
+    def test_post_create(self):
+        # 模拟真实用户请求通过POST发送真实数据，创建博客项，让后将用户重定向到"/blog"
+        response = self.client.post('/blog/create/', {
+            'title': 'post title',
+            'body': 'post body'
+        })
+        self.assertIn(response.status_code, (301, 302))
+        self.assertEqual(1, BlogPost.objects.count())
+        self.assertEqual('post title', BlogPost.objects.get(id=1).title)
 ```
