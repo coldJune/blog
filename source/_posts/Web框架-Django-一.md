@@ -541,3 +541,4 @@ class BlogPostTest(TestCase):
         self.assertEqual(1, BlogPost.objects.count())
         self.assertEqual('post title', BlogPost.objects.get(id=1).title)
 ```
+[源代码](https://github.com/coldJune/Python/tree/master/mysite)
