@@ -1,4 +1,5 @@
-http://coldjune.com/2018/03/12/Web框架-Django-一/
+http://coldjune.com/2018/03/13/Python文本处理/
+http://coldjune.com/2018/03/12/Web框架-Django/
 http://coldjune.com/2018/03/08/CGI和WSGI/
 http://coldjune.com/2018/03/06/Python-Web客户端和服务器/
 http://coldjune.com/2018/03/06/OFFICE转换工具/

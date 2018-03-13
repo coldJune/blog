@@ -1,5 +1,5 @@
 ---
-title: 'Web框架:Django(一)'
+title: 'Web框架:Django'
 date: 2018-03-12 16:46:21
 categories: Python
 copyright: true
