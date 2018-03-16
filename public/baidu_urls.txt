@@ -1,3 +1,4 @@
+http://coldjune.com/2018/03/16/numpy基础-一/
 http://coldjune.com/2018/03/15/IPython入门/
 http://coldjune.com/2018/03/13/Python文本处理/
 http://coldjune.com/2018/03/12/Web框架-Django/
