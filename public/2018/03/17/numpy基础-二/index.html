@@ -1,0 +1,1698 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+  <meta name="baidu-site-verification" content="true" />
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico#/images/favicon-16x16-next.png?v=5.1.4">
+
+
+
+
+
+
+  <meta name="keywords" content="数据分析,NumPy," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="通用函数通用函数(即ufunc)是一种对ndarray中的数据执行元素级运算的函数。它是简单函数(接受一个或多个标量值，并产生一个或多个标量值)的矢量化包装器。  一元ufunc     函数 说明     abs、fabs 计算整数、浮点数或复数的绝对值。对于非复数值，可以使fabs   sqrt 计算各元素的平方根。相当于arr**0.5   square 计算各元素的平方。相当于arr**2">
+<meta name="keywords" content="数据分析,NumPy">
+<meta property="og:type" content="article">
+<meta property="og:title" content="numpy基础(二)">
+<meta property="og:url" content="http://coldjune.com/2018/03/17/numpy基础-二/index.html">
+<meta property="og:site_name" content="Stay Hungary">
+<meta property="og:description" content="通用函数通用函数(即ufunc)是一种对ndarray中的数据执行元素级运算的函数。它是简单函数(接受一个或多个标量值，并产生一个或多个标量值)的矢量化包装器。  一元ufunc     函数 说明     abs、fabs 计算整数、浮点数或复数的绝对值。对于非复数值，可以使fabs   sqrt 计算各元素的平方根。相当于arr**0.5   square 计算各元素的平方。相当于arr**2">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-03-17T07:39:56.110Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="numpy基础(二)">
+<meta name="twitter:description" content="通用函数通用函数(即ufunc)是一种对ndarray中的数据执行元素级运算的函数。它是简单函数(接受一个或多个标量值，并产生一个或多个标量值)的矢量化包装器。  一元ufunc     函数 说明     abs、fabs 计算整数、浮点数或复数的绝对值。对于非复数值，可以使fabs   sqrt 计算各元素的平方根。相当于arr**0.5   square 计算各元素的平方。相当于arr**2">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://coldjune.com/2018/03/17/numpy基础-二/"/>
+
+
+
+
+
+  <title>numpy基础(二) | Stay Hungary</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+		<a href="https://github.com/coldJune" class="github-corner" aria-label="View source on Github"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; left: 0; transform: scale(-1, 1);" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style></a>    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Stay Hungary</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Programming is an art form</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://coldjune.com/2018/03/17/numpy基础-二/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="邓小俊">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Stay Hungary">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">numpy基础(二)</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-17T11:33:50+08:00">
+                2018-03-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/true/" itemprop="url" rel="index">
+                    <span itemprop="name">true</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018/03/17/numpy基础-二/" class="leancloud_visitors" data-flag-title="numpy基础(二)">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  3,740
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  18
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="通用函数"><a href="#通用函数" class="headerlink" title="通用函数"></a>通用函数</h2><p>通用函数(即ufunc)是一种对ndarray中的数据执行元素级运算的函数。它是简单函数(接受一个或多个标量值，并产生一个或多个标量值)的矢量化包装器。</p>
+<ul>
+<li>一元ufunc</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">函数</th>
+<th style="text-align:center">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">abs、fabs</td>
+<td style="text-align:center">计算整数、浮点数或复数的绝对值。对于非复数值，可以使fabs</td>
+</tr>
+<tr>
+<td style="text-align:center">sqrt</td>
+<td style="text-align:center">计算各元素的平方根。相当于arr**0.5</td>
+</tr>
+<tr>
+<td style="text-align:center">square</td>
+<td style="text-align:center">计算各元素的平方。相当于arr**2</td>
+</tr>
+<tr>
+<td style="text-align:center">exp</td>
+<td style="text-align:center">计算各元素的指数e^x</td>
+</tr>
+<tr>
+<td style="text-align:center">log、log10、log2、log1p</td>
+<td style="text-align:center">分别对自然对数(底为e)、底为10的log、底为2的log、log(1+x)</td>
+</tr>
+<tr>
+<td style="text-align:center">sign</td>
+<td style="text-align:center">计算各元素的正负号:1(正数)、0(零)、-1(负数)</td>
+</tr>
+<tr>
+<td style="text-align:center">ceil</td>
+<td style="text-align:center">计算各元素的ceiling值，即大于等于该值的最小整数</td>
+</tr>
+<tr>
+<td style="text-align:center">floor</td>
+<td style="text-align:center">计算各元素的floor值，即小于等于该值的最大整数</td>
+</tr>
+<tr>
+<td style="text-align:center">rint</td>
+<td style="text-align:center">将各元素四舍五入到最接近的整数，保留dtype</td>
+</tr>
+<tr>
+<td style="text-align:center">modf</td>
+<td style="text-align:center">将数组的小数和整数部分以独立数组的形式返回</td>
+</tr>
+<tr>
+<td style="text-align:center">isnan</td>
+<td style="text-align:center">返回一个表示“哪些值是NaN(这不是一个数字)”的布尔型数组</td>
+</tr>
+<tr>
+<td style="text-align:center">isfinite、isinf</td>
+<td style="text-align:center">分别返回一个表示“哪些元素是有穷的(非inf、非NaN)”或“哪些元素是无穷的”布尔型数组</td>
+</tr>
+<tr>
+<td style="text-align:center">cos、cosh、sin、sinh、tan、tanh</td>
+<td style="text-align:center">普通型和双曲型三角函数</td>
+</tr>
+<tr>
+<td style="text-align:center">arccos、arccosh、arcsin、arcsinh、arctan、arctanh</td>
+<td style="text-align:center">反三角函数</td>
+</tr>
+<tr>
+<td style="text-align:center">logical_not</td>
+<td style="text-align:center">计算各元素not x的真值。相当于-arr</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>二元ufunc</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">函数</th>
+<th style="text-align:center">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">add</td>
+<td style="text-align:center">将数组中对应的元素相加</td>
+</tr>
+<tr>
+<td style="text-align:center">subtract</td>
+<td style="text-align:center">从第一个数组中减去第二个数组中的元素</td>
+</tr>
+<tr>
+<td style="text-align:center">multiply</td>
+<td style="text-align:center">数组元素相乘</td>
+</tr>
+<tr>
+<td style="text-align:center">divide、floor_divide</td>
+<td style="text-align:center">除法或向下圆整除法(丢弃余数)</td>
+</tr>
+<tr>
+<td style="text-align:center">power</td>
+<td style="text-align:center">对第一个数组中的元素A，根据第二个数组中的相应元素B，计算A^B</td>
+</tr>
+<tr>
+<td style="text-align:center">maximum、fmax</td>
+<td style="text-align:center">元素级的最大值计算。fmax将忽略NaN</td>
+</tr>
+<tr>
+<td style="text-align:center">minimum、fmin</td>
+<td style="text-align:center">元素级的最小值计算。fmin将忽略NaN</td>
+</tr>
+<tr>
+<td style="text-align:center">mod</td>
+<td style="text-align:center">元素级的求模计算(除法的余数)</td>
+</tr>
+<tr>
+<td style="text-align:center">copysign</td>
+<td style="text-align:center">将第二个数组中的值的符号复制给第一个数组中的值</td>
+</tr>
+<tr>
+<td style="text-align:center">greater、greater_equal、less、less_equal、equal、not_equal</td>
+<td style="text-align:center">执行元素级的比较运算，最终产生布尔型数组。相当于中缀运算符&gt;、&gt;=、&lt;、&lt;=、==、!=</td>
+</tr>
+<tr>
+<td style="text-align:center">logical_and、logical_or、logical_xor</td>
+<td style="text-align:center">执行元素级的真值逻辑运算。相当于中缀运算符&amp;、&#124;、^</td>
+</tr>
+</tbody>
+</table>
+<p>许多ufunc都是简单的元素级变体，一元的ufunc接受一个数组，二元的接受两个并返回一个结果数组：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">In [2]: arr  = np.arange(10)</span><br><span class="line"></span><br><span class="line">In [3]: arr</span><br><span class="line">Out[3]: array([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])</span><br><span class="line"></span><br><span class="line">In [4]: np.sqrt(arr)</span><br><span class="line">Out[4]:</span><br><span class="line">array([0.        , 1.        , 1.41421356, 1.73205081, 2.        ,</span><br><span class="line">       2.23606798, 2.44948974, 2.64575131, 2.82842712, 3.        ])</span><br><span class="line"></span><br><span class="line">In [5]: np.exp(arr)</span><br><span class="line">Out[5]:</span><br><span class="line">array([1.00000000e+00, 2.71828183e+00, 7.38905610e+00, 2.00855369e+01,</span><br><span class="line">       5.45981500e+01, 1.48413159e+02, 4.03428793e+02, 1.09663316e+03,</span><br><span class="line">       2.98095799e+03, 8.10308393e+03])</span><br><span class="line"></span><br><span class="line">In [6]: x = randn(5)</span><br><span class="line"></span><br><span class="line">In [7]: y = randn(5)</span><br><span class="line"></span><br><span class="line">In [8]: x</span><br><span class="line">Out[8]:</span><br><span class="line">array([-9.27415622e-01, -1.67964296e-03, -1.91023663e+00, -1.31307986e-01,</span><br><span class="line">       -1.17927352e+00])</span><br><span class="line"></span><br><span class="line">In [9]: y</span><br><span class="line">Out[9]: array([ 0.82239493,  0.43695129, -0.00905311,  0.31991891, -0.34529735])</span><br><span class="line"></span><br><span class="line">In [10]: np.maximum(x,y)</span><br><span class="line">Out[10]: array([ 0.82239493,  0.43695129, -0.00905311,  0.31991891, -0.34529735])</span><br></pre></td></tr></table></figure></p>
+<h2 id="利用数组进行数据处理"><a href="#利用数组进行数据处理" class="headerlink" title="利用数组进行数据处理"></a>利用数组进行数据处理</h2><p><strong>矢量化</strong>将数据处理任务表述为简洁的数组表达式，用数组表达式代替循环。例如计算函数sqrt(x^2+y^2)。<code>np.meshgrid</code>接受两个一维数组，并产生两个二维矩阵(对应两个数组中所有(x,y)对):<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">In [11]: points = np.arange(-5, 5, 0.01)</span><br><span class="line"></span><br><span class="line">In [12]: xs, ys = np.meshgrid(points,points)</span><br><span class="line"></span><br><span class="line">In [13]: xs</span><br><span class="line">Out[13]:</span><br><span class="line">array([[-5.  , -4.99, -4.98, ...,  4.97,  4.98,  4.99],</span><br><span class="line">       [-5.  , -4.99, -4.98, ...,  4.97,  4.98,  4.99],</span><br><span class="line">       [-5.  , -4.99, -4.98, ...,  4.97,  4.98,  4.99],</span><br><span class="line">       ...,</span><br><span class="line">       [-5.  , -4.99, -4.98, ...,  4.97,  4.98,  4.99],</span><br><span class="line">       [-5.  , -4.99, -4.98, ...,  4.97,  4.98,  4.99],</span><br><span class="line">       [-5.  , -4.99, -4.98, ...,  4.97,  4.98,  4.99]])</span><br><span class="line"></span><br><span class="line">In [14]: z = np.sqrt(np.square(xs)+np.square(ys))</span><br><span class="line"></span><br><span class="line">In [15]: z</span><br><span class="line">Out[15]:</span><br><span class="line">array([[7.07106781, 7.06400028, 7.05693985, ..., 7.04988652, 7.05693985,</span><br><span class="line">        7.06400028],</span><br><span class="line">       [7.06400028, 7.05692568, 7.04985815, ..., 7.04279774, 7.04985815,</span><br><span class="line">        7.05692568],</span><br><span class="line">       [7.05693985, 7.04985815, 7.04278354, ..., 7.03571603, 7.04278354,</span><br><span class="line">        7.04985815],</span><br><span class="line">       ...,</span><br><span class="line">       [7.04988652, 7.04279774, 7.03571603, ..., 7.0286414 , 7.03571603,</span><br><span class="line">        7.04279774],</span><br><span class="line">       [7.05693985, 7.04985815, 7.04278354, ..., 7.03571603, 7.04278354,</span><br><span class="line">        7.04985815],</span><br><span class="line">       [7.06400028, 7.05692568, 7.04985815, ..., 7.04279774, 7.04985815,</span><br><span class="line">        7.05692568]])</span><br></pre></td></tr></table></figure></p>
+<h3 id="将条件逻辑表述为数组运算"><a href="#将条件逻辑表述为数组运算" class="headerlink" title="将条件逻辑表述为数组运算"></a>将条件逻辑表述为数组运算</h3><p><code>np.where</code>是三元表达式<code>x if condition else y</code>的矢量化版本。<code>np.wehere</code>接受三个参数<code>cond、xarr、yarr</code>,当判定<code>cond</code>为true时选择执行<code>xarr</code>否则执行<code>yarr</code>。因此<code>np.where</code>也可以嵌套使用。<code>np.where</code>的第二个和第三个参数不必时数组，可以是标量值。<code>where</code>通常用于根据另一个数组产生新的数组。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">In [23]: xarr = np.array([0.1,0.2,0.3])</span><br><span class="line"></span><br><span class="line">In [24]: yarr = np.array([1.1,1.2,1.3])</span><br><span class="line"></span><br><span class="line">In [25]: cond = np.array([True,False,True])</span><br><span class="line"></span><br><span class="line">In [26]: result = np.where(cond,xarr,yarr)</span><br><span class="line"></span><br><span class="line">In [27]: result</span><br><span class="line">Out[27]: array([0.1, 1.2, 0.3])</span><br><span class="line"></span><br><span class="line">In [28]: arr = randn(4,4)</span><br><span class="line"></span><br><span class="line">In [29]: arr</span><br><span class="line">Out[29]:</span><br><span class="line">array([[ 0.17276546, -1.27954884, -0.07326268, -2.40995669],</span><br><span class="line">       [-0.15796552, -1.85102248,  0.53499154, -0.1332765 ],</span><br><span class="line">       [ 0.81853502,  1.35768841,  1.55543773,  1.01407613],</span><br><span class="line">       [-1.05967769,  0.39289449,  0.13509303, -0.68143339]])</span><br><span class="line"></span><br><span class="line">In [30]: np.where(arr&gt;0,1,-1)</span><br><span class="line">Out[30]:</span><br><span class="line">array([[ 1, -1, -1, -1],</span><br><span class="line">       [-1, -1,  1, -1],</span><br><span class="line">       [ 1,  1,  1,  1],</span><br><span class="line">       [-1,  1,  1, -1]])</span><br><span class="line"></span><br><span class="line">In [31]: np.where(arr&gt;0,1,arr)</span><br><span class="line">Out[31]:</span><br><span class="line">array([[ 1.        , -1.27954884, -0.07326268, -2.40995669],</span><br><span class="line">       [-0.15796552, -1.85102248,  1.        , -0.1332765 ],</span><br><span class="line">       [ 1.        ,  1.        ,  1.        ,  1.        ],</span><br><span class="line">       [-1.05967769,  1.        ,  1.        , -0.68143339]])</span><br><span class="line"></span><br><span class="line">In [32]: cond2 = np.array([False,False,True])</span><br><span class="line"></span><br><span class="line">In [33]: np.where(cond&amp;cond2,0,np.where(cond,1,np.where(cond,2,3)))</span><br><span class="line">Out[33]: array([1, 3, 0])</span><br></pre></td></tr></table></figure></p>
+<h3 id="数学和统计方法"><a href="#数学和统计方法" class="headerlink" title="数学和统计方法"></a>数学和统计方法</h3><p>可以通过数组上的一组数学函数对整个数组或某个轴向的数据进行统计。<code>sum</code>、<code>mean</code>以及标准差<code>std</code>等聚合计算(aggregation)既可以当做数组的实例方法调用，也可以当做顶级NumPy函数使用。</p>
+<ul>
+<li>基本数组统计方法</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">方法</th>
+<th style="text-align:center">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">sum</td>
+<td style="text-align:center">对数组中全部或某轴向的元素求和。零长度的数组的sum为0</td>
+</tr>
+<tr>
+<td style="text-align:center">mean</td>
+<td style="text-align:center">算数平均数。零长度的数组的mean为NaN</td>
+</tr>
+<tr>
+<td style="text-align:center">std、var</td>
+<td style="text-align:center">分别为标准差和方差，自由度可调(默认为n)</td>
+</tr>
+<tr>
+<td style="text-align:center">argmin、argmax</td>
+<td style="text-align:center">分别为最大和最小元素的索引</td>
+</tr>
+<tr>
+<td style="text-align:center">cumsum</td>
+<td style="text-align:center">所有元素的累计和</td>
+</tr>
+<tr>
+<td style="text-align:center">cumprod</td>
+<td style="text-align:center">所有元素的累计积</td>
+</tr>
+</tbody>
+</table>
+<p><code>mean</code>和<code>sum</code>这类的函数接受一个axis参数(用于计算该轴向上的统计值)，最终结果是一个少一维的数组:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">In [36]: arr =  np.random.randn(5,4)</span><br><span class="line"></span><br><span class="line">In [37]: arr</span><br><span class="line">Out[37]:</span><br><span class="line">array([[-0.00502805,  0.23545272,  0.04886622, -0.46971953],</span><br><span class="line">       [-1.08918278,  1.19958904, -0.54808552, -1.60148873],</span><br><span class="line">       [-0.60059372, -0.9743709 ,  1.39660621, -0.97132217],</span><br><span class="line">       [-0.11917925,  1.99922758, -1.58943388,  1.60237969],</span><br><span class="line">       [-0.28361465, -2.57463163, -0.96786527, -0.00376026]])</span><br><span class="line"></span><br><span class="line">In [38]: arr.mean()</span><br><span class="line">Out[38]: -0.26580774446749256</span><br><span class="line"></span><br><span class="line">In [39]: np.mean(arr)</span><br><span class="line">Out[39]: -0.26580774446749256</span><br><span class="line"></span><br><span class="line">In [40]: arr.mean(axis=1)</span><br><span class="line">Out[40]: array([-0.04760716, -0.509792  , -0.28742014,  0.47324854, -0.95746796])</span><br></pre></td></tr></table></figure></p>
+<p><code>cumsum</code>和<code>cumprod</code>之类的方法不聚合，而是产生一个由中间结果组成的数组：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">In [47]: arr = np.array([[0,1,2],[3,4,5],[6,7,8]])</span><br><span class="line"></span><br><span class="line">In [48]: arr.cumsum(0)</span><br><span class="line">Out[48]:</span><br><span class="line">array([[ 0,  1,  2],</span><br><span class="line">       [ 3,  5,  7],</span><br><span class="line">       [ 9, 12, 15]])</span><br><span class="line"></span><br><span class="line">In [49]: arr.cumsum(1)</span><br><span class="line">Out[49]:</span><br><span class="line">array([[ 0,  1,  3],</span><br><span class="line">       [ 3,  7, 12],</span><br><span class="line">       [ 6, 13, 21]])</span><br><span class="line"></span><br><span class="line">In [50]: arr.cumprod(0)</span><br><span class="line">Out[50]:</span><br><span class="line">array([[ 0,  1,  2],</span><br><span class="line">       [ 0,  4, 10],</span><br><span class="line">       [ 0, 28, 80]])</span><br><span class="line"></span><br><span class="line">In [51]: arr.cumprod(1)</span><br><span class="line">Out[51]:</span><br><span class="line">array([[  0,   0,   0],</span><br><span class="line">       [  3,  12,  60],</span><br><span class="line">       [  6,  42, 336]])</span><br></pre></td></tr></table></figure></p>
+<h3 id="用于布尔型数组的方法"><a href="#用于布尔型数组的方法" class="headerlink" title="用于布尔型数组的方法"></a>用于布尔型数组的方法</h3><p>上面罗列的方法中，布尔值会被强制转换为1(True)和0(False)。所以<code>sum</code>可以用来对布尔型数组中的True值计数。而<code>any</code>方法用来测试数组中是否存在一个或多个True，<code>all</code>用来检查数组中所有值是否都是True：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">In [52]: arr = randn(20)</span><br><span class="line"></span><br><span class="line">In [53]: (arr &gt; 0).sum()</span><br><span class="line">Out[53]: 11</span><br><span class="line"></span><br><span class="line">In [54]: bools=np.array([False,True,False])</span><br><span class="line"></span><br><span class="line">In [55]: bools.any()</span><br><span class="line">Out[55]: True</span><br><span class="line"></span><br><span class="line">In [56]: np.all(bools)</span><br><span class="line">Out[56]: False</span><br></pre></td></tr></table></figure></p>
+<h3 id="排序"><a href="#排序" class="headerlink" title="排序"></a>排序</h3><p>NumPy数组通过<code>sort</code>方法就地排序，多维数组可以在任何一个轴向上进行排序，只需将轴编号传给<code>sort</code>。顶级方法<code>np.sort</code>返回的是数组的已排序副本，而就地排序则会修改数组本身：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">In [57]: arr = randn(6)</span><br><span class="line"></span><br><span class="line">In [58]: arr</span><br><span class="line">Out[58]:</span><br><span class="line">array([ 0.20563118, -0.6733116 , -1.44713961,  0.49352122,  0.73564391,</span><br><span class="line">        1.71627219])</span><br><span class="line"></span><br><span class="line">In [59]: arr.sort()</span><br><span class="line"></span><br><span class="line">In [60]: arr</span><br><span class="line">Out[60]:</span><br><span class="line">array([-1.44713961, -0.6733116 ,  0.20563118,  0.49352122,  0.73564391,</span><br><span class="line">        1.71627219])</span><br><span class="line"></span><br><span class="line">In [61]: arr = rand(5,3)</span><br><span class="line"></span><br><span class="line">In [62]: arr</span><br><span class="line">Out[62]:</span><br><span class="line">array([[0.18125744, 0.10766187, 0.46160903],</span><br><span class="line">       [0.34363544, 0.28353683, 0.06096776],</span><br><span class="line">       [0.52424935, 0.13756835, 0.78614215],</span><br><span class="line">       [0.12944147, 0.95273729, 0.09078996],</span><br><span class="line">       [0.85118943, 0.18928544, 0.23857278]])</span><br><span class="line"></span><br><span class="line">In [63]: np.sort(arr,1)</span><br><span class="line">Out[63]:</span><br><span class="line">array([[0.10766187, 0.18125744, 0.46160903],</span><br><span class="line">       [0.06096776, 0.28353683, 0.34363544],</span><br><span class="line">       [0.13756835, 0.52424935, 0.78614215],</span><br><span class="line">       [0.09078996, 0.12944147, 0.95273729],</span><br><span class="line">       [0.18928544, 0.23857278, 0.85118943]])</span><br><span class="line"></span><br><span class="line">In [64]: arr</span><br><span class="line">Out[64]:</span><br><span class="line">array([[0.18125744, 0.10766187, 0.46160903],</span><br><span class="line">       [0.34363544, 0.28353683, 0.06096776],</span><br><span class="line">       [0.52424935, 0.13756835, 0.78614215],</span><br><span class="line">       [0.12944147, 0.95273729, 0.09078996],</span><br><span class="line">       [0.85118943, 0.18928544, 0.23857278]])</span><br></pre></td></tr></table></figure></p>
+<h3 id="唯一化及其他集合逻辑"><a href="#唯一化及其他集合逻辑" class="headerlink" title="唯一化及其他集合逻辑"></a>唯一化及其他集合逻辑</h3><p>NumPy提供了一些针对一维ndarray的基本集合运算。</p>
+<ul>
+<li>数组的集合运算</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">方法</th>
+<th style="text-align:center">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">unique(x)</td>
+<td style="text-align:center">计算x中的唯一元素，并返回有序结果</td>
+</tr>
+<tr>
+<td style="text-align:center">intersect1d(x,y)</td>
+<td style="text-align:center">计算x和y中的公共元素，并返回有序结果</td>
+</tr>
+<tr>
+<td style="text-align:center">union1d(x,y)</td>
+<td style="text-align:center">计算x和y的并集，并返回有序结果</td>
+</tr>
+<tr>
+<td style="text-align:center">in1d(x,y)</td>
+<td style="text-align:center">得到一个表示“x的元素是否包含于y”的布尔型数组</td>
+</tr>
+<tr>
+<td style="text-align:center">setdiff1d(x,y)</td>
+<td style="text-align:center">集合的差，即元素在x中且不在y中</td>
+</tr>
+<tr>
+<td style="text-align:center">setxor1d(x,y)</td>
+<td style="text-align:center">集合的对称差，即存在于一个数组中单不同时存在于两个数组中的元素(异或)</td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">In [66]: np.unique(names)</span><br><span class="line">Out[66]: array([&apos;Jim&apos;, &apos;Tom&apos;, &apos;bob&apos;], dtype=&apos;&lt;U3&apos;)</span><br></pre></td></tr></table></figure>
+<h2 id="用于数组的文件输入输出"><a href="#用于数组的文件输入输出" class="headerlink" title="用于数组的文件输入输出"></a>用于数组的文件输入输出</h2><h3 id="将数组以二进制格式保存到磁盘"><a href="#将数组以二进制格式保存到磁盘" class="headerlink" title="将数组以二进制格式保存到磁盘"></a>将数组以二进制格式保存到磁盘</h3><p><code>np.save</code>和<code>np.load</code>是读写磁盘数组数据的两个组药函数。默认情况下数组以未压缩的原始二进制格式保存在扩展名为 <em>.npy</em>的文件中。<code>np.savez</code>可以将多个数组保存到一个压缩文件中，将数组以关键字参数的形式传入即可。加载 <em>.npz</em>文件时，将会得到一个类似字典的对象，该对象对各个数组进行延迟加载:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">In [68]: arr = np.arange(10)</span><br><span class="line"></span><br><span class="line">In [69]: np.save(&apos;arr&apos;,arr)</span><br><span class="line"></span><br><span class="line">In [70]: np.load(&apos;arr.npy&apos;)</span><br><span class="line">Out[70]: array([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])</span><br><span class="line"></span><br><span class="line">In [71]: np.savez(&apos;arr_more&apos;,a=arr,b=arr)</span><br><span class="line"></span><br><span class="line">In [72]: arr_more = np.load(&apos;arr_more.npz&apos;)</span><br><span class="line"></span><br><span class="line">In [73]: arr_more[&apos;a&apos;]</span><br><span class="line">Out[73]: array([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])</span><br></pre></td></tr></table></figure></p>
+<h2 id="线性代数"><a href="#线性代数" class="headerlink" title="线性代数"></a>线性代数</h2><ul>
+<li>numpy.linalg函数</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">函数</th>
+<th style="text-align:center">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">diag</td>
+<td style="text-align:center">以一维数组的形式返回方阵的对角线(或非对角线)元素，或将一维数组转换为方阵(非对角线元素为0)</td>
+</tr>
+<tr>
+<td style="text-align:center">dot</td>
+<td style="text-align:center">矩阵乘法</td>
+</tr>
+<tr>
+<td style="text-align:center">trace</td>
+<td style="text-align:center">计算对角线的和</td>
+</tr>
+<tr>
+<td style="text-align:center">det</td>
+<td style="text-align:center">计算矩阵行列式</td>
+</tr>
+<tr>
+<td style="text-align:center">eig</td>
+<td style="text-align:center">计算方阵的特征值和特征向量</td>
+</tr>
+<tr>
+<td style="text-align:center">inv</td>
+<td style="text-align:center">计算方阵的逆</td>
+</tr>
+<tr>
+<td style="text-align:center">pinv</td>
+<td style="text-align:center">计算矩阵的Moore-Penrose伪逆</td>
+</tr>
+<tr>
+<td style="text-align:center">qr</td>
+<td style="text-align:center">计算QR分解</td>
+</tr>
+<tr>
+<td style="text-align:center">svd</td>
+<td style="text-align:center">计算奇异值分解(SVD)</td>
+</tr>
+<tr>
+<td style="text-align:center">solve</td>
+<td style="text-align:center">解线性方程组Ax=b，其中A为一个方阵</td>
+</tr>
+<tr>
+<td style="text-align:center">lstsq</td>
+<td style="text-align:center">计算Ax=b的最小二乘解</td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">In [83]: x = randn(3,3)</span><br><span class="line"></span><br><span class="line">In [84]: x</span><br><span class="line">Out[84]:</span><br><span class="line">array([[ 0.45880764, -0.90269718, -1.62963467],</span><br><span class="line">       [-0.76727739,  2.24799683,  0.65118256],</span><br><span class="line">       [ 0.43217346, -2.47319723, -0.48442667]])</span><br><span class="line"></span><br><span class="line">In [85]: mat = x.T.dot(x)</span><br><span class="line"></span><br><span class="line">In [86]: mat</span><br><span class="line">Out[86]:</span><br><span class="line">array([[ 0.98599295, -3.20785172, -1.45668284],</span><br><span class="line">       [-3.20785172, 11.9850565 ,  4.13300564],</span><br><span class="line">       [-1.45668284,  4.13300564,  3.31441709]])</span><br><span class="line"></span><br><span class="line">In [87]: inv(mat)</span><br><span class="line">Out[87]:</span><br><span class="line">array([[16.03043111,  3.2650856 ,  2.97386734],</span><br><span class="line">       [ 3.2650856 ,  0.8114194 ,  0.42317945],</span><br><span class="line">       [ 2.97386734,  0.42317945,  1.08102824]])</span><br><span class="line"></span><br><span class="line">In [88]: mat</span><br><span class="line">Out[88]:</span><br><span class="line">array([[ 0.98599295, -3.20785172, -1.45668284],</span><br><span class="line">       [-3.20785172, 11.9850565 ,  4.13300564],</span><br><span class="line">       [-1.45668284,  4.13300564,  3.31441709]])</span><br><span class="line"></span><br><span class="line">In [89]: mat.dot(inv(mat))</span><br><span class="line">Out[89]:</span><br><span class="line">array([[ 1.00000000e+00, -1.71619808e-16,  2.22044605e-16],</span><br><span class="line">       [ 1.06801676e-14,  1.00000000e+00,  0.00000000e+00],</span><br><span class="line">       [ 3.55271368e-15,  8.88178420e-16,  1.00000000e+00]])</span><br><span class="line"></span><br><span class="line">In [90]: q,r = qr(mat)</span><br><span class="line"></span><br><span class="line">In [91]: r</span><br><span class="line">Out[91]:</span><br><span class="line">array([[-3.65847231, 13.01900838,  5.33621718],</span><br><span class="line">       [ 0.        , -1.23249681,  1.27109691],</span><br><span class="line">       [ 0.        ,  0.        ,  0.31324131]])</span><br></pre></td></tr></table></figure>
+<h2 id="随机数生成"><a href="#随机数生成" class="headerlink" title="随机数生成"></a>随机数生成</h2><ul>
+<li>部分numpy.random函数</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">函数</th>
+<th style="text-align:center">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">seed</td>
+<td style="text-align:center">确定随机数生成器的种子</td>
+</tr>
+<tr>
+<td style="text-align:center">permutation</td>
+<td style="text-align:center">返回一个序列的随机排列或返回一个随机排列的范围</td>
+</tr>
+<tr>
+<td style="text-align:center">shuffle</td>
+<td style="text-align:center">对一个序列就地随机排序</td>
+</tr>
+<tr>
+<td style="text-align:center">rand</td>
+<td style="text-align:center">产生均匀分布的样本值</td>
+</tr>
+<tr>
+<td style="text-align:center">randint</td>
+<td style="text-align:center">从给定的上下限范围内随机选取整数</td>
+</tr>
+<tr>
+<td style="text-align:center">randn</td>
+<td style="text-align:center">产生正态分布(平均值为0，标准差为1)的样本值</td>
+</tr>
+<tr>
+<td style="text-align:center">normal</td>
+<td style="text-align:center">产生正态(高斯)分布的样本值</td>
+</tr>
+<tr>
+<td style="text-align:center">binomial</td>
+<td style="text-align:center">产生二项分布的样本值</td>
+</tr>
+<tr>
+<td style="text-align:center">beta</td>
+<td style="text-align:center">产生Beta分布的样本值</td>
+</tr>
+<tr>
+<td style="text-align:center">chisquare</td>
+<td style="text-align:center">产生卡方分布的样本值</td>
+</tr>
+<tr>
+<td style="text-align:center">gamma</td>
+<td style="text-align:center">产生Gamma分布的样本值</td>
+</tr>
+<tr>
+<td style="text-align:center">uniform</td>
+<td style="text-align:center">产生在[0,1）中均匀分布的样本值</td>
+</tr>
+</tbody>
+</table>
+<h3 id="随机漫步"><a href="#随机漫步" class="headerlink" title="随机漫步"></a>随机漫步</h3><p>使用<code>np.random</code>模块一次性产生1000个“掷硬币”结果(即两个数中任选一个),将其分别设置为1或-1，然后计算累计和,然后可以做求取最大值最小值的简单统计：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">In [96]: nsteps = 1000</span><br><span class="line"></span><br><span class="line">In [97]: draws = np.random.randint(0, 2, size=nsteps)</span><br><span class="line"></span><br><span class="line">In [98]: steps = np.where(draws&gt;0,1,-1)</span><br><span class="line"></span><br><span class="line">In [99]: walk = steps.cumsum()</span><br><span class="line"></span><br><span class="line">In [101]: walk.min()</span><br><span class="line">Out[101]: -24</span><br><span class="line"></span><br><span class="line">In [102]: walk.max()</span><br><span class="line">Out[102]: 9</span><br></pre></td></tr></table></figure></p>
+<p>然后可以计算首次穿越时间，即随机漫步过程中第一次到达某个特定值的时间。使用<code>np.abs(walk)&gt;=10</code>得到一个布尔型数组，它表示的距离是否达到或超过10，使用<code>argmax</code>(并不高效，会对数组进行完全扫描)找到布尔型数组第一个最大值索引(True就是最大值):<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">In [103]: (np.abs(walk)&gt;=10).argmax()</span><br><span class="line">Out[103]: 107</span><br></pre></td></tr></table></figure></p>
+<h3 id="一次模拟多个随机漫步"><a href="#一次模拟多个随机漫步" class="headerlink" title="一次模拟多个随机漫步"></a>一次模拟多个随机漫步</h3><p>通过给<code>numpy.random</code>函数传入一个二元元组产生一个二维数组,然后使用累计和创建随机漫步过程(一行一个)，接着计算最大值和最小值。得到这些数据后来计算30或-30的最小穿越时间。因为不是5000个都达到了30，所以使用<code>any</code>进行检查，然后利用检查后的布尔数组选出哪些穿越了30(绝对值)的随机漫步(行)，并调用<code>argmax</code>在轴1上获取穿越时间<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">In [104]: nwalks = 5000</span><br><span class="line"></span><br><span class="line">In [105]: nsteps = 5000</span><br><span class="line"></span><br><span class="line">In [106]: draws = np.random.randint(0,2,size=(nwalks,nsteps))</span><br><span class="line"></span><br><span class="line">In [107]: steps = np.where(draws&gt;0,1,-1)</span><br><span class="line"></span><br><span class="line">In [108]: walks = steps.cumsum(1)</span><br><span class="line"></span><br><span class="line">In [109]: walks</span><br><span class="line">Out[109]:</span><br><span class="line">array([[  -1,   -2,   -1, ...,   20,   19,   18],</span><br><span class="line">       [  -1,    0,    1, ...,   16,   17,   18],</span><br><span class="line">       [  -1,    0,    1, ...,   80,   79,   78],</span><br><span class="line">       ...,</span><br><span class="line">       [   1,    2,    3, ...,    6,    5,    6],</span><br><span class="line">       [   1,    0,   -1, ..., -130, -131, -132],</span><br><span class="line">       [   1,    0,    1, ...,  -16,  -17,  -16]])</span><br><span class="line"></span><br><span class="line">In [110]: walks.max()</span><br><span class="line">Out[110]: 255</span><br><span class="line"></span><br><span class="line">In [111]: walks.min()</span><br><span class="line">Out[111]: -235</span><br><span class="line"></span><br><span class="line">In [112]: hits30 = (np.abs(walks)&gt;=30).any(1)</span><br><span class="line"></span><br><span class="line">In [113]: hits30</span><br><span class="line">Out[113]: array([ True,  True,  True, ...,  True,  True,  True])</span><br><span class="line"></span><br><span class="line">In [115]: hits30.sum()</span><br><span class="line">Out[115]: 4992</span><br><span class="line"></span><br><span class="line">In [117]: crossing_time  =(np.abs(walks[hits30])&gt;=30).argmax(1)</span><br><span class="line"></span><br><span class="line">In [118]: crossing_time.mean()</span><br><span class="line">Out[118]: 883.0564903846154</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    
+    
+    
+		<div>
+		  
+		    <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-apple"></i>感谢您的阅读-------------</div>
+    
+</div>
+		  
+		</div>
+		<div>
+      
+        
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <p><span>本文标题:</span><a href="/2018/03/17/numpy基础-二/">numpy基础(二)</a></p>
+  <p><span>文章作者:</span><a href="/" title="访问 邓小俊 的个人博客">邓小俊</a></p>
+  <p><span>发布时间:</span>2018年03月17日 - 11:03</p>
+  <p><span>最后更新:</span>2018年03月17日 - 15:03</p>
+  <p><span>原始链接:</span><a href="/2018/03/17/numpy基础-二/" title="numpy基础(二)">http://coldjune.com/2018/03/17/numpy基础-二/</a>
+    <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://coldjune.com/2018/03/17/numpy基础-二/"  aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+      $(".fa-clipboard").click(function(){
+      clipboard.on('success', function(){
+        swal({   
+          title: "",   
+          text: '复制成功',
+          icon: "success", 
+          showConfirmButton: true
+          });
+        });
+    });  
+</script>
+
+      
+		</div>
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/数据分析/" rel="tag"><i class="fa fa-tag"></i> 数据分析</a>
+          
+            <a href="/tags/NumPy/" rel="tag"><i class="fa fa-tag"></i> NumPy</a>
+          
+        </div>
+      
+
+      
+      
+        <div class="post-widgets">
+        
+
+        
+
+        
+          
+          <div id="needsharebutton-postbottom">
+            <span class="btn">
+              <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </span>
+          </div>
+        
+        </div>
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/03/16/numpy基础-一/" rel="next" title="numpy基础(一)">
+                <i class="fa fa-chevron-left"></i> numpy基础(一)
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">邓小俊</p>
+              <p class="site-description motion-element" itemprop="description">人所恐惧的不是孤独本身，而是害怕承认人本生而孤独的事实</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#通用函数"><span class="nav-number">1.</span> <span class="nav-text">通用函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#利用数组进行数据处理"><span class="nav-number">2.</span> <span class="nav-text">利用数组进行数据处理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#将条件逻辑表述为数组运算"><span class="nav-number">2.1.</span> <span class="nav-text">将条件逻辑表述为数组运算</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数学和统计方法"><span class="nav-number">2.2.</span> <span class="nav-text">数学和统计方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#用于布尔型数组的方法"><span class="nav-number">2.3.</span> <span class="nav-text">用于布尔型数组的方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#排序"><span class="nav-number">2.4.</span> <span class="nav-text">排序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#唯一化及其他集合逻辑"><span class="nav-number">2.5.</span> <span class="nav-text">唯一化及其他集合逻辑</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#用于数组的文件输入输出"><span class="nav-number">3.</span> <span class="nav-text">用于数组的文件输入输出</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#将数组以二进制格式保存到磁盘"><span class="nav-number">3.1.</span> <span class="nav-text">将数组以二进制格式保存到磁盘</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#线性代数"><span class="nav-number">4.</span> <span class="nav-text">线性代数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#随机数生成"><span class="nav-number">5.</span> <span class="nav-text">随机数生成</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#随机漫步"><span class="nav-number">5.1.</span> <span class="nav-text">随机漫步</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#一次模拟多个随机漫步"><span class="nav-number">5.2.</span> <span class="nav-text">一次模拟多个随机漫步</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">邓小俊</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">博文包含字数&#58;</span>
+    
+    <span title="博文包含字数">50.2k</span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>本站访客数
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      人次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+      <div id="needsharebutton-float">
+        <span class="btn">
+          <i class="fa fa-share-alt" aria-hidden="true"></i>
+        </span>
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("EdodKu35EbSo4VoLhJYQMd09-gzGzoHsz", "qpErN7JcsIzusWGMNuw1QcxN");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/needsharebutton/needsharebutton.css">
+
+  
+  
+  <script src="/lib/needsharebutton/needsharebutton.js"></script>
+
+  <script>
+    
+      pbOptions = {};
+      
+          pbOptions.iconStyle = "box";
+      
+          pbOptions.boxForm = "horizontal";
+      
+          pbOptions.position = "bottomCenter";
+      
+          pbOptions.networks = "Weibo,Wechat,Douban,QQZone,Twitter,Facebook";
+      
+      new needShareButton('#needsharebutton-postbottom', pbOptions);
+    
+    
+      flOptions = {};
+      
+          flOptions.iconStyle = "box";
+      
+          flOptions.boxForm = "horizontal";
+      
+          flOptions.position = "middleRight";
+      
+          flOptions.networks = "Weibo,Wechat,Douban,QQZone,Twitter,Facebook";
+      
+      new needShareButton('#needsharebutton-float', flOptions);
+    
+  </script>
+
+  
+
+  
+  
+
+
+  
+
+  
+
+ 
+</body>
+</html>
