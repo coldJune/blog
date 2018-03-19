@@ -495,3 +495,90 @@ row3    0.83
 row4    0.86
 Name: a, dtype: object
 ```
+### 排序和排名
+#### 排序
+使用`sort_index`方法对行或列索引进行排序(按字典顺序)，它将返回一个已排序的对象；对于DataFrame则可以根据任意一个轴上的索引进行排序；数据默认时按升序进行排序的，可以设置`ascending=False`来降序排序：
+```
+In [134]: obj = Series(range(4), index=list('dabc'))
+
+In [135]: obj.sort_index()
+Out[135]:
+a    1
+b    2
+c    3
+d    0
+dtype: int64
+
+In [136]: frame = DataFrame(np.arange(8).reshape((2,4)),index=['col2','col1'],
+     ...:                    columns=list('badc'))
+     ...:
+
+In [137]: frame.sort_index()
+Out[137]:
+      b  a  d  c
+col1  4  5  6  7
+col2  0  1  2  3
+
+In [138]: frame.sort_index(axis=1)
+Out[138]:
+      a  b  c  d
+col2  1  0  3  2
+col1  5  4  7  6
+
+In [139]: frame.sort_index(axis=1, ascending=False)
+Out[139]:
+      d  c  b  a
+col2  2  3  0  1
+col1  6  7  4  5
+```
+`sort_values`方法用于按值进行排序，在排序时，任何的缺失值默认都会放到Series的末尾：
+```
+In [144]: obj.sort_values()
+Out[144]:
+4   -3.0
+5    2.0
+0    4.0
+2    7.0
+1    NaN
+3    NaN
+dtype: float64
+```
+在DataFrame中，可以将一个或多个列的名字传递给by选项来根据一个或多个列中的值进行排序，要根据多个列进行排序，可以传入名称的列表：
+```
+In [150]: frame  = DataFrame({'b':[2,5,0,1],'a':[0,1,0,1]})
+
+In [151]: frame
+Out[151]:
+   a  b
+0  0  2
+1  1  5
+2  0  0
+3  1  1
+
+In [152]: frame.sort_values(by='b')
+Out[152]:
+   a  b
+2  0  0
+3  1  1
+0  0  2
+1  1  5
+
+In [153]: frame.sort_values(by=['a','b'])
+Out[153]:
+   a  b
+2  0  0
+0  0  2
+3  1  1
+1  1  5
+```
+#### 排名
+排名会增设一个排名值(从1开始，一直到数组中有效的数据的数量)，它可以根据某种规则破坏平级关系；`rank`是通过“为各组分配一个平均排名”的方式破坏平级关系。
+* 排名用于破坏平级关系的method的选项
+
+|   method  |                   说明                   |
+| :-------: | :--------------------------------------: |
+| 'average' | 默认：在相等分组中，为各个值分配平均排名 |
+|   'min'   |          使用整个分组的最小排名          |
+|   'max'   |          使用整个分组的最大排名          |
+|  'first'  | 按值在原始数据中的出现顺序分配排名                                         |
+
