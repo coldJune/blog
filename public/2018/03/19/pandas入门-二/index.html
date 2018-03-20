@@ -1,0 +1,1500 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+  <meta name="baidu-site-verification" content="true" />
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico#/images/favicon-16x16-next.png?v=5.1.4">
+
+
+
+
+
+
+  <meta name="keywords" content="数据分析,pandas," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="主要记录操作Series和DataFrame中的数据的基本手段。后面将更深入地挖掘pandas在数据分析和处理方面的功能">
+<meta name="keywords" content="数据分析,pandas">
+<meta property="og:type" content="article">
+<meta property="og:title" content="pandas入门(二)">
+<meta property="og:url" content="http://coldjune.com/2018/03/19/pandas入门-二/index.html">
+<meta property="og:site_name" content="Stay Hungary">
+<meta property="og:description" content="主要记录操作Series和DataFrame中的数据的基本手段。后面将更深入地挖掘pandas在数据分析和处理方面的功能">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-03-20T01:03:46.770Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="pandas入门(二)">
+<meta name="twitter:description" content="主要记录操作Series和DataFrame中的数据的基本手段。后面将更深入地挖掘pandas在数据分析和处理方面的功能">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://coldjune.com/2018/03/19/pandas入门-二/"/>
+
+
+
+
+
+  <title>pandas入门(二) | Stay Hungary</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+		<a href="https://github.com/coldJune" class="github-corner" aria-label="View source on Github"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; left: 0; transform: scale(-1, 1);" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style></a>    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Stay Hungary</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Programming is an art form</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://coldjune.com/2018/03/19/pandas入门-二/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="邓小俊">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Stay Hungary">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">pandas入门(二)</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-19T16:51:47+08:00">
+                2018-03-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/true/" itemprop="url" rel="index">
+                    <span itemprop="name">true</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018/03/19/pandas入门-二/" class="leancloud_visitors" data-flag-title="pandas入门(二)">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  4,326
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  23
+                </span>
+              
+            </div>
+          
+
+          
+              <div class="post-description">
+                  主要记录操作Series和DataFrame中的数据的基本手段。后面将更深入地挖掘pandas在数据分析和处理方面的功能
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="基本功能"><a href="#基本功能" class="headerlink" title="基本功能"></a>基本功能</h2><h3 id="重新索引"><a href="#重新索引" class="headerlink" title="重新索引"></a>重新索引</h3><ul>
+<li>reindex的(插值)method选项</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">参数</th>
+<th style="text-align:center">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">fffill或pad</td>
+<td style="text-align:center">前向填充(或搬运)值</td>
+</tr>
+<tr>
+<td style="text-align:center">bfill或backfill</td>
+<td style="text-align:center">后向填充(或搬运)值</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>reindex函数的参数</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">参数</th>
+<th style="text-align:center">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">index</td>
+<td style="text-align:center">用作索引的新序列。既可以是Index实例，也可以是其他序列型的Python数据结构。Index会被完全使用，就像没有任何复制一样</td>
+</tr>
+<tr>
+<td style="text-align:center">method</td>
+<td style="text-align:center">插值(填充)方式</td>
+</tr>
+<tr>
+<td style="text-align:center">fill_value</td>
+<td style="text-align:center">再重新索引的过程中，需要引入缺失值时使用的替代值</td>
+</tr>
+<tr>
+<td style="text-align:center">limit</td>
+<td style="text-align:center">前向或后向填充时的最大填充量</td>
+</tr>
+<tr>
+<td style="text-align:center">level</td>
+<td style="text-align:center">在MultiIndex的指定级别上匹配简单索引，否则选取其子集</td>
+</tr>
+<tr>
+<td style="text-align:center">copy</td>
+<td style="text-align:center">默认为True，无论如何都复制；如果为False，则新旧相等就不复制</td>
+</tr>
+</tbody>
+</table>
+<p>pandas对象的<code>reindex</code>方法用于创建一个适应新索引的新对象，<code>reindex</code>将会根据新索引进行重排。如果某个索引值当前不存在，就引入缺失值。<code>method</code>选项可以在重新索引时做一些插值处理：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line">In [86]: obj = Series([1,2,3,4],index=[&apos;a&apos;,&apos;b&apos;,&apos;c&apos;,&apos;d&apos;])</span><br><span class="line"></span><br><span class="line">In [87]: obj</span><br><span class="line">Out[87]:</span><br><span class="line">a    1</span><br><span class="line">b    2</span><br><span class="line">c    3</span><br><span class="line">d    4</span><br><span class="line">dtype: int64</span><br><span class="line"></span><br><span class="line">In [88]: obj2 = obj.reindex([&apos;q&apos;,&apos;w&apos;,&apos;e&apos;,&apos;r&apos;])</span><br><span class="line"></span><br><span class="line">In [89]: obj2</span><br><span class="line">Out[89]:</span><br><span class="line">q   NaN</span><br><span class="line">w   NaN</span><br><span class="line">e   NaN</span><br><span class="line">r   NaN</span><br><span class="line">dtype: float64</span><br><span class="line"></span><br><span class="line">In [90]: obj2 = obj.reindex([&apos;a&apos;,&apos;b&apos;,&apos;c&apos;,&apos;d&apos;,&apos;e&apos;])</span><br><span class="line"></span><br><span class="line">In [91]: obj2</span><br><span class="line">Out[91]:</span><br><span class="line">a    1.0</span><br><span class="line">b    2.0</span><br><span class="line">c    3.0</span><br><span class="line">d    4.0</span><br><span class="line">e    NaN</span><br><span class="line">dtype: float64</span><br><span class="line"></span><br><span class="line">In [94]: obj2 = obj.reindex([&apos;a&apos;,&apos;b&apos;,&apos;c&apos;,&apos;d&apos;,&apos;e&apos;],fill_value=0)</span><br><span class="line"></span><br><span class="line">In [95]: obj2</span><br><span class="line">Out[95]:</span><br><span class="line">a    1</span><br><span class="line">b    2</span><br><span class="line">c    3</span><br><span class="line">d    4</span><br><span class="line">e    0</span><br><span class="line">dtype: int64</span><br><span class="line"></span><br><span class="line">In [98]: obj3 = obj.reindex([&apos;a&apos;,&apos;b&apos;,&apos;e&apos;,&apos;f&apos;,&apos;c&apos;,&apos;d&apos;],method=&apos;ffill&apos;)</span><br><span class="line"></span><br><span class="line">In [99]: obj3</span><br><span class="line">Out[99]:</span><br><span class="line">a    1</span><br><span class="line">b    2</span><br><span class="line">e    4</span><br><span class="line">f    4</span><br><span class="line">c    3</span><br><span class="line">d    4</span><br><span class="line">dtype: int64</span><br></pre></td></tr></table></figure></p>
+<p>对于DataFrame,<code>reindex</code>可以修改(行)索引、列、或两个都修改。如果仅传入一个序列，则会重新索引行，使用<code>columns</code>关键字可以重新索引列,也可以同时对行和列进行重新索引，但插值只能按行应用(即轴0):<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">In [105]: frame = DataFrame(np.arange(9).reshape((3,3)),index=[&apos;a&apos;,&apos;b&apos;,&apos;c&apos;],columns=[&apos;col1&apos;,&apos;col2&apos;,&apos;col3&apos;])</span><br><span class="line"></span><br><span class="line">In [106]: frame2 = frame.reindex([&apos;a&apos;,&apos;b&apos;,&apos;c&apos;,&apos;d&apos;])</span><br><span class="line"></span><br><span class="line">In [107]: frame2</span><br><span class="line">Out[107]:</span><br><span class="line">   col1  col2  col3</span><br><span class="line">a   0.0   1.0   2.0</span><br><span class="line">b   3.0   4.0   5.0</span><br><span class="line">c   6.0   7.0   8.0</span><br><span class="line">d   NaN   NaN   NaN</span><br><span class="line"></span><br><span class="line">In [108]: frame.reindex(columns=[&apos;col_a&apos;,&apos;col1&apos;,&apos;col2&apos;,&apos;col3&apos;])</span><br><span class="line">Out[108]:</span><br><span class="line">   col_a  col1  col2  col3</span><br><span class="line">a    NaN     0     1     2</span><br><span class="line">b    NaN     3     4     5</span><br><span class="line">c    NaN     6     7     8</span><br><span class="line"></span><br><span class="line">In [109]: frame.reindex(index=[&apos;a&apos;,&apos;b&apos;,&apos;c&apos;,&apos;d&apos;],method=&apos;ffill&apos;,columns=[&apos;col_a&apos;,&apos;col1&apos;,&apos;col2&apos;,&apos;col3&apos;])</span><br><span class="line">Out[109]:</span><br><span class="line">   col_a  col1  col2  col3</span><br><span class="line">a      2     0     1     2</span><br><span class="line">b      5     3     4     5</span><br><span class="line">c      8     6     7     8</span><br><span class="line">d      8     6     7     8</span><br></pre></td></tr></table></figure></p>
+<p>利用ix的标签索引功能重新索引：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">In [111]: frame.ix[[&apos;a&apos;,&apos;b&apos;,&apos;c&apos;,&apos;d&apos;],[&apos;col_a&apos;,&apos;col1&apos;,&apos;col2&apos;,&apos;col3&apos;]]</span><br><span class="line">Out[111]:</span><br><span class="line">   col_a  col1  col2  col3</span><br><span class="line">a    NaN   0.0   1.0   2.0</span><br><span class="line">b    NaN   3.0   4.0   5.0</span><br><span class="line">c    NaN   6.0   7.0   8.0</span><br><span class="line">d    NaN   NaN   NaN   NaN</span><br></pre></td></tr></table></figure></p>
+<h3 id="丢弃指定轴上的项"><a href="#丢弃指定轴上的项" class="headerlink" title="丢弃指定轴上的项"></a>丢弃指定轴上的项</h3><p>使用<code>drop</code>方法删除指定轴上的项，只需要传入一个索引数组或列表，对于DataFrame可以传入指定的轴(axis)来进行删除,返回的都是删除轴之后的新对象:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">In [112]: obj = Series([1,2,3,4],index=[&apos;a&apos;,&apos;b&apos;,&apos;c&apos;,&apos;d&apos;])</span><br><span class="line"></span><br><span class="line">In [113]: obj.drop(&apos;a&apos;)</span><br><span class="line">Out[113]:</span><br><span class="line">b    2</span><br><span class="line">c    3</span><br><span class="line">d    4</span><br><span class="line">dtype: int64</span><br><span class="line"></span><br><span class="line">In [114]: obj.drop([&apos;a&apos;,&apos;b&apos;])</span><br><span class="line">Out[114]:</span><br><span class="line">c    3</span><br><span class="line">d    4</span><br><span class="line">dtype: int64</span><br><span class="line"></span><br><span class="line">In [115]: frame = DataFrame(np.arange(9).reshape((3,3)),index=[&apos;a&apos;,&apos;b&apos;,&apos;c&apos;],columns=[&apos;col1&apos;,&apos;col2&apos;,&apos;col3&apos;])</span><br><span class="line"></span><br><span class="line">In [116]: frame.drop([&apos;a&apos;,&apos;b&apos;])</span><br><span class="line">Out[116]:</span><br><span class="line">   col1  col2  col3</span><br><span class="line">c     6     7     8</span><br><span class="line"></span><br><span class="line">In [117]: frame.drop([&apos;col1&apos;,&apos;col2&apos;],axis=1)</span><br><span class="line">Out[117]:</span><br><span class="line">   col3</span><br><span class="line">a     2</span><br><span class="line">b     5</span><br><span class="line">c     8</span><br></pre></td></tr></table></figure></p>
+<h3 id="索引、选取和过滤"><a href="#索引、选取和过滤" class="headerlink" title="索引、选取和过滤"></a>索引、选取和过滤</h3><p>Series索引(obj[……])的工作方式类似于NumPy数组的索引，并且可以使用非整数；而利用切片运算其 <strong>末端时包含的(封闭)</strong>：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">In [3]: obj = Series(np.arange(4), index=[&apos;a&apos;,&apos;b&apos;,&apos;c&apos;,&apos;d&apos;])</span><br><span class="line"></span><br><span class="line">In [4]: obj</span><br><span class="line">Out[4]:</span><br><span class="line">a    0</span><br><span class="line">b    1</span><br><span class="line">c    2</span><br><span class="line">d    3</span><br><span class="line">dtype: int64</span><br><span class="line"></span><br><span class="line">In [5]: obj[&apos;a&apos;]</span><br><span class="line">Out[5]: 0</span><br><span class="line"></span><br><span class="line">In [6]: obj[2:4]</span><br><span class="line">Out[6]:</span><br><span class="line">c    2</span><br><span class="line">d    3</span><br><span class="line">dtype: int64</span><br><span class="line"></span><br><span class="line">In [7]: obj[&apos;c&apos;:&apos;d&apos;]</span><br><span class="line">Out[7]:</span><br><span class="line">c    2</span><br><span class="line">d    3</span><br><span class="line">dtype: int64</span><br><span class="line"></span><br><span class="line">In [8]: obj[[&apos;a&apos;,&apos;d&apos;]]</span><br><span class="line">Out[8]:</span><br><span class="line">a    0</span><br><span class="line">d    3</span><br><span class="line">dtype: int64</span><br><span class="line"></span><br><span class="line">In [9]: obj[&apos;b&apos;:&apos;c&apos;]=5</span><br><span class="line"></span><br><span class="line">In [10]: obj</span><br><span class="line">Out[10]:</span><br><span class="line">a    0</span><br><span class="line">b    5</span><br><span class="line">c    5</span><br><span class="line">d    3</span><br><span class="line">dtype: int64</span><br></pre></td></tr></table></figure></p>
+<p>对DataFrame进行索引是获取一个或多个列，可以通过切片或布尔型数组选取行，也可以使用布尔型DataFrame进行索引：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line">In [15]: data = DataFrame(np.arange(16).reshape(4,4),</span><br><span class="line">    ...:                 index=[&apos;a&apos;,&apos;b&apos;,&apos;c&apos;,&apos;d&apos;],</span><br><span class="line">    ...:                 columns=[&apos;col1&apos;,&apos;col2&apos;,&apos;col3&apos;,&apos;col4&apos;])</span><br><span class="line">    ...:</span><br><span class="line"></span><br><span class="line">In [16]: data</span><br><span class="line">Out[16]:</span><br><span class="line">   col1  col2  col3  col4</span><br><span class="line">a     0     1     2     3</span><br><span class="line">b     4     5     6     7</span><br><span class="line">c     8     9    10    11</span><br><span class="line">d    12    13    14    15</span><br><span class="line"></span><br><span class="line">In [17]: data[&apos;col1&apos;]</span><br><span class="line">Out[17]:</span><br><span class="line">a     0</span><br><span class="line">b     4</span><br><span class="line">c     8</span><br><span class="line">d    12</span><br><span class="line">Name: col1, dtype: int64</span><br><span class="line"></span><br><span class="line">In [18]: data[[&apos;col1&apos;,&apos;col4&apos;]]</span><br><span class="line">Out[18]:</span><br><span class="line">   col1  col4</span><br><span class="line">a     0     3</span><br><span class="line">b     4     7</span><br><span class="line">c     8    11</span><br><span class="line">d    12    15</span><br><span class="line"></span><br><span class="line">In [19]: data[:2]</span><br><span class="line">Out[19]:</span><br><span class="line">   col1  col2  col3  col4</span><br><span class="line">a     0     1     2     3</span><br><span class="line">b     4     5     6     7</span><br><span class="line"></span><br><span class="line">In [20]: data[data[&apos;col3&apos;]&gt;5]</span><br><span class="line">Out[20]:</span><br><span class="line">   col1  col2  col3  col4</span><br><span class="line">b     4     5     6     7</span><br><span class="line">c     8     9    10    11</span><br><span class="line">d    12    13    14    15</span><br><span class="line"></span><br><span class="line">In [21]: data&lt;5</span><br><span class="line">Out[21]:</span><br><span class="line">    col1   col2   col3   col4</span><br><span class="line">a   True   True   True   True</span><br><span class="line">b   True  False  False  False</span><br><span class="line">c  False  False  False  False</span><br><span class="line">d  False  False  False  False</span><br><span class="line"></span><br><span class="line">In [22]: data[data&lt;5] = -5</span><br><span class="line"></span><br><span class="line">In [23]: data</span><br><span class="line">Out[23]:</span><br><span class="line">   col1  col2  col3  col4</span><br><span class="line">a    -5    -5    -5    -5</span><br><span class="line">b    -5     5     6     7</span><br><span class="line">c     8     9    10    11</span><br><span class="line">d    12    13    14    15</span><br></pre></td></tr></table></figure></p>
+<p>为了在DataFrame的行上进行标签索引，可以通过<code>loc</code>进行：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">In [48]: data.loc[&apos;a&apos;,[&apos;col1&apos;,&apos;col2&apos;]]</span><br><span class="line">Out[48]:</span><br><span class="line">col1   -5</span><br><span class="line">col2   -5</span><br><span class="line">Name: a, dtype: int64</span><br><span class="line"></span><br><span class="line">In [49]: data.loc[[&apos;a&apos;,&apos;d&apos;],[&apos;col1&apos;,&apos;col3&apos;]]</span><br><span class="line">Out[49]:</span><br><span class="line">   col1  col3</span><br><span class="line">a    -5    -5</span><br><span class="line">d    12    14</span><br><span class="line"></span><br><span class="line">In [50]: data.loc[data.col3&gt;5,:&apos;col3&apos;]</span><br><span class="line">Out[50]:</span><br><span class="line">   col1  col2  col3</span><br><span class="line">b    -5     5     6</span><br><span class="line">c     8     9    10</span><br><span class="line">d    12    13    14</span><br></pre></td></tr></table></figure></p>
+<h3 id="算术运算和数据对齐"><a href="#算术运算和数据对齐" class="headerlink" title="算术运算和数据对齐"></a>算术运算和数据对齐</h3><p>pandas可以对不同索引的对象进行算数运算。在将对象相加时，如果存在不同的索引对，则结果的索引就是对该索引对的并集，自动的数据对齐操作在不重叠的索引处引入NA值，缺失值会在算术运算过程中传播:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">In [55]: s1 = Series(np.arange(3),index=[&apos;a&apos;,&apos;b&apos;,&apos;c&apos;])</span><br><span class="line"></span><br><span class="line">In [56]: s2 = Series(np.arange(3,9),index=[&apos;a&apos;,&apos;b&apos;,&apos;c&apos;,&apos;d&apos;,&apos;e&apos;,&apos;f&apos;])</span><br><span class="line"></span><br><span class="line">In [57]: s1</span><br><span class="line">Out[57]:</span><br><span class="line">a    0</span><br><span class="line">b    1</span><br><span class="line">c    2</span><br><span class="line">dtype: int64</span><br><span class="line"></span><br><span class="line">In [58]: s2</span><br><span class="line">Out[58]:</span><br><span class="line">a    3</span><br><span class="line">b    4</span><br><span class="line">c    5</span><br><span class="line">d    6</span><br><span class="line">e    7</span><br><span class="line">f    8</span><br><span class="line">dtype: int64</span><br><span class="line"></span><br><span class="line">In [59]: s1+s2</span><br><span class="line">Out[59]:</span><br><span class="line">a    3.0</span><br><span class="line">b    5.0</span><br><span class="line">c    7.0</span><br><span class="line">d    NaN</span><br><span class="line">e    NaN</span><br><span class="line">f    NaN</span><br><span class="line">dtype: float64</span><br></pre></td></tr></table></figure></p>
+<p>对于DataFrame，对齐操作会同时发生在行和列上，它们相加后会返回一个新的DataFrame，其索引和列为原来两个DataFrame的并集：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">In [65]: df1 = DataFrame(np.arange(9).reshape(3,3),columns=list(&apos;abc&apos;),</span><br><span class="line">    ...:                 index=[&apos;row1&apos;,&apos;row2&apos;,&apos;row3&apos;])</span><br><span class="line">    ...:</span><br><span class="line"></span><br><span class="line">In [66]: df2 = DataFrame(np.arange(16).reshape(4,4),columns=list(&apos;abcd&apos;),</span><br><span class="line">    ...:                 index=[&apos;row1&apos;,&apos;row2&apos;,&apos;row3&apos;,&apos;row4&apos;])</span><br><span class="line">    ...:</span><br><span class="line"></span><br><span class="line">In [67]: df1</span><br><span class="line">Out[67]:</span><br><span class="line">      a  b  c</span><br><span class="line">row1  0  1  2</span><br><span class="line">row2  3  4  5</span><br><span class="line">row3  6  7  8</span><br><span class="line"></span><br><span class="line">In [68]: df2</span><br><span class="line">Out[68]:</span><br><span class="line">       a   b   c   d</span><br><span class="line">row1   0   1   2   3</span><br><span class="line">row2   4   5   6   7</span><br><span class="line">row3   8   9  10  11</span><br><span class="line">row4  12  13  14  15</span><br><span class="line"></span><br><span class="line">In [69]: df1+df2</span><br><span class="line">Out[69]:</span><br><span class="line">         a     b     c   d</span><br><span class="line">row1   0.0   2.0   4.0 NaN</span><br><span class="line">row2   7.0   9.0  11.0 NaN</span><br><span class="line">row3  14.0  16.0  18.0 NaN</span><br><span class="line">row4   NaN   NaN   NaN NaN</span><br></pre></td></tr></table></figure></p>
+<h4 id="在算术方法中填充值"><a href="#在算术方法中填充值" class="headerlink" title="在算术方法中填充值"></a>在算术方法中填充值</h4><ul>
+<li>灵活的算术方法</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">方法</th>
+<th style="text-align:center">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">add</td>
+<td style="text-align:center">用于加法(+)的方法</td>
+</tr>
+<tr>
+<td style="text-align:center">sub</td>
+<td style="text-align:center">用于减法(-)的方法</td>
+</tr>
+<tr>
+<td style="text-align:center">div</td>
+<td style="text-align:center">用于除法(/)的方法</td>
+</tr>
+<tr>
+<td style="text-align:center">mul</td>
+<td style="text-align:center">用于乘法(*)的方法</td>
+</tr>
+</tbody>
+</table>
+<p>对于不同索引的对戏那个进行算术运算时，当一个对象中某个轴标签在另一个对象中找不到时填充一个特殊值,在对Series或DataFrame重新索引时也可以指定一个填充值：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">In [76]: df2.add(df1,fill_value=0)</span><br><span class="line">Out[76]:</span><br><span class="line">         a     b     c     d</span><br><span class="line">row1   0.0   2.0   4.0   3.0</span><br><span class="line">row2   7.0   9.0  11.0   7.0</span><br><span class="line">row3  14.0  16.0  18.0  11.0</span><br><span class="line">row4  12.0  13.0  14.0  15.0</span><br><span class="line"></span><br><span class="line">In [77]: df1.reindex(columns=df2.columns,fill_value=0)</span><br><span class="line">Out[77]:</span><br><span class="line">      a  b  c  d</span><br><span class="line">row1  0  1  2  0</span><br><span class="line">row2  3  4  5  0</span><br><span class="line">row3  6  7  8  0</span><br></pre></td></tr></table></figure></p>
+<h4 id="DataFrame和Series之间的运算"><a href="#DataFrame和Series之间的运算" class="headerlink" title="DataFrame和Series之间的运算"></a>DataFrame和Series之间的运算</h4><p>默认情况下DataFrame和Series之间的算术运算会讲Series的索引匹配到DataFrame的列，然后沿着行一直向下广播；如果某个索引值在DataFrame的列货Series的索引中找不到，则参与运算的两个对象就会被重新索引译形成并集；如果希望匹配行且在列上广播则必须使用算术运算方法：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">In [94]: s1 = df2.loc[&apos;row1&apos;]</span><br><span class="line"></span><br><span class="line">In [95]: df2</span><br><span class="line">Out[95]:</span><br><span class="line">       a   b   c   d</span><br><span class="line">row1   0   1   2   3</span><br><span class="line">row2   4   5   6   7</span><br><span class="line">row3   8   9  10  11</span><br><span class="line">row4  12  13  14  15</span><br><span class="line"></span><br><span class="line">In [96]: s1</span><br><span class="line">Out[96]:</span><br><span class="line">a    0</span><br><span class="line">b    1</span><br><span class="line">c    2</span><br><span class="line">d    3</span><br><span class="line">Name: row1, dtype: int64</span><br><span class="line"></span><br><span class="line">In [97]: df2-s1</span><br><span class="line">Out[97]:</span><br><span class="line">       a   b   c   d</span><br><span class="line">row1   0   0   0   0</span><br><span class="line">row2   4   4   4   4</span><br><span class="line">row3   8   8   8   8</span><br><span class="line">row4  12  12  12  12</span><br><span class="line"></span><br><span class="line">In [98]: s2 = Series(range(3),index=list(&apos;abf&apos;))</span><br><span class="line"></span><br><span class="line">In [99]: df2-s2</span><br><span class="line">Out[99]:</span><br><span class="line">         a     b   c   d   f</span><br><span class="line">row1   0.0   0.0 NaN NaN NaN</span><br><span class="line">row2   4.0   4.0 NaN NaN NaN</span><br><span class="line">row3   8.0   8.0 NaN NaN NaN</span><br><span class="line">row4  12.0  12.0 NaN NaN NaN</span><br><span class="line"></span><br><span class="line">In [100]: s3  = df2[&apos;a&apos;]</span><br><span class="line"></span><br><span class="line">Out[101]:</span><br><span class="line">      a  b  c  d</span><br><span class="line">row1  0  1  2  3</span><br><span class="line">row2  0  1  2  3</span><br><span class="line">row3  0  1  2  3</span><br><span class="line">row4  0  1  2  3</span><br></pre></td></tr></table></figure></p>
+<h3 id="函数应用和映射"><a href="#函数应用和映射" class="headerlink" title="函数应用和映射"></a>函数应用和映射</h3><p>NumPy的<a href="http://coldjune.com/2018/03/17/numpy%E5%9F%BA%E7%A1%80-%E4%BA%8C/#%E9%80%9A%E7%94%A8%E5%87%BD%E6%95%B0">ufuncs</a>(元素级数组方法)也可用于操作pandas对象:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">In [102]: frame = DataFrame(np.random.randn(4,3),columns=list(&apos;abc&apos;),</span><br><span class="line">     ...:                   index=[&apos;row1&apos;,&apos;row2&apos;,&apos;row3&apos;,&apos;row4&apos;])</span><br><span class="line">     ...:</span><br><span class="line"></span><br><span class="line">In [103]: frame</span><br><span class="line">Out[103]:</span><br><span class="line">             a         b         c</span><br><span class="line">row1  0.755289  0.886977 -0.984527</span><br><span class="line">row2  0.460170 -0.514393  0.180462</span><br><span class="line">row3  0.828386 -0.545317 -1.176786</span><br><span class="line">row4  0.860822 -1.659938  0.952070</span><br><span class="line"></span><br><span class="line">In [104]: np.abs(frame)</span><br><span class="line">Out[104]:</span><br><span class="line">             a         b         c</span><br><span class="line">row1  0.755289  0.886977  0.984527</span><br><span class="line">row2  0.460170  0.514393  0.180462</span><br><span class="line">row3  0.828386  0.545317  1.176786</span><br><span class="line">row4  0.860822  1.659938  0.952070</span><br></pre></td></tr></table></figure></p>
+<p><code>apply</code>方法可以将函数应用到各列或行所形成的一维数组上，许多常见的数组统计功能都被实现成DataFrame方法(如sum和mean)，因此无需使用<code>apply</code>方法；除标量外，传递给<code>apply</code>的函数还可以返回多个值组成的Series；元素级的Python函数也是可以使用的，可以使用<code>applymap</code>得到frame中各个浮点值的格式化字符串:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">In [112]: f = lambda x:x.max() -x.min()</span><br><span class="line"></span><br><span class="line">In [113]: frame.apply(f)</span><br><span class="line">Out[113]:</span><br><span class="line">a    0.400653</span><br><span class="line">b    2.546915</span><br><span class="line">c    2.128856</span><br><span class="line">dtype: float64</span><br><span class="line"></span><br><span class="line">In [114]: def f(x):</span><br><span class="line">     ...:     return Series([x.min(),x.max()],index=[&apos;min&apos;,&apos;max&apos;])</span><br><span class="line">     ...:</span><br><span class="line"></span><br><span class="line">In [115]: frame.apply(f)</span><br><span class="line">Out[115]:</span><br><span class="line">            a         b         c</span><br><span class="line">min  0.460170 -1.659938 -1.176786</span><br><span class="line">max  0.860822  0.886977  0.952070</span><br><span class="line"></span><br><span class="line">In [116]: format = lambda x: &apos;%.2f&apos; % x</span><br><span class="line"></span><br><span class="line">In [117]: frame.applymap(format)</span><br><span class="line">Out[117]:</span><br><span class="line">         a      b      c</span><br><span class="line">row1  0.76   0.89  -0.98</span><br><span class="line">row2  0.46  -0.51   0.18</span><br><span class="line">row3  0.83  -0.55  -1.18</span><br><span class="line">row4  0.86  -1.66   0.95</span><br><span class="line"></span><br><span class="line">In [118]: frame[&apos;a&apos;].map(format)</span><br><span class="line">Out[118]:</span><br><span class="line">row1    0.76</span><br><span class="line">row2    0.46</span><br><span class="line">row3    0.83</span><br><span class="line">row4    0.86</span><br><span class="line">Name: a, dtype: object</span><br></pre></td></tr></table></figure></p>
+<h3 id="排序和排名"><a href="#排序和排名" class="headerlink" title="排序和排名"></a>排序和排名</h3><h4 id="排序"><a href="#排序" class="headerlink" title="排序"></a>排序</h4><p>使用<code>sort_index</code>方法对行或列索引进行排序(按字典顺序)，它将返回一个已排序的对象；对于DataFrame则可以根据任意一个轴上的索引进行排序；数据默认时按升序进行排序的，可以设置<code>ascending=False</code>来降序排序：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">In [134]: obj = Series(range(4), index=list(&apos;dabc&apos;))</span><br><span class="line"></span><br><span class="line">In [135]: obj.sort_index()</span><br><span class="line">Out[135]:</span><br><span class="line">a    1</span><br><span class="line">b    2</span><br><span class="line">c    3</span><br><span class="line">d    0</span><br><span class="line">dtype: int64</span><br><span class="line"></span><br><span class="line">In [136]: frame = DataFrame(np.arange(8).reshape((2,4)),index=[&apos;col2&apos;,&apos;col1&apos;],</span><br><span class="line">     ...:                    columns=list(&apos;badc&apos;))</span><br><span class="line">     ...:</span><br><span class="line"></span><br><span class="line">In [137]: frame.sort_index()</span><br><span class="line">Out[137]:</span><br><span class="line">      b  a  d  c</span><br><span class="line">col1  4  5  6  7</span><br><span class="line">col2  0  1  2  3</span><br><span class="line"></span><br><span class="line">In [138]: frame.sort_index(axis=1)</span><br><span class="line">Out[138]:</span><br><span class="line">      a  b  c  d</span><br><span class="line">col2  1  0  3  2</span><br><span class="line">col1  5  4  7  6</span><br><span class="line"></span><br><span class="line">In [139]: frame.sort_index(axis=1, ascending=False)</span><br><span class="line">Out[139]:</span><br><span class="line">      d  c  b  a</span><br><span class="line">col2  2  3  0  1</span><br><span class="line">col1  6  7  4  5</span><br></pre></td></tr></table></figure></p>
+<p><code>sort_values</code>方法用于按值进行排序，在排序时，任何的缺失值默认都会放到Series的末尾：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">In [144]: obj.sort_values()</span><br><span class="line">Out[144]:</span><br><span class="line">4   -3.0</span><br><span class="line">5    2.0</span><br><span class="line">0    4.0</span><br><span class="line">2    7.0</span><br><span class="line">1    NaN</span><br><span class="line">3    NaN</span><br><span class="line">dtype: float64</span><br></pre></td></tr></table></figure></p>
+<p>在DataFrame中，可以将一个或多个列的名字传递给by选项来根据一个或多个列中的值进行排序，要根据多个列进行排序，可以传入名称的列表：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">In [150]: frame  = DataFrame(&#123;&apos;b&apos;:[2,5,0,1],&apos;a&apos;:[0,1,0,1]&#125;)</span><br><span class="line"></span><br><span class="line">In [151]: frame</span><br><span class="line">Out[151]:</span><br><span class="line">   a  b</span><br><span class="line">0  0  2</span><br><span class="line">1  1  5</span><br><span class="line">2  0  0</span><br><span class="line">3  1  1</span><br><span class="line"></span><br><span class="line">In [152]: frame.sort_values(by=&apos;b&apos;)</span><br><span class="line">Out[152]:</span><br><span class="line">   a  b</span><br><span class="line">2  0  0</span><br><span class="line">3  1  1</span><br><span class="line">0  0  2</span><br><span class="line">1  1  5</span><br><span class="line"></span><br><span class="line">In [153]: frame.sort_values(by=[&apos;a&apos;,&apos;b&apos;])</span><br><span class="line">Out[153]:</span><br><span class="line">   a  b</span><br><span class="line">2  0  0</span><br><span class="line">0  0  2</span><br><span class="line">3  1  1</span><br><span class="line">1  1  5</span><br></pre></td></tr></table></figure></p>
+<h4 id="排名"><a href="#排名" class="headerlink" title="排名"></a>排名</h4><p>排名会增设一个排名值(从1开始，一直到数组中有效的数据的数量)，它可以根据某种规则破坏平级关系；<code>rank</code>是通过“为各组分配一个平均排名”的方式破坏平级关系<sup id="fnref:1"><a href="#fn:1" rel="footnote">1</a></sup>。</p>
+<ul>
+<li>排名用于破坏平级关系的method的选项</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">method</th>
+<th style="text-align:center">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">‘average’</td>
+<td style="text-align:center">默认：在相等分组中，为各个值分配平均排名</td>
+</tr>
+<tr>
+<td style="text-align:center">‘min’</td>
+<td style="text-align:center">使用整个分组的最小排名</td>
+</tr>
+<tr>
+<td style="text-align:center">‘max’</td>
+<td style="text-align:center">使用整个分组的最大排名</td>
+</tr>
+<tr>
+<td style="text-align:center">‘first’</td>
+<td style="text-align:center">按值在原始数据中的出现顺序分配排名</td>
+</tr>
+</tbody>
+</table>
+<p>按降序进行排名使用<code>ascending=False</code>，其他的相似:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br></pre></td><td class="code"><pre><span class="line">In [9]: obj = Series([7,6,7,5,4,4,3])</span><br><span class="line"></span><br><span class="line">In [10]: obj.rank()</span><br><span class="line">Out[10]:</span><br><span class="line">0    6.5</span><br><span class="line">1    5.0</span><br><span class="line">2    6.5</span><br><span class="line">3    4.0</span><br><span class="line">4    2.5</span><br><span class="line">5    2.5</span><br><span class="line">6    1.0</span><br><span class="line">dtype: float64</span><br><span class="line"></span><br><span class="line">In [11]: obj.rank(method=&apos;min&apos;)</span><br><span class="line">Out[11]:</span><br><span class="line">0    6.0</span><br><span class="line">1    5.0</span><br><span class="line">2    6.0</span><br><span class="line">3    4.0</span><br><span class="line">4    2.0</span><br><span class="line">5    2.0</span><br><span class="line">6    1.0</span><br><span class="line">dtype: float64</span><br><span class="line"></span><br><span class="line">In [12]: obj.rank(method=&apos;max&apos;)</span><br><span class="line">Out[12]:</span><br><span class="line">0    7.0</span><br><span class="line">1    5.0</span><br><span class="line">2    7.0</span><br><span class="line">3    4.0</span><br><span class="line">4    3.0</span><br><span class="line">5    3.0</span><br><span class="line">6    1.0</span><br><span class="line">dtype: float64</span><br><span class="line"></span><br><span class="line">In [13]: obj.rank(method=&apos;first&apos;)</span><br><span class="line">Out[13]:</span><br><span class="line">0    6.0</span><br><span class="line">1    5.0</span><br><span class="line">2    7.0</span><br><span class="line">3    4.0</span><br><span class="line">4    2.0</span><br><span class="line">5    3.0</span><br><span class="line">6    1.0</span><br><span class="line">dtype: float64</span><br><span class="line"></span><br><span class="line">In [9]: obj = Series([7,6,7,5,4,4,3])</span><br><span class="line"></span><br><span class="line">In [10]: obj.rank()</span><br><span class="line">Out[10]:</span><br><span class="line">0    6.5</span><br><span class="line">1    5.0</span><br><span class="line">2    6.5</span><br><span class="line">3    4.0</span><br><span class="line">4    2.5</span><br><span class="line">5    2.5</span><br><span class="line">6    1.0</span><br><span class="line">dtype: float64</span><br><span class="line"></span><br><span class="line">In [11]: obj.rank(method=&apos;min&apos;)</span><br><span class="line">Out[11]:</span><br><span class="line">0    6.0</span><br><span class="line">1    5.0</span><br><span class="line">2    6.0</span><br><span class="line">3    4.0</span><br><span class="line">4    2.0</span><br><span class="line">5    2.0</span><br><span class="line">6    1.0</span><br><span class="line">dtype: float64</span><br><span class="line"></span><br><span class="line">In [12]: obj.rank(method=&apos;max&apos;)</span><br><span class="line">Out[12]:</span><br><span class="line">0    7.0</span><br><span class="line">1    5.0</span><br><span class="line">2    7.0</span><br><span class="line">3    4.0</span><br><span class="line">4    3.0</span><br><span class="line">5    3.0</span><br><span class="line">6    1.0</span><br><span class="line">dtype: float64</span><br><span class="line"></span><br><span class="line">In [13]: obj.rank(method=&apos;first&apos;)</span><br><span class="line">Out[13]:</span><br><span class="line">0    6.0</span><br><span class="line">1    5.0</span><br><span class="line">2    7.0</span><br><span class="line">3    4.0</span><br><span class="line">4    2.0</span><br><span class="line">5    3.0</span><br><span class="line">6    1.0</span><br><span class="line">dtype: float64</span><br></pre></td></tr></table></figure></p>
+<p>DataFrame可以在行或列上计算排名:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">In [15]: frame = DataFrame(&#123;&apos;b&apos;:[1,3,-1],&apos;a&apos;:[2,-1,-2],&apos;c&apos;:[1,2,3]&#125;)</span><br><span class="line"></span><br><span class="line">In [16]: frame</span><br><span class="line">Out[16]:</span><br><span class="line">   a  b  c</span><br><span class="line">0  2  1  1</span><br><span class="line">1 -1  3  2</span><br><span class="line">2 -2 -1  3</span><br><span class="line"></span><br><span class="line">In [17]: frame.rank(axis=0)</span><br><span class="line">Out[17]:</span><br><span class="line">     a    b    c</span><br><span class="line">0  3.0  2.0  1.0</span><br><span class="line">1  2.0  3.0  2.0</span><br><span class="line">2  1.0  1.0  3.0</span><br><span class="line"></span><br><span class="line">In [18]: frame.rank(axis=1)</span><br><span class="line">Out[18]:</span><br><span class="line">     a    b    c</span><br><span class="line">0  3.0  1.5  1.5</span><br><span class="line">1  1.0  3.0  2.0</span><br><span class="line">2  1.0  2.0  3.0</span><br></pre></td></tr></table></figure></p>
+<h3 id="带有重复值的轴索引"><a href="#带有重复值的轴索引" class="headerlink" title="带有重复值的轴索引"></a>带有重复值的轴索引</h3><p>带有重复索引值的Series和DataFrame可以使用<code>is_unique</code>属性确认它是否唯一；对于带有重复值的索引，如果某个值对应多个值，则会返回一个Series(或DataFrame)；而对应单个值则返回一个标量(Series)：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">In [19]: obj = Series(range(5),index=list(&apos;abbvd&apos;))</span><br><span class="line"></span><br><span class="line">In [20]: obj</span><br><span class="line">Out[20]:</span><br><span class="line">a    0</span><br><span class="line">b    1</span><br><span class="line">b    2</span><br><span class="line">v    3</span><br><span class="line">d    4</span><br><span class="line">dtype: int32</span><br><span class="line"></span><br><span class="line">In [21]: obj.index.is_unique</span><br><span class="line">Out[21]: False</span><br><span class="line"></span><br><span class="line">In [22]: obj[&apos;a&apos;]</span><br><span class="line">Out[22]: 0</span><br><span class="line"></span><br><span class="line">In [23]: obj[&apos;b&apos;]</span><br><span class="line">Out[23]:</span><br><span class="line">b    1</span><br><span class="line">b    2</span><br><span class="line">dtype: int32</span><br><span class="line"></span><br><span class="line">In [24]: df = DataFrame(np.random.randn(4,3),index=[&apos;a&apos;,&apos;a&apos;,&apos;b&apos;,&apos;c&apos;])</span><br><span class="line"></span><br><span class="line">In [26]: df</span><br><span class="line">Out[26]:</span><br><span class="line">          0         1         2</span><br><span class="line">a  2.139973  0.102242  0.366141</span><br><span class="line">a -0.999559  0.324575 -0.808672</span><br><span class="line">b  1.121435  1.508694  1.151597</span><br><span class="line">c  0.610592  1.623871 -1.331131</span><br><span class="line"></span><br><span class="line">In [27]: df.loc[&apos;c&apos;]</span><br><span class="line">Out[27]:</span><br><span class="line">0    0.610592</span><br><span class="line">1    1.623871</span><br><span class="line">2   -1.331131</span><br><span class="line">Name: c, dtype: float64</span><br><span class="line"></span><br><span class="line">In [28]: df.loc[&apos;a&apos;]</span><br><span class="line">Out[28]:</span><br><span class="line">          0         1         2</span><br><span class="line">a  2.139973  0.102242  0.366141</span><br><span class="line">a -0.999559  0.324575 -0.808672</span><br></pre></td></tr></table></figure></p>
+<div id="footnotes"><hr><div id="footnotelist"><ol style="list-style:none; padding-left: 0;"><li id="fn:1"><span style="display: inline-block; vertical-align: top; padding-right: 10px;">1.</span><span style="display: inline-block; vertical-align: top;">破坏平级关系是指在两个相同的数之间确认先后顺序。使用average表示如果在数组中7排在第五位和第六位，则其排名为5.5。min则为min(5,6)为5；max则为max(5,6)为7；first则表示在原数据中先出现排序靠前，紧邻的+1，依次递增。</span><a href="#fnref:1" rev="footnote"> ↩</a></li></ol></div></div>
+      
+    </div>
+    
+    
+    
+		<div>
+		  
+		    <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-apple"></i>感谢您的阅读-------------</div>
+    
+</div>
+		  
+		</div>
+		<div>
+      
+        
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <p><span>本文标题:</span><a href="/2018/03/19/pandas入门-二/">pandas入门(二)</a></p>
+  <p><span>文章作者:</span><a href="/" title="访问 邓小俊 的个人博客">邓小俊</a></p>
+  <p><span>发布时间:</span>2018年03月19日 - 16:03</p>
+  <p><span>最后更新:</span>2018年03月20日 - 09:03</p>
+  <p><span>原始链接:</span><a href="/2018/03/19/pandas入门-二/" title="pandas入门(二)">http://coldjune.com/2018/03/19/pandas入门-二/</a>
+    <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://coldjune.com/2018/03/19/pandas入门-二/"  aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+      $(".fa-clipboard").click(function(){
+      clipboard.on('success', function(){
+        swal({   
+          title: "",   
+          text: '复制成功',
+          icon: "success", 
+          showConfirmButton: true
+          });
+        });
+    });  
+</script>
+
+      
+		</div>
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/数据分析/" rel="tag"><i class="fa fa-tag"></i> 数据分析</a>
+          
+            <a href="/tags/pandas/" rel="tag"><i class="fa fa-tag"></i> pandas</a>
+          
+        </div>
+      
+
+      
+      
+        <div class="post-widgets">
+        
+
+        
+
+        
+          
+          <div id="needsharebutton-postbottom">
+            <span class="btn">
+              <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </span>
+          </div>
+        
+        </div>
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/03/19/pandas入门-一/" rel="next" title="pandas入门(一)">
+                <i class="fa fa-chevron-left"></i> pandas入门(一)
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">邓小俊</p>
+              <p class="site-description motion-element" itemprop="description">人所恐惧的不是孤独本身，而是害怕承认人本生而孤独的事实</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">20</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#基本功能"><span class="nav-number">1.</span> <span class="nav-text">基本功能</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#重新索引"><span class="nav-number">1.1.</span> <span class="nav-text">重新索引</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#丢弃指定轴上的项"><span class="nav-number">1.2.</span> <span class="nav-text">丢弃指定轴上的项</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#索引、选取和过滤"><span class="nav-number">1.3.</span> <span class="nav-text">索引、选取和过滤</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#算术运算和数据对齐"><span class="nav-number">1.4.</span> <span class="nav-text">算术运算和数据对齐</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#在算术方法中填充值"><span class="nav-number">1.4.1.</span> <span class="nav-text">在算术方法中填充值</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#DataFrame和Series之间的运算"><span class="nav-number">1.4.2.</span> <span class="nav-text">DataFrame和Series之间的运算</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#函数应用和映射"><span class="nav-number">1.5.</span> <span class="nav-text">函数应用和映射</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#排序和排名"><span class="nav-number">1.6.</span> <span class="nav-text">排序和排名</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#排序"><span class="nav-number">1.6.1.</span> <span class="nav-text">排序</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#排名"><span class="nav-number">1.6.2.</span> <span class="nav-text">排名</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#带有重复值的轴索引"><span class="nav-number">1.7.</span> <span class="nav-text">带有重复值的轴索引</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">邓小俊</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">博文包含字数&#58;</span>
+    
+    <span title="博文包含字数">57.3k</span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>本站访客数
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      人次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+      <div id="needsharebutton-float">
+        <span class="btn">
+          <i class="fa fa-share-alt" aria-hidden="true"></i>
+        </span>
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("EdodKu35EbSo4VoLhJYQMd09-gzGzoHsz", "qpErN7JcsIzusWGMNuw1QcxN");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/needsharebutton/needsharebutton.css">
+
+  
+  
+  <script src="/lib/needsharebutton/needsharebutton.js"></script>
+
+  <script>
+    
+      pbOptions = {};
+      
+          pbOptions.iconStyle = "box";
+      
+          pbOptions.boxForm = "horizontal";
+      
+          pbOptions.position = "bottomCenter";
+      
+          pbOptions.networks = "Weibo,Wechat,Douban,QQZone,Twitter,Facebook";
+      
+      new needShareButton('#needsharebutton-postbottom', pbOptions);
+    
+    
+      flOptions = {};
+      
+          flOptions.iconStyle = "box";
+      
+          flOptions.boxForm = "horizontal";
+      
+          flOptions.position = "middleRight";
+      
+          flOptions.networks = "Weibo,Wechat,Douban,QQZone,Twitter,Facebook";
+      
+      new needShareButton('#needsharebutton-float', flOptions);
+    
+  </script>
+
+  
+
+  
+  
+
+
+  
+
+  
+
+ 
+</body>
+</html>

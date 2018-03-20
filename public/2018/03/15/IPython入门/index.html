@@ -1,0 +1,1679 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+  <meta name="baidu-site-verification" content="true" />
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico#/images/favicon-16x16-next.png?v=5.1.4">
+
+
+
+
+
+
+  <meta name="keywords" content="IPython,数据分析," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="IPython有一个可以直接进行绘图的GUI控制台、一个基于Web的交互式笔记本，以及一个轻量级的快速并行计算引擎。">
+<meta name="keywords" content="IPython,数据分析">
+<meta property="og:type" content="article">
+<meta property="og:title" content="IPython入门">
+<meta property="og:url" content="http://coldjune.com/2018/03/15/IPython入门/index.html">
+<meta property="og:site_name" content="Stay Hungary">
+<meta property="og:description" content="IPython有一个可以直接进行绘图的GUI控制台、一个基于Web的交互式笔记本，以及一个轻量级的快速并行计算引擎。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-03-16T00:36:45.930Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="IPython入门">
+<meta name="twitter:description" content="IPython有一个可以直接进行绘图的GUI控制台、一个基于Web的交互式笔记本，以及一个轻量级的快速并行计算引擎。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://coldjune.com/2018/03/15/IPython入门/"/>
+
+
+
+
+
+  <title>IPython入门 | Stay Hungary</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+		<a href="https://github.com/coldJune" class="github-corner" aria-label="View source on Github"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; left: 0; transform: scale(-1, 1);" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style></a>    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Stay Hungary</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Programming is an art form</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://coldjune.com/2018/03/15/IPython入门/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="邓小俊">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Stay Hungary">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">IPython入门</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-15T10:05:42+08:00">
+                2018-03-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/true/" itemprop="url" rel="index">
+                    <span itemprop="name">true</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018/03/15/IPython入门/" class="leancloud_visitors" data-flag-title="IPython入门">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  5,057
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  24
+                </span>
+              
+            </div>
+          
+
+          
+              <div class="post-description">
+                  IPython有一个可以直接进行绘图的GUI控制台、一个基于Web的交互式笔记本，以及一个轻量级的快速并行计算引擎。
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="IPython基础"><a href="#IPython基础" class="headerlink" title="IPython基础"></a>IPython基础</h2><p><a href="https://ipython.org/" target="_blank" rel="noopener">IPython</a>的环境需要自行安装。如果已经安装了Python，可以通过执行<code>pip install ipython</code>安装。然后只需要在命令行输入<code>ipython</code>就能启动：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Python 3.6.4 (v3.6.4:d48eceb, Dec 19 2017, 06:54:40) [MSC v.1900 64 bit (AMD64)]</span><br><span class="line">Type &apos;copyright&apos;, &apos;credits&apos; or &apos;license&apos; for more information</span><br><span class="line">IPython 6.2.1 -- An enhanced Interactive Python. Type &apos;?&apos; for help.</span><br><span class="line"></span><br><span class="line">In [1]:</span><br></pre></td></tr></table></figure></p>
+<p>可以在IPython中执行任何Python语句，和使用Python解释器一样：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">In [1]: import numpy as np</span><br><span class="line"></span><br><span class="line">In [2]: from numpy.random import randn</span><br><span class="line"></span><br><span class="line">In [3]: data = &#123;i:randn() for i in range(10)&#125;</span><br><span class="line"></span><br><span class="line">In [4]: data</span><br><span class="line">Out[4]:</span><br><span class="line">&#123;0: -0.24193324837938815,</span><br><span class="line"> 1: 0.22563840475528563,</span><br><span class="line"> 2: 0.14465306885873513,</span><br><span class="line"> 3: 0.5076262433687561,</span><br><span class="line"> 4: 0.9067731627966235,</span><br><span class="line"> 5: 0.23827518072962814,</span><br><span class="line"> 6: 0.3233586627456586,</span><br><span class="line"> 7: 0.0327013232275763,</span><br><span class="line"> 8: -0.357340429464286,</span><br><span class="line"> 9: -1.4105691657079547&#125;</span><br><span class="line"></span><br><span class="line">In [5]:</span><br></pre></td></tr></table></figure></p>
+<p>许多Python对象都被格式化为可读性更好的形式</p>
+<h3 id="Tab键自动完成"><a href="#Tab键自动完成" class="headerlink" title="Tab键自动完成"></a>Tab键自动完成</h3><p>在shell中输入表达式时，只要按下Tab键，当前命名空间中任何与已输入的字符串相匹配的变量(对象、函数等)就会被找出来：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">In [5]: an_example1 = 15</span><br><span class="line"></span><br><span class="line">In [6]: an_example2 = 20</span><br><span class="line"></span><br><span class="line">In [7]: an&lt;TAB&gt;</span><br><span class="line">           an_example1               AnalogCommonProxyStub.dll</span><br><span class="line">           an_example2               and</span><br><span class="line">           any()</span><br></pre></td></tr></table></figure></p>
+<p>也可以在任何对象后面输入一个句点以便自动完成方法和属性的输入：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">In [7]: a = [1, 2, 3]</span><br><span class="line"></span><br><span class="line">In [8]: a.&lt;TAB&gt;</span><br><span class="line">           append()  count()   insert()  reverse()</span><br><span class="line">           clear()   extend()  pop()     sort()</span><br><span class="line">           copy()    index()   remove()</span><br></pre></td></tr></table></figure></p>
+<p>应用在模块上:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">In [8]: import datetime</span><br><span class="line"></span><br><span class="line">In [9]: datetime.</span><br><span class="line">                  date()        MAXYEAR       timedelta</span><br><span class="line">                  datetime      MINYEAR       timezone</span><br><span class="line">                  datetime_CAPI time()        tzinfo()</span><br></pre></td></tr></table></figure></p>
+<p>IPython默认会隐藏那些以下划线开头的方法和属性。如果需要应Tab键自动完成，可以先输入一个下划线。也可以直接修改IPython配置文件中的相关设置。<br>Tab键还可以找出电脑文件系统中与之匹配的东西：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">In [6]: ca&lt;TAB&gt;</span><br><span class="line">           callable()</span><br><span class="line">           %%capture</span><br><span class="line">           catchLink/</span><br></pre></td></tr></table></figure></p>
+<p>其中 <em>catchLibk/</em> 为当前目录下的一个子目录。在使用补全目录的时候需要使用正斜杠(/)，文件夹或文件名中间不能有空格。</p>
+<h3 id="内省"><a href="#内省" class="headerlink" title="内省"></a>内省</h3><p>在变量前面或者后面加上一个问号(<strong>?</strong>)就可以将有关该对象的一些通用信息显示:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">In [2]: b = []</span><br><span class="line"></span><br><span class="line">In [3]: b?</span><br><span class="line">Type:        list</span><br><span class="line">String form: []</span><br><span class="line">Length:      0</span><br><span class="line">Docstring:</span><br><span class="line">list() -&gt; new empty list</span><br><span class="line">list(iterable) -&gt; new list initialized from iterable&apos;s items</span><br></pre></td></tr></table></figure></p>
+<p>如果该对象是一个函数或实例方法，则其docstring也会被显示出来：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">In [4]: def add_number(a,b):</span><br><span class="line">   ...:     &quot;&quot;&quot;</span><br><span class="line">   ...:     Add two numbers together</span><br><span class="line">   ...:     Returns</span><br><span class="line">   ...:     -----------------------</span><br><span class="line">   ...:     the sum: type of arguments</span><br><span class="line">   ...:     &quot;&quot;&quot;</span><br><span class="line">   ...:     return a+b</span><br><span class="line">   ...:</span><br><span class="line">   ...:</span><br><span class="line"></span><br><span class="line">In [5]: add_number?</span><br><span class="line">Signature: add_number(a, b)</span><br><span class="line">Docstring:</span><br><span class="line">Add two numbers together</span><br><span class="line">Returns</span><br><span class="line">-----------------------</span><br><span class="line">the sum: type of arguments</span><br><span class="line">File:      d:\python\&lt;ipython-input-4-7144b04645ed&gt;</span><br><span class="line">Type:      function</span><br></pre></td></tr></table></figure></p>
+<p>使用<code>??</code>还将显示源代码:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">In [6]: add_number??</span><br><span class="line">Signature: add_number(a, b)</span><br><span class="line">Source:</span><br><span class="line">def add_number(a,b):</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    Add two numbers together</span><br><span class="line">    Returns</span><br><span class="line">    -----------------------</span><br><span class="line">    the sum: type of arguments</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    return a+b</span><br><span class="line">File:      d:\python\&lt;ipython-input-4-7144b04645ed&gt;</span><br><span class="line">Type:      function</span><br></pre></td></tr></table></figure></p>
+<p><code>?</code>还可以搜索IPython的命名空间，一些字符再配以通配符(*)即可显示出所有与该通配符表达式相匹配的名称:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">In [7]: import numpy as np</span><br><span class="line"></span><br><span class="line">In [8]: np.*load*?</span><br><span class="line">np.__loader__</span><br><span class="line">np.load</span><br><span class="line">np.loads</span><br><span class="line">np.loadtxt</span><br><span class="line">np.pkgload</span><br></pre></td></tr></table></figure></p>
+<h3 id="run命令"><a href="#run命令" class="headerlink" title="%run命令"></a>%run命令</h3><p>在IPython会话环境中，所有文件都可以通过<code>%run</code>命令当做Python程序来运行。现在在目录下有一个叫做ipython_script_test.py的脚本：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/python3</span></span><br><span class="line"><span class="comment"># -*- coding:utf-8 -*-</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">f</span><span class="params">(x, y, z)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> (x+y) /z</span><br><span class="line"></span><br><span class="line">a = <span class="number">1</span></span><br><span class="line">b = <span class="number">2</span></span><br><span class="line">c = <span class="number">3</span></span><br><span class="line">result = f(a, b, c)</span><br></pre></td></tr></table></figure></p>
+<p>然后运行，并且运行成功后该文件中所定义的全部变量(import、函数和全局变量)都可以在IPython shell中访问:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">In [9]: %run ipython_script_test.py</span><br><span class="line"></span><br><span class="line">In [10]: result</span><br><span class="line">Out[10]: 1.0</span><br><span class="line"></span><br><span class="line">In [11]: a</span><br><span class="line">Out[11]: 1</span><br></pre></td></tr></table></figure></p>
+<h3 id="中断正在执行的代码"><a href="#中断正在执行的代码" class="headerlink" title="中断正在执行的代码"></a>中断正在执行的代码</h3><p>任何代码在执行时只要按下“Ctrl-C/control-C”,就会引发一个KeyboardInterrupt，除非Python代码已经调用某个已编译的扩展模块需要等待Python解释器重新获取控制权外，绝大部分Python程序将立即停止执行。</p>
+<h3 id="执行剪切板中的代码"><a href="#执行剪切板中的代码" class="headerlink" title="执行剪切板中的代码"></a>执行剪切板中的代码</h3><p>使用<code>%paste</code>和<code>%cpaste</code>两个魔术函数粘贴代码在shell中以整体执行：</p>
+<ul>
+<li>%paste</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">In [12]: %paste</span><br><span class="line">def f(x, y, z):</span><br><span class="line">    return (x+y) /z</span><br><span class="line"></span><br><span class="line">a = 1</span><br><span class="line">b = 2</span><br><span class="line">c = 3</span><br><span class="line">result = f(a, b, c)</span><br><span class="line">## -- End pasted text --</span><br></pre></td></tr></table></figure>
+<ul>
+<li>%cpaste</li>
+</ul>
+<p>相比于<code>%paste</code>，<code>%cpaste</code>多出了一个用于粘贴代码的特殊提示符,若果发现粘贴的代码有错，只需按下“Ctrl-C/control-C”即可终止%cpaste提示符：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">In [16]: %cpaste</span><br><span class="line">Pasting code; enter &apos;--&apos; alone on the line to stop or use Ctrl-D.</span><br><span class="line">:def f(x, y, z):</span><br><span class="line">:    return (x+y) /z</span><br><span class="line">:</span><br><span class="line">:a = 1</span><br><span class="line">:b = 2</span><br><span class="line">:c = 3</span><br><span class="line">:result = f(a, b, c)</span><br><span class="line">:--</span><br></pre></td></tr></table></figure></p>
+<h3 id="键盘快捷键"><a href="#键盘快捷键" class="headerlink" title="键盘快捷键"></a>键盘快捷键</h3><p>IPython提供了许多用于提示符导航和查阅历史shell命令的键盘快捷键(<strong>C指代Ctrl或control</strong>)：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">命令</th>
+<th style="text-align:center">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">C-P或上箭头</td>
+<td style="text-align:center">后向搜索命令历史中以当前输入的文本开头的命令</td>
+</tr>
+<tr>
+<td style="text-align:center">C-N或下箭头</td>
+<td style="text-align:center">前向搜索命令历史中以当前输入的文本开头的命令</td>
+</tr>
+<tr>
+<td style="text-align:center">C-R</td>
+<td style="text-align:center">按行读取的反向历史搜索(部分匹配)</td>
+</tr>
+<tr>
+<td style="text-align:center">C-Shift-V/Command-Shift-V</td>
+<td style="text-align:center">从剪切板粘贴文本</td>
+</tr>
+<tr>
+<td style="text-align:center">C-C</td>
+<td style="text-align:center">终止当前正在执行的代码</td>
+</tr>
+<tr>
+<td style="text-align:center">C-A</td>
+<td style="text-align:center">将光标移动到行首</td>
+</tr>
+<tr>
+<td style="text-align:center">C-E</td>
+<td style="text-align:center">将光标移动到行尾</td>
+</tr>
+<tr>
+<td style="text-align:center">C-K</td>
+<td style="text-align:center">删除从光标开始至行尾的文本</td>
+</tr>
+<tr>
+<td style="text-align:center">C-U</td>
+<td style="text-align:center">清楚当前行的所有文本(只是和C-K相反，即删除从光标开始至行首的文本)</td>
+</tr>
+<tr>
+<td style="text-align:center">C-F</td>
+<td style="text-align:center">将光标向前移动一个字符</td>
+</tr>
+<tr>
+<td style="text-align:center">C-b</td>
+<td style="text-align:center">将光标向后移动一个字符</td>
+</tr>
+<tr>
+<td style="text-align:center">C-L</td>
+<td style="text-align:center">清屏</td>
+</tr>
+</tbody>
+</table>
+<h3 id="异常和跟踪"><a href="#异常和跟踪" class="headerlink" title="异常和跟踪"></a>异常和跟踪</h3><p>如果<code>%run</code>某段脚本或执行某条语句是发生异常，IPython会默认输出整个调用栈跟踪，其中还会附上调用栈各点附近的几行代码作为上下文参考:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">In [17]: %run ipython_bug.py</span><br><span class="line">---------------------------------------------------------------------------</span><br><span class="line">ZeroDivisionError                         Traceback (most recent call last)</span><br><span class="line">D:\Python\ipython\ipython_bug.py in &lt;module&gt;()</span><br><span class="line">      5 b = 2</span><br><span class="line">      6 c = 0</span><br><span class="line">----&gt; 7 result = f(a, b, c)</span><br><span class="line"></span><br><span class="line">D:\Python\ipython\ipython_bug.py in f(x, y, z)</span><br><span class="line">      1 def f(x, y, z):</span><br><span class="line">----&gt; 2     return (x+y) /z</span><br><span class="line">      3</span><br><span class="line">      4 a = 1</span><br><span class="line">      5 b = 2</span><br><span class="line"></span><br><span class="line">ZeroDivisionError: division by zero</span><br></pre></td></tr></table></figure></p>
+<h3 id="魔术命令"><a href="#魔术命令" class="headerlink" title="魔术命令"></a>魔术命令</h3><p>IPython有一些特殊命令，它们有的为常见任务提供便利，有的则使控制IPython系统的行为更轻松。魔术命令以百分号 <code>%</code> 为前缀的命令。例如通过<code>%timeit</code>检测任何Python语句的执行时间:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">In [41]: a = np.random.randn(100,100)</span><br><span class="line"></span><br><span class="line">In [42]: %timeit np.dot(a,a)</span><br><span class="line">237 µs ± 40 µs per loop (mean ± std. dev. of 7 runs, 1000 loops each)</span><br></pre></td></tr></table></figure></p>
+<p>魔术命令可以看做运行于IPython系统中的命令行程序，使用<code>?</code>即可查看其选项:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">In [44]: %reset?</span><br><span class="line">Docstring:</span><br><span class="line">Resets the namespace by removing all names defined by the user, if</span><br><span class="line">called without arguments, or by removing some types of objects, such</span><br><span class="line">as everything currently in IPython&apos;s In[] and Out[] containers (see</span><br><span class="line">the parameters for details).</span><br><span class="line"></span><br><span class="line">Parameters</span><br><span class="line">----------</span><br><span class="line">-f : force reset without asking for confirmation.</span><br><span class="line"></span><br><span class="line">-s : &apos;Soft&apos; reset: Only clears your namespace, leaving history intact.</span><br><span class="line">    References to objects may be kept. By default (without this option),</span><br><span class="line">    we do a &apos;hard&apos; reset, giving you a new session and removing all</span><br><span class="line">    references to objects from the current session.</span><br><span class="line"></span><br><span class="line">in : reset input history</span><br><span class="line"></span><br><span class="line">out : reset output history</span><br><span class="line"></span><br><span class="line">dhist : reset directory history</span><br><span class="line"></span><br><span class="line">array : reset only variables that are NumPy arrays</span><br><span class="line"></span><br><span class="line">See Also</span><br><span class="line">--------</span><br><span class="line">reset_selective : invoked as ``%reset_selective``</span><br><span class="line"></span><br><span class="line">Examples</span><br><span class="line">--------</span><br><span class="line">::</span><br><span class="line"></span><br><span class="line">  In [6]: a = 1</span><br><span class="line"></span><br><span class="line">  In [7]: a</span><br><span class="line">  Out[7]: 1</span><br><span class="line"></span><br><span class="line">  In [8]: &apos;a&apos; in _ip.user_ns</span><br><span class="line">  Out[8]: True</span><br></pre></td></tr></table></figure></p>
+<p>魔术命令可以不带百分号使用，只要没有定义与其同名的变量。</p>
+<ul>
+<li>常用的魔术命令</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">命令</th>
+<th style="text-align:center">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">%quickref</td>
+<td style="text-align:center">显示Python的快速参考</td>
+</tr>
+<tr>
+<td style="text-align:center">%magic</td>
+<td style="text-align:center">显示所有魔术命令的详细文档</td>
+</tr>
+<tr>
+<td style="text-align:center">%debug</td>
+<td style="text-align:center">从最新的异常跟踪的底部进入交互式调试器</td>
+</tr>
+<tr>
+<td style="text-align:center">%hist</td>
+<td style="text-align:center">打印命令的输入(可选输出)历史</td>
+</tr>
+<tr>
+<td style="text-align:center">%pdb</td>
+<td style="text-align:center">在异常发生后自动进入调试器</td>
+</tr>
+<tr>
+<td style="text-align:center">%paste</td>
+<td style="text-align:center">执行剪切板中的Python代码</td>
+</tr>
+<tr>
+<td style="text-align:center">%cpaste</td>
+<td style="text-align:center">打开一个特殊提示符以便手工粘贴待执行的Python代码</td>
+</tr>
+<tr>
+<td style="text-align:center">%reset</td>
+<td style="text-align:center">删除interactive命名空间的全部变量/名称</td>
+</tr>
+<tr>
+<td style="text-align:center">%page OBJECT</td>
+<td style="text-align:center">通过分页器打印输出OBJECT</td>
+</tr>
+<tr>
+<td style="text-align:center">%run script.py</td>
+<td style="text-align:center">在IPython中执行一个Python脚本文件</td>
+</tr>
+<tr>
+<td style="text-align:center">%prun statement</td>
+<td style="text-align:center">通过cProfile执行statement，并打印分析器的输出结果</td>
+</tr>
+<tr>
+<td style="text-align:center">%time statement</td>
+<td style="text-align:center">报告statement的执行时间</td>
+</tr>
+<tr>
+<td style="text-align:center">%timeit statement</td>
+<td style="text-align:center">多次执行statement以计算系统平均执行时间。对那些执行时间非常小的代码很有用</td>
+</tr>
+<tr>
+<td style="text-align:center">%who、%who_is、%whos</td>
+<td style="text-align:center">显示interactive命名空间中定义的变量，信息级别/冗余度可变</td>
+</tr>
+<tr>
+<td style="text-align:center">%xdel variable</td>
+<td style="text-align:center">删除variable，并参加过时清除其在IPython中的对象上的一切引用</td>
+</tr>
+</tbody>
+</table>
+<h3 id="matplotlib集成与pylab模式"><a href="#matplotlib集成与pylab模式" class="headerlink" title="matplotlib集成与pylab模式"></a>matplotlib集成与pylab模式</h3><p>启动IPython时加上<code>--pylab</code>标记来集成matplotlib<code>ipython --pylab</code>。这样IPython会默认GUI后台集成，就可以创建matplotlib绘图了。并且NumPy和matplotlib的大部分功能会被引入到最顶层的interactive命名空间以产生一个交互式的计算环境。也可以通过<code>%gui</code>对此进行手工设置。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Python 3.6.4 (v3.6.4:d48eceb, Dec 19 2017, 06:54:40) [MSC v.1900 64 bit (AMD64)]</span><br><span class="line">Type &apos;copyright&apos;, &apos;credits&apos; or &apos;license&apos; for more information</span><br><span class="line">IPython 6.2.1 -- An enhanced Interactive Python. Type &apos;?&apos; for help.</span><br><span class="line">Using matplotlib backend: TkAgg</span><br><span class="line"></span><br><span class="line">In [1]:</span><br></pre></td></tr></table></figure></p>
+<h2 id="使用命令历史"><a href="#使用命令历史" class="headerlink" title="使用命令历史"></a>使用命令历史</h2><p>IPython维护着一个位于硬盘上的小型数据库，其中含有执行过的每条命令的文本：</p>
+<ol>
+<li>只需很少的按键次数即可搜索、自动完成并执行之前已经执行过的命令</li>
+<li>在会话间持久化命令历史</li>
+<li>将输入/输出历史记录到日志文件</li>
+</ol>
+<h3 id="搜索并重用命令历史"><a href="#搜索并重用命令历史" class="headerlink" title="搜索并重用命令历史"></a>搜索并重用命令历史</h3><p>如果需要输入之前执行过的相同的命令，只需要按照上面的快捷键表操作，就可以搜索出命令历史中第一个与输入的字符相匹配的命令。既可以后向搜索也可以前向搜索。</p>
+<h3 id="输入和输出变量"><a href="#输入和输出变量" class="headerlink" title="输入和输出变量"></a>输入和输出变量</h3><p>IPython会将输入(输入的文本)和输出(返回的对象)的引用保存在一些特殊变量中。最近的两个输出结果分别保存在 <code>_</code>(一个下划线)和 <code>__</code>(两个下划线)变量中：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">In [6]: 1+1</span><br><span class="line">Out[6]: 2</span><br><span class="line"></span><br><span class="line">In [7]: _</span><br><span class="line">Out[7]: 2</span><br><span class="line"></span><br><span class="line">In [8]: _+1</span><br><span class="line">Out[8]: 3</span><br><span class="line"></span><br><span class="line">In [9]: 3+1</span><br><span class="line">Out[9]: 4</span><br><span class="line"></span><br><span class="line">In [10]: __</span><br><span class="line">Out[10]: 3</span><br></pre></td></tr></table></figure></p>
+<p>输入的文本保存在名为<code>_ix</code>的变量中，其中 <strong>X</strong> 是输入行的行号。每个输入变量都有一个对应的输出变量<code>_x</code>:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">In [11]: _i6</span><br><span class="line">Out[11]: &apos;1+1&apos;</span><br><span class="line"></span><br><span class="line">In [12]: _6</span><br><span class="line">Out[12]: 2</span><br></pre></td></tr></table></figure></p>
+<p>由于输入变量是字符串，因此可以用Python的<code>exec()</code>方法重新执行:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">In [18]: exec(_i6)</span><br><span class="line"></span><br><span class="line">In [19]: _</span><br><span class="line">Out[19]: &apos;1+1&apos;</span><br></pre></td></tr></table></figure></p>
+<p>有几个魔术命令可以用于控制输入和输出历史。<code>%hist</code>用于打印全部或部分输入历史，可以选择是否带行号。<code>%reset</code>用于清空interactive命名空间，并可选择是否清空输入和输出缓存。<code>%xdel</code>用于从IPython系统中移除特定对象的一切引用。</p>
+<h3 id="记录输入和输出"><a href="#记录输入和输出" class="headerlink" title="记录输入和输出"></a>记录输入和输出</h3><p>IPython能够记录整个控制台会话，包括输入和输出。执行<code>%logstart</code>即可开始记录日志：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">In [20]: %logstart</span><br><span class="line">Activating auto-logging. Current session state plus future input saved.</span><br><span class="line">Filename       : ipython_log.py</span><br><span class="line">Mode           : rotate</span><br><span class="line">Output logging : False</span><br><span class="line">Raw input log  : False</span><br><span class="line">Timestamping   : False</span><br><span class="line">State          : active</span><br></pre></td></tr></table></figure></p>
+<p>IPython的日志功能可以在任何时刻开启。还有与<code>%logstart</code>配套的<code>%logoff</code>、<code>%logon</code>、<code>%logstate</code>和<code>%logstop</code>，可以参考其文档。</p>
+<h3 id="与操作系统交互"><a href="#与操作系统交互" class="headerlink" title="与操作系统交互"></a>与操作系统交互</h3><p>可以在IPython中实现标准的Windows或UNIX命令行活动，将命令的执行结果保存在Python对象中</p>
+<ul>
+<li>跟系统相关的IPython魔术命令</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">命令</th>
+<th style="text-align:center">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">!cmd</td>
+<td style="text-align:center">在系统shell中执行cmd</td>
+</tr>
+<tr>
+<td style="text-align:center">output=!cmd args</td>
+<td style="text-align:center">执行cmd，并将stout存放在output中</td>
+</tr>
+<tr>
+<td style="text-align:center">%alias alias_name cmd</td>
+<td style="text-align:center">为系统shell命令定义别名</td>
+</tr>
+<tr>
+<td style="text-align:center">%bookmark</td>
+<td style="text-align:center">使用IPython的目录书签系统</td>
+</tr>
+<tr>
+<td style="text-align:center">%cd directory</td>
+<td style="text-align:center">将系统工作目录更改为directory</td>
+</tr>
+<tr>
+<td style="text-align:center">%pwd</td>
+<td style="text-align:center">返回系统的当前工作目录</td>
+</tr>
+<tr>
+<td style="text-align:center">%pushd directory</td>
+<td style="text-align:center">将当前目录入栈，并转向目标目录</td>
+</tr>
+<tr>
+<td style="text-align:center">%popd</td>
+<td style="text-align:center">弹出栈顶目录，并转向该目录</td>
+</tr>
+<tr>
+<td style="text-align:center">%dirs</td>
+<td style="text-align:center">返回一个含有当前目录栈的列表</td>
+</tr>
+<tr>
+<td style="text-align:center">%dhist</td>
+<td style="text-align:center">打印目录访问历史</td>
+</tr>
+<tr>
+<td style="text-align:center">%env</td>
+<td style="text-align:center">以dict形式返回系统环境变量</td>
+</tr>
+</tbody>
+</table>
+<h4 id="shell命令和别名"><a href="#shell命令和别名" class="headerlink" title="shell命令和别名"></a>shell命令和别名</h4><p>在IPython中，以感叹号(!)开头的命令行表示其后的所有内容需要在系统shell中执行:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">In [23]: !python</span><br><span class="line">Python 3.6.4 (v3.6.4:d48eceb, Dec 19 2017, 06:54:40) [MSC v.1900 64 bit (AMD64)] on win32</span><br><span class="line">Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;license&quot; for more information.</span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure></p>
+<p>还可以将shell命令的控制台输出存放到变量中，只需将 <code>!</code> 开头的表达式赋值给变量:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">In [152]: ip_info = !ls</span><br><span class="line"></span><br><span class="line">In [153]: ip_info</span><br><span class="line">Out[153]: [&apos;experiment.py&apos;, &apos;ipython_bug.py&apos;, &apos;ipython_script_test.py&apos;]</span><br></pre></td></tr></table></figure></p>
+<h2 id="软件开发工具"><a href="#软件开发工具" class="headerlink" title="软件开发工具"></a>软件开发工具</h2><p>IPython集成并加强了Python内置的pdb调试器，同时提供了一些简单易用的代码运行时间及性能分析工具。</p>
+<h3 id="交互式调试器"><a href="#交互式调试器" class="headerlink" title="交互式调试器"></a>交互式调试器</h3><p>IPython的调试器增强了pdb，如Tab键自动完成、语法高亮、为异常跟踪的每条信息添加上下文参考。<code>%debug</code>命令(在发生异常之后马上输入)将会调用那个“事后”调试器，并直接跳转到引发异常的那个栈帧：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">In [45]: %run ipython_bug.py</span><br><span class="line">---------------------------------------------------------------------------</span><br><span class="line">ZeroDivisionError                         Traceback (most recent call last)</span><br><span class="line">D:\Python\ipython\ipython_bug.py in &lt;module&gt;()</span><br><span class="line">      5 b = 2</span><br><span class="line">      6 c = 0</span><br><span class="line">----&gt; 7 result = f(a, b, c)</span><br><span class="line"></span><br><span class="line">D:\Python\ipython\ipython_bug.py in f(x, y, z)</span><br><span class="line">      1 def f(x, y, z):</span><br><span class="line">----&gt; 2     return (x+y) /z</span><br><span class="line">      3</span><br><span class="line">      4 a = 1</span><br><span class="line">      5 b = 2</span><br><span class="line"></span><br><span class="line">ZeroDivisionError: division by zero</span><br><span class="line"></span><br><span class="line">In [46]: %debug</span><br><span class="line">&gt; d:\python\ipython\ipython_bug.py(2)f()</span><br><span class="line">      1 def f(x, y, z):</span><br><span class="line">----&gt; 2     return (x+y) /z</span><br><span class="line">      3</span><br><span class="line">      4 a = 1</span><br><span class="line">      5 b = 2</span><br></pre></td></tr></table></figure></p>
+<p>在这个调试器中，可以执行任意Python代码并查看各个栈帧中的一切对象和数据。默认是从最低级开始(即错误发生的地方)。输入<code>u</code>(或up)和<code>d</code>(或down)即可在栈跟踪的各级别之间切换:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">ipdb&gt; u</span><br><span class="line">&gt; d:\python\ipython\ipython_bug.py(7)&lt;module&gt;()</span><br><span class="line">      3</span><br><span class="line">      4 a = 1</span><br><span class="line">      5 b = 2</span><br><span class="line">      6 c = 0</span><br><span class="line">----&gt; 7 result = f(a, b, c)</span><br><span class="line"></span><br><span class="line">ipdb&gt; d</span><br><span class="line">&gt; d:\python\ipython\ipython_bug.py(2)f()</span><br><span class="line">      1 def f(x, y, z):</span><br><span class="line">----&gt; 2     return (x+y) /z</span><br><span class="line">      3</span><br><span class="line">      4 a = 1</span><br><span class="line">      5 b = 2</span><br></pre></td></tr></table></figure></p>
+<p>执行<code>%pdp</code>命令可以让IPython在出现异常之后自动调用调试器。<br>如果需要设置断点或对函数/脚本进行单步调试以查看各条语句的执行情况时，可以使用带有<code>-d</code>选项的<code>%run</code>命令，这会在执行脚本文件中的代码之前打开调试器，然后输入<code>s</code>(或step)步进才能进入脚本:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">In [50]: %run -d ipython_bug.py</span><br><span class="line">Breakpoint 1 at d:\python\ipython\ipython_bug.py:1</span><br><span class="line">NOTE: Enter &apos;c&apos; at the ipdb&gt;  prompt to continue execution.</span><br><span class="line">&gt; d:\python\ipython\ipython_bug.py(1)&lt;module&gt;()</span><br><span class="line">1---&gt; 1 def f(x, y, z):</span><br><span class="line">      2     return (x+y) /z</span><br><span class="line">      3</span><br><span class="line">      4 a = 1</span><br><span class="line">      5 b = 2</span><br><span class="line"></span><br><span class="line">ipdb&gt; s</span><br><span class="line">&gt; d:\python\ipython\ipython_bug.py(4)&lt;module&gt;()</span><br><span class="line">      2     return (x+y) /z</span><br><span class="line">      3</span><br><span class="line">----&gt; 4 a = 1</span><br><span class="line">      5 b = 2</span><br><span class="line">      6 c = 0</span><br><span class="line"></span><br><span class="line">ipdb&gt; s</span><br><span class="line">&gt; d:\python\ipython\ipython_bug.py(5)&lt;module&gt;()</span><br><span class="line">      3</span><br><span class="line">      4 a = 1</span><br><span class="line">----&gt; 5 b = 2</span><br><span class="line">      6 c = 0</span><br><span class="line">      7 result = f(a, b, c)</span><br><span class="line"></span><br><span class="line">ipdb&gt; s</span><br><span class="line">&gt; d:\python\ipython\ipython_bug.py(6)&lt;module&gt;()</span><br><span class="line">      3</span><br><span class="line">      4 a = 1</span><br><span class="line">      5 b = 2</span><br><span class="line">----&gt; 6 c = 0</span><br><span class="line">      7 result = f(a, b, c)</span><br></pre></td></tr></table></figure></p>
+<p>通过<code>b num</code>在num行出设置断点，输入<code>c</code>(或continue)使脚本一直运行下去直到该断点时为止,然后输入<code>n</code>(或next)直到执行下一行(即step over):<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">In [53]: %run -d ipython_bug.py</span><br><span class="line">Breakpoint 1 at d:\python\ipython\ipython_bug.py:1</span><br><span class="line">NOTE: Enter &apos;c&apos; at the ipdb&gt;  prompt to continue execution.</span><br><span class="line">&gt; d:\python\ipython\ipython_bug.py(1)&lt;module&gt;()</span><br><span class="line">1---&gt; 1 def f(x, y, z):</span><br><span class="line">      2     return (x+y) /z</span><br><span class="line">      3</span><br><span class="line">      4 a = 1</span><br><span class="line">      5 b = 2</span><br><span class="line"></span><br><span class="line">ipdb&gt; b 7</span><br><span class="line">Breakpoint 2 at d:\python\ipython\ipython_bug.py:7</span><br><span class="line">ipdb&gt; c</span><br><span class="line">&gt; d:\python\ipython\ipython_bug.py(7)&lt;module&gt;()</span><br><span class="line">      3</span><br><span class="line">      4 a = 1</span><br><span class="line">      5 b = 2</span><br><span class="line">      6 c = 0</span><br><span class="line">2---&gt; 7 result = f(a, b, c)</span><br><span class="line"></span><br><span class="line">ipdb&gt; n</span><br><span class="line">ZeroDivisionError: division by zero</span><br><span class="line">&gt; d:\python\ipython\ipython_bug.py(7)&lt;module&gt;()</span><br><span class="line">      3</span><br><span class="line">      4 a = 1</span><br><span class="line">      5 b = 2</span><br><span class="line">      6 c = 0</span><br><span class="line">2---&gt; 7 result = f(a, b, c)</span><br><span class="line"></span><br><span class="line">ipdb&gt; n</span><br><span class="line">--Return--</span><br><span class="line">None</span><br><span class="line">&gt; d:\python\ipython\ipython_bug.py(7)&lt;module&gt;()</span><br><span class="line">      3</span><br><span class="line">      4 a = 1</span><br><span class="line">      5 b = 2</span><br><span class="line">      6 c = 0</span><br><span class="line">2---&gt; 7 result = f(a, b, c)</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>IPython调试器命令</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">命令</th>
+<th style="text-align:center">功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">h(elp)</td>
+<td style="text-align:center">显示命令列表</td>
+</tr>
+<tr>
+<td style="text-align:center">help command</td>
+<td style="text-align:center">显示command的文档</td>
+</tr>
+<tr>
+<td style="text-align:center">c(ontinue)</td>
+<td style="text-align:center">恢复程序的执行</td>
+</tr>
+<tr>
+<td style="text-align:center">q(uit)</td>
+<td style="text-align:center">退出调试器，不再执行任何代码</td>
+</tr>
+<tr>
+<td style="text-align:center">b(readk) number</td>
+<td style="text-align:center">在当前文件的第number行设置一个断点</td>
+</tr>
+<tr>
+<td style="text-align:center">b path/to/file.py:number</td>
+<td style="text-align:center">在指定文件的第number行设置一个断点</td>
+</tr>
+<tr>
+<td style="text-align:center">s(tep)</td>
+<td style="text-align:center">单步进入函数调用</td>
+</tr>
+<tr>
+<td style="text-align:center">n(ext)</td>
+<td style="text-align:center">执行当前行，并前进到当前级别的下一行</td>
+</tr>
+<tr>
+<td style="text-align:center">u(p)/d(own)</td>
+<td style="text-align:center">在函数调用栈中向上或向下移动</td>
+</tr>
+<tr>
+<td style="text-align:center">a(rgs)</td>
+<td style="text-align:center">显示当前函数的参数</td>
+</tr>
+<tr>
+<td style="text-align:center">debug statement</td>
+<td style="text-align:center">在新的(递归)调试器中调用语句statement</td>
+</tr>
+<tr>
+<td style="text-align:center">l(ist)  statement</td>
+<td style="text-align:center">显示当前行，以及当前栈级别的上下文参考代码</td>
+</tr>
+<tr>
+<td style="text-align:center">w(here)</td>
+<td style="text-align:center">打印当前位置的完整栈跟踪(包括上下文参考代码)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="测试代码的执行时间-time和-timeit"><a href="#测试代码的执行时间-time和-timeit" class="headerlink" title="测试代码的执行时间:%time和%timeit"></a>测试代码的执行时间:%time和%timeit</h3><p><code>%time</code>一次执行一条语句，然后报告总体执行时间<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">In [56]: strings = [&apos;foo&apos;,&apos;bar&apos;,&apos;abc&apos;,&apos;foobar&apos;,&apos;python&apos;,&apos;Guide Peple&apos;]*100000</span><br><span class="line"></span><br><span class="line">In [57]: %time method1 = [x for x  in strings if x.startswith(&apos;foo&apos;)]</span><br><span class="line">Wall time: 102 ms</span><br><span class="line"></span><br><span class="line">In [58]: %time method2 = [x for x in strings if x[:3] == &apos;foo&apos;]</span><br><span class="line">Wall time: 59.2 ms</span><br></pre></td></tr></table></figure></p>
+<p><code>%timeit</code>对于任意语句，它会自动多次执行以产生一个非常精确的平均执行时间<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">In [59]: %timeit method1 = [x for x  in strings if x.startswith(&apos;foo&apos;)]</span><br><span class="line">100 ms ± 5.73 ms per loop (mean ± std. dev. of 7 runs, 10 loops each)</span><br><span class="line"></span><br><span class="line">In [60]: %timeit method2 = [x for x in strings if x[:3] == &apos;foo&apos;]</span><br><span class="line">57 ms ± 7.12 ms per loop (mean ± std. dev. of 7 runs, 10 loops each)</span><br></pre></td></tr></table></figure></p>
+<h3 id="基本性能分析：-prun和-run-p"><a href="#基本性能分析：-prun和-run-p" class="headerlink" title="基本性能分析：%prun和%run -p"></a>基本性能分析：%prun和%run -p</h3><p>代码的性能分析跟代码执行时间密切相关，只不过它关注的事耗费时间的位置，主要的Python性能分析工具是cProfile模块。CProfile在执行一个程序或代码块时，会记录各函数所耗费的时间。CProfile一般在命令行上使用，它将执行整个程序然后输出各函数的执行时间。<code>%prun</code>分析的是Python语句而不是整个.py文件：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">In [141]: %cpaste</span><br><span class="line">Pasting code; enter &apos;--&apos; alone on the line to stop or use Ctrl-D.</span><br><span class="line">:def run_experiment(niter=100):</span><br><span class="line">    k = 100</span><br><span class="line">    results = []</span><br><span class="line">    for _ in range(niter):</span><br><span class="line">        mat = np.random.randn(k, k)</span><br><span class="line">        max_eigenvalue = np.abs(eigvals(mat)).max()</span><br><span class="line">        results.append(max_eigenvalue)</span><br><span class="line">    return results:::::::</span><br><span class="line">:</span><br><span class="line">:--</span><br><span class="line"></span><br><span class="line">In [142]: %prun -l 7 -s cumulative run_experiment()</span><br><span class="line">         3804 function calls in 0.901 seconds</span><br><span class="line"></span><br><span class="line">   Ordered by: cumulative time</span><br><span class="line">   List reduced from 31 to 7 due to restriction &lt;7&gt;</span><br><span class="line"></span><br><span class="line">   ncalls  tottime  percall  cumtime  percall filename:lineno(function)</span><br><span class="line">        1    0.000    0.000    0.901    0.901 &#123;built-in method builtins.exec&#125;</span><br><span class="line">        1    0.000    0.000    0.901    0.901 &lt;string&gt;:1(&lt;module&gt;)</span><br><span class="line">        1    0.002    0.002    0.901    0.901 &lt;ipython-input-141-78ef833ef08b&gt;:1(run_experiment)</span><br><span class="line">      100    0.814    0.008    0.838    0.008 linalg.py:834(eigvals)</span><br><span class="line">      100    0.060    0.001    0.060    0.001 &#123;method &apos;randn&apos; of &apos;mtrand.RandomState&apos; objects&#125;</span><br><span class="line">      100    0.012    0.000    0.018    0.000 linalg.py:213(_assertFinite)</span><br><span class="line">      300    0.008    0.000    0.008    0.000 &#123;method &apos;reduce&apos; of &apos;numpy.ufunc&apos; objects&#125;</span><br></pre></td></tr></table></figure></p>
+<p>执行<code>%run -p -s cumulative experiment.py</code>也能达到以上的效果，无需退出IPython:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">In [75]: %run -p -l 7 -s cumulative experiment.py</span><br><span class="line">Largest one we saw:11.9165340849</span><br><span class="line">         3888 function calls (3887 primitive calls) in 0.467 seconds</span><br><span class="line"></span><br><span class="line">   Ordered by: cumulative time</span><br><span class="line">   List reduced from 77 to 7 due to restriction &lt;7&gt;</span><br><span class="line"></span><br><span class="line">   ncalls  tottime  percall  cumtime  percall filename:lineno(function)</span><br><span class="line">      2/1    0.000    0.000    0.467    0.467 &#123;built-in method builtins.exec&#125;</span><br><span class="line">        1    0.000    0.000    0.467    0.467 &lt;string&gt;:1(&lt;module&gt;)</span><br><span class="line">        1    0.000    0.000    0.467    0.467 interactiveshell.py:2445(safe_execfile)</span><br><span class="line">        1    0.000    0.000    0.467    0.467 py3compat.py:182(execfile)</span><br><span class="line">        1    0.000    0.000    0.467    0.467 experiment.py:1(&lt;module&gt;)</span><br><span class="line">        1    0.001    0.001    0.466    0.466 experiment.py:5(run_experiment)</span><br><span class="line">      100    0.431    0.004    0.436    0.004 linalg.py:819(eigvals)</span><br></pre></td></tr></table></figure></p>
+<h2 id="ipython-html-notebook"><a href="#ipython-html-notebook" class="headerlink" title="ipython html notebook"></a>ipython html notebook</h2><p>需要安装 <em>jupyter</em> 来使用该功能:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip3 install jupyter</span><br></pre></td></tr></table></figure></p>
+<p>这是一个基于Web的交互式计算文档格式。它有一种基于JSON的文档格式.upynb，可以轻松分享代码、输出结果以及图片等内容。执行如下命令启动：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">jupyter notebook</span><br></pre></td></tr></table></figure></p>
+<p>这是运行于命令行上的轻量级服务器进程，Web浏览器会自动打开Notebook的仪表盘。</p>
+
+      
+    </div>
+    
+    
+    
+		<div>
+		  
+		    <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-apple"></i>感谢您的阅读-------------</div>
+    
+</div>
+		  
+		</div>
+		<div>
+      
+        
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <p><span>本文标题:</span><a href="/2018/03/15/IPython入门/">IPython入门</a></p>
+  <p><span>文章作者:</span><a href="/" title="访问 邓小俊 的个人博客">邓小俊</a></p>
+  <p><span>发布时间:</span>2018年03月15日 - 10:03</p>
+  <p><span>最后更新:</span>2018年03月16日 - 08:03</p>
+  <p><span>原始链接:</span><a href="/2018/03/15/IPython入门/" title="IPython入门">http://coldjune.com/2018/03/15/IPython入门/</a>
+    <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://coldjune.com/2018/03/15/IPython入门/"  aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+      $(".fa-clipboard").click(function(){
+      clipboard.on('success', function(){
+        swal({   
+          title: "",   
+          text: '复制成功',
+          icon: "success", 
+          showConfirmButton: true
+          });
+        });
+    });  
+</script>
+
+      
+		</div>
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/IPython/" rel="tag"><i class="fa fa-tag"></i> IPython</a>
+          
+            <a href="/tags/数据分析/" rel="tag"><i class="fa fa-tag"></i> 数据分析</a>
+          
+        </div>
+      
+
+      
+      
+        <div class="post-widgets">
+        
+
+        
+
+        
+          
+          <div id="needsharebutton-postbottom">
+            <span class="btn">
+              <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </span>
+          </div>
+        
+        </div>
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/03/13/Python文本处理/" rel="next" title="Python文本处理">
+                <i class="fa fa-chevron-left"></i> Python文本处理
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/03/16/numpy基础-一/" rel="prev" title="numpy基础(一)">
+                numpy基础(一) <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">邓小俊</p>
+              <p class="site-description motion-element" itemprop="description">人所恐惧的不是孤独本身，而是害怕承认人本生而孤独的事实</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">20</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#IPython基础"><span class="nav-number">1.</span> <span class="nav-text">IPython基础</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Tab键自动完成"><span class="nav-number">1.1.</span> <span class="nav-text">Tab键自动完成</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#内省"><span class="nav-number">1.2.</span> <span class="nav-text">内省</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#run命令"><span class="nav-number">1.3.</span> <span class="nav-text">%run命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#中断正在执行的代码"><span class="nav-number">1.4.</span> <span class="nav-text">中断正在执行的代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#执行剪切板中的代码"><span class="nav-number">1.5.</span> <span class="nav-text">执行剪切板中的代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#键盘快捷键"><span class="nav-number">1.6.</span> <span class="nav-text">键盘快捷键</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#异常和跟踪"><span class="nav-number">1.7.</span> <span class="nav-text">异常和跟踪</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#魔术命令"><span class="nav-number">1.8.</span> <span class="nav-text">魔术命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#matplotlib集成与pylab模式"><span class="nav-number">1.9.</span> <span class="nav-text">matplotlib集成与pylab模式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用命令历史"><span class="nav-number">2.</span> <span class="nav-text">使用命令历史</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#搜索并重用命令历史"><span class="nav-number">2.1.</span> <span class="nav-text">搜索并重用命令历史</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#输入和输出变量"><span class="nav-number">2.2.</span> <span class="nav-text">输入和输出变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#记录输入和输出"><span class="nav-number">2.3.</span> <span class="nav-text">记录输入和输出</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#与操作系统交互"><span class="nav-number">2.4.</span> <span class="nav-text">与操作系统交互</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#shell命令和别名"><span class="nav-number">2.4.1.</span> <span class="nav-text">shell命令和别名</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#软件开发工具"><span class="nav-number">3.</span> <span class="nav-text">软件开发工具</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#交互式调试器"><span class="nav-number">3.1.</span> <span class="nav-text">交互式调试器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#测试代码的执行时间-time和-timeit"><span class="nav-number">3.2.</span> <span class="nav-text">测试代码的执行时间:%time和%timeit</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#基本性能分析：-prun和-run-p"><span class="nav-number">3.3.</span> <span class="nav-text">基本性能分析：%prun和%run -p</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ipython-html-notebook"><span class="nav-number">4.</span> <span class="nav-text">ipython html notebook</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">邓小俊</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">博文包含字数&#58;</span>
+    
+    <span title="博文包含字数">57.3k</span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>本站访客数
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      人次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+      <div id="needsharebutton-float">
+        <span class="btn">
+          <i class="fa fa-share-alt" aria-hidden="true"></i>
+        </span>
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("EdodKu35EbSo4VoLhJYQMd09-gzGzoHsz", "qpErN7JcsIzusWGMNuw1QcxN");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/needsharebutton/needsharebutton.css">
+
+  
+  
+  <script src="/lib/needsharebutton/needsharebutton.js"></script>
+
+  <script>
+    
+      pbOptions = {};
+      
+          pbOptions.iconStyle = "box";
+      
+          pbOptions.boxForm = "horizontal";
+      
+          pbOptions.position = "bottomCenter";
+      
+          pbOptions.networks = "Weibo,Wechat,Douban,QQZone,Twitter,Facebook";
+      
+      new needShareButton('#needsharebutton-postbottom', pbOptions);
+    
+    
+      flOptions = {};
+      
+          flOptions.iconStyle = "box";
+      
+          flOptions.boxForm = "horizontal";
+      
+          flOptions.position = "middleRight";
+      
+          flOptions.networks = "Weibo,Wechat,Douban,QQZone,Twitter,Facebook";
+      
+      new needShareButton('#needsharebutton-float', flOptions);
+    
+  </script>
+
+  
+
+  
+  
+
+
+  
+
+  
+
+ 
+</body>
+</html>
