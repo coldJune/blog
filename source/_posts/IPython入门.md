@@ -1,7 +1,7 @@
 ---
 title: IPython入门
 date: 2018-03-15 10:05:42
-categories: true
+categories: IPython
 copyright: true
 tags:
     - IPython

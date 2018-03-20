@@ -1,7 +1,7 @@
 ---
 title: numpy基础(二)
 date: 2018-03-17 11:33:50
-categories: true
+categories: NumPy
 copyright: true
 tags:
     - NumPy

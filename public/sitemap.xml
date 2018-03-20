@@ -2,9 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://coldjune.com/2018/03/20/pandas%E5%85%A5%E9%97%A8-%E4%B8%89/</loc>
+    
+    <lastmod>2018-03-20T07:35:58.195Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://coldjune.com/2018/03/19/pandas%E5%85%A5%E9%97%A8-%E4%BA%8C/</loc>
     
-    <lastmod>2018-03-20T01:03:46.770Z</lastmod>
+    <lastmod>2018-03-20T01:27:59.644Z</lastmod>
     
   </url>
   
@@ -142,14 +149,14 @@
   </url>
   
   <url>
-    <loc>http://coldjune.com/categories/index.html</loc>
+    <loc>http://coldjune.com/tags/index.html</loc>
     
     <lastmod>2018-02-11T01:04:21.113Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://coldjune.com/tags/index.html</loc>
+    <loc>http://coldjune.com/categories/index.html</loc>
     
     <lastmod>2018-02-11T01:04:21.113Z</lastmod>
     
