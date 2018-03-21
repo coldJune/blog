@@ -1,7 +1,7 @@
 ---
 title: pandas入门(三)
 date: 2018-03-20 09:14:48
-categories: pandas
+categories: 数据分析
 copyright: true
 tags:
     - 数据分析

@@ -1,7 +1,7 @@
 ---
 title: pandas入门(二)
 date: 2018-03-19 16:51:47
-categories: pandas
+categories: 数据分析
 copyright: true
 tags:
     - pandas
