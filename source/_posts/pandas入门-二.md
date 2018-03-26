@@ -30,7 +30,7 @@ description: 主要记录操作Series和DataFrame中的数据的基本手段。�
 |    copy    | 默认为True，无论如何都复制；如果为False，则新旧相等就不复制                                                                                                                |
 
 pandas对象的`reindex`方法用于创建一个适应新索引的新对象，`reindex`将会根据新索引进行重排。如果某个索引值当前不存在，就引入缺失值。`method`选项可以在重新索引时做一些插值处理：
-```
+```Python
 In [86]: obj = Series([1,2,3,4],index=['a','b','c','d'])
 
 In [87]: obj
@@ -87,7 +87,7 @@ dtype: int64
 ```
 
 对于DataFrame,`reindex`可以修改(行)索引、列、或两个都修改。如果仅传入一个序列，则会重新索引行，使用`columns`关键字可以重新索引列,也可以同时对行和列进行重新索引，但插值只能按行应用(即轴0):
-```
+```Python
 In [105]: frame = DataFrame(np.arange(9).reshape((3,3)),index=['a','b','c'],columns=['col1','col2','col3'])
 
 In [106]: frame2 = frame.reindex(['a','b','c','d'])
@@ -116,7 +116,7 @@ c      8     6     7     8
 d      8     6     7     8
 ```
 利用ix的标签索引功能重新索引：
-```
+```Python
 In [111]: frame.ix[['a','b','c','d'],['col_a','col1','col2','col3']]
 Out[111]:
    col_a  col1  col2  col3
@@ -127,7 +127,7 @@ d    NaN   NaN   NaN   NaN
 ```
 ### 丢弃指定轴上的项
 使用`drop`方法删除指定轴上的项，只需要传入一个索引数组或列表，对于DataFrame可以传入指定的轴(axis)来进行删除,返回的都是删除轴之后的新对象:
-```
+```Python
 In [112]: obj = Series([1,2,3,4],index=['a','b','c','d'])
 
 In [113]: obj.drop('a')
@@ -160,7 +160,7 @@ c     8
 
 ### 索引、选取和过滤
 Series索引(obj[……])的工作方式类似于NumPy数组的索引，并且可以使用非整数；而利用切片运算其 **末端时包含的(封闭)**：
-```
+```Python
 In [3]: obj = Series(np.arange(4), index=['a','b','c','d'])
 
 In [4]: obj
@@ -204,7 +204,7 @@ dtype: int64
 ```
 
 对DataFrame进行索引是获取一个或多个列，可以通过切片或布尔型数组选取行，也可以使用布尔型DataFrame进行索引：
-```
+```Python
 In [15]: data = DataFrame(np.arange(16).reshape(4,4),
     ...:                 index=['a','b','c','d'],
     ...:                 columns=['col1','col2','col3','col4'])
@@ -266,7 +266,7 @@ c     8     9    10    11
 d    12    13    14    15
 ```
 为了在DataFrame的行上进行标签索引，可以通过`loc`进行：
-```
+```Python
 In [48]: data.loc['a',['col1','col2']]
 Out[48]:
 col1   -5
@@ -289,7 +289,7 @@ d    12    13    14
 
 ### 算术运算和数据对齐
 pandas可以对不同索引的对象进行算数运算。在将对象相加时，如果存在不同的索引对，则结果的索引就是对该索引对的并集，自动的数据对齐操作在不重叠的索引处引入NA值，缺失值会在算术运算过程中传播:
-```
+```Python
 In [55]: s1 = Series(np.arange(3),index=['a','b','c'])
 
 In [56]: s2 = Series(np.arange(3,9),index=['a','b','c','d','e','f'])
@@ -322,7 +322,7 @@ f    NaN
 dtype: float64
 ```
 对于DataFrame，对齐操作会同时发生在行和列上，它们相加后会返回一个新的DataFrame，其索引和列为原来两个DataFrame的并集：
-```
+```Python
 In [65]: df1 = DataFrame(np.arange(9).reshape(3,3),columns=list('abc'),
     ...:                 index=['row1','row2','row3'])
     ...:
@@ -365,7 +365,7 @@ row4   NaN   NaN   NaN NaN
 | mul  | 用于乘法(*)的方法                  |
 
 对于不同索引的对戏那个进行算术运算时，当一个对象中某个轴标签在另一个对象中找不到时填充一个特殊值,在对Series或DataFrame重新索引时也可以指定一个填充值：
-```
+```Python
 In [76]: df2.add(df1,fill_value=0)
 Out[76]:
          a     b     c     d
@@ -384,7 +384,7 @@ row3  6  7  8  0
 
 #### DataFrame和Series之间的运算
 默认情况下DataFrame和Series之间的算术运算会讲Series的索引匹配到DataFrame的列，然后沿着行一直向下广播；如果某个索引值在DataFrame的列货Series的索引中找不到，则参与运算的两个对象就会被重新索引译形成并集；如果希望匹配行且在列上广播则必须使用算术运算方法：
-```
+```Python
 In [94]: s1 = df2.loc['row1']
 
 In [95]: df2
@@ -433,7 +433,7 @@ row4  0  1  2  3
 
 ### 函数应用和映射
 NumPy的[ufuncs](http://coldjune.com/2018/03/17/numpy%E5%9F%BA%E7%A1%80-%E4%BA%8C/#%E9%80%9A%E7%94%A8%E5%87%BD%E6%95%B0)(元素级数组方法)也可用于操作pandas对象:
-```
+```Python
 In [102]: frame = DataFrame(np.random.randn(4,3),columns=list('abc'),
      ...:                   index=['row1','row2','row3','row4'])
      ...:
@@ -457,7 +457,7 @@ row4  0.860822  1.659938  0.952070
 ```
 
 `apply`方法可以将函数应用到各列或行所形成的一维数组上，许多常见的数组统计功能都被实现成DataFrame方法(如sum和mean)，因此无需使用`apply`方法；除标量外，传递给`apply`的函数还可以返回多个值组成的Series；元素级的Python函数也是可以使用的，可以使用`applymap`得到frame中各个浮点值的格式化字符串:
-```
+```Python
 In [112]: f = lambda x:x.max() -x.min()
 
 In [113]: frame.apply(f)
@@ -498,7 +498,7 @@ Name: a, dtype: object
 ### 排序和排名
 #### 排序
 使用`sort_index`方法对行或列索引进行排序(按字典顺序)，它将返回一个已排序的对象；对于DataFrame则可以根据任意一个轴上的索引进行排序；数据默认时按升序进行排序的，可以设置`ascending=False`来降序排序：
-```
+```Python
 In [134]: obj = Series(range(4), index=list('dabc'))
 
 In [135]: obj.sort_index()
@@ -532,7 +532,7 @@ col2  2  3  0  1
 col1  6  7  4  5
 ```
 `sort_values`方法用于按值进行排序，在排序时，任何的缺失值默认都会放到Series的末尾：
-```
+```Python
 In [144]: obj.sort_values()
 Out[144]:
 4   -3.0
@@ -544,7 +544,7 @@ Out[144]:
 dtype: float64
 ```
 在DataFrame中，可以将一个或多个列的名字传递给by选项来根据一个或多个列中的值进行排序，要根据多个列进行排序，可以传入名称的列表：
-```
+```Python
 In [150]: frame  = DataFrame({'b':[2,5,0,1],'a':[0,1,0,1]})
 
 In [151]: frame
@@ -583,7 +583,7 @@ Out[153]:
 |  'first'  | 按值在原始数据中的出现顺序分配排名                                         |
 
 按降序进行排名使用`ascending=False`，其他的相似:
-```
+```Python
 In [9]: obj = Series([7,6,7,5,4,4,3])
 
 In [10]: obj.rank()
@@ -678,7 +678,7 @@ dtype: float64
 ```
 
 DataFrame可以在行或列上计算排名:
-```
+```Python
 In [15]: frame = DataFrame({'b':[1,3,-1],'a':[2,-1,-2],'c':[1,2,3]})
 
 In [16]: frame
@@ -706,7 +706,7 @@ Out[18]:
 
 ### 带有重复值的轴索引
 带有重复索引值的Series和DataFrame可以使用`is_unique`属性确认它是否唯一；对于带有重复值的索引，如果某个值对应多个值，则会返回一个Series(或DataFrame)；而对应单个值则返回一个标量(Series)：
-```
+```Python
 In [19]: obj = Series(range(5),index=list('abbvd'))
 
 In [20]: obj

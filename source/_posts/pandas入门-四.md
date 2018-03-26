@@ -10,7 +10,7 @@ description: pandas入门主题的最后一点内容，关于层次化索引和�
 ---
 ## 层次化索引
 层次化索引能在一个轴上拥有多个(两个以上)索引级别，能以低纬度形式处理高纬度数据。在创建Series时，可以使用一个由列表或数组组成的列表作为索引。对于一个层次化索引的对象，选取数据子集的操作同样很简单，有时可以在"内层"中进行选取：
-```
+```Python
 In [206]: data = Series(np.random.randn(10),index=[list('aaabbbvvdd'),
      ...:            ['in1','in2','in3','in1','in2','in3','in1','in2','in2','in3']])
      ...:
@@ -44,7 +44,7 @@ v   -0.158913
 dtype: float64
 ```
 层次化索引在数据重塑和基于分组的操作中非常重要，使用`unstack`方法可以将Series多层索引安排到一个DataFrame中,`statck`是其逆运算:
-```
+```Python
 In [210]: data.unstack()
 Out[210]:
         in1       in2       in3
@@ -68,7 +68,7 @@ v  in1   -0.158913
 dtype: float64
 ```
 对于一个DataFrame，每条轴都可以有分层索引，各层都可以有名字；有了列索引后可以通过其选取列分组：
-```
+```Python
 In [213]: df = DataFrame(np.arange(16).reshape(4,4),
      ...:                 index = [['row1','row1','row2','row2'],[1,2,1,2]],
      ...:                 columns=[['col1','col1','col2','col2'],['red','blue','red','blue']])
@@ -109,7 +109,7 @@ row2     1           8     9
 ### 重排分级顺序
 * **swaplevel**
 `swaplevel`接收两个级别编号或名称，并返回一个互换了级别的新对象：
-```
+```Python
 In [219]: df
 Out[219]:
 colname1          col1      col2
@@ -133,7 +133,7 @@ rowname2 rowname1
 
 * **sort_index(level=)**
 `sort_index(level=)`根据单个级别中的值对数据进行排序(稳定的):
-```
+```Python
 In [225]: df.sort_index(level=1)
 Out[225]:
 colname1          col1      col2
@@ -157,7 +157,7 @@ rowname2 rowname1
 
 ### 根据级别汇总统计
 许多对于DataFrame和Series的描述和汇总统计都有一个level选项，用于指定在某条轴上求和的级别：
-```
+```Python
 In [225]: df.sort_index(level=1)
 Out[225]:
 colname1          col1      col2
@@ -182,7 +182,7 @@ rowname2 rowname1
 ### 使用DataFrame的列
 * **set_index**
 `set_index`函数将一个或多个列转换为行索引，并创建一个新的DataFrame，默认情况下用于创建索引的列会被移除，可以通过设置`drop=False`保留：
-```
+```Python
 In [231]: frame = DataFrame({'a':range(7),'b':range(7,0,-1),
      ...:                 'c':['one','one','one','two','two','two','two'],
      ...:                 'd':[0,1,2,0,1,2,3]})
@@ -226,7 +226,7 @@ two 0  3  4  two  0
 
 * **reset_index**
 `reset_index`将层次化索引的级别转移到列里面，和`set_index`相反:
-```
+```Python
 In [236]: frame2
 Out[236]:
        a  b
@@ -253,7 +253,7 @@ Out[237]:
 
 ## 整数索引
 当一个pandas对象含有类似0、1、2的索引时，很难推断出需要的是基于标签或位置的索引，为了保证良好的一致性，如果轴索引含有索引器，那么根据整数进行数据选取的操作将总是面向标签的；如果需要可靠地、不考虑索引类型的、基于位置的索引，可以使用`loc`:
-```
+```Python
 In [271]: obj = Series(np.arange(3))
 
 In [272]: obj.loc[:1]

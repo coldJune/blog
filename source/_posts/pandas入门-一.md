@@ -10,7 +10,7 @@ description: pandas含有使数据分析工作变得更快更简单的高级数�
 ---
 ## Series
 **Series**[^1] 是一种类似于一维数组的对象，它由一组数据(各种NumPy数据类型)以及一组与之相关的数据标签(即索引)组成。Series的字符串表现形式为：索引在左边，值在右边。如果没有为数据指定索引，会自动创建一个0到n-1的整数型索引。可以通过`index`参数指定索引来代替自动生成的索引:
-```
+```Python
 In [4]: ser1 = Series([1,2,2,3])
 
 In [5]: ser1
@@ -32,7 +32,7 @@ d    3
 dtype: int64
 ```
 可以通过索引的方式选取Series中的单个或一组值；数组运算(布尔型数组进行过滤，标量乘法，应用数学函数)都会保留索引和值之间的连接；Series可以看成是一个定长的有序字典，可以用在原本需要字典参数的函数中:
-```
+```Python
 In [8]: ser2['a']
 Out[8]: 1
 
@@ -64,7 +64,7 @@ In [13]: 'g' in ser2
 Out[13]: False
 ```
 可以直接通过字典来创建Series，则Series中的索引就是原字典的键(有序列表)，如果键对应的值找不到，将会是使用`NA`表示缺失数据,pandas的`isnull`和`notnull`函数可用于检测缺失数据：
-```
+```Python
 In [14]: dic = {'a':1,'b':2,'c':3}
 
 In [15]: dics = Series(dic)
@@ -88,7 +88,7 @@ c    3.0
 d    NaN
 ```
 **Series在算数运算中会自动对齐不同索引的数据**：
-```
+```Python
 In [20]: dics
 Out[20]:
 a    1
@@ -113,7 +113,7 @@ d    NaN
 dtype: float64
 ```
 Series本身及其索引有一个name属性，同时Series的索引可以通过赋值的方式就地修改:
-```
+```Python
 In [23]: dics.name='dics'
 
 In [24]: dics.index.name='letter'
@@ -153,7 +153,7 @@ Name: dics, dtype: int64
 
 **DataFrame** 是一个表格型的数据结构。它含有一组有序的列，每列可以是不同的值类型(数值、字符串、布尔值等)。DataFrame既有行索引也有列索引，它可以被看做由Series组成的字典(共同用一个索引)，DataFrame面向行和面向列的操作基本上是平衡的。
 构建DataFrame可以通过直接传入一个由等长列表或NumPy数组组成的字典，和Series一样DataFrame也会自动加上索引且全部列会被有序排列，如果指定了列索引，则DataFrame的列会按照指定顺序进行排列。如果传入的列在数据中找不到，会产生NA值：
-```
+```Python
 In [30]: data ={'state':['a','b','c','d'],
     ...: 'year':[2000,2001,2002,2003],
     ...: 'pop':[1,2,3,4]}
@@ -180,7 +180,7 @@ In [35]: frame.columns
 Out[35]: Index(['pop', 'state', 'year'], dtype='object')
 ```
 可以通过字典标记的方式或属性的方式将DataFrame的列获取为一个Series，返回的Series拥有原DataFrame相同的索引，且其`name`属性已经被相应地设置好了。行也可以通过位置或名称的方式进行获取，比如用索引字段ix:
-```
+```Python
 In [40]: frame.state
 Out[40]:
 0    a
@@ -205,7 +205,7 @@ year     2001
 Name: 1, dtype: object
 ```
 列可以通过赋值的方式进行修改，将列表或数组给某个列时，其长度必须跟DataFrame的长度相匹配。如果赋值的事一个Series就会精确匹配DataFrame的索引，所有的空位都将被填上缺失值，为不存在的列赋值会创建出一个新列，关键字`del`可以删除列:
-```
+```Python
 In [49]: frame2=DataFrame(data,columns=['year','pop','state','debt'],index=['i1','i2','i3','i4'])
 
 In [50]: frame2
@@ -269,7 +269,7 @@ i3  2002    3     c  -2.0
 i4  2003    4     d  -3.0
 ```
 嵌套字典被传给DataFrame后会被解释为：外层字典的键作为列，内层字典键作为行索引，可以通过`T`进行转置。内层字典的键会被合并，排序以形成最终的索引。如果现实指定了索引，就不会如此。同理，Series组成的字典也是一样的用法:
-```
+```Python
 In [63]: pop = {'out1':{2002:1.1,2001:1.2},
     ...: 'out2':{2001:1.3,2004:1.4}}
 
@@ -305,7 +305,7 @@ Out[69]:
 2002   1.1   NaN
 ```
 设置了DataFrame的`index`和`columns`的`name`属性，这些信息将会被显示出来，`values`属性会以二维ndarray的形式返回DataFrame中的数据，如果DataFrame各列的数据类型不同，则值数组的数据类型就会选用能兼容所有列的数据类型：
-```
+```Python
 In [70]: frame3.index.name='year'
 
 In [71]: frame3.columns.name='state'
@@ -360,7 +360,7 @@ pandas的索引对象负责管理轴标签和其他元数据。
 |    unique    |              计算Index中唯一值的数组               |
 
 构建Series或DataFrame时，所得到的任何数组或其他序列的标签都会被转换成一个Index，Index对象是 **不可修改的**，这使得Index对象在多个数据结构之间安全共享。除了长得像数组，Index的功能也类似与一个固定大小的集合，每个索引都有一些方法和属性，它们用于设置逻辑并回答有关索引所包含数据的常见问题:
-```
+```Python
 In [76]: obj = Series(range(3),index=['a','b','c'])
 
 In [77]: index =obj.index
