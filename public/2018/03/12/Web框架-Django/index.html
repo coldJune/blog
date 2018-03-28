@@ -1,0 +1,1560 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+  <meta name="baidu-site-verification" content="true" />
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico#/images/favicon-16x16-next.png?v=5.1.4">
+
+
+
+
+
+
+  <meta name="keywords" content="Web框架,Django," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Web框架可以用于提供Web应用的所有相关服务，如Web服务器、数据库ORM、模板和所有需要的中间件hook">
+<meta name="keywords" content="Web框架,Django">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Web框架:Django">
+<meta property="og:url" content="http://coldjune.com/2018/03/12/Web框架-Django/index.html">
+<meta property="og:site_name" content="Stay Hungary">
+<meta property="og:description" content="Web框架可以用于提供Web应用的所有相关服务，如Web服务器、数据库ORM、模板和所有需要的中间件hook">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-03-26T00:55:08.181Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Web框架:Django">
+<meta name="twitter:description" content="Web框架可以用于提供Web应用的所有相关服务，如Web服务器、数据库ORM、模板和所有需要的中间件hook">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://coldjune.com/2018/03/12/Web框架-Django/"/>
+
+
+
+
+
+  <title>Web框架:Django | Stay Hungary</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+		<a href="https://github.com/coldJune" class="github-corner" aria-label="View source on Github"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; left: 0; transform: scale(-1, 1);" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style></a>    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Stay Hungary</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Programming is an art form</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://coldjune.com/2018/03/12/Web框架-Django/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="邓小俊">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Stay Hungary">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Web框架:Django</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-12T16:46:21+08:00">
+                2018-03-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index">
+                    <span itemprop="name">Python</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018/03/12/Web框架-Django/" class="leancloud_visitors" data-flag-title="Web框架:Django">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  5,448
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  23
+                </span>
+              
+            </div>
+          
+
+          
+              <div class="post-description">
+                  Web框架可以用于提供Web应用的所有相关服务，如Web服务器、数据库ORM、模板和所有需要的中间件hook
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="Django简介"><a href="#Django简介" class="headerlink" title="Django简介"></a>Django简介</h2><ul>
+<li><p>安装<br>在使用<a href="https://www.djangoproject.com/" target="_blank" rel="noopener">Django</a>开发之前，必须安装必需的组件，包括依赖组件和Django本身</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip3 install django</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>项目和应用<br><strong>项目</strong> 是指的一系列文件，用来创建并运行一个完整的Web站点。在项目文件夹下，有一个或多个子文件夹，每个文件夹有特定的功能，称为 <strong>应用</strong>。应用不一定要位于项目文件夹中。应用可以专注于项目某一方面的功能，或可以作为通用组件，用于不同的项目。应用是一个具有特定功能的子模块，这些子模块组合起来就能完成Web站点的功能。</p>
+</li>
+</ul>
+<ol>
+<li><p><strong>在Django中创建项目</strong><br>Django自带有一个名为<code>django-admin.py</code>/<code>django-admin.exe</code>的工具，它可以简.<br>化任务。在POSIX平台上，一般在<code>/usr/local/bin</code>、<code>/usr/bin</code>这样的目录中。使用Windows系统会安装在Python包下的Scripts目录下，如<code>E:\Python\Python36\Scripts</code>。两种系统都应该确保文件位于PATH环境变量中。<br>在项目文件加下执行命令创建项目:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">django-admin.py startproject mysite</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>Django项目文件</strong></p>
+</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">文件名</th>
+<th style="text-align:center">描述/用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><strong>init</strong>.py</td>
+<td style="text-align:center">告诉Python这是一个软件包</td>
+</tr>
+<tr>
+<td style="text-align:center">urls.py</td>
+<td style="text-align:center">全局URL配置(“URLconf”)</td>
+</tr>
+<tr>
+<td style="text-align:center">setting.py</td>
+<td style="text-align:center">项目相关的配置</td>
+</tr>
+<tr>
+<td style="text-align:center">manage.py</td>
+<td style="text-align:center">应用的命令行接口</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>运行开发服务器<br>Django内置Web服务器，该服务器运行在本地，专门用于开发阶段，仅用于开发用途。使用开发服务器有以下几个优点：</li>
+</ul>
+<ol>
+<li>可以直接运行与测试项目和应用，无需完整的生产环境</li>
+<li>当改动Python源码文件并重新载入模块时，开发服务器会自动检测，无须每次编辑代码后手动重启</li>
+<li>开发服务器知道如何为Django管理应用程序寻找和显示静态媒体文件，所以无须立即了解管理方面的内容</li>
+</ol>
+<blockquote>
+<p>启动服务器</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python manage.py runserver</span><br></pre></td></tr></table></figure>
+<h2 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h2><h3 id="创建应用"><a href="#创建应用" class="headerlink" title="创建应用"></a>创建应用</h3><p>在项目目录下使用如下命令创建一个应用：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 ./manage.py startapp blog</span><br></pre></td></tr></table></figure></p>
+<p>这样就建立了一个blog目录，其中有如下内容：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">文件名</th>
+<th style="text-align:center">描述/目的</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">__init.py</td>
+<td style="text-align:center">告诉Python这是一个包</td>
+</tr>
+<tr>
+<td style="text-align:center">urls.py</td>
+<td style="text-align:center">应用的URL配置文件(“URLconf”)，这个文件并不像项目的URLconf那样自动创建</td>
+</tr>
+<tr>
+<td style="text-align:center">models.py</td>
+<td style="text-align:center">数据模型</td>
+</tr>
+<tr>
+<td style="text-align:center">views.py</td>
+<td style="text-align:center">视图函数(即MVC中的控制器)</td>
+</tr>
+<tr>
+<td style="text-align:center">tests.py</td>
+<td style="text-align:center">单元测试</td>
+</tr>
+</tbody>
+</table>
+<p>与项目类似，应用也是一个Python包。本地应用的URLconf需要手动创建，接着使用URLconf里的include()指令将请求分配给应用的URLconf。为了让Django知道这个新应用是项目的一部分，需要编辑 <em>settings.py</em>，将应用名称(<strong>blog</strong>)添加到元组的末尾。Django使用 <strong>INSTALLED_APPS</strong> 来配置系统的不同部分，包括自动管理应用程序和测试框架。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">INSTALLED_APPS = [</span><br><span class="line">    <span class="string">'django.contrib.admin'</span>,</span><br><span class="line">    <span class="string">'django.contrib.auth'</span>,</span><br><span class="line">    <span class="string">'django.contrib.contenttypes'</span>,</span><br><span class="line">    <span class="string">'django.contrib.sessions'</span>,</span><br><span class="line">    <span class="string">'django.contrib.messages'</span>,</span><br><span class="line">    <span class="string">'django.contrib.staticfiles'</span>,</span><br><span class="line">    <span class="string">'blog'</span></span><br><span class="line">]</span><br></pre></td></tr></table></figure></p>
+<h3 id="创建模型添加数据库服务"><a href="#创建模型添加数据库服务" class="headerlink" title="创建模型添加数据库服务"></a>创建模型添加数据库服务</h3><h4 id="创建模型"><a href="#创建模型" class="headerlink" title="创建模型"></a>创建模型</h4><p><em>models.py</em> 将定义博客的数据结构，首先创建一个基本类型。数据模型表示将会存储在数据库每条记录的数据类型。Django提供了许多<a href="https://docs.djangoproject.com/en/2.0/ref/models/fields/" target="_blank" rel="noopener">字段类型</a>，用来将数据映射到应用中。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> django.db <span class="keyword">import</span> models</span><br><span class="line"></span><br><span class="line"><span class="comment"># Create your models here.</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">BlogPost</span><span class="params">(models.Model)</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    django.db.models.Model的子类Model是Django中用于数据模型的标准基类。</span></span><br><span class="line"><span class="string">    BlogPost中的字段像普通类属性那样定义，</span></span><br><span class="line"><span class="string">    每个都是特定字段类的实例，每个实例对应数据库中的一条记录。</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    title = models.CharField(max_length=<span class="number">150</span>)</span><br><span class="line">    body = models.TextField()</span><br><span class="line">    timestamp = models.DateTimeField()</span><br></pre></td></tr></table></figure></p>
+<h4 id="创建数据库"><a href="#创建数据库" class="headerlink" title="创建数据库"></a>创建数据库</h4><p>在项目的<em>setting.py</em>文件中设置数据库。关于数据库，有6个相关设置(有时只需要两个):<strong>ENGINE</strong>、<strong>NAME</strong>、<strong>HOST</strong>、<strong>PORT</strong>、<strong>USER</strong>、<strong>PASSWORD</strong>。只需要在相关设置选项后面添上需要让Django使用的数据库服务器中合适的值即可。</p>
+<ul>
+<li><p>使用MySQL</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">DATABASES = &#123;</span><br><span class="line">    <span class="comment"># 使用mysql</span></span><br><span class="line">    <span class="string">'default'</span>: &#123;</span><br><span class="line">        <span class="string">'ENGINE'</span>: <span class="string">'django.db.backends.mysql'</span>,</span><br><span class="line">        <span class="string">'NAME'</span>: <span class="string">'django_test'</span>,</span><br><span class="line">        <span class="string">'USER'</span>: <span class="string">'root'</span>,</span><br><span class="line">        <span class="string">'PASSWORD'</span>: <span class="string">''</span>,</span><br><span class="line">        <span class="string">'HOST'</span>: <span class="string">'localhost'</span>,</span><br><span class="line">        <span class="string">'PORT'</span>: <span class="string">'3306'</span>,</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>使用SQLite<br>SQLite一般用于测试，它没有主机、端口、用户、密码信息。因为其使用本地文件存储信息，本地文件系统的访问权限就是数据库的访问控制。SQLite不仅可以使用本地文件，还可以使用纯内存数据库。使用实际的Web服务器(如Apache)来使用SQLite时，需要确保拥有Web服务器进程的账户同时拥有数据库文件本身和含有数据库文件目录的写入权限。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">DATABASES = &#123;</span><br><span class="line">    <span class="comment"># 使用sqlite</span></span><br><span class="line">    <span class="string">'default'</span>: &#123;</span><br><span class="line">        <span class="string">'ENGINE'</span>: <span class="string">'django.db.backends.sqlite3'</span>,</span><br><span class="line">        <span class="string">'NAME'</span>: os.path.join(BASE_DIR, <span class="string">'db.sqlite3'</span>),</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="创建表"><a href="#创建表" class="headerlink" title="创建表"></a>创建表</h4><p>使用 <em>makemigrations</em> 参数创建映射文件，当执行命令时Django会查找INSTALLED_APPS中列出的应用的models.py文件。对于每个找到的模型，都会创建一个映射表。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 ./manage.py makemigrations</span><br></pre></td></tr></table></figure></p>
+<p>使用 <em>migrate</em> 映射到数据库<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 ./manage.py migrate</span><br></pre></td></tr></table></figure></p>
+<h3 id="Python应用Shell"><a href="#Python应用Shell" class="headerlink" title="Python应用Shell"></a>Python应用Shell</h3><h4 id="在Django中使用Python-shell"><a href="#在Django中使用Python-shell" class="headerlink" title="在Django中使用Python shell"></a>在Django中使用Python shell</h4><p>即使没有模版(view)或视图(controller)，也可以通过添加一些BlogPost项来测试数据模型。如果应用由RDBMS支持，则可以为每个blog项的表添加一个数据记录。如果使用的是NoSQL数据库，则需要向数据库中添加其他对象、文档或实体。通过以下命令启动shell(使用对应版本)：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">python3 ./manage.py shell</span><br><span class="line"></span><br><span class="line">Python 3.6.4 (default, Jan  6 2018, 11:51:59)</span><br><span class="line">Type &apos;copyright&apos;, &apos;credits&apos; or &apos;license&apos; for more information</span><br><span class="line">IPython 6.2.1 -- An enhanced Interactive Python. Type &apos;?&apos; for help.</span><br><span class="line">In [1]:</span><br></pre></td></tr></table></figure></p>
+<p><a href="https://docs.djangoproject.com/en/dev/intro/tutorial01/#playing-with-the-api" target="_blank" rel="noopener">Django shell</a>和标准的shell相比更专注于Django项目的环境，可以与视图函数和数据模型交互，这个shell会自动设置环境变量，包括sys.path，它可以访问Django与自己项目中的模块和包，否则需要手动配置。除了标准shell之外，还有其他的交互式解释器可供选择。Django更倾向于使用功能丰富的shell，如IPython和bpython，这些shell在普通的解释器基础上提供及其强大的功能。运行shell命令时，Django首先查找含有扩展功能的shell，如果没有回返回标准解释器。这里使用的是IPython。也可以使用 <em>-i</em> 来强制使用普通解释器。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">python3 ./manage.py shell -i python</span><br><span class="line"></span><br><span class="line">Python 3.6.4 (default, Jan  6 2018, 11:51:59)</span><br><span class="line">[GCC 4.2.1 Compatible Apple LLVM 9.0.0 (clang-900.0.39.2)] on darwin</span><br><span class="line">Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;license&quot; for more information.</span><br><span class="line">(InteractiveConsole)</span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure></p>
+<h4 id="测试数据模型"><a href="#测试数据模型" class="headerlink" title="测试数据模型"></a>测试数据模型</h4><p>在启动Python shell之后输入一些Python或IPython命令来测试应用及其数据模型。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">In [1]: from datetime import datetime</span><br><span class="line"></span><br><span class="line">In [2]: from blog.models import BlogPost</span><br><span class="line"></span><br><span class="line">In [3]: BlogPost.objects.all()</span><br><span class="line">Out[3]: &lt;QuerySet [&lt;BlogPost: BlogPost object (1)&gt;, &lt;BlogPost: BlogPost object (2)&gt;, &lt;BlogPost: BlogPost object (3)&gt;]&gt;</span><br><span class="line"></span><br><span class="line">In [4]: bp = BlogPost(title=&apos;my blog&apos;, body=&apos;&apos;&apos;</span><br><span class="line">   ...: my 1st blog...</span><br><span class="line">   ...: yoooo!&apos;&apos;&apos;,</span><br><span class="line">   ...: timestamp=datetime.now())</span><br><span class="line"></span><br><span class="line">In [5]: bp</span><br><span class="line">Out[5]: &lt;BlogPost: BlogPost object (None)&gt;</span><br><span class="line"></span><br><span class="line">In [6]: bp.save()</span><br><span class="line"></span><br><span class="line">In [7]: BlogPost.objects.count()</span><br><span class="line">Out[7]: 4</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">In [9]: bp = BlogPost.objects.all()[0]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">In [11]: print(bp.title)</span><br><span class="line">test shell</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">In [13]: print(bp.body)</span><br><span class="line"></span><br><span class="line">my 1st blog post...</span><br><span class="line">yo!</span><br><span class="line"></span><br><span class="line">In [14]: bp.timestamp.ctime()</span><br><span class="line">Out[14]: &apos;Sun Mar 11 08:13:31 2018&apos;</span><br></pre></td></tr></table></figure></p>
+<p>前两行命令导入相应的对象，第3步查询数据库中BlogPost对象，第4步是实例化一个BlogPost对象来向数据库中添加BlogPost对象，向其中传入对应属性的值(title、body和timestamp)。创建完对象后，需要通过BlogPost.save()方法将其写入到数据库中。完成创建和写入后，使用BlogPost.objects.count()方法确认数据库中对象的个数。然后获取BlogPost对象列表的第一个元素并获取对应属性的值。<br>设置时区:<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">LANGUAGE_CODE = <span class="string">'zh-hans'</span></span><br><span class="line"></span><br><span class="line">TIME_ZONE = <span class="string">'Asia/Shanghai'</span></span><br><span class="line"></span><br><span class="line">USE_I18N = <span class="keyword">True</span></span><br><span class="line"></span><br><span class="line">USE_L10N = <span class="keyword">True</span></span><br><span class="line"></span><br><span class="line">USE_TZ = <span class="keyword">False</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="Django管理应用"><a href="#Django管理应用" class="headerlink" title="Django管理应用"></a>Django管理应用</h3><p>admin应用让开发者在完成完整的UI之前验证处理数据的代码。</p>
+<h4 id="设置admin"><a href="#设置admin" class="headerlink" title="设置admin"></a>设置admin</h4><p>在 <em>setting.py</em> 的<code>INSTALLED_APP</code>中添加<code>&#39;django.contrib.admin&#39;,</code>，然后运行<code>python3 ./manage.py makemigrations</code>和<code>python3 ./manage.py migrate</code>两条命令来创建其对应的表。在admin设置完之后于 <em>urls.py</em> 中设置url路径：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> django.contrib <span class="keyword">import</span> admin</span><br><span class="line"><span class="keyword">from</span> django.urls <span class="keyword">import</span> path</span><br><span class="line"></span><br><span class="line">urlpatterns = [</span><br><span class="line">    path(<span class="string">'admin/'</span>, admin.site.urls),</span><br><span class="line">]</span><br></pre></td></tr></table></figure></p>
+<p>最后应用程序需要告诉Django哪个模型需要在admin页面中显示并编辑，这时候就需要在应用的 <em>admin.py</em> 中注册BlogPost：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> django.contrib <span class="keyword">import</span> admin</span><br><span class="line"><span class="keyword">from</span> blog <span class="keyword">import</span> models</span><br><span class="line"><span class="comment"># Register your models here.</span></span><br><span class="line">admin.site.register(models.BlogPost)</span><br></pre></td></tr></table></figure></p>
+<h4 id="使用admin"><a href="#使用admin" class="headerlink" title="使用admin"></a>使用admin</h4><p>使用命令<code>python3 ./manage.py runserver</code>启动服务，然后在浏览器中输入 <em><a href="http://localhost:8000/admin" target="_blank" rel="noopener">http://localhost:8000/admin</a></em> 访问admin页面。在访问之前使用<code>python3 manage.py createsuperuser</code>创建的超级用户的用户名和密码用于登录管理页面。（账号：<em>root</em>，密码：<em>Aa123456</em>）<br>为了更好地显示博文列表，更新blog/admin.py文件，使用新的BlogPostAdmin类：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> django.contrib <span class="keyword">import</span> admin</span><br><span class="line"><span class="keyword">from</span> blog <span class="keyword">import</span> models</span><br><span class="line"><span class="comment"># Register your models here.</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">BlogPostAdmin</span><span class="params">(admin.ModelAdmin)</span>:</span></span><br><span class="line">    list_display = (<span class="string">'title'</span>, <span class="string">'timestamp'</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">admin.site.register(models.BlogPost, BlogPostAdmin)</span><br></pre></td></tr></table></figure></p>
+<h3 id="创建博客的用户界面"><a href="#创建博客的用户界面" class="headerlink" title="创建博客的用户界面"></a>创建博客的用户界面</h3><p>Django shell和admin是针对于开发者的工具，而现在需要构建用户的界面。Web页面应该有以下几个经典组建：</p>
+<ol>
+<li><strong>模板</strong>，用于显示通过Python类字典对象传入的信息</li>
+<li><strong>视图函数</strong>，用于执行针对请求的核心逻辑。视图会从数据库中获取信息，并格式化显示结果</li>
+<li><strong>模式</strong>，将传入的请求映射到对应的视图中，同时也可以将参数传递给视图</li>
+</ol>
+<p>Django是自底向上处理请求，它首先查找匹配的URL模式，接着调用对应的视图函数，最后将渲染好的数据通过模板展现给用户。构建应用可以按照如下顺序：</p>
+<ol>
+<li>因为需要一些可观察对象，所以先创建基本的模板</li>
+<li>设计一个简单的URL模式，让Django可以立刻访问应用</li>
+<li>开发出一个视图函数原型，然后在此基础上迭代开发<br>在构建应用过程中模板和URL模式不会发生太大的变化，而应用的核心是视图。这非常符合 <em>测试驱动模型(TDD)</em> 的开发模式。</li>
+</ol>
+<h4 id="创建模板"><a href="#创建模板" class="headerlink" title="创建模板"></a><a href="https://docs.djangoproject.com/en/2.0/topics/templates/#tags" target="_blank" rel="noopener">创建模板</a></h4><ul>
+<li><p><em>变量标签</em><br><strong>变量标签</strong> 是由 <em>花括号()</em> 括起来的内容，花括号内用于显示对象的内容。在变量标签中，可以使用Python风格的 <em>点分割标识</em> 访问这些变量的属性。这些值可以是纯数据，也可以是可调用对象，如果是后者，会自动调用这些对象而无需添加圆括号”()”来表示这个函数或方法可调用。</p>
+</li>
+<li><p><em>过滤器</em><br><strong>过滤器</strong> 是在变量标签中使用的特殊函数，它能在标签中立即对变量进行处理。方法是在变量右边插入一个 <em>管道符号(“|”)</em>，接着跟上过滤器名称。<code>&lt;h2&gt; { { post.title | title } } &lt;/h2&gt;</code></p>
+</li>
+<li><p><em>上下文</em><br><strong>上下文</strong> 是一种特殊的Python字典，是传递给模板的变量。假设通过上下文传入的BlogPost对象称为”post”。通过上下文传入所有的博文，这样可以通过循环显示所有文章。</p>
+</li>
+<li><p><em>块标签</em><br><strong>块标签</strong> 通过花括号和百分号来表示：&#123;%…%&#125;，它们用于向HTML模版中插入如循环或判断这样的逻辑。</p>
+</li>
+</ul>
+<p>将HTML模版代码保存到一个简单的模版文件中，命名为archive.html，放置在应用文件夹下的 <strong>templates</strong> 目录下，模版名称任取，但模版目录一定是 <em>templates</em><br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;%for post in posts%&#125;</span><br><span class="line">    <span class="tag">&lt;<span class="name">h2</span>&gt;</span>&#123;&#123;post.title&#125;&#125;<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">h2</span>&gt;</span>&#123;&#123;post.timestamp&#125;&#125;<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">h2</span>&gt;</span>&#123;&#123;post.body&#125;&#125;<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line">&#123;% endfor%&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="创建URL模式"><a href="#创建URL模式" class="headerlink" title="创建URL模式"></a>创建URL模式</h4><ul>
+<li>项目的URLconf<br>服务器通过WSGI的功能，最终会将请求传递给Django。接受请求的类型(GET、POST等)和路径(URL中除了协议、主机、端口之外的内容)并传递到项目的URLconf文件(mysite/urls.py)。为了符合代码重用、DRY、在一处调试相同的代码等准则，需要应用能负责自己的URL。在项目的urls.py(这里时mysite/urls.py)中添加url配置项，让其指向应用的URLconf。<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> django.contrib <span class="keyword">import</span> admin</span><br><span class="line"><span class="keyword">from</span> django.urls <span class="keyword">import</span> path</span><br><span class="line"><span class="keyword">from</span> django.urls <span class="keyword">import</span> include</span><br><span class="line">urlpatterns = [</span><br><span class="line">    path(<span class="string">'admin/'</span>, admin.site.urls),</span><br><span class="line">    <span class="comment"># include函数将动作推迟到其他URLconf</span></span><br><span class="line">    <span class="comment"># 这里将以blog/开通的请求缓存起来，并传递给mysite/blog/urls.py</span></span><br><span class="line">    path(<span class="string">'blog/'</span>, include(<span class="string">'blog.urls'</span>))</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p><em>include()</em> 会移除当前的URL路径头，路径中剩下的部分传递给下游URLconf中的path()函数。（<em>当输入’<a href="http://localhost:8080/blog/foo/bar" target="_blank" rel="noopener">http://localhost:8080/blog/foo/bar</a>‘ 这个URL时，项目的URLconf接收到的是blog/foo/bar，匹配blog找到一个include()函数，然后将foo/bar传递给mysite/blog/urls.py</em>）。上述代码中使用include()和未使用include()的区别在于使用include()传递的是 <strong>字符串</strong>，未使用include传递的是 <strong>对象</strong>。</p>
+<ul>
+<li>应用的URLconf<br>在项目的URLconf中通过include()包含blog.urls，让匹配blog应用的URL将剩余的部分传递到blog应用中处理。在mysite/blog/urls.py(没有就创建),添加以下代码：<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> django.urls <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">import</span> blog.views</span><br><span class="line">urlpatterns = [</span><br><span class="line">    <span class="comment"># 第一个参数是路径，第二个参数是视图函数，在调用到这个URL时用于处理信息</span></span><br><span class="line">    path(<span class="string">''</span>, blog.views.archive)</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>请求URL的头部分(blog/)匹配到的是根URLconf已经被去除。添加新的视图在列表中添加一行代码即可。</p>
+<h4 id="创建视图函数"><a href="#创建视图函数" class="headerlink" title="创建视图函数"></a>创建视图函数</h4><p>一个简单的视图函数会从数据库获取所有博文，并使用模板显示给用户：</p>
+<ol>
+<li>向数据库查询所有博客条目</li>
+<li>载入模板文件</li>
+<li>为模板创建上下文字典</li>
+<li>将模板渲染到HTML中</li>
+<li>通过HTTP响应返回HTML<br>在应用的views.py中添加如下代码:<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> django.shortcuts <span class="keyword">import</span> render</span><br><span class="line"><span class="keyword">from</span> blog.models <span class="keyword">import</span> BlogPost</span><br><span class="line"><span class="keyword">from</span> django.template <span class="keyword">import</span> loader, Context</span><br><span class="line"><span class="keyword">from</span> django.shortcuts <span class="keyword">import</span> render_to_response</span><br><span class="line"><span class="comment"># Create your views here.</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">archive</span><span class="params">(request)</span>:</span></span><br><span class="line">    posts = BlogPost.objects.all()</span><br><span class="line">    <span class="keyword">return</span> render_to_response(<span class="string">'archive.html'</span>, &#123;<span class="string">'posts'</span>: posts&#125;)</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="改进输出"><a href="#改进输出" class="headerlink" title="改进输出"></a>改进输出</h3><p>现在得到了一个可以工作的应用，有了可以工作的简单博客，可以响应客户端的请求，从数据库提取信息，向用户显示博文。现在更改查询方式，让博文按时间逆序显示，并且限制每页显示的数目。</p>
+<blockquote>
+<p>BlogPOST是数据模型类。Objects属性是模型的Manager类，其中含有all()方法来获取QuerySet。QuerySet执行“惰性迭代”，在求值时才会真正查询数据库。</p>
+</blockquote>
+<p>实现排序只需调用order_by()方法时提供一个排序参数即可(views.py)：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">archive</span><span class="params">(request)</span>:</span></span><br><span class="line">    <span class="comment"># 在timestamp前面加上减号(-)指定按时间逆序排列。正常的升序只需要移除减号</span></span><br><span class="line">    posts = BlogPost.objects.all().order_by(<span class="string">'-timestamp'</span>)</span><br><span class="line">    <span class="keyword">return</span> render_to_response(<span class="string">'archive.html'</span>, &#123;<span class="string">'posts'</span>: posts&#125;)</span><br></pre></td></tr></table></figure></p>
+<p>为了测试限制显示数目，先启动Django shell添加数据：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">python ./manage.py shell</span><br><span class="line">Python 3.6.4 (v3.6.4:d48eceb, Dec 19 2017, 06:54:40) [MSC v.1900 64 bit (AMD64)] on win32</span><br><span class="line">Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;license&quot; for more information.</span><br><span class="line">(InteractiveConsole)</span><br><span class="line">&gt;&gt;&gt; from datetime import datetime</span><br><span class="line">&gt;&gt;&gt; from blog.models import BlogPost</span><br><span class="line">&gt;&gt;&gt; for i in range(10):</span><br><span class="line">...     bp = BlogPost(title=&apos;post $%d&apos; % i ,body=&apos;body of post $%d&apos; %d, timestamp=datetime.now())</span><br><span class="line">...     bp.save()</span><br><span class="line">...</span><br></pre></td></tr></table></figure></p>
+<p>然后使用切片的方式获取最新的10篇(views.py)：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">archive</span><span class="params">(request)</span>:</span></span><br><span class="line">    <span class="comment"># 在timestamp前面加上减号(-)指定按时间逆序排列。正常的升序只需要移除减号</span></span><br><span class="line">    posts = BlogPost.objects.all().order_by(<span class="string">'-timestamp'</span>)[:<span class="number">10</span>]</span><br><span class="line">    <span class="keyword">return</span> render_to_response(<span class="string">'archive.html'</span>, &#123;<span class="string">'posts'</span>: posts&#125;)</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>设置模型的默认排序方式</li>
+</ul>
+<p>如果在模型中设置首选的排序方式，其他基于Django的应用或访问这个数据的项目也会使用这个顺序。为了给模型设置默认顺序，需要创建一个名为 <strong>Meta</strong> 的内部类，在其中设置一个名为 <strong>ordering</strong> 的属性(models.py):<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">BlogPost</span><span class="params">(models.Model)</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    django.db.models.Model的子类Model是Django中用于数据模型的标准基类。</span></span><br><span class="line"><span class="string">    BlogPost中的字段像普通类属性那样定义，</span></span><br><span class="line"><span class="string">    每个都是特定字段类的实例，每个实例对应数据库中的一条记录。</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    title = models.CharField(max_length=<span class="number">150</span>)</span><br><span class="line">    body = models.TextField()</span><br><span class="line">    timestamp = models.DateTimeField()</span><br><span class="line"></span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">Meta</span>:</span></span><br><span class="line">        ordering = (<span class="string">'-timestamp'</span>,)</span><br></pre></td></tr></table></figure></p>
+<p>取消视图函数中的排序(views.py):<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">archive</span><span class="params">(request)</span>:</span></span><br><span class="line">    <span class="comment"># 在timestamp前面加上减号(-)指定按时间逆序排列。正常的升序只需要移除减号</span></span><br><span class="line">    posts = BlogPost.objects.all()[:<span class="number">10</span>]</span><br><span class="line">    <span class="keyword">return</span> render_to_response(<span class="string">'archive.html'</span>, &#123;<span class="string">'posts'</span>: posts&#125;)</span><br></pre></td></tr></table></figure></p>
+<h3 id="处理用户输入"><a href="#处理用户输入" class="headerlink" title="处理用户输入"></a>处理用户输入</h3><ol>
+<li><p>添加一个HTML表单，让用户可以输入数据(archive.html),为了防止</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">action</span>=<span class="string">"/blog/create/"</span> <span class="attr">method</span>=<span class="string">"post"</span>&gt;</span></span><br><span class="line">    Title:</span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">name</span>=<span class="string">"title"</span>&gt;</span><span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">    Body:</span><br><span class="line">    <span class="tag">&lt;<span class="name">textarea</span> <span class="attr">name</span>=<span class="string">"body"</span> <span class="attr">rows</span>=<span class="string">"3"</span> <span class="attr">cols</span>=<span class="string">"60"</span>&gt;</span><span class="tag">&lt;/<span class="name">textarea</span>&gt;</span><span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"submit"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">hr</span>&gt;</span></span><br><span class="line">&#123;%for post in posts%&#125;</span><br><span class="line">    <span class="tag">&lt;<span class="name">h2</span>&gt;</span>&#123;&#123;post.title&#125;&#125;<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>&#123;&#123;post.timestamp&#125;&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>&#123;&#123;post.body&#125;&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">hr</span>&gt;</span></span><br><span class="line">&#123;% endfor %&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>插入(URL，视图)这样的URLConf项<br>使用前面的HTML，需要用到/blog/create/的路径，所以需要将其关联到一个视图函数中，该函数用于把内容保存到数据库中，这个函数命名为create_blogpost()，在应用的urls.py中添加：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> django.urls <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">import</span> blog.views</span><br><span class="line">urlpatterns = [</span><br><span class="line">    <span class="comment"># 第一个参数是路径，第二个参数是视图函数，在调用到这个URL时用于处理信息</span></span><br><span class="line">    path(<span class="string">''</span>, blog.views.archive),</span><br><span class="line">    path(<span class="string">r'create/'</span>, blog.views.create_blogpost)</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>创建视图来处理用户输入<br>在应用的views.py中添加上面定义的处理方法</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">create_blogpost</span><span class="params">(request)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> request.method == <span class="string">'POST'</span>:</span><br><span class="line">        <span class="comment"># 检查POST请求</span></span><br><span class="line">        <span class="comment"># 创建新的BlogPost项，获取表单数据，并用当前时间建立时间戳。</span></span><br><span class="line">        BlogPost(</span><br><span class="line">            title=request.POST.get(<span class="string">'title'</span>),</span><br><span class="line">            body=request.POST.get(<span class="string">'body'</span>),</span><br><span class="line">            timestamp=datetime.now()</span><br><span class="line">        ).save()</span><br><span class="line">    <span class="comment"># 重定向会/blog</span></span><br><span class="line">    <span class="keyword">return</span> HttpResponseRedirect(<span class="string">'/blog'</span>)</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<ul>
+<li>在完成上面的步骤之后，会发现创建表单的调用会被拦截报403的错误。这是因为Django有数据保留特性，不允许不安全的POST通过 <em>跨站点请求伪造（Cross-site Request Forgery,CSRF）</em> 来进行攻击。需要在HTML表单添加CSRF标记(&#123;% csrf_token %&#125;):<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">action</span>=<span class="string">"/blog/create/"</span> <span class="attr">method</span>=<span class="string">"post"</span>&gt;</span>&#123;%csrf_token%&#125;</span><br><span class="line">    Title:</span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">name</span>=<span class="string">"title"</span>&gt;</span><span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">    Body:</span><br><span class="line">    <span class="tag">&lt;<span class="name">textarea</span> <span class="attr">name</span>=<span class="string">"body"</span> <span class="attr">rows</span>=<span class="string">"3"</span> <span class="attr">cols</span>=<span class="string">"60"</span>&gt;</span><span class="tag">&lt;/<span class="name">textarea</span>&gt;</span><span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"submit"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">hr</span>&gt;</span></span><br><span class="line">    &#123;%for post in posts%&#125;</span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">h2</span>&gt;</span>&#123;&#123;post.title&#125;&#125;<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>&#123;&#123;post.timestamp&#125;&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>&#123;&#123;post.body&#125;&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">hr</span>&gt;</span></span><br><span class="line">&#123;% endfor %&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>通过模板发送向这些标记请求的上下文实例，这里将<code>archive()</code>方法调用的<code>render_to_response()</code>改为<code>render</code>:<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">archive</span><span class="params">(request)</span>:</span></span><br><span class="line">    <span class="comment"># 在timestamp前面加上减号(-)指定按时间逆序排列。正常的升序只需要移除减号</span></span><br><span class="line">    posts = BlogPost.objects.all()[:<span class="number">10</span>]</span><br><span class="line">    <span class="keyword">return</span> render(request, <span class="string">'archive.html'</span>, &#123;<span class="string">'posts'</span>: posts&#125;)</span><br></pre></td></tr></table></figure></p>
+<h3 id="表单和模型表单"><a href="#表单和模型表单" class="headerlink" title="表单和模型表单"></a>表单和模型表单</h3><ul>
+<li><p>如果表单字段完全匹配一个数据模型，则通过Django ModelForm能更好的完成任务(models.py):</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">BlogPostForm</span><span class="params">(forms.ModelForm)</span>:</span></span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">Meta</span>:</span></span><br><span class="line">        <span class="comment"># 定义一个Meta类，他表示表单基于哪个数据模型。当生成HTML表单时，会含有对应数据模型中的所有属性字段。</span></span><br><span class="line">        <span class="comment"># 不信赖用户输入正确的时间戳可以通过添加exclude属性来设置。</span></span><br><span class="line">        model = BlogPost</span><br><span class="line">        exclude = (<span class="string">'timestamp'</span>,)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>使用ModelForm来生成HTML表单(archive.html):</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&lt;form action=<span class="string">"/blog/create/"</span> method=<span class="string">"post"</span>&gt;&#123;%csrf_token%&#125;</span><br><span class="line">  &lt;table&gt;&#123;&#123;form&#125;&#125;&lt;/table&gt;</span><br><span class="line">    &lt;input type=<span class="string">"submit"</span>&gt;</span><br><span class="line">&lt;/form&gt;</span><br><span class="line">&lt;hr&gt;</span><br><span class="line">    &#123;%<span class="keyword">for</span> post <span class="keyword">in</span> posts%&#125;</span><br><span class="line"></span><br><span class="line">    &lt;h2&gt;&#123;&#123;post.title&#125;&#125;&lt;/h2&gt;</span><br><span class="line">    &lt;p&gt;&#123;&#123;post.timestamp&#125;&#125;&lt;/p&gt;</span><br><span class="line">    &lt;p&gt;&#123;&#123;post.body&#125;&#125;&lt;/p&gt;</span><br><span class="line">&lt;hr&gt;</span><br><span class="line">&#123;% endfor %&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>因为数据已经存在于数据模型中，便不用去通过请求获取单个字段，而由于timestamp不能从表单获取，所以修改后的views.py中<code>create_blogpost()</code>方法如下:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">create_blogpost</span><span class="params">(request)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> request.method == <span class="string">'POST'</span>:</span><br><span class="line">        <span class="comment"># 检查POST请求</span></span><br><span class="line">        <span class="comment"># 创建新的BlogPost项，获取表单数据，并用当前时间建立时间戳。</span></span><br><span class="line">        <span class="comment"># BlogPost(</span></span><br><span class="line">        <span class="comment">#     title=request.POST.get('title'),</span></span><br><span class="line">        <span class="comment">#     body=request.POST.get('body'),</span></span><br><span class="line">        <span class="comment">#     timestamp=datetime.now()</span></span><br><span class="line">        <span class="comment"># ).save()</span></span><br><span class="line">        form = BlogPostForm(request.POST)</span><br><span class="line">        <span class="keyword">if</span> form.is_valid():</span><br><span class="line">            post = form.save(commit=<span class="keyword">False</span>)</span><br><span class="line">            post.timestamp = datetime.now()</span><br><span class="line">            post.save()</span><br><span class="line">    <span class="comment"># 重定向会/blog</span></span><br><span class="line">    <span class="keyword">return</span> HttpResponseRedirect(<span class="string">'/blog'</span>)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="添加测试"><a href="#添加测试" class="headerlink" title="添加测试"></a>添加测试</h3><p>Django通过扩展Python自带的单元测试模块来提供测试功能。Django还可以测试文档字符串(即docstring)，这称为 <em>文档测试(doctest)</em></p>
+<blockquote>
+<p>应用的tests.py</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> django.test <span class="keyword">import</span> TestCase</span><br><span class="line"><span class="keyword">from</span> datetime <span class="keyword">import</span> datetime</span><br><span class="line"><span class="keyword">from</span> django.test.client <span class="keyword">import</span> Client</span><br><span class="line"><span class="keyword">from</span> blog.models <span class="keyword">import</span> BlogPost</span><br><span class="line"><span class="comment"># Create your tests here.</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">BlogPostTest</span><span class="params">(TestCase)</span>:</span></span><br><span class="line">    <span class="comment"># 测试方法必须以“test_”开头，方法名后面的部分随意。</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">test_obj_create</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="comment"># 这里仅仅通过测试确保对象成功创建，并验证标题内容</span></span><br><span class="line">        BlogPost.objects.create(</span><br><span class="line">            title=<span class="string">'raw title'</span>, body=<span class="string">'raw body'</span>, timestamp=datetime.now())</span><br><span class="line">        <span class="comment"># 如果两个参数相等则测试成功，否则该测试失败</span></span><br><span class="line">        <span class="comment"># 这里验证对象的数目和标题</span></span><br><span class="line">        self.assertEqual(<span class="number">1</span>, BlogPost.objects.count())</span><br><span class="line">        self.assertEqual(<span class="string">'raw title'</span>, BlogPost.objects.get(id=<span class="number">1</span>).title)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">test_home</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="comment"># 在'/blog/'中调用应用的主页面，确保收到200这个HTTP返回码</span></span><br><span class="line">        response = self.client.get(<span class="string">'/blog/'</span>)</span><br><span class="line">        self.assertIn(response.status_code, (<span class="number">200</span>, ))</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">test_slash</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="comment"># 测试确认重定向</span></span><br><span class="line">        response = self.client.get(<span class="string">'/'</span>)</span><br><span class="line">        self.assertIn(response.status_code, (<span class="number">301</span>, <span class="number">302</span>))</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">test_empty_create</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="comment"># 测试'/blog/create/'生成的视图，测试在没有任何数据就错误地生成GET请求，</span></span><br><span class="line">        <span class="comment"># 代码应该忽略掉这个请求，然后重定向到'/blog'</span></span><br><span class="line">        response = self.client.get(<span class="string">'/blog/create/'</span>)</span><br><span class="line">        self.assertIn(response.status_code, (<span class="number">301</span>, <span class="number">302</span>))</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">test_post_create</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="comment"># 模拟真实用户请求通过POST发送真实数据，创建博客项，让后将用户重定向到"/blog"</span></span><br><span class="line">        response = self.client.post(<span class="string">'/blog/create/'</span>, &#123;</span><br><span class="line">            <span class="string">'title'</span>: <span class="string">'post title'</span>,</span><br><span class="line">            <span class="string">'body'</span>: <span class="string">'post body'</span></span><br><span class="line">        &#125;)</span><br><span class="line">        self.assertIn(response.status_code, (<span class="number">301</span>, <span class="number">302</span>))</span><br><span class="line">        self.assertEqual(<span class="number">1</span>, BlogPost.objects.count())</span><br><span class="line">        self.assertEqual(<span class="string">'post title'</span>, BlogPost.objects.get(id=<span class="number">1</span>).title)</span><br></pre></td></tr></table></figure>
+<p><a href="https://github.com/coldJune/Python/tree/master/mysite" target="_blank" rel="noopener">源代码</a></p>
+
+      
+    </div>
+    
+    
+    
+		<div>
+		  
+		    <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-apple"></i>感谢您的阅读-------------</div>
+    
+</div>
+		  
+		</div>
+		<div>
+      
+        
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <p><span>本文标题:</span><a href="/2018/03/12/Web框架-Django/">Web框架:Django</a></p>
+  <p><span>文章作者:</span><a href="/" title="访问 邓小俊 的个人博客">邓小俊</a></p>
+  <p><span>发布时间:</span>2018年03月12日 - 16:03</p>
+  <p><span>最后更新:</span>2018年03月26日 - 08:03</p>
+  <p><span>原始链接:</span><a href="/2018/03/12/Web框架-Django/" title="Web框架:Django">http://coldjune.com/2018/03/12/Web框架-Django/</a>
+    <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://coldjune.com/2018/03/12/Web框架-Django/"  aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+      $(".fa-clipboard").click(function(){
+      clipboard.on('success', function(){
+        swal({   
+          title: "",   
+          text: '复制成功',
+          icon: "success", 
+          showConfirmButton: true
+          });
+        });
+    });  
+</script>
+
+      
+		</div>
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Web框架/" rel="tag"><i class="fa fa-tag"></i> Web框架</a>
+          
+            <a href="/tags/Django/" rel="tag"><i class="fa fa-tag"></i> Django</a>
+          
+        </div>
+      
+
+      
+      
+        <div class="post-widgets">
+        
+
+        
+
+        
+          
+          <div id="needsharebutton-postbottom">
+            <span class="btn">
+              <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </span>
+          </div>
+        
+        </div>
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/03/08/CGI和WSGI/" rel="next" title="CGI和WSGI">
+                <i class="fa fa-chevron-left"></i> CGI和WSGI
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/03/13/Python文本处理/" rel="prev" title="Python文本处理">
+                Python文本处理 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">邓小俊</p>
+              <p class="site-description motion-element" itemprop="description">人所恐惧的不是孤独本身，而是害怕承认人本生而孤独的事实</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">29</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">23</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Django简介"><span class="nav-number">1.</span> <span class="nav-text">Django简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#应用"><span class="nav-number">2.</span> <span class="nav-text">应用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#创建应用"><span class="nav-number">2.1.</span> <span class="nav-text">创建应用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建模型添加数据库服务"><span class="nav-number">2.2.</span> <span class="nav-text">创建模型添加数据库服务</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#创建模型"><span class="nav-number">2.2.1.</span> <span class="nav-text">创建模型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#创建数据库"><span class="nav-number">2.2.2.</span> <span class="nav-text">创建数据库</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#创建表"><span class="nav-number">2.2.3.</span> <span class="nav-text">创建表</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Python应用Shell"><span class="nav-number">2.3.</span> <span class="nav-text">Python应用Shell</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#在Django中使用Python-shell"><span class="nav-number">2.3.1.</span> <span class="nav-text">在Django中使用Python shell</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#测试数据模型"><span class="nav-number">2.3.2.</span> <span class="nav-text">测试数据模型</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Django管理应用"><span class="nav-number">2.4.</span> <span class="nav-text">Django管理应用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#设置admin"><span class="nav-number">2.4.1.</span> <span class="nav-text">设置admin</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用admin"><span class="nav-number">2.4.2.</span> <span class="nav-text">使用admin</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建博客的用户界面"><span class="nav-number">2.5.</span> <span class="nav-text">创建博客的用户界面</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#创建模板"><span class="nav-number">2.5.1.</span> <span class="nav-text">创建模板</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#创建URL模式"><span class="nav-number">2.5.2.</span> <span class="nav-text">创建URL模式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#创建视图函数"><span class="nav-number">2.5.3.</span> <span class="nav-text">创建视图函数</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#改进输出"><span class="nav-number">2.6.</span> <span class="nav-text">改进输出</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#处理用户输入"><span class="nav-number">2.7.</span> <span class="nav-text">处理用户输入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#表单和模型表单"><span class="nav-number">2.8.</span> <span class="nav-text">表单和模型表单</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#添加测试"><span class="nav-number">2.9.</span> <span class="nav-text">添加测试</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">邓小俊</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">博文包含字数&#58;</span>
+    
+    <span title="博文包含字数">99.1k</span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>本站访客数
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      人次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+      <div id="needsharebutton-float">
+        <span class="btn">
+          <i class="fa fa-share-alt" aria-hidden="true"></i>
+        </span>
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("EdodKu35EbSo4VoLhJYQMd09-gzGzoHsz", "qpErN7JcsIzusWGMNuw1QcxN");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/needsharebutton/needsharebutton.css">
+
+  
+  
+  <script src="/lib/needsharebutton/needsharebutton.js"></script>
+
+  <script>
+    
+      pbOptions = {};
+      
+          pbOptions.iconStyle = "box";
+      
+          pbOptions.boxForm = "horizontal";
+      
+          pbOptions.position = "bottomCenter";
+      
+          pbOptions.networks = "Weibo,Wechat,Douban,QQZone,Twitter,Facebook";
+      
+      new needShareButton('#needsharebutton-postbottom', pbOptions);
+    
+    
+      flOptions = {};
+      
+          flOptions.iconStyle = "box";
+      
+          flOptions.boxForm = "horizontal";
+      
+          flOptions.position = "middleRight";
+      
+          flOptions.networks = "Weibo,Wechat,Douban,QQZone,Twitter,Facebook";
+      
+      new needShareButton('#needsharebutton-float', flOptions);
+    
+  </script>
+
+  
+
+  
+  
+
+
+  
+
+  
+
+ 
+</body>
+</html>

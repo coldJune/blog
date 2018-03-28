@@ -1,0 +1,1507 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+  <meta name="baidu-site-verification" content="true" />
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico#/images/favicon-16x16-next.png?v=5.1.4">
+
+
+
+
+
+
+  <meta name="keywords" content="数据分析,聚合和分组," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="对数据进行分组并对各组应用一个函数是数据分析工作的重要环节">
+<meta name="keywords" content="数据分析,聚合和分组">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据聚合和分组运算">
+<meta property="og:url" content="http://coldjune.com/2018/03/25/数据聚合和分组运算/index.html">
+<meta property="og:site_name" content="Stay Hungary">
+<meta property="og:description" content="对数据进行分组并对各组应用一个函数是数据分析工作的重要环节">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://coldjune.com/2018/03/25/数据聚合和分组运算/分股聚合演示.png">
+<meta property="og:updated_time" content="2018-03-27T00:29:54.393Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="数据聚合和分组运算">
+<meta name="twitter:description" content="对数据进行分组并对各组应用一个函数是数据分析工作的重要环节">
+<meta name="twitter:image" content="http://coldjune.com/2018/03/25/数据聚合和分组运算/分股聚合演示.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://coldjune.com/2018/03/25/数据聚合和分组运算/"/>
+
+
+
+
+
+  <title>数据聚合和分组运算 | Stay Hungary</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+		<a href="https://github.com/coldJune" class="github-corner" aria-label="View source on Github"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; left: 0; transform: scale(-1, 1);" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style></a>    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Stay Hungary</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Programming is an art form</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://coldjune.com/2018/03/25/数据聚合和分组运算/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="邓小俊">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Stay Hungary">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">数据聚合和分组运算</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-25T14:34:00+08:00">
+                2018-03-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/数据分析/" itemprop="url" rel="index">
+                    <span itemprop="name">数据分析</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018/03/25/数据聚合和分组运算/" class="leancloud_visitors" data-flag-title="数据聚合和分组运算">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  7,409
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  38
+                </span>
+              
+            </div>
+          
+
+          
+              <div class="post-description">
+                  对数据进行分组并对各组应用一个函数是数据分析工作的重要环节
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>Python和pandas可以利用任何合一接受pandas对象或NumPy数组的函数执行复杂的分组运算：</p>
+<ol>
+<li>根据一个或多个键(可以是函数、数组或DataFrame列名)拆分pandas对象</li>
+<li>计算分组摘要统计，如计数、平均数、标准差或用户自定义函数</li>
+<li>对DataFrame的列应用各种各样的函数</li>
+<li>应用组内转换或其他运算，如规格化、线性回归、排名或选取子集等</li>
+<li>计算透视表或交叉表</li>
+<li>执行分位数分析以及其他分组分析</li>
+</ol>
+<h2 id="GroupBy技术"><a href="#GroupBy技术" class="headerlink" title="GroupBy技术"></a>GroupBy技术</h2><p>pandas对象(无论是Series、DataFrane还是其他)中的数据会根据提供的一个或多个键被拆分(split)为多组。拆分操作是在对象的特定轴上执行。然后将一个函数应用(apply)到各个分组并产生一个新值。最后这些函数的执行结果会被合并(combine)到最终结果中。结果对象的形式一般取决于数据上所执行的操作。</p>
+<ul>
+<li>split-apply-combine(分组聚合)<br><img src="/2018/03/25/数据聚合和分组运算/分股聚合演示.png" alt="分组聚合"></li>
+</ul>
+<p>分组键可以有多种形式，且类型不必相同(后三种只是快捷方式其最终目的是产生一组用于拆分对象的值)：</p>
+<ol>
+<li>列表或数组，其长度和待分组轴一样</li>
+<li>表示DataFrame某个列名的值</li>
+<li>字典或Series，给出待分组轴上的值或分组名之间的对应关系</li>
+<li>函数、用于处理轴索引或索引中的各个标签</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">4</span>]: df = DataFrame(&#123;<span class="string">'key1'</span>:list(<span class="string">'aabba'</span>),</span><br><span class="line">   ...:                 <span class="string">'key2'</span>:[<span class="string">'one'</span>,<span class="string">'two'</span>,<span class="string">'one'</span>,<span class="string">'two'</span>,<span class="string">'one'</span>],</span><br><span class="line">   ...:                 <span class="string">'data1'</span>:np.random.randn(<span class="number">5</span>),</span><br><span class="line">   ...:                 <span class="string">'data2'</span>:np.random.randn(<span class="number">5</span>)&#125;)</span><br><span class="line">   ...:</span><br><span class="line"></span><br><span class="line">In [<span class="number">5</span>]: df</span><br><span class="line">Out[<span class="number">5</span>]:</span><br><span class="line">      data1     data2 key1 key2</span><br><span class="line"><span class="number">0</span> <span class="number">-0.007051</span>  <span class="number">1.406114</span>    a  one</span><br><span class="line"><span class="number">1</span>  <span class="number">1.136247</span>  <span class="number">1.320876</span>    a  two</span><br><span class="line"><span class="number">2</span>  <span class="number">0.285600</span> <span class="number">-2.665997</span>    b  one</span><br><span class="line"><span class="number">3</span>  <span class="number">1.578314</span>  <span class="number">0.772522</span>    b  two</span><br><span class="line"><span class="number">4</span>  <span class="number">0.263382</span> <span class="number">-0.067916</span>    a  one</span><br><span class="line"></span><br><span class="line">In [<span class="number">6</span>]: <span class="comment">#按key1进行分组，并计算data1的平均值</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">7</span>]: <span class="comment">#访问data1，并根据key1调用groupby</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">8</span>]: grouped = df[<span class="string">'data1'</span>].groupby(df[<span class="string">'key1'</span>])</span><br><span class="line"></span><br><span class="line">In [<span class="number">9</span>]: grouped <span class="comment">#变量grouped是一个GroupBy对象。它没有进行任何计算，该对象已经有了接下来对分组执行运算所需的一切信息</span></span><br><span class="line">Out[<span class="number">9</span>]: &lt;pandas.core.groupby.SeriesGroupBy object at <span class="number">0x11292e4e0</span>&gt;</span><br><span class="line"></span><br><span class="line">In [<span class="number">10</span>]: <span class="comment">#调用GroupBy的mean方法计算分组平均值</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">11</span>]: grouped.mean()<span class="comment">#数据(Series)根据分组键进行了聚合，产生新的一个Series，其索引为key1列中的唯一值</span></span><br><span class="line">Out[<span class="number">11</span>]:</span><br><span class="line">key1</span><br><span class="line">a    <span class="number">0.464193</span></span><br><span class="line">b    <span class="number">0.931957</span></span><br><span class="line">Name: data1, dtype: float64</span><br><span class="line"></span><br><span class="line">In [<span class="number">12</span>]: <span class="comment"># 传入多个数组</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">15</span>]: means = df[<span class="string">'data1'</span>].groupby([df[<span class="string">'key1'</span>],df[<span class="string">'key2'</span>]]).mean()<span class="comment">#通过两个键对数据进行了分组，得到一个Series具有层次化索引(由唯一的建对组成)</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">16</span>]: means</span><br><span class="line">Out[<span class="number">16</span>]:</span><br><span class="line">key1  key2</span><br><span class="line">a     one     <span class="number">0.128166</span></span><br><span class="line">      two     <span class="number">1.136247</span></span><br><span class="line">b     one     <span class="number">0.285600</span></span><br><span class="line">      two     <span class="number">1.578314</span></span><br><span class="line">Name: data1, dtype: float64</span><br><span class="line"></span><br><span class="line">In [<span class="number">17</span>]: means.unstack()</span><br><span class="line">Out[<span class="number">17</span>]:</span><br><span class="line">key2       one       two</span><br><span class="line">key1</span><br><span class="line">a     <span class="number">0.128166</span>  <span class="number">1.136247</span></span><br><span class="line">b     <span class="number">0.285600</span>  <span class="number">1.578314</span></span><br></pre></td></tr></table></figure>
+<p>以上分组键均为Series，2⃣️分组键可以是任何 <strong>长度适当</strong> 的数组，也可以将列名(可以是字符串、数字或其他Python对象)用作分组键:<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">18</span>]: states=np.array([<span class="string">'Ohio'</span>,<span class="string">'California'</span>,<span class="string">'California'</span>,<span class="string">'Ohio'</span>,<span class="string">'Ohio'</span>])</span><br><span class="line"></span><br><span class="line">In [<span class="number">19</span>]: years = np.array([<span class="number">2005</span>,<span class="number">2005</span>,<span class="number">2006</span>,<span class="number">2005</span>,<span class="number">2006</span>])</span><br><span class="line"></span><br><span class="line">In [<span class="number">20</span>]: df[<span class="string">'data1'</span>].groupby([states,years]).mean()<span class="comment">#分组键为适当长度的数组</span></span><br><span class="line">Out[<span class="number">20</span>]:</span><br><span class="line">California  <span class="number">2005</span>    <span class="number">1.136247</span></span><br><span class="line">            <span class="number">2006</span>    <span class="number">0.285600</span></span><br><span class="line">Ohio        <span class="number">2005</span>    <span class="number">0.785631</span></span><br><span class="line">            <span class="number">2006</span>    <span class="number">0.263382</span></span><br><span class="line">Name: data1, dtype: float64</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">In [<span class="number">21</span>]: <span class="comment"># 分组键为列名</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">22</span>]: df.groupby(<span class="string">'key1'</span>).mean()</span><br><span class="line">Out[<span class="number">22</span>]:</span><br><span class="line">         data1     data2</span><br><span class="line">key1</span><br><span class="line">a     <span class="number">0.464193</span>  <span class="number">0.886358</span></span><br><span class="line">b     <span class="number">0.931957</span> <span class="number">-0.946738</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">23</span>]: <span class="comment"># 结果中没有key2列是因为这一列不是数值数据，会从结果中排除。默认情况所有数值列都会被聚合</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">24</span>]: df.groupby([<span class="string">'key1'</span>,<span class="string">'key2'</span>]).mean()</span><br><span class="line">Out[<span class="number">24</span>]:</span><br><span class="line">              data1     data2</span><br><span class="line">key1 key2</span><br><span class="line">a    one   <span class="number">0.128166</span>  <span class="number">0.669099</span></span><br><span class="line">     two   <span class="number">1.136247</span>  <span class="number">1.320876</span></span><br><span class="line">b    one   <span class="number">0.285600</span> <span class="number">-2.665997</span></span><br><span class="line">     two   <span class="number">1.578314</span>  <span class="number">0.772522</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="对分组进行迭代"><a href="#对分组进行迭代" class="headerlink" title="对分组进行迭代"></a>对分组进行迭代</h3><p>GroupBy对象支持迭代，可以产生一组二元元组(由分组名和数据块组成):<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">26</span>]: <span class="keyword">for</span> name, group <span class="keyword">in</span> df.groupby(<span class="string">'key1'</span>):</span><br><span class="line">    ...:     print(<span class="string">'分组名'</span>,name)</span><br><span class="line">    ...:     print(<span class="string">'数据块\n'</span>,group)</span><br><span class="line">    ...:</span><br><span class="line">分组名 a</span><br><span class="line">数据块</span><br><span class="line">       data1     data2 key1 key2</span><br><span class="line"><span class="number">0</span> <span class="number">-0.007051</span>  <span class="number">1.406114</span>    a  one</span><br><span class="line"><span class="number">1</span>  <span class="number">1.136247</span>  <span class="number">1.320876</span>    a  two</span><br><span class="line"><span class="number">4</span>  <span class="number">0.263382</span> <span class="number">-0.067916</span>    a  one</span><br><span class="line">分组名 b</span><br><span class="line">数据块</span><br><span class="line">       data1     data2 key1 key2</span><br><span class="line"><span class="number">2</span>  <span class="number">0.285600</span> <span class="number">-2.665997</span>    b  one</span><br><span class="line"><span class="number">3</span>  <span class="number">1.578314</span>  <span class="number">0.772522</span>    b  two</span><br></pre></td></tr></table></figure></p>
+<p>对于多重键的情况，元组的第一个元素将会是由键值组成的元组：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">28</span>]: <span class="keyword">for</span> (k1,k2), group <span class="keyword">in</span> df.groupby([<span class="string">'key1'</span>,<span class="string">'key2'</span>]):</span><br><span class="line">    ...:     print(k1,k2)</span><br><span class="line">    ...:     print(group)</span><br><span class="line">    ...:</span><br><span class="line">a one</span><br><span class="line">      data1     data2 key1 key2</span><br><span class="line"><span class="number">0</span> <span class="number">-0.007051</span>  <span class="number">1.406114</span>    a  one</span><br><span class="line"><span class="number">4</span>  <span class="number">0.263382</span> <span class="number">-0.067916</span>    a  one</span><br><span class="line">a two</span><br><span class="line">      data1     data2 key1 key2</span><br><span class="line"><span class="number">1</span>  <span class="number">1.136247</span>  <span class="number">1.320876</span>    a  two</span><br><span class="line">b one</span><br><span class="line">    data1     data2 key1 key2</span><br><span class="line"><span class="number">2</span>  <span class="number">0.2856</span> <span class="number">-2.665997</span>    b  one</span><br><span class="line">b two</span><br><span class="line">      data1     data2 key1 key2</span><br><span class="line"><span class="number">3</span>  <span class="number">1.578314</span>  <span class="number">0.772522</span>    b  two</span><br><span class="line"></span><br><span class="line">In [<span class="number">33</span>]: <span class="comment"># 将数据片段转化成一个字典</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">34</span>]: pieces = dict(list(df.groupby(<span class="string">'key1'</span>)))</span><br><span class="line"></span><br><span class="line">In [<span class="number">35</span>]: pieces[<span class="string">'a'</span>]</span><br><span class="line">Out[<span class="number">35</span>]:</span><br><span class="line">      data1     data2 key1 key2</span><br><span class="line"><span class="number">0</span> <span class="number">-0.007051</span>  <span class="number">1.406114</span>    a  one</span><br><span class="line"><span class="number">1</span>  <span class="number">1.136247</span>  <span class="number">1.320876</span>    a  two</span><br><span class="line"><span class="number">4</span>  <span class="number">0.263382</span> <span class="number">-0.067916</span>    a  one</span><br><span class="line"></span><br><span class="line">In [<span class="number">36</span>]: pieces</span><br><span class="line">Out[<span class="number">36</span>]:</span><br><span class="line">&#123;<span class="string">'a'</span>:       data1     data2 key1 key2</span><br><span class="line"> <span class="number">0</span> <span class="number">-0.007051</span>  <span class="number">1.406114</span>    a  one</span><br><span class="line"> <span class="number">1</span>  <span class="number">1.136247</span>  <span class="number">1.320876</span>    a  two</span><br><span class="line"> <span class="number">4</span>  <span class="number">0.263382</span> <span class="number">-0.067916</span>    a  one, <span class="string">'b'</span>:       data1     data2 key1 key2</span><br><span class="line"> <span class="number">2</span>  <span class="number">0.285600</span> <span class="number">-2.665997</span>    b  one</span><br><span class="line"> <span class="number">3</span>  <span class="number">1.578314</span>  <span class="number">0.772522</span>    b  two&#125;</span><br></pre></td></tr></table></figure></p>
+<p><code>groupby</code>默认是在<code>axis=0</code>(DataFrame行)上进行分组，通过设置可以在其他任何轴上进行分组：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">42</span>]: <span class="comment"># 通过dtype对列进行分组</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">43</span>]: grouped = df.groupby(df.dtypes, axis=<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">In [<span class="number">44</span>]: dict(list(grouped))</span><br><span class="line">Out[<span class="number">44</span>]:</span><br><span class="line">&#123;dtype(<span class="string">'float64'</span>):       data1     data2</span><br><span class="line"> <span class="number">0</span> <span class="number">-0.007051</span>  <span class="number">1.406114</span></span><br><span class="line"> <span class="number">1</span>  <span class="number">1.136247</span>  <span class="number">1.320876</span></span><br><span class="line"> <span class="number">2</span>  <span class="number">0.285600</span> <span class="number">-2.665997</span></span><br><span class="line"> <span class="number">3</span>  <span class="number">1.578314</span>  <span class="number">0.772522</span></span><br><span class="line"> <span class="number">4</span>  <span class="number">0.263382</span> <span class="number">-0.067916</span>, dtype(<span class="string">'O'</span>):   key1 key2</span><br><span class="line"> <span class="number">0</span>    a  one</span><br><span class="line"> <span class="number">1</span>    a  two</span><br><span class="line"> <span class="number">2</span>    b  one</span><br><span class="line"> <span class="number">3</span>    b  two</span><br><span class="line"> <span class="number">4</span>    a  one&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="选取一个或一组列"><a href="#选取一个或一组列" class="headerlink" title="选取一个或一组列"></a>选取一个或一组列</h3><p>对于由DataFrame产生的GroupBy对象，如果用一个(单个字符串)或一组(字符串数组)列名对其进行索引，就能实现选取部分列进行聚合的目的：<code>df.groupby(&#39;key1&#39;)[&#39;data1&#39;]</code>相当于<code>df[&#39;data1&#39;].groupby(&#39;key1&#39;)</code>；<code>df.groupby(&#39;key1&#39;)[[&#39;data2&#39;]]</code>相当于<code>df[[&#39;data2&#39;]].groupby(df[&#39;key1&#39;])</code>。对于大数据集很可能只需要对部分列进行聚合，这种索引操作返回的对象是一个DataFrame(如果传入的是列表或数组)或已分组的Series(如果传入的是标量形式的单个列名):<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">46</span>]: <span class="comment"># 计算data2列的平均值并以DataFrame形式得到结果</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">47</span>]: df.groupby([<span class="string">'key1'</span>,<span class="string">'key2'</span>])[[<span class="string">'data2'</span>]].mean()</span><br><span class="line">Out[<span class="number">47</span>]:</span><br><span class="line">              data2</span><br><span class="line">key1 key2</span><br><span class="line">a    one   <span class="number">0.669099</span></span><br><span class="line">     two   <span class="number">1.320876</span></span><br><span class="line">b    one  <span class="number">-2.665997</span></span><br><span class="line">     two   <span class="number">0.772522</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">48</span>]: s_grouped= df.groupby([<span class="string">'key1'</span>,<span class="string">'key2'</span>])[<span class="string">'data2'</span>]</span><br><span class="line"></span><br><span class="line">In [<span class="number">49</span>]: s_grouped</span><br><span class="line">Out[<span class="number">49</span>]: &lt;pandas.core.groupby.SeriesGroupBy object at <span class="number">0x1119a86a0</span>&gt;</span><br><span class="line"></span><br><span class="line">In [<span class="number">50</span>]: s_grouped.mean()</span><br><span class="line">Out[<span class="number">50</span>]:</span><br><span class="line">key1  key2</span><br><span class="line">a     one     <span class="number">0.669099</span></span><br><span class="line">      two     <span class="number">1.320876</span></span><br><span class="line">b     one    <span class="number">-2.665997</span></span><br><span class="line">      two     <span class="number">0.772522</span></span><br><span class="line">Name: data2, dtype: float64</span><br></pre></td></tr></table></figure></p>
+<h3 id="通过字典或Series进行分组"><a href="#通过字典或Series进行分组" class="headerlink" title="通过字典或Series进行分组"></a>通过字典或Series进行分组</h3><p>除了数组以外，分组信息可以是 <strong>字典</strong>和 <strong>Series</strong>。Series会被看成一个固定大小的映射，如果用Series作为分组键，则pandas会检查Series以确保其索引跟分组轴对齐：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">55</span>]: people = DataFrame(np.random.randn(<span class="number">5</span>,<span class="number">5</span>),</span><br><span class="line">    ...:                    columns=list(<span class="string">'abcde'</span>),</span><br><span class="line">    ...:                    index=[<span class="string">'tom'</span>,<span class="string">'john'</span>,<span class="string">'jim'</span>,<span class="string">'lancy'</span>,<span class="string">'lucy'</span>])</span><br><span class="line">    ...:</span><br><span class="line"></span><br><span class="line">In [<span class="number">56</span>]: people.loc[<span class="number">2</span>:<span class="number">3</span>,[<span class="string">'b'</span>,<span class="string">'c'</span>]] = np.nan</span><br><span class="line"></span><br><span class="line">In [<span class="number">57</span>]: people</span><br><span class="line">Out[<span class="number">57</span>]:</span><br><span class="line">              a         b         c         d         e</span><br><span class="line">tom    <span class="number">1.522909</span> <span class="number">-1.357885</span> <span class="number">-0.262730</span>  <span class="number">0.180761</span> <span class="number">-1.662128</span></span><br><span class="line">john   <span class="number">0.941963</span> <span class="number">-0.330136</span>  <span class="number">0.520398</span> <span class="number">-0.069789</span>  <span class="number">0.856472</span></span><br><span class="line">jim   <span class="number">-0.077905</span>       NaN       NaN  <span class="number">0.527588</span> <span class="number">-0.162906</span></span><br><span class="line">lancy <span class="number">-0.141172</span>  <span class="number">0.699214</span> <span class="number">-0.602441</span> <span class="number">-2.306901</span> <span class="number">-0.228982</span></span><br><span class="line">lucy  <span class="number">-1.345708</span>  <span class="number">0.931025</span>  <span class="number">0.615641</span> <span class="number">-0.733455</span>  <span class="number">1.321982</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">58</span>]: <span class="comment"># 字典作为分组键</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">59</span>]: mapping = &#123;<span class="string">'a'</span>:<span class="string">'red'</span>, <span class="string">'b'</span>:<span class="string">'red'</span>, <span class="string">'c'</span>:<span class="string">'blue'</span>,</span><br><span class="line">    ...:            <span class="string">'d'</span>:<span class="string">'blue'</span>, <span class="string">'e'</span>:<span class="string">'red'</span>, <span class="string">'f'</span>:<span class="string">'orange'</span>&#125;</span><br><span class="line">    ...:</span><br><span class="line"></span><br><span class="line">In [<span class="number">60</span>]: by_column = people.groupby(mapping, axis=<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">In [<span class="number">61</span>]: by_column.sum()</span><br><span class="line">Out[<span class="number">61</span>]:</span><br><span class="line">           blue       red</span><br><span class="line">tom   <span class="number">-0.081968</span> <span class="number">-1.497105</span></span><br><span class="line">john   <span class="number">0.450609</span>  <span class="number">1.468299</span></span><br><span class="line">jim    <span class="number">0.527588</span> <span class="number">-0.240812</span></span><br><span class="line">lancy <span class="number">-2.909342</span>  <span class="number">0.329059</span></span><br><span class="line">lucy  <span class="number">-0.117814</span>  <span class="number">0.907299</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">64</span>]: <span class="comment"># Series用作分组键</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">65</span>]: map_series = Series(mapping)</span><br><span class="line"></span><br><span class="line">In [<span class="number">66</span>]: people.groupby(map_series, axis=<span class="number">1</span>).count()</span><br><span class="line">Out[<span class="number">66</span>]:</span><br><span class="line">       blue  red</span><br><span class="line">tom       <span class="number">2</span>    <span class="number">3</span></span><br><span class="line">john      <span class="number">2</span>    <span class="number">3</span></span><br><span class="line">jim       <span class="number">1</span>    <span class="number">2</span></span><br><span class="line">lancy     <span class="number">2</span>    <span class="number">3</span></span><br><span class="line">lucy      <span class="number">2</span>    <span class="number">3</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="通过函数进行分组"><a href="#通过函数进行分组" class="headerlink" title="通过函数进行分组"></a>通过函数进行分组</h3><p>任何作为分组键的函数都会在各个索引值上被调用一次，其返回值就会被用作分类名称；同时将函数跟数组、列表、字典、Series混用也可以，因为任何东西都会被转换为数组：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">67</span>]: <span class="comment"># 根据人名的长度进行分组，可以仅仅传入一个len函数</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">68</span>]: people.groupby(len).sum()</span><br><span class="line">Out[<span class="number">68</span>]:</span><br><span class="line">          a         b         c         d         e</span><br><span class="line"><span class="number">3</span>  <span class="number">1.445004</span> <span class="number">-1.357885</span> <span class="number">-0.262730</span>  <span class="number">0.708349</span> <span class="number">-1.825035</span></span><br><span class="line"><span class="number">4</span> <span class="number">-0.403745</span>  <span class="number">0.600890</span>  <span class="number">1.136039</span> <span class="number">-0.803243</span>  <span class="number">2.178454</span></span><br><span class="line"><span class="number">5</span> <span class="number">-0.141172</span>  <span class="number">0.699214</span> <span class="number">-0.602441</span> <span class="number">-2.306901</span> <span class="number">-0.228982</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">72</span>]: <span class="comment"># 将函数、列表和数组混用</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">73</span>]: key_list =[<span class="string">'one'</span>,<span class="string">'one'</span>,<span class="string">'one'</span>,<span class="string">'two'</span>,<span class="string">'two'</span>]</span><br><span class="line"></span><br><span class="line">In [<span class="number">74</span>]: people.groupby([len,key_list]).min()</span><br><span class="line">Out[<span class="number">74</span>]:</span><br><span class="line">              a         b         c         d         e</span><br><span class="line"><span class="number">3</span> one <span class="number">-0.077905</span> <span class="number">-1.357885</span> <span class="number">-0.262730</span>  <span class="number">0.180761</span> <span class="number">-1.662128</span></span><br><span class="line"><span class="number">4</span> one  <span class="number">0.941963</span> <span class="number">-0.330136</span>  <span class="number">0.520398</span> <span class="number">-0.069789</span>  <span class="number">0.856472</span></span><br><span class="line">  two <span class="number">-1.345708</span>  <span class="number">0.931025</span>  <span class="number">0.615641</span> <span class="number">-0.733455</span>  <span class="number">1.321982</span></span><br><span class="line"><span class="number">5</span> two <span class="number">-0.141172</span>  <span class="number">0.699214</span> <span class="number">-0.602441</span> <span class="number">-2.306901</span> <span class="number">-0.228982</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="根据索引级别分组"><a href="#根据索引级别分组" class="headerlink" title="根据索引级别分组"></a>根据索引级别分组</h3><p>通过<code>level</code>关键字传入级别编号或名称来根据索引级别聚合层次化索引数据集:<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">77</span>]: columns = pd.MultiIndex.from_arrays([[<span class="string">'US'</span>,<span class="string">'US'</span>,<span class="string">'US'</span>,<span class="string">'CH'</span>,<span class="string">'CH'</span>],[<span class="number">1</span>,<span class="number">3</span>,<span class="number">5</span>,<span class="number">1</span>,<span class="number">3</span>]],names=[<span class="string">'cty'</span>,<span class="string">'tenor'</span>])</span><br><span class="line"></span><br><span class="line">In [<span class="number">78</span>]: hier_df = DataFrame(np.random.randn(<span class="number">4</span>,<span class="number">5</span>), columns=columns)</span><br><span class="line"></span><br><span class="line">In [<span class="number">79</span>]: hier_df</span><br><span class="line">Out[<span class="number">79</span>]:</span><br><span class="line">cty          US                            CH</span><br><span class="line">tenor         <span class="number">1</span>         <span class="number">3</span>         <span class="number">5</span>         <span class="number">1</span>         <span class="number">3</span></span><br><span class="line"><span class="number">0</span>     <span class="number">-1.544928</span>  <span class="number">0.860951</span> <span class="number">-1.021428</span>  <span class="number">0.150361</span>  <span class="number">0.863332</span></span><br><span class="line"><span class="number">1</span>      <span class="number">1.500901</span>  <span class="number">0.411124</span>  <span class="number">0.717717</span> <span class="number">-1.186560</span> <span class="number">-0.341670</span></span><br><span class="line"><span class="number">2</span>      <span class="number">1.728200</span>  <span class="number">0.507285</span> <span class="number">-0.974570</span>  <span class="number">0.856083</span>  <span class="number">0.606669</span></span><br><span class="line"><span class="number">3</span>      <span class="number">0.356776</span>  <span class="number">0.399169</span> <span class="number">-0.254092</span>  <span class="number">0.274927</span>  <span class="number">0.169848</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">80</span>]: hier_df.groupby(level=<span class="string">'cty'</span>,axis=<span class="number">1</span>).count()</span><br><span class="line">Out[<span class="number">80</span>]:</span><br><span class="line">cty  CH  US</span><br><span class="line"><span class="number">0</span>     <span class="number">2</span>   <span class="number">3</span></span><br><span class="line"><span class="number">1</span>     <span class="number">2</span>   <span class="number">3</span></span><br><span class="line"><span class="number">2</span>     <span class="number">2</span>   <span class="number">3</span></span><br><span class="line"><span class="number">3</span>     <span class="number">2</span>   <span class="number">3</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="数据聚合"><a href="#数据聚合" class="headerlink" title="数据聚合"></a>数据聚合</h2><p>聚合指任何能够从数组产生标量值的数据转换过程，许多常见的聚合运算都有就地计算数据集统计信息的优化实现，也可以自己定义聚合运算，还可以调用分组对象上已经定义好的任何方法。</p>
+<ul>
+<li>经过优化的groupby方法</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">函数名</th>
+<th style="text-align:center">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">count</td>
+<td style="text-align:center">分组中非NA值的数量</td>
+</tr>
+<tr>
+<td style="text-align:center">sum</td>
+<td style="text-align:center">非NA值的和</td>
+</tr>
+<tr>
+<td style="text-align:center">mean</td>
+<td style="text-align:center">非NA值的平均数</td>
+</tr>
+<tr>
+<td style="text-align:center">median</td>
+<td style="text-align:center">非NA值的算术中位数</td>
+</tr>
+<tr>
+<td style="text-align:center">std、var</td>
+<td style="text-align:center">无偏(分母为n-1)标准差和方差</td>
+</tr>
+<tr>
+<td style="text-align:center">min、max</td>
+<td style="text-align:center">非NA值的最小值和最大值</td>
+</tr>
+<tr>
+<td style="text-align:center">prod</td>
+<td style="text-align:center">非NA值的积</td>
+</tr>
+<tr>
+<td style="text-align:center">first、last</td>
+<td style="text-align:center">第一个和最后一个非NA值</td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">6</span>]: df</span><br><span class="line">Out[<span class="number">6</span>]:</span><br><span class="line">      data1     data2 key1 key2</span><br><span class="line"><span class="number">0</span>  <span class="number">0.303363</span> <span class="number">-1.985931</span>    a  one</span><br><span class="line"><span class="number">1</span> <span class="number">-1.510949</span>  <span class="number">0.351845</span>    a  two</span><br><span class="line"><span class="number">2</span>  <span class="number">1.665133</span> <span class="number">-0.527562</span>    b  one</span><br><span class="line"><span class="number">3</span>  <span class="number">0.851907</span> <span class="number">-0.377448</span>    b  two</span><br><span class="line"><span class="number">4</span>  <span class="number">0.141499</span>  <span class="number">0.969610</span>    a  one</span><br><span class="line"></span><br><span class="line">In [<span class="number">7</span>]: grouped = df.groupby(<span class="string">'key1'</span>)</span><br><span class="line"></span><br><span class="line">In [<span class="number">8</span>]: <span class="comment"># 使用quantile计算Series或DataFrame列的样本分位数</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">9</span>]: grouped[<span class="string">'data1'</span>].quantile(<span class="number">0.9</span>)</span><br><span class="line">Out[<span class="number">9</span>]:</span><br><span class="line">key1</span><br><span class="line">a    <span class="number">0.27099</span></span><br><span class="line">b    <span class="number">1.58381</span></span><br><span class="line">Name: data1, dtype: float64</span><br></pre></td></tr></table></figure>
+<p><code>quantile</code>是一个Series方法。GroupBy会高效地对Series进行切片，然后对各片调用<code>quantile(0.9)</code>.<br>要使用自己写的聚集函数，需要将其传入<code>aggregate</code>或<code>agg</code>方法：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">45</span>]: <span class="function"><span class="keyword">def</span> <span class="title">get_to_peak</span><span class="params">(arr)</span>:</span></span><br><span class="line">    ...:     <span class="keyword">return</span> arr.max()-arr.min()</span><br><span class="line">    ...:</span><br><span class="line"></span><br><span class="line">In [<span class="number">46</span>]: grouped.agg(get_to_peak)</span><br><span class="line">Out[<span class="number">46</span>]:</span><br><span class="line">         data1     data2</span><br><span class="line">key1</span><br><span class="line">a     <span class="number">1.814312</span>  <span class="number">2.955541</span></span><br><span class="line">b     <span class="number">0.813225</span>  <span class="number">0.150115</span></span><br></pre></td></tr></table></figure></p>
+<p>并非严格的聚合运算(如<code>describe</code>)也可以在这里使用：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">47</span>]: grouped.describe()</span><br><span class="line">Out[<span class="number">47</span>]:</span><br><span class="line">     data1                                                              \</span><br><span class="line">     count      mean       std       min       <span class="number">25</span>%       <span class="number">50</span>%       <span class="number">75</span>%</span><br><span class="line">key1</span><br><span class="line">a      <span class="number">3.0</span> <span class="number">-0.355362</span>  <span class="number">1.004035</span> <span class="number">-1.510949</span> <span class="number">-0.684725</span>  <span class="number">0.141499</span>  <span class="number">0.222431</span></span><br><span class="line">b      <span class="number">2.0</span>  <span class="number">1.258520</span>  <span class="number">0.575037</span>  <span class="number">0.851907</span>  <span class="number">1.055214</span>  <span class="number">1.258520</span>  <span class="number">1.461827</span></span><br><span class="line"></span><br><span class="line">               data2                                                    \</span><br><span class="line">           max count      mean       std       min       <span class="number">25</span>%       <span class="number">50</span>%</span><br><span class="line">key1</span><br><span class="line">a     <span class="number">0.303363</span>   <span class="number">3.0</span> <span class="number">-0.221492</span>  <span class="number">1.558956</span> <span class="number">-1.985931</span> <span class="number">-0.817043</span>  <span class="number">0.351845</span></span><br><span class="line">b     <span class="number">1.665133</span>   <span class="number">2.0</span> <span class="number">-0.452505</span>  <span class="number">0.106147</span> <span class="number">-0.527562</span> <span class="number">-0.490034</span> <span class="number">-0.452505</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">           <span class="number">75</span>%       max</span><br><span class="line">key1</span><br><span class="line">a     <span class="number">0.660727</span>  <span class="number">0.969610</span></span><br><span class="line">b    <span class="number">-0.414976</span> <span class="number">-0.377448</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="面向列的多函数应用"><a href="#面向列的多函数应用" class="headerlink" title="面向列的多函数应用"></a>面向列的多函数应用</h3><p>对Series或DataFrame列的聚合运算其实是使用<code>aggregate</code>(使用自定义函数)或调用诸如<code>mean</code>、<code>std</code>之类的方法。如果希望对不同的列使用不同的聚合函数，活一次应用多个函数可以将函数名以 <strong>字符串</strong> 的形式传入；如果传入 <strong>一组</strong> 函数或函数名，得到的DataFrame的列就会以相应的函数命名；如果传入(name，function)元组组成的列表，则元组的第一个元素就会被用作DataFrame的列名(二元元组列表可以看成一个有序映射)；对于DataFrame可以定义一组应用于全部列的函数或不同的列应用不同的函，而结果DataFrame拥有层次化的列，相当于分别对各列进行聚合然后用<code>concat</code>将结果组装到一起，这里也可以传入带有自定义名称的元组列表；如果要对不同的列应用不同的函数，向<code>agg</code>传入一个从列名映射到函数的字典；只有将多个函数应用到至少一列事，DataFrame才会拥有层次化的列，使用<a href="https://github.com/coldJune/Python/blob/master/ipython/stock_px.csv" target="_blank" rel="noopener">小费数据集</a>:<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">5</span>]: <span class="comment"># 准备数据集</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">6</span>]: tips = pd.read_csv(<span class="string">'tips.csv'</span>)</span><br><span class="line"></span><br><span class="line">In [<span class="number">7</span>]: <span class="comment"># 添加"小费占总额百分比"的列</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">8</span>]: tips[<span class="string">'tip_pct'</span>] = tips[<span class="string">'tip'</span>]/tips[<span class="string">'total_bill'</span>]</span><br><span class="line"></span><br><span class="line">In [<span class="number">9</span>]: tips[:<span class="number">3</span>]</span><br><span class="line">Out[<span class="number">9</span>]:</span><br><span class="line">   total_bill   tip smoker  day    time  size   tip_pct</span><br><span class="line"><span class="number">0</span>       <span class="number">16.99</span>  <span class="number">1.01</span>     No  Sun  Dinner     <span class="number">2</span>  <span class="number">0.059447</span></span><br><span class="line"><span class="number">1</span>       <span class="number">10.34</span>  <span class="number">1.66</span>     No  Sun  Dinner     <span class="number">3</span>  <span class="number">0.160542</span></span><br><span class="line"><span class="number">2</span>       <span class="number">21.01</span>  <span class="number">3.50</span>     No  Sun  Dinner     <span class="number">3</span>  <span class="number">0.166587</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">20</span>]: grouped  = tips.groupby([<span class="string">'smoker'</span>,<span class="string">'time'</span>]) <span class="comment"># 根据smoker和time对tips进行分组</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">21</span>]: grouped_pct = grouped[<span class="string">'tip_pct'</span>]</span><br><span class="line"></span><br><span class="line">In [<span class="number">22</span>]: grouped_pct.agg(<span class="string">'mean'</span>) <span class="comment">#将函数名以字符串的形式传入</span></span><br><span class="line">Out[<span class="number">22</span>]:</span><br><span class="line">smoker  time</span><br><span class="line">No      Dinner    <span class="number">0.158653</span></span><br><span class="line">        Lunch     <span class="number">0.160920</span></span><br><span class="line">Yes     Dinner    <span class="number">0.160828</span></span><br><span class="line">        Lunch     <span class="number">0.170404</span></span><br><span class="line">Name: tip_pct, dtype: float64</span><br><span class="line"></span><br><span class="line">In [<span class="number">23</span>]: <span class="function"><span class="keyword">def</span> <span class="title">peak_to_peak</span><span class="params">(arr)</span>:</span></span><br><span class="line">    ...:     <span class="comment"># 自定义方法</span></span><br><span class="line">    ...:     <span class="keyword">return</span> arr.max() - arr.min()</span><br><span class="line">    ...:</span><br><span class="line"></span><br><span class="line">In [<span class="number">24</span>]: grouped_pct.agg([<span class="string">'mean'</span>,<span class="string">'std'</span>, peak_to_peak]) <span class="comment"># 传入一组函数或函数名，得到的DataFrame的列名为对应的函数名</span></span><br><span class="line">Out[<span class="number">24</span>]:</span><br><span class="line">                   mean       std  peak_to_peak</span><br><span class="line">smoker time</span><br><span class="line">No     Dinner  <span class="number">0.158653</span>  <span class="number">0.040458</span>      <span class="number">0.235193</span></span><br><span class="line">       Lunch   <span class="number">0.160920</span>  <span class="number">0.038989</span>      <span class="number">0.193350</span></span><br><span class="line">Yes    Dinner  <span class="number">0.160828</span>  <span class="number">0.095153</span>      <span class="number">0.674707</span></span><br><span class="line">       Lunch   <span class="number">0.170404</span>  <span class="number">0.042770</span>      <span class="number">0.169300</span></span><br><span class="line"></span><br><span class="line">       In [<span class="number">26</span>]: grouped_pct.agg([(<span class="string">'foo'</span>,<span class="string">'mean'</span>),(<span class="string">'bar'</span>,np.std)]) <span class="comment">#传入一个由(name,function)组成的二元元组列表</span></span><br><span class="line">       Out[<span class="number">26</span>]:</span><br><span class="line">                           foo       bar</span><br><span class="line">       smoker time</span><br><span class="line">       No     Dinner  <span class="number">0.158653</span>  <span class="number">0.040458</span></span><br><span class="line">              Lunch   <span class="number">0.160920</span>  <span class="number">0.038989</span></span><br><span class="line">       Yes    Dinner  <span class="number">0.160828</span>  <span class="number">0.095153</span></span><br><span class="line">              Lunch   <span class="number">0.170404</span>  <span class="number">0.042770</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">27</span>]: <span class="comment"># 定义一组用于全部列的函数</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">28</span>]: functions = [<span class="string">'count'</span>,<span class="string">'mean'</span>,<span class="string">'max'</span>]</span><br><span class="line"></span><br><span class="line">In [<span class="number">29</span>]: result = grouped[<span class="string">'tip_pct'</span>,<span class="string">'total_bill'</span>].agg(functions)</span><br><span class="line"></span><br><span class="line">In [<span class="number">30</span>]: result</span><br><span class="line">Out[<span class="number">30</span>]:</span><br><span class="line">              tip_pct                     total_bill</span><br><span class="line">                count      mean       max      count       mean    max</span><br><span class="line">smoker time</span><br><span class="line">No     Dinner     <span class="number">106</span>  <span class="number">0.158653</span>  <span class="number">0.291990</span>        <span class="number">106</span>  <span class="number">20.095660</span>  <span class="number">48.33</span></span><br><span class="line">       Lunch       <span class="number">45</span>  <span class="number">0.160920</span>  <span class="number">0.266312</span>         <span class="number">45</span>  <span class="number">17.050889</span>  <span class="number">41.19</span></span><br><span class="line">Yes    Dinner      <span class="number">70</span>  <span class="number">0.160828</span>  <span class="number">0.710345</span>         <span class="number">70</span>  <span class="number">21.859429</span>  <span class="number">50.81</span></span><br><span class="line">       Lunch       <span class="number">23</span>  <span class="number">0.170404</span>  <span class="number">0.259314</span>         <span class="number">23</span>  <span class="number">17.399130</span>  <span class="number">43.11</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">31</span>]: <span class="comment"># 结果DataFrame拥有层次化的列，相当于分别对各列进行聚合，然后用concat将结果组装到一起(列名用作keys参数)</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">32</span>]: result[<span class="string">'tip_pct'</span>]</span><br><span class="line">Out[<span class="number">32</span>]:</span><br><span class="line">               count      mean       max</span><br><span class="line">smoker time</span><br><span class="line">No     Dinner    <span class="number">106</span>  <span class="number">0.158653</span>  <span class="number">0.291990</span></span><br><span class="line">       Lunch      <span class="number">45</span>  <span class="number">0.160920</span>  <span class="number">0.266312</span></span><br><span class="line">Yes    Dinner     <span class="number">70</span>  <span class="number">0.160828</span>  <span class="number">0.710345</span></span><br><span class="line">       Lunch      <span class="number">23</span>  <span class="number">0.170404</span>  <span class="number">0.259314</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">33</span>]: <span class="comment"># 传入自定义名称的元组列表</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">34</span>]: ftuples = [(<span class="string">'Durchschnit'</span>,<span class="string">'mean'</span>),(<span class="string">'Abweichung'</span>,np.var)]</span><br><span class="line"></span><br><span class="line">In [<span class="number">35</span>]: grouped[<span class="string">'tip_pct'</span>,<span class="string">'total_bill'</span>].agg(ftuples)</span><br><span class="line">Out[<span class="number">35</span>]:</span><br><span class="line">                  tip_pct             total_bill</span><br><span class="line">              Durchschnit Abweichung Durchschnit  Abweichung</span><br><span class="line">smoker time</span><br><span class="line">No     Dinner    <span class="number">0.158653</span>   <span class="number">0.001637</span>   <span class="number">20.095660</span>   <span class="number">69.604821</span></span><br><span class="line">       Lunch     <span class="number">0.160920</span>   <span class="number">0.001520</span>   <span class="number">17.050889</span>   <span class="number">59.587154</span></span><br><span class="line">Yes    Dinner    <span class="number">0.160828</span>   <span class="number">0.009054</span>   <span class="number">21.859429</span>  <span class="number">104.148753</span></span><br><span class="line">       Lunch     <span class="number">0.170404</span>   <span class="number">0.001829</span>   <span class="number">17.399130</span>   <span class="number">61.958436</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">36</span>]: <span class="comment"># 对不同的列应用不同的函数，向agg传入一个从列名映射到函数的字典</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">37</span>]: grouped.agg(&#123;<span class="string">'tip'</span>:np.max,<span class="string">'size'</span>:<span class="string">'sum'</span>&#125;)</span><br><span class="line">Out[<span class="number">37</span>]:</span><br><span class="line">                tip  size</span><br><span class="line">smoker time</span><br><span class="line">No     Dinner   <span class="number">9.0</span>   <span class="number">290</span></span><br><span class="line">       Lunch    <span class="number">6.7</span>   <span class="number">113</span></span><br><span class="line">Yes    Dinner  <span class="number">10.0</span>   <span class="number">173</span></span><br><span class="line">       Lunch    <span class="number">5.0</span>    <span class="number">51</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">38</span>]: grouped.agg(&#123;<span class="string">'tip_pct'</span>:[<span class="string">'min'</span>,<span class="string">'max'</span>,<span class="string">'mean'</span>,<span class="string">'std'</span>],<span class="string">'size'</span>:<span class="string">'sum'</span>&#125;)</span><br><span class="line">Out[<span class="number">38</span>]:</span><br><span class="line">                tip_pct                               size</span><br><span class="line">                    min       max      mean       std  sum</span><br><span class="line">smoker time</span><br><span class="line">No     Dinner  <span class="number">0.056797</span>  <span class="number">0.291990</span>  <span class="number">0.158653</span>  <span class="number">0.040458</span>  <span class="number">290</span></span><br><span class="line">       Lunch   <span class="number">0.072961</span>  <span class="number">0.266312</span>  <span class="number">0.160920</span>  <span class="number">0.038989</span>  <span class="number">113</span></span><br><span class="line">Yes    Dinner  <span class="number">0.035638</span>  <span class="number">0.710345</span>  <span class="number">0.160828</span>  <span class="number">0.095153</span>  <span class="number">173</span></span><br><span class="line">       Lunch   <span class="number">0.090014</span>  <span class="number">0.259314</span>  <span class="number">0.170404</span>  <span class="number">0.042770</span>   <span class="number">51</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="以”无索引”的形式返回聚合数据"><a href="#以”无索引”的形式返回聚合数据" class="headerlink" title="以”无索引”的形式返回聚合数据"></a>以”无索引”的形式返回聚合数据</h3><p>可以通过向groupby传入<code>as_index=False</code>以禁用生成唯一分组键组成的索引(层次化索引):<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">39</span>]: tips.groupby([<span class="string">'smoker'</span>,<span class="string">'time'</span>], as_index=<span class="keyword">False</span>).mean()</span><br><span class="line">Out[<span class="number">39</span>]:</span><br><span class="line">  smoker    time  total_bill       tip      size   tip_pct</span><br><span class="line"><span class="number">0</span>     No  Dinner   <span class="number">20.095660</span>  <span class="number">3.126887</span>  <span class="number">2.735849</span>  <span class="number">0.158653</span></span><br><span class="line"><span class="number">1</span>     No   Lunch   <span class="number">17.050889</span>  <span class="number">2.673778</span>  <span class="number">2.511111</span>  <span class="number">0.160920</span></span><br><span class="line"><span class="number">2</span>    Yes  Dinner   <span class="number">21.859429</span>  <span class="number">3.066000</span>  <span class="number">2.471429</span>  <span class="number">0.160828</span></span><br><span class="line"><span class="number">3</span>    Yes   Lunch   <span class="number">17.399130</span>  <span class="number">2.834348</span>  <span class="number">2.217391</span>  <span class="number">0.170404</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="分组级运算和转换"><a href="#分组级运算和转换" class="headerlink" title="分组级运算和转换"></a>分组级运算和转换</h2><p>聚合是分组运算的其中一种，它是数据转换的一个特例，它接受能够将一维数组简化为标量值的函数<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">43</span>]: <span class="comment">#使用县聚合再合并的方式为一个DataFrame添加一个用于存放各索引分组平均值的列</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">44</span>]: df</span><br><span class="line">Out[<span class="number">44</span>]:</span><br><span class="line">      data1     data2 key1 key2</span><br><span class="line"><span class="number">0</span>  <span class="number">0.568585</span> <span class="number">-0.865028</span>    a  one</span><br><span class="line"><span class="number">1</span>  <span class="number">0.191774</span>  <span class="number">0.063184</span>    a  two</span><br><span class="line"><span class="number">2</span>  <span class="number">1.877514</span> <span class="number">-0.445805</span>    b  one</span><br><span class="line"><span class="number">3</span>  <span class="number">0.834648</span> <span class="number">-0.260108</span>    b  two</span><br><span class="line"><span class="number">4</span> <span class="number">-0.250249</span> <span class="number">-1.472969</span>    a  one</span><br><span class="line"></span><br><span class="line">In [<span class="number">45</span>]: k1_means = df.groupby(<span class="string">'key1'</span>).mean().add_prefix(<span class="string">'mean_'</span>)<span class="comment"># 利用np.mean函数对两个数据列进行转换</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">46</span>]: k1_means</span><br><span class="line">Out[<span class="number">46</span>]:</span><br><span class="line">      mean_data1  mean_data2</span><br><span class="line">key1</span><br><span class="line">a       <span class="number">0.170037</span>   <span class="number">-0.758271</span></span><br><span class="line">b       <span class="number">1.356081</span>   <span class="number">-0.352957</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">47</span>]: pd.merge(df,k1_means, left_on=<span class="string">'key1'</span>, right_index=<span class="keyword">True</span>)</span><br><span class="line">Out[<span class="number">47</span>]:</span><br><span class="line">      data1     data2 key1 key2  mean_data1  mean_data2</span><br><span class="line"><span class="number">0</span>  <span class="number">0.568585</span> <span class="number">-0.865028</span>    a  one    <span class="number">0.170037</span>   <span class="number">-0.758271</span></span><br><span class="line"><span class="number">1</span>  <span class="number">0.191774</span>  <span class="number">0.063184</span>    a  two    <span class="number">0.170037</span>   <span class="number">-0.758271</span></span><br><span class="line"><span class="number">4</span> <span class="number">-0.250249</span> <span class="number">-1.472969</span>    a  one    <span class="number">0.170037</span>   <span class="number">-0.758271</span></span><br><span class="line"><span class="number">2</span>  <span class="number">1.877514</span> <span class="number">-0.445805</span>    b  one    <span class="number">1.356081</span>   <span class="number">-0.352957</span></span><br><span class="line"><span class="number">3</span>  <span class="number">0.834648</span> <span class="number">-0.260108</span>    b  two    <span class="number">1.356081</span>   <span class="number">-0.352957</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="transform"><a href="#transform" class="headerlink" title="transform"></a>transform</h3><p><code>transform</code>会将一个函数应用到各个分组，然后将结果放置到适当的位置上。如果各分组产生的是一个标量值，则该值就会被广播出去；<code>transform</code>和<code>aggregate</code>一样也是一个有着严格条件的特殊函数：传入的函数只能产生两种结果，要么产生一个可以广播的标量值，要么产生一个相同大小的结果数组：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">49</span>]: key=[<span class="string">'one'</span>,<span class="string">'two'</span>,<span class="string">'one'</span>,<span class="string">'two'</span>,<span class="string">'one'</span>]</span><br><span class="line"></span><br><span class="line">In [<span class="number">50</span>]: people.groupby(key).mean()</span><br><span class="line">Out[<span class="number">50</span>]:</span><br><span class="line">            a         b         c         d         e</span><br><span class="line">one <span class="number">-0.761405</span>  <span class="number">0.060654</span>  <span class="number">0.157032</span> <span class="number">-0.791220</span>  <span class="number">0.330372</span></span><br><span class="line">two <span class="number">-0.253093</span>  <span class="number">0.201181</span>  <span class="number">0.138541</span>  <span class="number">0.459374</span>  <span class="number">0.860159</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">51</span>]: people.groupby(key).transform(np.mean)</span><br><span class="line">Out[<span class="number">51</span>]:</span><br><span class="line">              a         b         c         d         e</span><br><span class="line">tom   <span class="number">-0.761405</span>  <span class="number">0.060654</span>  <span class="number">0.157032</span> <span class="number">-0.791220</span>  <span class="number">0.330372</span></span><br><span class="line">john  <span class="number">-0.253093</span>  <span class="number">0.201181</span>  <span class="number">0.138541</span>  <span class="number">0.459374</span>  <span class="number">0.860159</span></span><br><span class="line">jim   <span class="number">-0.761405</span>  <span class="number">0.060654</span>  <span class="number">0.157032</span> <span class="number">-0.791220</span>  <span class="number">0.330372</span></span><br><span class="line">lancy <span class="number">-0.253093</span>  <span class="number">0.201181</span>  <span class="number">0.138541</span>  <span class="number">0.459374</span>  <span class="number">0.860159</span></span><br><span class="line">lucy  <span class="number">-0.761405</span>  <span class="number">0.060654</span>  <span class="number">0.157032</span> <span class="number">-0.791220</span>  <span class="number">0.330372</span></span><br></pre></td></tr></table></figure></p>
+<p>从各组中减去平均值：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">52</span>]: <span class="function"><span class="keyword">def</span> <span class="title">demean</span><span class="params">(arr)</span>:</span></span><br><span class="line">    ...:     <span class="comment"># 创建一个距平化函数</span></span><br><span class="line">    ...:     <span class="keyword">return</span> arr - arr.mean()</span><br><span class="line">    ...:</span><br><span class="line"></span><br><span class="line">In [<span class="number">53</span>]: dameaned = people.groupby(key).transform(demean)</span><br><span class="line"></span><br><span class="line">In [<span class="number">54</span>]: dameaned</span><br><span class="line">Out[<span class="number">54</span>]:</span><br><span class="line">              a         b         c         d         e</span><br><span class="line">tom   <span class="number">-0.529944</span>  <span class="number">0.771323</span> <span class="number">-1.053227</span>  <span class="number">0.098752</span> <span class="number">-0.720876</span></span><br><span class="line">john   <span class="number">1.022316</span>  <span class="number">0.626768</span> <span class="number">-0.418873</span> <span class="number">-0.901180</span> <span class="number">-0.117146</span></span><br><span class="line">jim    <span class="number">0.626749</span>  <span class="number">0.642272</span> <span class="number">-0.110584</span>  <span class="number">0.192733</span> <span class="number">-0.023483</span></span><br><span class="line">lancy <span class="number">-1.022316</span> <span class="number">-0.626768</span>  <span class="number">0.418873</span>  <span class="number">0.901180</span>  <span class="number">0.117146</span></span><br><span class="line">lucy  <span class="number">-0.096805</span> <span class="number">-1.413596</span>  <span class="number">1.163811</span> <span class="number">-0.291486</span>  <span class="number">0.744359</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">55</span>]: dameaned.groupby(key).mean() <span class="comment">#检查现在分组的平均值是否为0</span></span><br><span class="line">Out[<span class="number">55</span>]:</span><br><span class="line">                a    b    c             d             e</span><br><span class="line">one <span class="number">-7.401487e-17</span>  <span class="number">0.0</span>  <span class="number">0.0</span>  <span class="number">3.700743e-17</span> <span class="number">-3.700743e-17</span></span><br><span class="line">two  <span class="number">0.000000e+00</span>  <span class="number">0.0</span>  <span class="number">0.0</span>  <span class="number">0.000000e+00</span> <span class="number">-5.551115e-17</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="apply-一般性的”拆分-应用-合并”"><a href="#apply-一般性的”拆分-应用-合并”" class="headerlink" title="apply:一般性的”拆分-应用-合并”"></a>apply:一般性的”拆分-应用-合并”</h3><p><code>apply</code>会将待处理的对象拆分成多个片段，然后对各片段调用传入的函数，最后尝试将各片段组合到一起；如果传给apply的函数能够接受其他参数或关键字，可以将这些内容放在函数名后面一并传入:<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">58</span>]: <span class="function"><span class="keyword">def</span> <span class="title">top</span><span class="params">(df, n=<span class="number">5</span>, column=<span class="string">'tip_pct'</span>)</span>:</span></span><br><span class="line">    ...:     <span class="comment"># 在指定列找出最大值，然后把这个值所在的行选取出来</span></span><br><span class="line">    ...:     <span class="keyword">return</span> df.sort_values(by=column)[-n:]</span><br><span class="line">    ...:</span><br><span class="line"></span><br><span class="line">In [<span class="number">59</span>]: top(tips, n=<span class="number">3</span>)</span><br><span class="line">Out[<span class="number">59</span>]:</span><br><span class="line">     total_bill   tip smoker  day    time  size   tip_pct</span><br><span class="line"><span class="number">67</span>         <span class="number">3.07</span>  <span class="number">1.00</span>    Yes  Sat  Dinner     <span class="number">1</span>  <span class="number">0.325733</span></span><br><span class="line"><span class="number">178</span>        <span class="number">9.60</span>  <span class="number">4.00</span>    Yes  Sun  Dinner     <span class="number">2</span>  <span class="number">0.416667</span></span><br><span class="line"><span class="number">172</span>        <span class="number">7.25</span>  <span class="number">5.15</span>    Yes  Sun  Dinner     <span class="number">2</span>  <span class="number">0.710345</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">60</span>]: top(tips, n=<span class="number">6</span>)</span><br><span class="line">Out[<span class="number">60</span>]:</span><br><span class="line">     total_bill   tip smoker  day    time  size   tip_pct</span><br><span class="line"><span class="number">109</span>       <span class="number">14.31</span>  <span class="number">4.00</span>    Yes  Sat  Dinner     <span class="number">2</span>  <span class="number">0.279525</span></span><br><span class="line"><span class="number">183</span>       <span class="number">23.17</span>  <span class="number">6.50</span>    Yes  Sun  Dinner     <span class="number">4</span>  <span class="number">0.280535</span></span><br><span class="line"><span class="number">232</span>       <span class="number">11.61</span>  <span class="number">3.39</span>     No  Sat  Dinner     <span class="number">2</span>  <span class="number">0.291990</span></span><br><span class="line"><span class="number">67</span>         <span class="number">3.07</span>  <span class="number">1.00</span>    Yes  Sat  Dinner     <span class="number">1</span>  <span class="number">0.325733</span></span><br><span class="line"><span class="number">178</span>        <span class="number">9.60</span>  <span class="number">4.00</span>    Yes  Sun  Dinner     <span class="number">2</span>  <span class="number">0.416667</span></span><br><span class="line"><span class="number">172</span>        <span class="number">7.25</span>  <span class="number">5.15</span>    Yes  Sun  Dinner     <span class="number">2</span>  <span class="number">0.710345</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">61</span>]: <span class="function"><span class="keyword">def</span> <span class="title">top</span><span class="params">(df, n=<span class="number">5</span>, column=<span class="string">'tip_pct'</span>)</span>:</span></span><br><span class="line">    ...:     <span class="comment"># 在指定列找出最大值，然后把这个值所在的行选取出来</span></span><br><span class="line">    ...:     <span class="keyword">return</span> df.sort_values(by=column)[-n:]</span><br><span class="line">    ...:</span><br><span class="line"></span><br><span class="line">In [<span class="number">62</span>]: top(tips, n=<span class="number">3</span>)</span><br><span class="line">Out[<span class="number">62</span>]:</span><br><span class="line">     total_bill   tip smoker  day    time  size   tip_pct</span><br><span class="line"><span class="number">67</span>         <span class="number">3.07</span>  <span class="number">1.00</span>    Yes  Sat  Dinner     <span class="number">1</span>  <span class="number">0.325733</span></span><br><span class="line"><span class="number">178</span>        <span class="number">9.60</span>  <span class="number">4.00</span>    Yes  Sun  Dinner     <span class="number">2</span>  <span class="number">0.416667</span></span><br><span class="line"><span class="number">172</span>        <span class="number">7.25</span>  <span class="number">5.15</span>    Yes  Sun  Dinner     <span class="number">2</span>  <span class="number">0.710345</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">65</span>]: tips.groupby(<span class="string">'smoker'</span>).apply(top) <span class="comment">#top函数在DataFrame的各个片段上调用，然后结果由pandas.concat组装到一起，并以分</span></span><br><span class="line">    ...: 组名称进行了标记，最后得到了一个层次化索引，内层索引值来源于原DataFrame</span><br><span class="line">Out[<span class="number">65</span>]:</span><br><span class="line">            total_bill   tip smoker   day    time  size   tip_pct</span><br><span class="line">smoker</span><br><span class="line">No     <span class="number">88</span>        <span class="number">24.71</span>  <span class="number">5.85</span>     No  Thur   Lunch     <span class="number">2</span>  <span class="number">0.236746</span></span><br><span class="line">       <span class="number">185</span>       <span class="number">20.69</span>  <span class="number">5.00</span>     No   Sun  Dinner     <span class="number">5</span>  <span class="number">0.241663</span></span><br><span class="line">       <span class="number">51</span>        <span class="number">10.29</span>  <span class="number">2.60</span>     No   Sun  Dinner     <span class="number">2</span>  <span class="number">0.252672</span></span><br><span class="line">       <span class="number">149</span>        <span class="number">7.51</span>  <span class="number">2.00</span>     No  Thur   Lunch     <span class="number">2</span>  <span class="number">0.266312</span></span><br><span class="line">       <span class="number">232</span>       <span class="number">11.61</span>  <span class="number">3.39</span>     No   Sat  Dinner     <span class="number">2</span>  <span class="number">0.291990</span></span><br><span class="line">Yes    <span class="number">109</span>       <span class="number">14.31</span>  <span class="number">4.00</span>    Yes   Sat  Dinner     <span class="number">2</span>  <span class="number">0.279525</span></span><br><span class="line">       <span class="number">183</span>       <span class="number">23.17</span>  <span class="number">6.50</span>    Yes   Sun  Dinner     <span class="number">4</span>  <span class="number">0.280535</span></span><br><span class="line">       <span class="number">67</span>         <span class="number">3.07</span>  <span class="number">1.00</span>    Yes   Sat  Dinner     <span class="number">1</span>  <span class="number">0.325733</span></span><br><span class="line">       <span class="number">178</span>        <span class="number">9.60</span>  <span class="number">4.00</span>    Yes   Sun  Dinner     <span class="number">2</span>  <span class="number">0.416667</span></span><br><span class="line">       <span class="number">172</span>        <span class="number">7.25</span>  <span class="number">5.15</span>    Yes   Sun  Dinner     <span class="number">2</span>  <span class="number">0.710345</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">66</span>]: <span class="comment"># 传给apply的函数能接受其他参数或关键字，则可以将这些内容放在函数名后面</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">67</span>]: tips.groupby([<span class="string">'smoker'</span>,<span class="string">'day'</span>]).apply(top,n=<span class="number">2</span>,column=<span class="string">'total_bill'</span>)</span><br><span class="line">Out[<span class="number">67</span>]:</span><br><span class="line">                 total_bill    tip smoker   day    time  size   tip_pct</span><br><span class="line">smoker day</span><br><span class="line">No     Fri  <span class="number">91</span>        <span class="number">22.49</span>   <span class="number">3.50</span>     No   Fri  Dinner     <span class="number">2</span>  <span class="number">0.155625</span></span><br><span class="line">            <span class="number">94</span>        <span class="number">22.75</span>   <span class="number">3.25</span>     No   Fri  Dinner     <span class="number">2</span>  <span class="number">0.142857</span></span><br><span class="line">       Sat  <span class="number">59</span>        <span class="number">48.27</span>   <span class="number">6.73</span>     No   Sat  Dinner     <span class="number">4</span>  <span class="number">0.139424</span></span><br><span class="line">            <span class="number">212</span>       <span class="number">48.33</span>   <span class="number">9.00</span>     No   Sat  Dinner     <span class="number">4</span>  <span class="number">0.186220</span></span><br><span class="line">       Sun  <span class="number">112</span>       <span class="number">38.07</span>   <span class="number">4.00</span>     No   Sun  Dinner     <span class="number">3</span>  <span class="number">0.105070</span></span><br><span class="line">            <span class="number">156</span>       <span class="number">48.17</span>   <span class="number">5.00</span>     No   Sun  Dinner     <span class="number">6</span>  <span class="number">0.103799</span></span><br><span class="line">       Thur <span class="number">85</span>        <span class="number">34.83</span>   <span class="number">5.17</span>     No  Thur   Lunch     <span class="number">4</span>  <span class="number">0.148435</span></span><br><span class="line">            <span class="number">142</span>       <span class="number">41.19</span>   <span class="number">5.00</span>     No  Thur   Lunch     <span class="number">5</span>  <span class="number">0.121389</span></span><br><span class="line">Yes    Fri  <span class="number">90</span>        <span class="number">28.97</span>   <span class="number">3.00</span>    Yes   Fri  Dinner     <span class="number">2</span>  <span class="number">0.103555</span></span><br><span class="line">            <span class="number">95</span>        <span class="number">40.17</span>   <span class="number">4.73</span>    Yes   Fri  Dinner     <span class="number">4</span>  <span class="number">0.117750</span></span><br><span class="line">       Sat  <span class="number">102</span>       <span class="number">44.30</span>   <span class="number">2.50</span>    Yes   Sat  Dinner     <span class="number">3</span>  <span class="number">0.056433</span></span><br><span class="line">            <span class="number">170</span>       <span class="number">50.81</span>  <span class="number">10.00</span>    Yes   Sat  Dinner     <span class="number">3</span>  <span class="number">0.196812</span></span><br><span class="line">       Sun  <span class="number">184</span>       <span class="number">40.55</span>   <span class="number">3.00</span>    Yes   Sun  Dinner     <span class="number">2</span>  <span class="number">0.073983</span></span><br><span class="line">            <span class="number">182</span>       <span class="number">45.35</span>   <span class="number">3.50</span>    Yes   Sun  Dinner     <span class="number">3</span>  <span class="number">0.077178</span></span><br><span class="line">       Thur <span class="number">83</span>        <span class="number">32.68</span>   <span class="number">5.00</span>    Yes  Thur   Lunch     <span class="number">2</span>  <span class="number">0.152999</span></span><br><span class="line">            <span class="number">197</span>       <span class="number">43.11</span>   <span class="number">5.00</span>    Yes  Thur   Lunch     <span class="number">4</span>  <span class="number">0.115982</span></span><br></pre></td></tr></table></figure></p>
+<h4 id="禁止分组键"><a href="#禁止分组键" class="headerlink" title="禁止分组键"></a>禁止分组键</h4><p>分组键会跟原始对象的索引共同构成结果对象中的层次化索引,向groupvy传入<code>group_keys=False</code>禁用:<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">68</span>]: tips.groupby(<span class="string">'smoker'</span>,group_keys=<span class="keyword">False</span>).apply(top,n=<span class="number">2</span>)</span><br><span class="line">Out[<span class="number">68</span>]:</span><br><span class="line">     total_bill   tip smoker   day    time  size   tip_pct</span><br><span class="line"><span class="number">149</span>        <span class="number">7.51</span>  <span class="number">2.00</span>     No  Thur   Lunch     <span class="number">2</span>  <span class="number">0.266312</span></span><br><span class="line"><span class="number">232</span>       <span class="number">11.61</span>  <span class="number">3.39</span>     No   Sat  Dinner     <span class="number">2</span>  <span class="number">0.291990</span></span><br><span class="line"><span class="number">178</span>        <span class="number">9.60</span>  <span class="number">4.00</span>    Yes   Sun  Dinner     <span class="number">2</span>  <span class="number">0.416667</span></span><br><span class="line"><span class="number">172</span>        <span class="number">7.25</span>  <span class="number">5.15</span>    Yes   Sun  Dinner     <span class="number">2</span>  <span class="number">0.710345</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="分位数和桶分析"><a href="#分位数和桶分析" class="headerlink" title="分位数和桶分析"></a>分位数和桶分析</h3><p>pandas有一些根据指定面元或样本分位数<sup id="fnref:1"><a href="#fn:1" rel="footnote">1</a></sup>将数据拆分成多块的工具(比如<code>cut</code>和<code>qcut</code>)，将这些函数跟groupby结合起来，能实现对数据集的桶(bucket)<sup id="fnref:2"><a href="#fn:2" rel="footnote">2</a></sup>或分位数(quantile)分析。</p>
+<ul>
+<li>长度相等的桶</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">73</span>]: <span class="comment"># 生成随机数据集</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">74</span>]: frame = DataFrame(&#123;<span class="string">'data1'</span>:np.random.randn(<span class="number">1000</span>),</span><br><span class="line">    ...:                    <span class="string">'data2'</span>:np.random.randn(<span class="number">1000</span>)&#125;)</span><br><span class="line">    ...:</span><br><span class="line"></span><br><span class="line">In [<span class="number">75</span>]: factor = pd.cut(frame.data1, <span class="number">4</span>) <span class="comment">#使用cut将其装入长度相等的桶</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">76</span>]: factor[:<span class="number">5</span>]</span><br><span class="line">Out[<span class="number">76</span>]:</span><br><span class="line"><span class="number">0</span>     (<span class="number">-0.019</span>, <span class="number">1.563</span>]</span><br><span class="line"><span class="number">1</span>    (<span class="number">-1.601</span>, <span class="number">-0.019</span>]</span><br><span class="line"><span class="number">2</span>      (<span class="number">1.563</span>, <span class="number">3.146</span>]</span><br><span class="line"><span class="number">3</span>     (<span class="number">-0.019</span>, <span class="number">1.563</span>]</span><br><span class="line"><span class="number">4</span>    (<span class="number">-1.601</span>, <span class="number">-0.019</span>]</span><br><span class="line">Name: data1, dtype: category</span><br><span class="line">Categories (<span class="number">4</span>, interval[float64]): [(<span class="number">-3.19</span>, <span class="number">-1.601</span>] &lt; (<span class="number">-1.601</span>, <span class="number">-0.019</span>] &lt; (<span class="number">-0.019</span>, <span class="number">1.563</span>] &lt;</span><br><span class="line">                                    (<span class="number">1.563</span>, <span class="number">3.146</span>]]</span><br><span class="line"></span><br><span class="line">In [<span class="number">77</span>]: <span class="comment"># 由cut返回的Factor对象可直接用于groupby</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">81</span>]: <span class="function"><span class="keyword">def</span> <span class="title">get_stats</span><span class="params">(group)</span>:</span></span><br><span class="line">    ...:     <span class="comment"># 返回对应调用的方法和列名</span></span><br><span class="line">    ...:     <span class="keyword">return</span> &#123;<span class="string">'min'</span>:group.min(),<span class="string">'max'</span>:group.max(),</span><br><span class="line">    ...:             <span class="string">'count'</span>:group.count(),<span class="string">'mean'</span>:group.mean()&#125;</span><br><span class="line">    ...:</span><br><span class="line"></span><br><span class="line">In [<span class="number">82</span>]: grouped = frame.data2.groupby(factor)</span><br><span class="line"></span><br><span class="line">In [<span class="number">83</span>]: grouped.apply(get_stats).unstack()</span><br><span class="line">Out[<span class="number">83</span>]:</span><br><span class="line">                  count       max      mean       min</span><br><span class="line">data1</span><br><span class="line">(<span class="number">-3.19</span>, <span class="number">-1.601</span>]    <span class="number">48.0</span>  <span class="number">2.748015</span>  <span class="number">0.087192</span> <span class="number">-1.809659</span></span><br><span class="line">(<span class="number">-1.601</span>, <span class="number">-0.019</span>]  <span class="number">452.0</span>  <span class="number">3.046213</span> <span class="number">-0.007537</span> <span class="number">-3.326031</span></span><br><span class="line">(<span class="number">-0.019</span>, <span class="number">1.563</span>]   <span class="number">444.0</span>  <span class="number">2.372145</span> <span class="number">-0.012882</span> <span class="number">-3.489221</span></span><br><span class="line">(<span class="number">1.563</span>, <span class="number">3.146</span>]     <span class="number">56.0</span>  <span class="number">3.598193</span>  <span class="number">0.165933</span> <span class="number">-2.688040</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>大小相等的桶<blockquote>
+<p>使用qcut根据样本分位数得到大小相等的桶，传入labels=False即可只获取分位数的编号</p>
+</blockquote>
+</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">87</span>]: <span class="comment"># 返回分位数编号</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">88</span>]: grouping = pd.qcut(frame.data1, <span class="number">10</span>, labels=<span class="keyword">False</span>)</span><br><span class="line"></span><br><span class="line">In [<span class="number">89</span>]: gropuped = frame.data2.groupby(grouping)</span><br><span class="line"></span><br><span class="line">In [<span class="number">90</span>]: grouped.apply(get_stats).unstack()</span><br><span class="line">Out[<span class="number">90</span>]:</span><br><span class="line">                  count       max      mean       min</span><br><span class="line">data1</span><br><span class="line">(<span class="number">-3.19</span>, <span class="number">-1.601</span>]    <span class="number">48.0</span>  <span class="number">2.748015</span>  <span class="number">0.087192</span> <span class="number">-1.809659</span></span><br><span class="line">(<span class="number">-1.601</span>, <span class="number">-0.019</span>]  <span class="number">452.0</span>  <span class="number">3.046213</span> <span class="number">-0.007537</span> <span class="number">-3.326031</span></span><br><span class="line">(<span class="number">-0.019</span>, <span class="number">1.563</span>]   <span class="number">444.0</span>  <span class="number">2.372145</span> <span class="number">-0.012882</span> <span class="number">-3.489221</span></span><br><span class="line">(<span class="number">1.563</span>, <span class="number">3.146</span>]     <span class="number">56.0</span>  <span class="number">3.598193</span>  <span class="number">0.165933</span> <span class="number">-2.688040</span></span><br></pre></td></tr></table></figure>
+<h2 id="透视表和交叉表"><a href="#透视表和交叉表" class="headerlink" title="透视表和交叉表"></a>透视表和交叉表</h2><h3 id="透视表"><a href="#透视表" class="headerlink" title="透视表"></a>透视表</h3><p><strong>透视表</strong>根据一个或多个键对数据进行聚合，并根据行和列上的分组键将数据分配到各个矩形区域中。可以通过groupby功能以及(能够使用层次化索引的)重塑运算制作透视表。DataFrame有一个<code>pivot_table</code>方法(默认聚合类型为分组平均数)，还有一个顶层的<code>pandas.pivot_table</code>函数。除了能为groupby提供便利外，<code>pivot_table</code>还能添加分项小计(也叫做margins)，只需要传入<code>margins=True</code>，这会添加标签为All的行和列，其值对应于单个等级中所有数据的分组统计；要使用其他函数通过<code>aggfunc</code>传入；通过使用<code>fill_value</code>填充NA值。</p>
+<ul>
+<li>pivot_table的参数</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">参数名</th>
+<th style="text-align:center">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">values</td>
+<td style="text-align:center">待聚合的列的名称。默认集合所有数值列</td>
+</tr>
+<tr>
+<td style="text-align:center">index</td>
+<td style="text-align:center">用于分组的列名或其他分组键，出现在结果透视表的行</td>
+</tr>
+<tr>
+<td style="text-align:center">columns</td>
+<td style="text-align:center">用于分组的列名或其他分组键，出现在结果透视表的列</td>
+</tr>
+<tr>
+<td style="text-align:center">aggfunc</td>
+<td style="text-align:center">聚合函数或函数列表，默认为’mean’。可以是任何对groupby有效的函数</td>
+</tr>
+<tr>
+<td style="text-align:center">fill_value</td>
+<td style="text-align:center">用于替换结果列表中的缺失值</td>
+</tr>
+<tr>
+<td style="text-align:center">margins</td>
+<td style="text-align:center">添加行/列小计和总计，默认为False</td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">97</span>]: <span class="comment">#根据smoker和time计算分组平均数</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">98</span>]: tips.pivot_table(index=[<span class="string">'smoker'</span>,<span class="string">'time'</span>])</span><br><span class="line">Out[<span class="number">98</span>]:</span><br><span class="line">                   size       tip   tip_pct  total_bill</span><br><span class="line">smoker time</span><br><span class="line">No     Dinner  <span class="number">2.735849</span>  <span class="number">3.126887</span>  <span class="number">0.158653</span>   <span class="number">20.095660</span></span><br><span class="line">       Lunch   <span class="number">2.511111</span>  <span class="number">2.673778</span>  <span class="number">0.160920</span>   <span class="number">17.050889</span></span><br><span class="line">Yes    Dinner  <span class="number">2.471429</span>  <span class="number">3.066000</span>  <span class="number">0.160828</span>   <span class="number">21.859429</span></span><br><span class="line">       Lunch   <span class="number">2.217391</span>  <span class="number">2.834348</span>  <span class="number">0.170404</span>   <span class="number">17.399130</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">100</span>]: <span class="comment"># 聚合tip_pct和size,根据day进行分组，将smoker放在列上，day放在行上</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">101</span>]: tips.pivot_table([<span class="string">'tip_pct'</span>,<span class="string">'size'</span>],index=[<span class="string">'time'</span>,<span class="string">'day'</span>],columns=<span class="string">'smoker'</span>)</span><br><span class="line">Out[<span class="number">101</span>]:</span><br><span class="line">                 size             tip_pct</span><br><span class="line">smoker             No       Yes        No       Yes</span><br><span class="line">time   day</span><br><span class="line">Dinner Fri   <span class="number">2.000000</span>  <span class="number">2.222222</span>  <span class="number">0.139622</span>  <span class="number">0.165347</span></span><br><span class="line">       Sat   <span class="number">2.555556</span>  <span class="number">2.476190</span>  <span class="number">0.158048</span>  <span class="number">0.147906</span></span><br><span class="line">       Sun   <span class="number">2.929825</span>  <span class="number">2.578947</span>  <span class="number">0.160113</span>  <span class="number">0.187250</span></span><br><span class="line">       Thur  <span class="number">2.000000</span>       NaN  <span class="number">0.159744</span>       NaN</span><br><span class="line">Lunch  Fri   <span class="number">3.000000</span>  <span class="number">1.833333</span>  <span class="number">0.187735</span>  <span class="number">0.188937</span></span><br><span class="line">       Thur  <span class="number">2.500000</span>  <span class="number">2.352941</span>  <span class="number">0.160311</span>  <span class="number">0.163863</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">102</span>]: <span class="comment">#添加分项小计，All值为平均数</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">103</span>]: tips.pivot_table([<span class="string">'tip_pct'</span>,<span class="string">'size'</span>],index=[<span class="string">'time'</span>,<span class="string">'day'</span>],columns=<span class="string">'smoker'</span>,margins=<span class="keyword">True</span>)</span><br><span class="line">Out[<span class="number">103</span>]:</span><br><span class="line">                 size                       tip_pct</span><br><span class="line">smoker             No       Yes       All        No       Yes       All</span><br><span class="line">time   day</span><br><span class="line">Dinner Fri   <span class="number">2.000000</span>  <span class="number">2.222222</span>  <span class="number">2.166667</span>  <span class="number">0.139622</span>  <span class="number">0.165347</span>  <span class="number">0.158916</span></span><br><span class="line">       Sat   <span class="number">2.555556</span>  <span class="number">2.476190</span>  <span class="number">2.517241</span>  <span class="number">0.158048</span>  <span class="number">0.147906</span>  <span class="number">0.153152</span></span><br><span class="line">       Sun   <span class="number">2.929825</span>  <span class="number">2.578947</span>  <span class="number">2.842105</span>  <span class="number">0.160113</span>  <span class="number">0.187250</span>  <span class="number">0.166897</span></span><br><span class="line">       Thur  <span class="number">2.000000</span>       NaN  <span class="number">2.000000</span>  <span class="number">0.159744</span>       NaN  <span class="number">0.159744</span></span><br><span class="line">Lunch  Fri   <span class="number">3.000000</span>  <span class="number">1.833333</span>  <span class="number">2.000000</span>  <span class="number">0.187735</span>  <span class="number">0.188937</span>  <span class="number">0.188765</span></span><br><span class="line">       Thur  <span class="number">2.500000</span>  <span class="number">2.352941</span>  <span class="number">2.459016</span>  <span class="number">0.160311</span>  <span class="number">0.163863</span>  <span class="number">0.161301</span></span><br><span class="line">All          <span class="number">2.668874</span>  <span class="number">2.408602</span>  <span class="number">2.569672</span>  <span class="number">0.159328</span>  <span class="number">0.163196</span>  <span class="number">0.160803</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">102</span>]: <span class="comment">#添加分项小计，All值为平均数</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">103</span>]: tips.pivot_table([<span class="string">'tip_pct'</span>,<span class="string">'size'</span>],index=[<span class="string">'time'</span>,<span class="string">'day'</span>],columns=<span class="string">'smoker'</span>,margins=<span class="keyword">True</span>)</span><br><span class="line">Out[<span class="number">103</span>]:</span><br><span class="line">                 size                       tip_pct</span><br><span class="line">smoker             No       Yes       All        No       Yes       All</span><br><span class="line">time   day</span><br><span class="line">Dinner Fri   <span class="number">2.000000</span>  <span class="number">2.222222</span>  <span class="number">2.166667</span>  <span class="number">0.139622</span>  <span class="number">0.165347</span>  <span class="number">0.158916</span></span><br><span class="line">       Sat   <span class="number">2.555556</span>  <span class="number">2.476190</span>  <span class="number">2.517241</span>  <span class="number">0.158048</span>  <span class="number">0.147906</span>  <span class="number">0.153152</span></span><br><span class="line">       Sun   <span class="number">2.929825</span>  <span class="number">2.578947</span>  <span class="number">2.842105</span>  <span class="number">0.160113</span>  <span class="number">0.187250</span>  <span class="number">0.166897</span></span><br><span class="line">       Thur  <span class="number">2.000000</span>       NaN  <span class="number">2.000000</span>  <span class="number">0.159744</span>       NaN  <span class="number">0.159744</span></span><br><span class="line">Lunch  Fri   <span class="number">3.000000</span>  <span class="number">1.833333</span>  <span class="number">2.000000</span>  <span class="number">0.187735</span>  <span class="number">0.188937</span>  <span class="number">0.188765</span></span><br><span class="line">       Thur  <span class="number">2.500000</span>  <span class="number">2.352941</span>  <span class="number">2.459016</span>  <span class="number">0.160311</span>  <span class="number">0.163863</span>  <span class="number">0.161301</span></span><br><span class="line">All          <span class="number">2.668874</span>  <span class="number">2.408602</span>  <span class="number">2.569672</span>  <span class="number">0.159328</span>  <span class="number">0.163196</span>  <span class="number">0.160803</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">102</span>]: <span class="comment">#添加分项小计，All值为平均数</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">103</span>]: tips.pivot_table([<span class="string">'tip_pct'</span>,<span class="string">'size'</span>],index=[<span class="string">'time'</span>,<span class="string">'day'</span>],columns=<span class="string">'smoker'</span>,margins=<span class="keyword">True</span>)</span><br><span class="line">Out[<span class="number">103</span>]:</span><br><span class="line">                 size                       tip_pct</span><br><span class="line">smoker             No       Yes       All        No       Yes       All</span><br><span class="line">time   day</span><br><span class="line">Dinner Fri   <span class="number">2.000000</span>  <span class="number">2.222222</span>  <span class="number">2.166667</span>  <span class="number">0.139622</span>  <span class="number">0.165347</span>  <span class="number">0.158916</span></span><br><span class="line">       Sat   <span class="number">2.555556</span>  <span class="number">2.476190</span>  <span class="number">2.517241</span>  <span class="number">0.158048</span>  <span class="number">0.147906</span>  <span class="number">0.153152</span></span><br><span class="line">       Sun   <span class="number">2.929825</span>  <span class="number">2.578947</span>  <span class="number">2.842105</span>  <span class="number">0.160113</span>  <span class="number">0.187250</span>  <span class="number">0.166897</span></span><br><span class="line">       Thur  <span class="number">2.000000</span>       NaN  <span class="number">2.000000</span>  <span class="number">0.159744</span>       NaN  <span class="number">0.159744</span></span><br><span class="line">Lunch  Fri   <span class="number">3.000000</span>  <span class="number">1.833333</span>  <span class="number">2.000000</span>  <span class="number">0.187735</span>  <span class="number">0.188937</span>  <span class="number">0.188765</span></span><br><span class="line">       Thur  <span class="number">2.500000</span>  <span class="number">2.352941</span>  <span class="number">2.459016</span>  <span class="number">0.160311</span>  <span class="number">0.163863</span>  <span class="number">0.161301</span></span><br><span class="line">All          <span class="number">2.668874</span>  <span class="number">2.408602</span>  <span class="number">2.569672</span>  <span class="number">0.159328</span>  <span class="number">0.163196</span>  <span class="number">0.160803</span></span><br></pre></td></tr></table></figure>
+<h3 id="交叉表"><a href="#交叉表" class="headerlink" title="交叉表"></a>交叉表</h3><p><strong>交叉表</strong>(<em>cross-tabulation</em>简称<em>crosstab</em>)是一种用于计算分组频率的特殊透视表。<code>crosstab</code>前两个参数可以是数组、Series或数组列表:<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">108</span>]: pd.crosstab([tips.time,tips.day],tips.smoker,margins=<span class="keyword">True</span>)</span><br><span class="line">Out[<span class="number">108</span>]:</span><br><span class="line">smoker        No  Yes  All</span><br><span class="line">time   day</span><br><span class="line">Dinner Fri     <span class="number">3</span>    <span class="number">9</span>   <span class="number">12</span></span><br><span class="line">       Sat    <span class="number">45</span>   <span class="number">42</span>   <span class="number">87</span></span><br><span class="line">       Sun    <span class="number">57</span>   <span class="number">19</span>   <span class="number">76</span></span><br><span class="line">       Thur    <span class="number">1</span>    <span class="number">0</span>    <span class="number">1</span></span><br><span class="line">Lunch  Fri     <span class="number">1</span>    <span class="number">6</span>    <span class="number">7</span></span><br><span class="line">       Thur   <span class="number">44</span>   <span class="number">17</span>   <span class="number">61</span></span><br><span class="line">All          <span class="number">151</span>   <span class="number">93</span>  <span class="number">244</span></span><br></pre></td></tr></table></figure></p>
+<div id="footnotes"><hr><div id="footnotelist"><ol style="list-style:none; padding-left: 0;"><li id="fn:1"><span style="display: inline-block; vertical-align: top; padding-right: 10px;">1.</span><span style="display: inline-block; vertical-align: top;">样本分位数的计算方式为loc= 1+(n-1)<em>p;n是数据个数，p是分位点。loc介于1到n之间。把数据从小到大排列，找到loc两边的值L和R，值为(R-L)</em> (loc-floor(loc))+L，其中floor是向下取整</span><a href="#fnref:1" rev="footnote"> ↩</a></li><li id="fn:2"><span style="display: inline-block; vertical-align: top; padding-right: 10px;">2.</span><span style="display: inline-block; vertical-align: top;">长度相等指的是区间大小相等，大小相等指的是数据点数量相等</span><a href="#fnref:2" rev="footnote"> ↩</a></li></ol></div></div>
+      
+    </div>
+    
+    
+    
+		<div>
+		  
+		    <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-apple"></i>感谢您的阅读-------------</div>
+    
+</div>
+		  
+		</div>
+		<div>
+      
+        
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <p><span>本文标题:</span><a href="/2018/03/25/数据聚合和分组运算/">数据聚合和分组运算</a></p>
+  <p><span>文章作者:</span><a href="/" title="访问 邓小俊 的个人博客">邓小俊</a></p>
+  <p><span>发布时间:</span>2018年03月25日 - 14:03</p>
+  <p><span>最后更新:</span>2018年03月27日 - 08:03</p>
+  <p><span>原始链接:</span><a href="/2018/03/25/数据聚合和分组运算/" title="数据聚合和分组运算">http://coldjune.com/2018/03/25/数据聚合和分组运算/</a>
+    <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://coldjune.com/2018/03/25/数据聚合和分组运算/"  aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+      $(".fa-clipboard").click(function(){
+      clipboard.on('success', function(){
+        swal({   
+          title: "",   
+          text: '复制成功',
+          icon: "success", 
+          showConfirmButton: true
+          });
+        });
+    });  
+</script>
+
+      
+		</div>
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/数据分析/" rel="tag"><i class="fa fa-tag"></i> 数据分析</a>
+          
+            <a href="/tags/聚合和分组/" rel="tag"><i class="fa fa-tag"></i> 聚合和分组</a>
+          
+        </div>
+      
+
+      
+      
+        <div class="post-widgets">
+        
+
+        
+
+        
+          
+          <div id="needsharebutton-postbottom">
+            <span class="btn">
+              <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </span>
+          </div>
+        
+        </div>
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/03/23/绘图和可视化/" rel="next" title="绘图和可视化">
+                <i class="fa fa-chevron-left"></i> 绘图和可视化
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/03/26/数据聚合与分组运算示例/" rel="prev" title="数据聚合与分组运算示例">
+                数据聚合与分组运算示例 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">邓小俊</p>
+              <p class="site-description motion-element" itemprop="description">人所恐惧的不是孤独本身，而是害怕承认人本生而孤独的事实</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">29</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">23</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#GroupBy技术"><span class="nav-number">1.</span> <span class="nav-text">GroupBy技术</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#对分组进行迭代"><span class="nav-number">1.1.</span> <span class="nav-text">对分组进行迭代</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#选取一个或一组列"><span class="nav-number">1.2.</span> <span class="nav-text">选取一个或一组列</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#通过字典或Series进行分组"><span class="nav-number">1.3.</span> <span class="nav-text">通过字典或Series进行分组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#通过函数进行分组"><span class="nav-number">1.4.</span> <span class="nav-text">通过函数进行分组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#根据索引级别分组"><span class="nav-number">1.5.</span> <span class="nav-text">根据索引级别分组</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据聚合"><span class="nav-number">2.</span> <span class="nav-text">数据聚合</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#面向列的多函数应用"><span class="nav-number">2.1.</span> <span class="nav-text">面向列的多函数应用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#以”无索引”的形式返回聚合数据"><span class="nav-number">2.2.</span> <span class="nav-text">以”无索引”的形式返回聚合数据</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分组级运算和转换"><span class="nav-number">3.</span> <span class="nav-text">分组级运算和转换</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#transform"><span class="nav-number">3.1.</span> <span class="nav-text">transform</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#apply-一般性的”拆分-应用-合并”"><span class="nav-number">3.2.</span> <span class="nav-text">apply:一般性的”拆分-应用-合并”</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#禁止分组键"><span class="nav-number">3.2.1.</span> <span class="nav-text">禁止分组键</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分位数和桶分析"><span class="nav-number">3.3.</span> <span class="nav-text">分位数和桶分析</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#透视表和交叉表"><span class="nav-number">4.</span> <span class="nav-text">透视表和交叉表</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#透视表"><span class="nav-number">4.1.</span> <span class="nav-text">透视表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#交叉表"><span class="nav-number">4.2.</span> <span class="nav-text">交叉表</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">邓小俊</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">博文包含字数&#58;</span>
+    
+    <span title="博文包含字数">99.1k</span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>本站访客数
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      人次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+      <div id="needsharebutton-float">
+        <span class="btn">
+          <i class="fa fa-share-alt" aria-hidden="true"></i>
+        </span>
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("EdodKu35EbSo4VoLhJYQMd09-gzGzoHsz", "qpErN7JcsIzusWGMNuw1QcxN");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/needsharebutton/needsharebutton.css">
+
+  
+  
+  <script src="/lib/needsharebutton/needsharebutton.js"></script>
+
+  <script>
+    
+      pbOptions = {};
+      
+          pbOptions.iconStyle = "box";
+      
+          pbOptions.boxForm = "horizontal";
+      
+          pbOptions.position = "bottomCenter";
+      
+          pbOptions.networks = "Weibo,Wechat,Douban,QQZone,Twitter,Facebook";
+      
+      new needShareButton('#needsharebutton-postbottom', pbOptions);
+    
+    
+      flOptions = {};
+      
+          flOptions.iconStyle = "box";
+      
+          flOptions.boxForm = "horizontal";
+      
+          flOptions.position = "middleRight";
+      
+          flOptions.networks = "Weibo,Wechat,Douban,QQZone,Twitter,Facebook";
+      
+      new needShareButton('#needsharebutton-float', flOptions);
+    
+  </script>
+
+  
+
+  
+  
+
+
+  
+
+  
+
+ 
+</body>
+</html>

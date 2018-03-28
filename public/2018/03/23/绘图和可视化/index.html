@@ -1,0 +1,1659 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+  <meta name="baidu-site-verification" content="true" />
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico#/images/favicon-16x16-next.png?v=5.1.4">
+
+
+
+
+
+
+  <meta name="keywords" content="数据分析,可视化," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="绘图是数据分析工作中的最重要的任务之一，是探索过程的一部分">
+<meta name="keywords" content="数据分析,可视化">
+<meta property="og:type" content="article">
+<meta property="og:title" content="绘图和可视化">
+<meta property="og:url" content="http://coldjune.com/2018/03/23/绘图和可视化/index.html">
+<meta property="og:site_name" content="Stay Hungary">
+<meta property="og:description" content="绘图是数据分析工作中的最重要的任务之一，是探索过程的一部分">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://coldjune.com/2018/03/23/绘图和可视化/Figure_1.png">
+<meta property="og:image" content="http://coldjune.com/2018/03/23/绘图和可视化/Figure_2.png">
+<meta property="og:image" content="http://coldjune.com/2018/03/23/绘图和可视化/Figure_3.png">
+<meta property="og:image" content="http://coldjune.com/2018/03/23/绘图和可视化/Figure_4.png">
+<meta property="og:image" content="http://coldjune.com/2018/03/23/绘图和可视化/Figure_5.png">
+<meta property="og:image" content="http://coldjune.com/2018/03/23/绘图和可视化/Figure_6.png">
+<meta property="og:image" content="http://coldjune.com/2018/03/23/绘图和可视化/Figure_7.png">
+<meta property="og:image" content="http://coldjune.com/2018/03/23/绘图和可视化/Figure_8.png">
+<meta property="og:image" content="http://coldjune.com/2018/03/23/绘图和可视化/Figure_9.png">
+<meta property="og:image" content="http://coldjune.com/2018/03/23/绘图和可视化/Figure_10.png">
+<meta property="og:image" content="http://coldjune.com/2018/03/23/绘图和可视化/Figure_11.png">
+<meta property="og:image" content="http://coldjune.com/2018/03/23/绘图和可视化/Figure_12.png">
+<meta property="og:image" content="http://coldjune.com/2018/03/23/绘图和可视化/Figure_13.png">
+<meta property="og:image" content="http://coldjune.com/2018/03/23/绘图和可视化/Figure_14.png">
+<meta property="og:image" content="http://coldjune.com/2018/03/23/绘图和可视化/Figure_15.png">
+<meta property="og:image" content="http://coldjune.com/2018/03/23/绘图和可视化/Figure_16.png">
+<meta property="og:image" content="http://coldjune.com/2018/03/23/绘图和可视化/Figure_17.png">
+<meta property="og:image" content="http://coldjune.com/2018/03/23/绘图和可视化/Figure_18.png">
+<meta property="og:image" content="http://coldjune.com/2018/03/23/绘图和可视化/Figure_19.png">
+<meta property="og:image" content="http://coldjune.com/2018/03/23/绘图和可视化/Figure_20.png">
+<meta property="og:image" content="http://coldjune.com/2018/03/23/绘图和可视化/Figure_21.png">
+<meta property="og:image" content="http://coldjune.com/2018/03/23/绘图和可视化/Figure_22.png">
+<meta property="og:updated_time" content="2018-03-26T01:29:55.439Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="绘图和可视化">
+<meta name="twitter:description" content="绘图是数据分析工作中的最重要的任务之一，是探索过程的一部分">
+<meta name="twitter:image" content="http://coldjune.com/2018/03/23/绘图和可视化/Figure_1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://coldjune.com/2018/03/23/绘图和可视化/"/>
+
+
+
+
+
+  <title>绘图和可视化 | Stay Hungary</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+		<a href="https://github.com/coldJune" class="github-corner" aria-label="View source on Github"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; left: 0; transform: scale(-1, 1);" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style></a>    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Stay Hungary</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Programming is an art form</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://coldjune.com/2018/03/23/绘图和可视化/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="邓小俊">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Stay Hungary">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">绘图和可视化</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-23T10:57:04+08:00">
+                2018-03-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/数据分析/" itemprop="url" rel="index">
+                    <span itemprop="name">数据分析</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018/03/23/绘图和可视化/" class="leancloud_visitors" data-flag-title="绘图和可视化">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  4,287
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  20
+                </span>
+              
+            </div>
+          
+
+          
+              <div class="post-description">
+                  绘图是数据分析工作中的最重要的任务之一，是探索过程的一部分
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="matplotlib-API入门"><a href="#matplotlib-API入门" class="headerlink" title="matplotlib API入门"></a>matplotlib API入门</h2><p>使用<a href="https://matplotlib.org/index.html" target="_blank" rel="noopener">matplotlib</a>时以<code>--pylab</code>模式打开<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ipython --pylab</span><br></pre></td></tr></table></figure></p>
+<p>matplotlib API的函数都位于matplotlib.pyplot模块之下，通常通过以下语句引用:<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br></pre></td></tr></table></figure></p>
+<h3 id="Figure和Subplot"><a href="#Figure和Subplot" class="headerlink" title="Figure和Subplot"></a>Figure和Subplot</h3><p>matplotlib的图像都位于Figure对象中，使用<code>plt.figure</code>创建一个新的Figure；<code>plt.figure</code>的<code>figsize</code>选项用于确保当图片保存到磁盘时具有一定的大小和纵横比；通过<code>plt.gcf()</code>等到当前Figure的引用；不能再空Figure上绘图，必须通过<code>add_subplot</code>创建一个或多个subplot，返回的对象是AxesSubplot对象：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">7</span>]: fig = plt.figure()</span><br><span class="line"></span><br><span class="line">In [<span class="number">8</span>]: ax1 = fig.add_subplot(<span class="number">2</span>,<span class="number">2</span>,<span class="number">1</span>)  <span class="comment">#在figure实例上调用add_subplot创建一个2x2的图像，且当前选中的事第一个(编号从1</span></span><br><span class="line">   ...: 开始)</span><br><span class="line"></span><br><span class="line">In [<span class="number">9</span>]: ax2 = fig.add_subplot(<span class="number">2</span>,<span class="number">2</span>,<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line">In [<span class="number">10</span>]: ax3 = fig.add_subplot(<span class="number">2</span>,<span class="number">2</span>,<span class="number">4</span>)</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li><p>带有三个subplot的Figure<br><img src="/2018/03/23/绘图和可视化/Figure_1.png" alt="带有三个subplot的Figure"><br>如果这时发出一条绘图命令，matplotlib会在最后一个用过的subplot(没有则创建一个)上进行绘制,<code>k--</code>是一个线型选项，告诉matplotlib绘制黑色虚线图:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">16</span>]: plt.plot(randn(<span class="number">50</span>).cumsum(),<span class="string">'k--'</span>)</span><br><span class="line">Out[<span class="number">16</span>]: [&lt;matplotlib.lines.Line2D at <span class="number">0x26fc86694a8</span>&gt;]</span><br><span class="line"></span><br><span class="line">In [<span class="number">17</span>]: plt.savefig(<span class="string">'Figure_2.png'</span>)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>绘制一次后的图像<br><img src="/2018/03/23/绘图和可视化/Figure_2.png" alt="绘制一次后的图像"><br>对于<code>add_subplot</code>返回AxesSubplot直接调用它们的实例方法就可以在对应的实例上画图了：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">14</span>]: _ = ax1.hist(randn(<span class="number">100</span>),bins=<span class="number">20</span>,color=<span class="string">'k'</span>,alpha=<span class="number">0.3</span>)</span><br><span class="line"></span><br><span class="line">In [<span class="number">15</span>]: ax2.scatter(np.arange(<span class="number">30</span>),np.arange(<span class="number">30</span>)+<span class="number">3</span>*randn(<span class="number">30</span>))</span><br><span class="line">Out[<span class="number">15</span>]: &lt;matplotlib.collections.PathCollection at <span class="number">0x2213001c2e8</span>&gt;</span><br><span class="line"></span><br><span class="line">In [<span class="number">16</span>]: plt.savefig(<span class="string">'Figure_3.png'</span>)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>继续绘制两次之后的图像<br><img src="/2018/03/23/绘图和可视化/Figure_3.png" alt="继续绘制两次之后的图像"></p>
+</li>
+</ul>
+<p><code>plt.subplots</code>创建一个新的Figure，返回一个含有已创建的subplot对象的NumPy数组，可以通过索引获取对应的AxesSubplot对象进行绘图:</p>
+<ul>
+<li>pyplot.subplots的选项</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">参数</th>
+<th style="text-align:center">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">nrows</td>
+<td style="text-align:center">subplot的行数</td>
+</tr>
+<tr>
+<td style="text-align:center">ncols</td>
+<td style="text-align:center">subplot的列数</td>
+</tr>
+<tr>
+<td style="text-align:center">sharex</td>
+<td style="text-align:center">所有subplot应该使用相同的X轴刻度(调节xlim将会影响所有subplot)</td>
+</tr>
+<tr>
+<td style="text-align:center">sharey</td>
+<td style="text-align:center">所有subplot应该使用相同的Y轴刻度(调节ylim将会影响所有subplot)</td>
+</tr>
+<tr>
+<td style="text-align:center">subplot_kw</td>
+<td style="text-align:center">用于创建个subplot的关键字字典</td>
+</tr>
+<tr>
+<td style="text-align:center">**fig_kw</td>
+<td style="text-align:center">创建figure的其他关键字如plt.subplots(2,2,figsize=(8,6))</td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">17</span>]: fig,axes = plt.subplots(<span class="number">2</span>,<span class="number">3</span>)</span><br><span class="line"></span><br><span class="line">In [<span class="number">18</span>]: axes</span><br><span class="line">Out[<span class="number">18</span>]:</span><br><span class="line">array([[&lt;matplotlib.axes._subplots.AxesSubplot object at <span class="number">0x000002213099BDD8</span>&gt;,</span><br><span class="line">        &lt;matplotlib.axes._subplots.AxesSubplot object at <span class="number">0x000002213088D940</span>&gt;,</span><br><span class="line">        &lt;matplotlib.axes._subplots.AxesSubplot object at <span class="number">0x0000022136CD45F8</span>&gt;],</span><br><span class="line">       [&lt;matplotlib.axes._subplots.AxesSubplot object at <span class="number">0x0000022136CE7358</span>&gt;,</span><br><span class="line">        &lt;matplotlib.axes._subplots.AxesSubplot object at <span class="number">0x0000022136B9E320</span>&gt;,</span><br><span class="line">        &lt;matplotlib.axes._subplots.AxesSubplot object at <span class="number">0x0000022136BBB198</span>&gt;]], dtype=object)</span><br><span class="line"></span><br><span class="line">In [<span class="number">19</span>]: fig</span><br><span class="line">Out[<span class="number">19</span>]: &lt;matplotlib.figure.Figure at <span class="number">0x22130a437b8</span>&gt;</span><br><span class="line"></span><br><span class="line">In [<span class="number">20</span>]: axes[<span class="number">0</span>,<span class="number">1</span>].scatter(np.arange(<span class="number">30</span>),np.arange(<span class="number">30</span>)+<span class="number">3</span>*randn(<span class="number">30</span>))</span><br><span class="line">Out[<span class="number">20</span>]: &lt;matplotlib.collections.PathCollection at <span class="number">0x22136ead278</span>&gt;</span><br><span class="line"></span><br><span class="line">In [<span class="number">21</span>]: fig.savefig(<span class="string">'Figure_4.png'</span>)</span><br></pre></td></tr></table></figure>
+<ul>
+<li>通过<code>plt.subplots</code>创建的Figure和AxesSubplot数组<br><img src="/2018/03/23/绘图和可视化/Figure_4.png" alt="通过`plt.subplots`创建的Figure和AxesSubplot数组"></li>
+</ul>
+<h4 id="调整subplot周围的间距"><a href="#调整subplot周围的间距" class="headerlink" title="调整subplot周围的间距"></a>调整subplot周围的间距</h4><p>matplotlib会在subplot外围留下一定的边距，并在subplot之间留下一定的间距。间距和图像的高宽有关，只要图像大小调整则间距也会自动调整利用的Figure的<code>subplots_adjust</code>方法可以修改间距，同时它也是个顶级函数；<code>wspace</code>和<code>hspace</code>用于控制宽度和高度的百分比，可以用作subplot之间的间距。matplotlib不会检查标签是否重叠，所以只能自己设定刻度的位置和刻度标签:<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">23</span>]: plt.subplots_adjust(wspace=<span class="number">0</span>,hspace=<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">In [<span class="number">24</span>]: fig.savefig(<span class="string">'Figure_5.png'</span>)</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>调整间距之后的图像<br><img src="/2018/03/23/绘图和可视化/Figure_5.png" alt="调整间距之后的图像"></li>
+</ul>
+<h4 id="颜色、标记和线型"><a href="#颜色、标记和线型" class="headerlink" title="颜色、标记和线型"></a>颜色、标记和线型</h4><p>matplotlib的plot函数接受一组X和Y的坐标，还可以接受一个表示<code>color</code>颜色和<code>linestyle</code><a href="https://matplotlib.org/api/_as_gen/matplotlib.lines.Line2D.html?highlight=drawstyle#matplotlib.lines.Line2D.lineStyles" target="_blank" rel="noopener">线型</a>的字符串缩写；常用的颜色都有一个缩写词(<code>color=&#39;g&#39;</code>)，如果需要使用其他颜色可以指定其RGB值(‘#CECECE’)；线形图可以加上一些<a href="https://matplotlib.org/api/_as_gen/matplotlib.lines.Line2D.html?highlight=drawstyle#matplotlib.lines.Line2D.markers" target="_blank" rel="noopener">标记</a><code>marker</code>来强调实际的数据点；标记和颜色都可以放在格式字符串中，但标记类型和线型必须放在颜色后面：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">29</span>]: fig = plt.figure()</span><br><span class="line"></span><br><span class="line">In [<span class="number">30</span>]: axe1 = fig.add_subplot()</span><br><span class="line"></span><br><span class="line">In [<span class="number">31</span>]: plt.plot(data,<span class="string">'ko--'</span>)</span><br><span class="line">Out[<span class="number">31</span>]: [&lt;matplotlib.lines.Line2D at <span class="number">0x22137639198</span>&gt;]</span><br><span class="line"></span><br><span class="line">In [<span class="number">32</span>]: plt.plot(data,color=<span class="string">'k'</span>,linestyle=<span class="string">'dashed'</span>,marker=<span class="string">'o'</span>)</span><br><span class="line">Out[<span class="number">32</span>]: [&lt;matplotlib.lines.Line2D at <span class="number">0x2213a7bd588</span>&gt;]</span><br><span class="line"></span><br><span class="line">In [<span class="number">33</span>]: plt.savefig(<span class="string">'Figure_6.png'</span>)</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li><p>带有标记的线型图实例<br><img src="/2018/03/23/绘图和可视化/Figure_6.png" alt="带有标记的线形图实例"><br>非实际数据点默认是按线性方式插值的，可以通过<a href="https://matplotlib.org/api/_as_gen/matplotlib.lines.Line2D.html?highlight=drawstyle#matplotlib.lines.Line2D.drawStyles" target="_blank" rel="noopener">drawstyle选项</a>修改:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">34</span>]: plt.plot(data,<span class="string">'k--'</span>,label=<span class="string">'Default'</span>)</span><br><span class="line">Out[<span class="number">34</span>]: [&lt;matplotlib.lines.Line2D at <span class="number">0x22134d35198</span>&gt;]</span><br><span class="line"></span><br><span class="line">In [<span class="number">35</span>]: plt.plot(data,<span class="string">'k--'</span>,label=<span class="string">'step-post'</span>,drawstyle=<span class="string">'steps-post'</span>)</span><br><span class="line">Out[<span class="number">35</span>]: [&lt;matplotlib.lines.Line2D at <span class="number">0x22134d35b70</span>&gt;]</span><br><span class="line"></span><br><span class="line">In [<span class="number">37</span>]: plt.legend(loc=<span class="string">'best'</span>)</span><br><span class="line">Out[<span class="number">37</span>]: &lt;matplotlib.legend.Legend at <span class="number">0x22134b3a240</span>&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>使用不同的drawstyle选项的线型图实例<br><img src="/2018/03/23/绘图和可视化/Figure_7.png" alt="修改之后的线型图实例"></p>
+</li>
+</ul>
+<h4 id="刻度、标签和图例"><a href="#刻度、标签和图例" class="headerlink" title="刻度、标签和图例"></a>刻度、标签和图例</h4><p>对于大多数图标的装饰项，有两种实现方式，一是使用过程型的pyplot接口，而是使用面向对象的原生matplotlib API。pyplot接口是为了交互式使用，它含有<code>xlim</code>、<code>xticks</code>和<code>xticklabels</code>等方法。分别控制图标的范围、刻度位置、刻度标签等。使用方式有两种：</p>
+<ol>
+<li>调用时不带参数，则返回当前的配置值。(<code>plt.xlim()</code>返回当前的X轴绘图范围)</li>
+<li>调用时带参数，则是则会参数值。(<code>plt.xlim([0,10])</code>将X轴的范围设置为0到10)<br>所有方法都是对当前或最近创建的AxesSubplot起作用的，它们各自对应subplot对象的两个方法，以<code>xlim</code>为例对应<code>ax.get_xlim</code>和<code>ax.set_xlim</code></li>
+</ol>
+<h5 id="设置标题、轴标签、刻度以及刻度标签"><a href="#设置标题、轴标签、刻度以及刻度标签" class="headerlink" title="设置标题、轴标签、刻度以及刻度标签"></a>设置标题、轴标签、刻度以及刻度标签</h5><p>要修改X轴的刻度，使用<code>set_xticks</code>和<code>set_xticklabels</code>方法。<code>set_xticks</code>告诉matplotlib要将刻度放在数据范围中的哪些位置，默认情况下这些位置也就是刻度标签。<code>set_xticklabels</code>将任何其他值用作标签；<code>set_xlabel</code>为X轴设置一个名称;<code>set_title</code>设置一个标题：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">39</span>]: fig = plt.figure()</span><br><span class="line"></span><br><span class="line">In [<span class="number">40</span>]: ax = fig.add_subplot(<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">In [<span class="number">41</span>]: ax.plot(randn(<span class="number">1000</span>).cumsum())</span><br><span class="line">Out[<span class="number">41</span>]: [&lt;matplotlib.lines.Line2D at <span class="number">0x2213dfb8e48</span>&gt;]</span><br><span class="line"></span><br><span class="line">In [<span class="number">42</span>]: fig.savefig(<span class="string">'Figure_8.png'</span>)</span><br><span class="line"></span><br><span class="line">In [<span class="number">43</span>]: ticks = ax.set_xticks([<span class="number">0</span>,<span class="number">250</span>,<span class="number">500</span>,<span class="number">700</span>,<span class="number">1000</span>])</span><br><span class="line"></span><br><span class="line">In [<span class="number">44</span>]: fig.savefig(<span class="string">'Figure_9.png'</span>)</span><br><span class="line"></span><br><span class="line">In [<span class="number">45</span>]: labels = ax.set_xticklabels([<span class="string">'one'</span>,<span class="string">'two'</span>,<span class="string">'three'</span>,<span class="string">'four'</span>,<span class="string">'five'</span>], rotation=<span class="number">30</span>, fontsize=<span class="string">'small'</span>)</span><br><span class="line"></span><br><span class="line">In [<span class="number">46</span>]: ax.set_title(<span class="string">'FIRST'</span>)</span><br><span class="line">Out[<span class="number">46</span>]: &lt;matplotlib.text.Text at <span class="number">0x2213f03bb70</span>&gt;</span><br><span class="line"></span><br><span class="line">In [<span class="number">47</span>]: ax.set_xlabel(<span class="string">'STAGES'</span>)</span><br><span class="line">Out[<span class="number">47</span>]: &lt;matplotlib.text.Text at <span class="number">0x2213ddaf320</span>&gt;</span><br><span class="line"></span><br><span class="line">In [<span class="number">48</span>]: fig.savefig(<span class="string">'Figure_10.png'</span>)</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li><p>用于显示xticks的线型图<br><img src="/2018/03/23/绘图和可视化/Figure_8.png" alt=""><img src="/2018/03/23/绘图和可视化/Figure_9.png" alt=""><img src="/2018/03/23/绘图和可视化/Figure_10.png" alt=""></p>
+<h5 id="添加图例"><a href="#添加图例" class="headerlink" title="添加图例"></a>添加图例</h5><p>图例(legend)是一种标识图标元素的重要工具，通过在天剑subplot的时候传入<code>label</code>参数，然后调用<code>ax.legend(loc=&#39;best&#39;)</code>；其中<code>legend</code>的<code>loc</code>参数告诉matplotlib要将图例放在哪儿。要从图例中去除一个或多个元素，不传入label或传入<code>label=&#39;_nolegend_&#39;</code>:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">51</span>]: fig = plt.figure()</span><br><span class="line"></span><br><span class="line">In [<span class="number">52</span>]: ax = fig.add_subplot(<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">In [<span class="number">53</span>]: ax.plot(randn(<span class="number">1000</span>).cumsum(),<span class="string">'k'</span>,label=<span class="string">'one'</span>)</span><br><span class="line">Out[<span class="number">53</span>]: [&lt;matplotlib.lines.Line2D at <span class="number">0x22136e7f5c0</span>&gt;]</span><br><span class="line"></span><br><span class="line">In [<span class="number">54</span>]: ax.plot(randn(<span class="number">1000</span>).cumsum(),<span class="string">'k--'</span>,label=<span class="string">'two'</span>)</span><br><span class="line">Out[<span class="number">54</span>]: [&lt;matplotlib.lines.Line2D at <span class="number">0x221404f6be0</span>&gt;]</span><br><span class="line"></span><br><span class="line">In [<span class="number">55</span>]: ax.plot(randn(<span class="number">1000</span>).cumsum(),<span class="string">'k.'</span>,label=<span class="string">'three'</span>)</span><br><span class="line">Out[<span class="number">55</span>]: [&lt;matplotlib.lines.Line2D at <span class="number">0x2213b9aba58</span>&gt;]</span><br><span class="line"></span><br><span class="line">In [<span class="number">56</span>]: ax.legend(loc=<span class="string">'best'</span>)</span><br><span class="line">Out[<span class="number">56</span>]: &lt;matplotlib.legend.Legend at <span class="number">0x2213dffc208</span>&gt;</span><br><span class="line"></span><br><span class="line">In [<span class="number">57</span>]: fig.savefig(<span class="string">'Figure_11.png'</span>)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>带有三条线及图例的简单线型图<br><img src="/2018/03/23/绘图和可视化/Figure_11.png" alt="带有三条线及图例的简单线型图"></p>
+</li>
+</ul>
+<h3 id="注解以及在Subplot上绘图"><a href="#注解以及在Subplot上绘图" class="headerlink" title="注解以及在Subplot上绘图"></a>注解以及在Subplot上绘图</h3><h4 id="注解"><a href="#注解" class="headerlink" title="注解"></a>注解</h4><p>注解可以通过<code>text</code>、<code>arrow</code>和<code>annotate</code>等函数添加。<code>text</code>可以将文本绘制在图标的指定坐标(x,y)，还可以加上一些自定义格式<code>ax.text(x,y,&#39;Hello world!&#39;, family=&#39;monospace&#39;, fontsize=10)</code>，注解中可以既含有文本也哈有箭头：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">67</span>]: fig = plt.figure()</span><br><span class="line"></span><br><span class="line">In [<span class="number">68</span>]: ax = fig.add_subplot(<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">In [<span class="number">69</span>]: data = pd.read_csv(<span class="string">'D:\Python\ipython\spx.csv'</span>,index_col=<span class="number">0</span>, parse_dates=<span class="keyword">True</span>)</span><br><span class="line"></span><br><span class="line">In [<span class="number">70</span>]: spx = data[<span class="string">'SPX'</span>]</span><br><span class="line"></span><br><span class="line">In [<span class="number">71</span>]: spx.plot(ax=ax, style=<span class="string">'k-'</span>)</span><br><span class="line">Out[<span class="number">71</span>]: &lt;matplotlib.axes._subplots.AxesSubplot at <span class="number">0x2213f993c50</span>&gt;</span><br><span class="line"></span><br><span class="line">In [<span class="number">72</span>]: crisis_data = [</span><br><span class="line">    ...:         (datetime(<span class="number">2007</span>,<span class="number">10</span>,<span class="number">11</span>),<span class="string">'Peak of bull market'</span>),</span><br><span class="line">    ...:         (datetime(<span class="number">2008</span>,<span class="number">3</span>,<span class="number">12</span>),<span class="string">'Bear Stearbs Fails'</span>),</span><br><span class="line">    ...:         (datetime(<span class="number">2008</span>,<span class="number">9</span>,<span class="number">15</span>),<span class="string">'Lehman Bankruptcy'</span>)</span><br><span class="line">    ...:         ]</span><br><span class="line">    ...:</span><br><span class="line"></span><br><span class="line">In [<span class="number">73</span>]: <span class="keyword">for</span> date, label <span class="keyword">in</span> crisis_data:</span><br><span class="line">    ...:     ax.annotate(label, xy=(date,spx.asof(date)+<span class="number">50</span>),</span><br><span class="line">    ...:                 xytext=(date, spx.asof(date)+<span class="number">200</span>),</span><br><span class="line">    ...:                 arrowprops=dict(facecolor=<span class="string">'black'</span>),</span><br><span class="line">    ...:                 horizontalalignment=<span class="string">'left'</span>, verticalalignment=<span class="string">'top'</span>)</span><br><span class="line">    ...:</span><br><span class="line"></span><br><span class="line">In [<span class="number">74</span>]: <span class="comment"># 放大到2007-2010</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">76</span>]: ax.set_xlim([<span class="string">'1/1/2007'</span>,<span class="string">'1/1/2011'</span>])</span><br><span class="line">Out[<span class="number">76</span>]: (<span class="number">732677.0</span>, <span class="number">734138.0</span>)</span><br><span class="line"></span><br><span class="line">In [<span class="number">76</span>]: ax.set_xlim([<span class="string">'1/1/2007'</span>,<span class="string">'1/1/2011'</span>])</span><br><span class="line">Out[<span class="number">76</span>]: (<span class="number">732677.0</span>, <span class="number">734138.0</span>)</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>2008-2009年金融危机期间的重要日期<sup id="fnref:1"><a href="#fn:1" rel="footnote">1</a></sup><br><img src="/2018/03/23/绘图和可视化/Figure_12.png" alt="2008-2009年金融危机期间的重要日期"></li>
+</ul>
+<h4 id="绘图"><a href="#绘图" class="headerlink" title="绘图"></a>绘图</h4><p>matplotlib有一些表示常见图形的对象被称为快(patch)，完整的集合位于matplotlib.patches中，有些可以在matplotlib.pyplot中找到(如Rectangle和Circle)。要在图表中添加一个图形，需要先创建一个块对象shp，然后通过<code>ax.add_patch(shp)</code>将其添加到subplot中:<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">81</span>]: fig = plt.figure()</span><br><span class="line"></span><br><span class="line">In [<span class="number">82</span>]: ax = fig.add_subplot(<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">In [<span class="number">83</span>]: rect = plt.Rectangle((<span class="number">0.2</span>,<span class="number">0.75</span>),<span class="number">0.4</span>,<span class="number">0.15</span>,color=<span class="string">'k'</span>,alpha=<span class="number">0.3</span>)</span><br><span class="line"></span><br><span class="line">In [<span class="number">84</span>]: circ = plt.Circle((<span class="number">0.7</span>,<span class="number">0.2</span>),<span class="number">0.15</span>,color=<span class="string">'b'</span>,alpha=<span class="number">0.3</span>)</span><br><span class="line"></span><br><span class="line">In [<span class="number">85</span>]: pgon = plt.Polygon([[<span class="number">0.15</span>,<span class="number">0.15</span>],[<span class="number">0.35</span>,<span class="number">0.4</span>],[<span class="number">0.2</span>,<span class="number">0.6</span>]],color=<span class="string">'g'</span>,alpha=<span class="number">0.5</span>)</span><br><span class="line"></span><br><span class="line">In [<span class="number">86</span>]: ax.add_patch(rect)</span><br><span class="line">Out[<span class="number">86</span>]: &lt;matplotlib.patches.Rectangle at <span class="number">0x22142e4a908</span>&gt;</span><br><span class="line"></span><br><span class="line">In [<span class="number">87</span>]: ax.add_patch(circ)</span><br><span class="line">Out[<span class="number">87</span>]: &lt;matplotlib.patches.Circle at <span class="number">0x22140caa6d8</span>&gt;</span><br><span class="line"></span><br><span class="line">In [<span class="number">88</span>]: ax.add_patch(pgon)</span><br><span class="line">Out[<span class="number">88</span>]: &lt;matplotlib.patches.Polygon at <span class="number">0x2214117b940</span>&gt;</span><br><span class="line"></span><br><span class="line">In [<span class="number">89</span>]: fig.savefig(<span class="string">'Figure_13.png'</span>)</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>由三块图形组成的图<br><img src="/2018/03/23/绘图和可视化/Figure_13.png" alt="由三块图形组成的图"></li>
+</ul>
+<h3 id="将图表保存到文件"><a href="#将图表保存到文件" class="headerlink" title="将图表保存到文件"></a>将图表保存到文件</h3><p>利用<code>plt.savefig</code>可以将当前图表保存到文件，其相当于Figure对象的实例方法<code>savefig</code>。文件类型是通过文件扩展名推断出来的。可以通过<code>dpi</code>参数控制分辨率，通过<code>bbox_inches</code>剪除当前图表周围的空白部分<code>plt.savefig(&#39;filepath.png&#39;, dpi=400,bbox_inches=&#39;tight&#39;)</code>;</p>
+<ul>
+<li>savepig的选项</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">参数</th>
+<th style="text-align:center">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">fname</td>
+<td style="text-align:center">含有文件路径的字符串或Python的文件型对象。图像格式由文件扩展名推断得出</td>
+</tr>
+<tr>
+<td style="text-align:center">dpi</td>
+<td style="text-align:center">图像分辨率(每英寸点数),默认为100</td>
+</tr>
+<tr>
+<td style="text-align:center">facecolor、edgecolor</td>
+<td style="text-align:center">图像的背景色，默认为”w”(白色)</td>
+</tr>
+<tr>
+<td style="text-align:center">format</td>
+<td style="text-align:center">显式设置文件格式(png/pdf/svg/ps….)</td>
+</tr>
+<tr>
+<td style="text-align:center">bbox_inches</td>
+<td style="text-align:center">图表需要保存的部分。如果设置为”tight”则尝试剪除图表周围的空白部分</td>
+</tr>
+</tbody>
+</table>
+<h3 id="matplotlib配置"><a href="#matplotlib配置" class="headerlink" title="matplotlib配置"></a>matplotlib配置</h3><p>matplotlib自带一些配色方案，几乎所有默认行为都能通过一组全局参数进行自定义，它们可以管理图像大小、subplot边距、配色方案、字体大小、网格类型等。操作matplotlib配置系统可以使用<code>rc</code>方法，<code>rc</code>第一个参数是希望自定义的对象，其后可以跟上一系列的关键字参数，可以将这些选项写成一个字典:<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">100</span>]: font_options=&#123;<span class="string">'family'</span>:<span class="string">'monospace'</span>,</span><br><span class="line">     ...:               <span class="string">'weight'</span>:<span class="string">'bold'</span>,</span><br><span class="line">     ...:               <span class="string">'size'</span>:<span class="number">10</span>&#125;</span><br><span class="line">     ...:</span><br><span class="line"></span><br><span class="line">In [<span class="number">101</span>]: plt.rc(<span class="string">'font'</span>, **font_options)</span><br></pre></td></tr></table></figure></p>
+<h2 id="pandas中的绘图函数"><a href="#pandas中的绘图函数" class="headerlink" title="pandas中的绘图函数"></a>pandas中的绘图函数</h2><p>matplotlib是一种比较低级的工具，要组装一张图白哦，得使用它的各种基础组建才行：数据展示(即图标类型：线型图、柱状图、盒型图、散布图、等值线图等)、图例、标题、刻度标签以及其他注解型信息。<br>在pandas中因为已经有行标签、列标签以及分组信息，所以能够看利用DataFrame对象数据组织特点来创建标准图表的高级方法</p>
+<ul>
+<li>Series.plot方法的餐素</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">参数</th>
+<th style="text-align:center">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">label</td>
+<td style="text-align:center">用于图例的标签</td>
+</tr>
+<tr>
+<td style="text-align:center">ax</td>
+<td style="text-align:center">要在其上进行绘制的matplotlib subplot对象。如果没有设置，则使用当前matplotlib subplot</td>
+</tr>
+<tr>
+<td style="text-align:center">style</td>
+<td style="text-align:center">将要传给matplotlib的风格字符串(如’ko–’)</td>
+</tr>
+<tr>
+<td style="text-align:center">alpha</td>
+<td style="text-align:center">图表的填充不透明度(0到1之间)</td>
+</tr>
+<tr>
+<td style="text-align:center">kind</td>
+<td style="text-align:center">可以是’line’、’bar’、’barh’、’kde’</td>
+</tr>
+<tr>
+<td style="text-align:center">logy</td>
+<td style="text-align:center">在Y轴上使用对数标签</td>
+</tr>
+<tr>
+<td style="text-align:center">use_index</td>
+<td style="text-align:center">将对象的索引用作刻度标签</td>
+</tr>
+<tr>
+<td style="text-align:center">rot</td>
+<td style="text-align:center">旋转刻度标签(0到360)</td>
+</tr>
+<tr>
+<td style="text-align:center">xticks</td>
+<td style="text-align:center">用作X轴刻度的值</td>
+</tr>
+<tr>
+<td style="text-align:center">yticks</td>
+<td style="text-align:center">用作Y轴刻度的值</td>
+</tr>
+<tr>
+<td style="text-align:center">xlim</td>
+<td style="text-align:center">X轴的界限(例如[0,10])</td>
+</tr>
+<tr>
+<td style="text-align:center">ylim</td>
+<td style="text-align:center">Y轴的界限</td>
+</tr>
+<tr>
+<td style="text-align:center">grid</td>
+<td style="text-align:center">显示轴网格线(默认打开)</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>专用于DataFrame的plot参数</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">参数</th>
+<th style="text-align:center">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">subplots</td>
+<td style="text-align:center">将各个DataFrame列绘制到单独的subplot中</td>
+</tr>
+<tr>
+<td style="text-align:center">sharex</td>
+<td style="text-align:center">如果subplots=True，则共用同一个X轴，包括刻度和界限</td>
+</tr>
+<tr>
+<td style="text-align:center">sharey</td>
+<td style="text-align:center">如果subplots=False，则共用同一个Y轴</td>
+</tr>
+<tr>
+<td style="text-align:center">figsize</td>
+<td style="text-align:center">表示图像大小的元组</td>
+</tr>
+<tr>
+<td style="text-align:center">title</td>
+<td style="text-align:center">表示图像标题的字符串</td>
+</tr>
+<tr>
+<td style="text-align:center">legend</td>
+<td style="text-align:center">添加一个subplot图例(默认为True)</td>
+</tr>
+<tr>
+<td style="text-align:center">sort_columns</td>
+<td style="text-align:center">以字母顺序绘制各列，默认使用当前列顺序</td>
+</tr>
+</tbody>
+</table>
+<h3 id="线型图"><a href="#线型图" class="headerlink" title="线型图"></a>线型图</h3><p>Series和DataFrame都有一个生成各类图表的<code>plot</code>方法，默认情况下它们生成的是线型图。Series对象的索引会被传给matplotlib，并用以绘制X轴；通过<code>use_index=False</code>禁用该功能；X轴的刻度和界限可以通过<code>xticks</code>和<code>xlim</code>选项进行调节;Y轴用<code>yticks</code>和<code>ylim</code>：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">10</span>]: s = Series(np.random.randn(<span class="number">10</span>).cumsum(),index=np.arange(<span class="number">0</span>,<span class="number">100</span>,<span class="number">10</span>))</span><br><span class="line"></span><br><span class="line">In [<span class="number">11</span>]: s.plot()</span><br><span class="line">Out[<span class="number">11</span>]: &lt;matplotlib.axes._subplots.AxesSubplot at <span class="number">0x10a781588</span>&gt;</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>简单的Series图表<br><img src="/2018/03/23/绘图和可视化/Figure_14.png" alt="简单的Series图表"></li>
+</ul>
+<p>pandas的大部分绘图方法有一个可选的<code>ax</code>参数，它可以是一个matplotlib的subplot对象。这使得在网格布局中更灵活地处理subplot的位置，DataFrame的plot方法会在一个subplot中为各列绘制一条线，并自动创建图例:<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">16</span>]: df = DataFrame(np.random.randn(<span class="number">10</span>,<span class="number">4</span>).cumsum(<span class="number">0</span>),</span><br><span class="line">    ...:                columns=[<span class="string">'A'</span>,<span class="string">'B'</span>,<span class="string">'C'</span>,<span class="string">'D'</span>],</span><br><span class="line">    ...:                index=np.arange(<span class="number">0</span>,<span class="number">100</span>,<span class="number">10</span>))</span><br><span class="line">    ...:</span><br><span class="line"></span><br><span class="line">In [<span class="number">17</span>]: df.plot()</span><br><span class="line">Out[<span class="number">17</span>]: &lt;matplotlib.axes._subplots.AxesSubplot at <span class="number">0x10b8704a8</span>&gt;</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li><p>简单的DataFrame图表<br><img src="/2018/03/23/绘图和可视化/Figure_15.png" alt="简单的DataFrame图表"></p>
+<h3 id="柱状图"><a href="#柱状图" class="headerlink" title="柱状图"></a>柱状图</h3><p>在生成线型图的代码中加上<code>kind=&#39;bar&#39;</code>(垂直柱状图)或<code>kind=&#39;barh&#39;</code>(水平柱状图)即可生成柱状图。Series和DataFrame的索引会被用作X(bar)或Y(barh)刻度:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">26</span>]: fig, axes = plt.subplots(<span class="number">2</span>,<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">In [<span class="number">27</span>]: data = Series(np.random.rand(<span class="number">16</span>),index=list(<span class="string">'abcdefghijklmnop'</span>))</span><br><span class="line"></span><br><span class="line">In [<span class="number">28</span>]: data.plot(kind=<span class="string">'bar'</span>, ax=axes[<span class="number">0</span>],color=<span class="string">'k'</span>, alpha=<span class="number">0.7</span>)</span><br><span class="line">Out[<span class="number">28</span>]: &lt;matplotlib.axes._subplots.AxesSubplot at <span class="number">0x1186e90b8</span>&gt;</span><br><span class="line"></span><br><span class="line">In [<span class="number">29</span>]: data.plot(kind=<span class="string">'barh'</span>, ax=axes[<span class="number">1</span>],color=<span class="string">'k'</span>, alpha=<span class="number">0.7</span>)</span><br><span class="line">Out[<span class="number">29</span>]: &lt;matplotlib.axes._subplots.AxesSubplot at <span class="number">0x118bd52e8</span>&gt;</span><br><span class="line"></span><br><span class="line">In [<span class="number">30</span>]: fig.savefig(<span class="string">'Figure_16.png'</span>)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Series柱状图<br><img src="/2018/03/23/绘图和可视化/Figure_16.png" alt="Series柱状图"></p>
+</li>
+</ul>
+<p>对于DataFrame，柱状图会将每一行的值分为一组，使用<code>stacked=True</code>会使每行的值堆积在一起:<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">34</span>]: df = DataFrame(np.random.rand(<span class="number">6</span>,<span class="number">4</span>),</span><br><span class="line">    ...:                index=[<span class="string">'r1'</span>,<span class="string">'r2'</span>,<span class="string">'r3'</span>,<span class="string">'r4'</span>,<span class="string">'r5'</span>,<span class="string">'r6'</span>],</span><br><span class="line">    ...:                columns=pd.Index([<span class="string">'A'</span>,<span class="string">'B'</span>,<span class="string">'C'</span>,<span class="string">'D'</span>],name=<span class="string">'Genus'</span>))</span><br><span class="line">    ...:</span><br><span class="line"></span><br><span class="line">In [<span class="number">35</span>]: df</span><br><span class="line">Out[<span class="number">35</span>]:</span><br><span class="line">Genus         A         B         C         D</span><br><span class="line">r1     <span class="number">0.820633</span>  <span class="number">0.228560</span>  <span class="number">0.550244</span>  <span class="number">0.236735</span></span><br><span class="line">r2     <span class="number">0.968056</span>  <span class="number">0.268256</span>  <span class="number">0.539757</span>  <span class="number">0.453413</span></span><br><span class="line">r3     <span class="number">0.827034</span>  <span class="number">0.905531</span>  <span class="number">0.722537</span>  <span class="number">0.368674</span></span><br><span class="line">r4     <span class="number">0.433393</span>  <span class="number">0.154539</span>  <span class="number">0.223513</span>  <span class="number">0.340216</span></span><br><span class="line">r5     <span class="number">0.037282</span>  <span class="number">0.609635</span>  <span class="number">0.609266</span>  <span class="number">0.172542</span></span><br><span class="line">r6     <span class="number">0.359212</span>  <span class="number">0.399398</span>  <span class="number">0.044828</span>  <span class="number">0.712773</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">36</span>]: fig, axes = plt.subplots(<span class="number">2</span>,<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">In [<span class="number">37</span>]: df.plot(kind=<span class="string">'bar'</span>,ax=axes[<span class="number">0</span>])</span><br><span class="line">Out[<span class="number">37</span>]: &lt;matplotlib.axes._subplots.AxesSubplot at <span class="number">0x11eecb198</span>&gt;</span><br><span class="line"></span><br><span class="line">In [<span class="number">38</span>]: df.plot(kind=<span class="string">'barh'</span>,ax=axes[<span class="number">1</span>],stacked=<span class="keyword">True</span>, alpha=<span class="number">0.5</span>)</span><br><span class="line">Out[<span class="number">38</span>]: &lt;matplotlib.axes._subplots.AxesSubplot at <span class="number">0x11e691048</span>&gt;</span><br><span class="line"></span><br><span class="line">In [<span class="number">39</span>]: fig.savefig(<span class="string">'Figure_17.png'</span>)</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>DataFrame柱状图<br><img src="/2018/03/23/绘图和可视化/Figure_17.png" alt="DataFrame柱状图"></li>
+</ul>
+<h3 id="直方图和密度图"><a href="#直方图和密度图" class="headerlink" title="直方图和密度图"></a>直方图和密度图</h3><p>直方图是一种可以对值频率进行离散化显示的柱状图。数据点被拆分到离散的、间隔均匀的面元中，绘制的是各面元中数据点的数量,通过<code>hist</code>方法绘制“小费占消费总额的百分比”(<a href="https://github.com/coldJune/Python/blob/master/ipython/tips.csv" target="_blank" rel="noopener">数据集</a>):<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">75</span>]: tips = pd.read_csv(<span class="string">'/Users/dengxiaojun/Documents/pydata-book-2nd-edition/examples/tips.csv'</span>)</span><br><span class="line"></span><br><span class="line">In [<span class="number">76</span>]: tips[<span class="string">'tip_pct'</span>] = tips[<span class="string">'tip'</span>]/tips[<span class="string">'total_bill'</span>]</span><br><span class="line"></span><br><span class="line">In [<span class="number">77</span>]: tips[<span class="string">'tip_pct'</span>].hist(bins=<span class="number">50</span>)</span><br><span class="line">Out[<span class="number">77</span>]: &lt;matplotlib.axes._subplots.AxesSubplot at <span class="number">0x10ce1c240</span>&gt;</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>小费百分比的直方图<br><img src="/2018/03/23/绘图和可视化/Figure_18.png" alt="小费百分比的直方图"></li>
+</ul>
+<p>与此相关的是密度图，它通过计算“可能会产生观测数据的连续概率分布的估计”而产生。一般的过程是将该分布近似为一组核(即诸如正态(高斯)分布之类的较为简单的分布),t通过调用<code>plot</code>的<code>kind=&#39;kde&#39;</code>生成:<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">91</span>]: tips[<span class="string">'tip_pct'</span>].plot(kind=<span class="string">'kde'</span>)</span><br><span class="line">Out[<span class="number">91</span>]: &lt;matplotlib.axes._subplots.AxesSubplot at <span class="number">0x120178ba8</span>&gt;</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>小费百分比密度图<br><img src="/2018/03/23/绘图和可视化/Figure_19.png" alt="小费百分比密度图"></li>
+</ul>
+<p>这两种图表常常被画在一起。直方图以规格化形式给出(以便给出面元化密度)，然后再在其上绘制核密度估计:<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">98</span>]: comp1  = np.random.normal(<span class="number">0</span>,<span class="number">1</span>,size=<span class="number">200</span>)</span><br><span class="line"></span><br><span class="line">In [<span class="number">99</span>]: comp2 = np.random.normal(<span class="number">10</span>,<span class="number">2</span>,size=<span class="number">200</span>)</span><br><span class="line"></span><br><span class="line">In [<span class="number">100</span>]: values = Series(np.concatenate([comp1,comp2]))</span><br><span class="line"></span><br><span class="line">In [<span class="number">101</span>]: values.hist(bins=<span class="number">100</span>, alpha=<span class="number">0.3</span>, color=<span class="string">'k'</span>, density=<span class="keyword">True</span>)</span><br><span class="line">Out[<span class="number">101</span>]: &lt;matplotlib.axes._subplots.AxesSubplot at <span class="number">0x119e863c8</span>&gt;</span><br><span class="line"></span><br><span class="line">In [<span class="number">102</span>]: values.plot(kind=<span class="string">'kde'</span>, style=<span class="string">'k--'</span>)</span><br><span class="line">Out[<span class="number">102</span>]: &lt;matplotlib.axes._subplots.AxesSubplot at <span class="number">0x119e863c8</span>&gt;</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>带有密度估计的规格化直方图<br><img src="/2018/03/23/绘图和可视化/Figure_20.png" alt="带有密度估计的规格化直方图"></li>
+</ul>
+<h3 id="散布图"><a href="#散布图" class="headerlink" title="散布图"></a>散布图</h3><p>散布图是观察两个一维数据序列之间的关系的有效手段。matplotlib的<code>scatter</code>方法是绘制散布图的主要方法，(加载<a href="https://github.com/coldJune/Python/blob/master/ipython/macrodata.csv" target="_blank" rel="noopener">数据集</a>选择其中几列，计算对数差:<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">114</span>]: macro = pd.read_csv(<span class="string">'/Users/dengxiaojun/Documents/pydata-book-2nd-edition/examples/macrodata.csv'</span>)</span><br><span class="line"></span><br><span class="line">In [<span class="number">115</span>]: data = macro[[<span class="string">'cpi'</span>,<span class="string">'m1'</span>,<span class="string">'tbilrate'</span>,<span class="string">'unemp'</span>]]</span><br><span class="line"></span><br><span class="line">In [<span class="number">116</span>]: trans_data = np.log(data).diff().dropna()</span><br><span class="line"></span><br><span class="line">In [<span class="number">117</span>]: trans_data[<span class="number">-5</span>:]</span><br><span class="line">Out[<span class="number">117</span>]:</span><br><span class="line">          cpi        m1  tbilrate     unemp</span><br><span class="line"><span class="number">198</span> <span class="number">-0.007904</span>  <span class="number">0.045361</span> <span class="number">-0.396881</span>  <span class="number">0.105361</span></span><br><span class="line"><span class="number">199</span> <span class="number">-0.021979</span>  <span class="number">0.066753</span> <span class="number">-2.277267</span>  <span class="number">0.139762</span></span><br><span class="line"><span class="number">200</span>  <span class="number">0.002340</span>  <span class="number">0.010286</span>  <span class="number">0.606136</span>  <span class="number">0.160343</span></span><br><span class="line"><span class="number">201</span>  <span class="number">0.008419</span>  <span class="number">0.037461</span> <span class="number">-0.200671</span>  <span class="number">0.127339</span></span><br><span class="line"><span class="number">202</span>  <span class="number">0.008894</span>  <span class="number">0.012202</span> <span class="number">-0.405465</span>  <span class="number">0.042560</span></span><br><span class="line"></span><br><span class="line">In [<span class="number">118</span>]: plt.scatter(trans_data[<span class="string">'m1'</span>],trans_data[<span class="string">'unemp'</span>])</span><br><span class="line">Out[<span class="number">118</span>]: &lt;matplotlib.collections.PathCollection at <span class="number">0x11b24c780</span>&gt;</span><br><span class="line"></span><br><span class="line">In [<span class="number">119</span>]: plt.title(<span class="string">'Changes in log %s vs .log %s'</span> % (<span class="string">'m1'</span>, <span class="string">'unemp'</span>))</span><br><span class="line">Out[<span class="number">119</span>]: Text(<span class="number">0.5</span>,<span class="number">1</span>,<span class="string">'Changes in log m1 vs .log unemp'</span>)</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>一张简单的散布图<br><img src="/2018/03/23/绘图和可视化/Figure_21.png" alt="一张简单的散布图"></li>
+</ul>
+<p>在探索式数据分析工作中，同时观察一组变量的散布图很有意义，这也被称为散布矩阵。pandas.plotting提供了一个能从DataFrame创建散布图矩阵的<code>scatter_matrix</code>函数，它还支持在对角线上放置各变量的直方图或密度图:<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">121</span>]: pd.plotting.scatter_matrix(trans_data,diagonal=<span class="string">'kde'</span>,color=<span class="string">'k'</span>,alpha=<span class="number">0.4</span>)</span><br><span class="line">Out[<span class="number">121</span>]:</span><br><span class="line">array([[&lt;matplotlib.axes._subplots.AxesSubplot object at <span class="number">0x11b3591d0</span>&gt;,</span><br><span class="line">        &lt;matplotlib.axes._subplots.AxesSubplot object at <span class="number">0x11b499dd8</span>&gt;,</span><br><span class="line">        &lt;matplotlib.axes._subplots.AxesSubplot object at <span class="number">0x11b857f98</span>&gt;,</span><br><span class="line">        &lt;matplotlib.axes._subplots.AxesSubplot object at <span class="number">0x11b3e7eb8</span>&gt;],</span><br><span class="line">       [&lt;matplotlib.axes._subplots.AxesSubplot object at <span class="number">0x11b383390</span>&gt;,</span><br><span class="line">        &lt;matplotlib.axes._subplots.AxesSubplot object at <span class="number">0x11b383208</span>&gt;,</span><br><span class="line">        &lt;matplotlib.axes._subplots.AxesSubplot object at <span class="number">0x11b873da0</span>&gt;,</span><br><span class="line">        &lt;matplotlib.axes._subplots.AxesSubplot object at <span class="number">0x11d0574e0</span>&gt;],</span><br><span class="line">       [&lt;matplotlib.axes._subplots.AxesSubplot object at <span class="number">0x119b73f98</span>&gt;,</span><br><span class="line">        &lt;matplotlib.axes._subplots.AxesSubplot object at <span class="number">0x119b75f28</span>&gt;,</span><br><span class="line">        &lt;matplotlib.axes._subplots.AxesSubplot object at <span class="number">0x119afddd8</span>&gt;,</span><br><span class="line">        &lt;matplotlib.axes._subplots.AxesSubplot object at <span class="number">0x119ae6128</span>&gt;],</span><br><span class="line">       [&lt;matplotlib.axes._subplots.AxesSubplot object at <span class="number">0x119af3128</span>&gt;,</span><br><span class="line">        &lt;matplotlib.axes._subplots.AxesSubplot object at <span class="number">0x1261c6860</span>&gt;,</span><br><span class="line">        &lt;matplotlib.axes._subplots.AxesSubplot object at <span class="number">0x11ac44b70</span>&gt;,</span><br><span class="line">        &lt;matplotlib.axes._subplots.AxesSubplot object at <span class="number">0x126938ac8</span>&gt;]],</span><br><span class="line">      dtype=object)</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>散布图矩阵<br><img src="/2018/03/23/绘图和可视化/Figure_22.png" alt="散布图矩阵"></li>
+</ul>
+<div id="footnotes"><hr><div id="footnotelist"><ol style="list-style:none; padding-left: 0;"><li id="fn:1"><span style="display: inline-block; vertical-align: top; padding-right: 10px;">1.</span><span style="display: inline-block; vertical-align: top;"><a href="https://github.com/coldJune/Python/blob/master/ipython/spx.csv" target="_blank" rel="noopener">数据来源</a></span><a href="#fnref:1" rev="footnote"> ↩</a></li></ol></div></div>
+      
+    </div>
+    
+    
+    
+		<div>
+		  
+		    <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-apple"></i>感谢您的阅读-------------</div>
+    
+</div>
+		  
+		</div>
+		<div>
+      
+        
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <p><span>本文标题:</span><a href="/2018/03/23/绘图和可视化/">绘图和可视化</a></p>
+  <p><span>文章作者:</span><a href="/" title="访问 邓小俊 的个人博客">邓小俊</a></p>
+  <p><span>发布时间:</span>2018年03月23日 - 10:03</p>
+  <p><span>最后更新:</span>2018年03月26日 - 09:03</p>
+  <p><span>原始链接:</span><a href="/2018/03/23/绘图和可视化/" title="绘图和可视化">http://coldjune.com/2018/03/23/绘图和可视化/</a>
+    <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://coldjune.com/2018/03/23/绘图和可视化/"  aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+      $(".fa-clipboard").click(function(){
+      clipboard.on('success', function(){
+        swal({   
+          title: "",   
+          text: '复制成功',
+          icon: "success", 
+          showConfirmButton: true
+          });
+        });
+    });  
+</script>
+
+      
+		</div>
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/数据分析/" rel="tag"><i class="fa fa-tag"></i> 数据分析</a>
+          
+            <a href="/tags/可视化/" rel="tag"><i class="fa fa-tag"></i> 可视化</a>
+          
+        </div>
+      
+
+      
+      
+        <div class="post-widgets">
+        
+
+        
+
+        
+          
+          <div id="needsharebutton-postbottom">
+            <span class="btn">
+              <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </span>
+          </div>
+        
+        </div>
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/03/22/数据规整化-二/" rel="next" title="数据规整化(二)">
+                <i class="fa fa-chevron-left"></i> 数据规整化(二)
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/03/25/数据聚合和分组运算/" rel="prev" title="数据聚合和分组运算">
+                数据聚合和分组运算 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">邓小俊</p>
+              <p class="site-description motion-element" itemprop="description">人所恐惧的不是孤独本身，而是害怕承认人本生而孤独的事实</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">29</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">23</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#matplotlib-API入门"><span class="nav-number">1.</span> <span class="nav-text">matplotlib API入门</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Figure和Subplot"><span class="nav-number">1.1.</span> <span class="nav-text">Figure和Subplot</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#调整subplot周围的间距"><span class="nav-number">1.1.1.</span> <span class="nav-text">调整subplot周围的间距</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#颜色、标记和线型"><span class="nav-number">1.1.2.</span> <span class="nav-text">颜色、标记和线型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#刻度、标签和图例"><span class="nav-number">1.1.3.</span> <span class="nav-text">刻度、标签和图例</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#设置标题、轴标签、刻度以及刻度标签"><span class="nav-number">1.1.3.1.</span> <span class="nav-text">设置标题、轴标签、刻度以及刻度标签</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#添加图例"><span class="nav-number">1.1.3.2.</span> <span class="nav-text">添加图例</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#注解以及在Subplot上绘图"><span class="nav-number">1.2.</span> <span class="nav-text">注解以及在Subplot上绘图</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#注解"><span class="nav-number">1.2.1.</span> <span class="nav-text">注解</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#绘图"><span class="nav-number">1.2.2.</span> <span class="nav-text">绘图</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#将图表保存到文件"><span class="nav-number">1.3.</span> <span class="nav-text">将图表保存到文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#matplotlib配置"><span class="nav-number">1.4.</span> <span class="nav-text">matplotlib配置</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pandas中的绘图函数"><span class="nav-number">2.</span> <span class="nav-text">pandas中的绘图函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#线型图"><span class="nav-number">2.1.</span> <span class="nav-text">线型图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#柱状图"><span class="nav-number">2.2.</span> <span class="nav-text">柱状图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#直方图和密度图"><span class="nav-number">2.3.</span> <span class="nav-text">直方图和密度图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#散布图"><span class="nav-number">2.4.</span> <span class="nav-text">散布图</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">邓小俊</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">博文包含字数&#58;</span>
+    
+    <span title="博文包含字数">99.1k</span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>本站访客数
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      人次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+      <div id="needsharebutton-float">
+        <span class="btn">
+          <i class="fa fa-share-alt" aria-hidden="true"></i>
+        </span>
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("EdodKu35EbSo4VoLhJYQMd09-gzGzoHsz", "qpErN7JcsIzusWGMNuw1QcxN");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/needsharebutton/needsharebutton.css">
+
+  
+  
+  <script src="/lib/needsharebutton/needsharebutton.js"></script>
+
+  <script>
+    
+      pbOptions = {};
+      
+          pbOptions.iconStyle = "box";
+      
+          pbOptions.boxForm = "horizontal";
+      
+          pbOptions.position = "bottomCenter";
+      
+          pbOptions.networks = "Weibo,Wechat,Douban,QQZone,Twitter,Facebook";
+      
+      new needShareButton('#needsharebutton-postbottom', pbOptions);
+    
+    
+      flOptions = {};
+      
+          flOptions.iconStyle = "box";
+      
+          flOptions.boxForm = "horizontal";
+      
+          flOptions.position = "middleRight";
+      
+          flOptions.networks = "Weibo,Wechat,Douban,QQZone,Twitter,Facebook";
+      
+      new needShareButton('#needsharebutton-float', flOptions);
+    
+  </script>
+
+  
+
+  
+  
+
+
+  
+
+  
+
+ 
+</body>
+</html>
