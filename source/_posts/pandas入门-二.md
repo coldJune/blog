@@ -86,7 +86,7 @@ d    4
 dtype: int64
 ```
 
-对于DataFrame,`reindex`可以修改(行)索引、列、或两个都修改。如果仅传入一个序列，则会重新索引行，使用`columns`关键字可以重新索引列,也可以同时对行和列进行重新索引，但插值只能按行应用(即轴0):
+对于DataFrame,`reindex`可以修改(行)索引、列、或两个都修改。如果仅传入一个序列，则会重新索引行，使用`columns`关键字可以重新索引列,也可以同时对行和列进行重新索引，但插值只能按行应用:
 ```Python
 In [105]: frame = DataFrame(np.arange(9).reshape((3,3)),index=['a','b','c'],columns=['col1','col2','col3'])
 
@@ -115,9 +115,9 @@ b      5     3     4     5
 c      8     6     7     8
 d      8     6     7     8
 ```
-利用ix的标签索引功能重新索引：
+利用`loc`的标签索引功能重新索引：
 ```Python
-In [111]: frame.ix[['a','b','c','d'],['col_a','col1','col2','col3']]
+In [111]: frame.loc[['a','b','c','d'],['col_a','col1','col2','col3']]
 Out[111]:
    col_a  col1  col2  col3
 a    NaN   0.0   1.0   2.0
@@ -159,7 +159,7 @@ c     8
 ```
 
 ### 索引、选取和过滤
-Series索引(obj[……])的工作方式类似于NumPy数组的索引，并且可以使用非整数；而利用切片运算其 **末端时包含的(封闭)**：
+Series索引(obj[……])的工作方式类似于NumPy数组的索引，并且可以使用非整数；而利用切片运算其 **末端是包含的(封闭)**：
 ```Python
 In [3]: obj = Series(np.arange(4), index=['a','b','c','d'])
 
@@ -364,7 +364,7 @@ row4   NaN   NaN   NaN NaN
 | div  | 用于除法(/)的方法 |
 | mul  | 用于乘法(*)的方法                  |
 
-对于不同索引的对戏那个进行算术运算时，当一个对象中某个轴标签在另一个对象中找不到时填充一个特殊值,在对Series或DataFrame重新索引时也可以指定一个填充值：
+对于不同索引的对象进行算术运算时，当一个对象中某个轴标签在另一个对象中找不到时填充一个特殊值,在对Series或DataFrame重新索引时也可以指定一个填充值：
 ```Python
 In [76]: df2.add(df1,fill_value=0)
 Out[76]:
@@ -383,7 +383,7 @@ row3  6  7  8  0
 ```
 
 #### DataFrame和Series之间的运算
-默认情况下DataFrame和Series之间的算术运算会讲Series的索引匹配到DataFrame的列，然后沿着行一直向下广播；如果某个索引值在DataFrame的列货Series的索引中找不到，则参与运算的两个对象就会被重新索引译形成并集；如果希望匹配行且在列上广播则必须使用算术运算方法：
+默认情况下DataFrame和Series之间的算术运算会将Series的索引匹配到DataFrame的列，然后沿着行一直向下广播；如果某个索引值在DataFrame的列或Series的索引中找不到，则参与运算的两个对象就会被重新索引形成并集；如果希望匹配行且在列上广播则必须使用算术运算方法：
 ```Python
 In [94]: s1 = df2.loc['row1']
 

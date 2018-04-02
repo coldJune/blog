@@ -179,7 +179,7 @@ i4  2003    4     d  NaN
 In [35]: frame.columns
 Out[35]: Index(['pop', 'state', 'year'], dtype='object')
 ```
-可以通过字典标记的方式或属性的方式将DataFrame的列获取为一个Series，返回的Series拥有原DataFrame相同的索引，且其`name`属性已经被相应地设置好了。行也可以通过位置或名称的方式进行获取，比如用索引字段ix:
+可以通过字典标记的方式或属性的方式将DataFrame的列获取为一个Series，返回的Series拥有原DataFrame相同的索引，且其`name`属性已经被相应地设置好了。行也可以通过位置或名称的方式进行获取，比如用索引字段`loc`:
 ```Python
 In [40]: frame.state
 Out[40]:
@@ -197,14 +197,14 @@ Out[41]:
 3    2003
 Name: year, dtype: int64
 
-In [42]: frame.ix[1]
+In [42]: frame.loc[1]
 Out[42]:
 pop         2
 state       b
 year     2001
 Name: 1, dtype: object
 ```
-列可以通过赋值的方式进行修改，将列表或数组给某个列时，其长度必须跟DataFrame的长度相匹配。如果赋值的事一个Series就会精确匹配DataFrame的索引，所有的空位都将被填上缺失值，为不存在的列赋值会创建出一个新列，关键字`del`可以删除列:
+列可以通过赋值的方式进行修改，将列表或数组给某个列时，其长度必须跟DataFrame的长度相匹配。如果赋值的是一个Series就会精确匹配DataFrame的索引，所有的空位都将被填上缺失值，为不存在的列赋值会创建出一个新列，关键字`del`可以删除列:
 ```Python
 In [49]: frame2=DataFrame(data,columns=['year','pop','state','debt'],index=['i1','i2','i3','i4'])
 
@@ -268,7 +268,7 @@ i2  2001    2     b   NaN
 i3  2002    3     c  -2.0
 i4  2003    4     d  -3.0
 ```
-嵌套字典被传给DataFrame后会被解释为：外层字典的键作为列，内层字典键作为行索引，可以通过`T`进行转置。内层字典的键会被合并，排序以形成最终的索引。如果现实指定了索引，就不会如此。同理，Series组成的字典也是一样的用法:
+嵌套字典被传给DataFrame后会被解释为：外层字典的键作为列，内层字典键作为行索引，可以通过`T`进行转置。内层字典的键会被合并，排序以形成最终的索引。如果显式指定了索引，就不会如此。同理，Series组成的字典也是一样的用法:
 ```Python
 In [63]: pop = {'out1':{2002:1.1,2001:1.2},
     ...: 'out2':{2001:1.3,2004:1.4}}

@@ -158,25 +158,22 @@ rowname2 rowname1
 ### 根据级别汇总统计
 许多对于DataFrame和Series的描述和汇总统计都有一个level选项，用于指定在某条轴上求和的级别：
 ```Python
-In [225]: df.sort_index(level=1)
-Out[225]:
-colname1          col1      col2
-colname2           red blue  red blue
-rowname1 rowname2
-row1     1           0    1    2    3
-row2     1           8    9   10   11
-row1     2           4    5    6    7
-row2     2          12   13   14   15
+In [25]: df.sum(level='rowname2')
+Out[25]:
+colname1 col1      col2
+colname2  red blue  red blue
+rowname2
+1           8   10   12   14
+2          16   18   20   22
 
-In [226]: df.swaplevel(0,1).sort_index(level=0)
-Out[226]:
-colname1          col1      col2
-colname2           red blue  red blue
-rowname2 rowname1
-1        row1        0    1    2    3
-         row2        8    9   10   11
-2        row1        4    5    6    7
-         row2       12   13   14   15
+In [26]: df.sum(level='colname1',axis=1)
+Out[26]:
+colname1           col1  col2
+rowname1 rowname2
+row1     1            1     5
+         2            9    13
+row2     1           17    21
+         2           25    29
 ```
 
 ### 使用DataFrame的列

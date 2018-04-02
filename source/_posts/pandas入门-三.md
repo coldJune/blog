@@ -117,7 +117,7 @@ dtype: object
 ```
 
 ### 相关系数和协方差
-Series的`corr`方法用于计算两个Series中重叠的、非NAN的、按索引对齐的相关系数；使用`cov`计算协方差：
+Series的`corr`方法用于计算两个Series中重叠的、非NA的、按索引对齐的相关系数；使用`cov`计算协方差：
 ```Python
 In [46]: obj = Series([1,2,3,4],index=list('abcd'))
 
@@ -175,7 +175,7 @@ col2  26.666667  26.666667  26.666667  26.666667
 col3  26.666667  26.666667  26.666667  26.666667
 col4  26.666667  26.666667  26.666667  26.666667
 ```
-利用DataFrame的`corrwith`方法可以计算其列或行跟另一个Series或DataFrame之间的相关系数；传入一个Series将会返回一个相关系数值Series，传入一个DataFrame则会计算按列名配对的相关系数(传入axis=1按行计算)：
+利用DataFrame的`corrwith`方法可以计算其列或行跟另一个Series或DataFrame之间的相关系数；传入一个Series将会返回一个相关系数值Series，传入一个DataFrame则会计算按列名配对的相关系数(传入axis=1按列计算)：
 ```Python
 In [66]: df.corrwith(df2)
 Out[66]:
@@ -195,7 +195,7 @@ col4    1.0
 dtype: float64
 ```
 
-###唯一值、值计数以及成员资格
+### 唯一值、值计数以及成员资格
 
 * 唯一值、值计数、成员资格方法
 
