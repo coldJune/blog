@@ -40,7 +40,7 @@ keywords: "Hexo, NexT"
 # Set rss to false to disable feed link.
 # Leave rss as empty to use site's feed link.
 # Set rss to specific value if you have burned your feed already.
-rss: 
+rss: false
 
 footer:
   # Specify the date when the site was setup.
@@ -352,7 +352,7 @@ han: false
 
 # Baidu Analytics ID
 #baidu_analytics:
-
+baidu_site_verification: true
 # Duoshuo ShortName
 #duoshuo_shortname:
 
@@ -460,12 +460,12 @@ needmoreshare2:
 
 # Google Webmaster tools verification setting
 # See: https://www.google.com/webmasters/
-#google_site_verification:
+#google_site_verification: RNQ-vlTEG238tkhAh5-NWDNB2mXzgeA6XWoQLZmq5i4
 
 # Google Analytics
 #google_analytics:
 
-# Bing Webmaster tools verification setting
+# Bing Webmastr tools verification setting
 # See: https://www.bing.com/webmaster/
 #bing_site_verification:
 
