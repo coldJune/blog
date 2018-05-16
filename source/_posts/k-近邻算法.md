@@ -199,4 +199,4 @@ def handwriting_class_test():
     print("错误率为：%f" % (error_account/float(m_test)))
 ```
 ****
-[完整代码](https://github.com/coldJune/machineLearning/blob/master/MachineLearningInAction/kNN/kNN.py)
+[示例代码](https://github.com/coldJune/machineLearning/blob/master/MachineLearningInAction/kNN/kNN.py)
