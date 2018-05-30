@@ -7,6 +7,7 @@ mathjax: true
 tags:
     - 机器学习
     - 机器学习实战
+    - 频繁项集
     - 无监督学习
 ---
 ## Apriori算法概述
