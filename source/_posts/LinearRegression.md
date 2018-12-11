@@ -5,7 +5,7 @@ categories: 机器学习
 copyright: True
 tags:
     - sklearn
-    - 线性回归
+    - 回归
     - Hands-On Machine Learning with Scikit-Learn and TensorFlow
 description:
 ---
