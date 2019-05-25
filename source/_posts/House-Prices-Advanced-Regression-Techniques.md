@@ -1,5 +1,5 @@
 ---
-title: 'House Prices: Advanced Regression Techniques'
+title: 'House-Prices-Advanced-Regression-Techniques'
 date: 2019-05-25 08:57:50
 categories: 机器学习
 copyright: true
@@ -9,44 +9,43 @@ tags:
 description: 这是我第一个真正意义上完成的机器学习项目
 ---
 # 前言
-&nbsp;&nbsp;我真正接触Kaggle是在做《Hands-On Machine Learning with Scikit-Learn and TensorFlow》的一道练习题的时候，那道练习题使用的数据是Kaggle上一个分类数据集——[Titanic: Machine Learning from Disaster](https://www.kaggle.com/c/titanic)，当我登录这个页面的时候发现这是一个非常热门的项目，其参与团队(个人)已经达到了11223个，这对我这样一个初来乍到的人是一个不小的冲击，抱着决定在这个平台试一试的心态我开始寻找适合我的项目。
-&nbsp;&nbsp;[House Prices: Advanced Regression Techniques](https://www.kaggle.com/c/house-prices-advanced-regression-techniques)是Kaggle上的一个知识性竞赛，作为一个回归问题，它提供了适量的数据以及特征供学习者使用；而作为机器学习的入门项目它帮助了很多人完成了从0到1的过程，现在上面有4746个团队(个人)提交了自己的预测结果。我作为一名学习者，也通过自己的努力在上面获得了自己的分数——0.12702，这是使用`KernelRidge`实现的模型进行预测的结果，这并不算一个很好的评分，大概排在1757名左右(前37%)，但对我来说确实一个很大的进步，这标示着从无到有的过程。
-&nbsp;&nbsp;kaggle对于数据初学者来说确实是一个非常适合的平台，kaggler们都不吝啬自己的知识，发布着自己的kernel，表述自己的想法，借此帮助每一个需要帮助的社区成员。能完成这个项目对我来说意义非凡，在这里我特别感谢kaggle上的两位kaggler以及他们的对自己项目的无私奉献，他们分别是[@Pedro Marcelino](https://www.kaggle.com/pmarcelino)和他的kenel[Comprehensive data exploration with Python](https://www.kaggle.com/pmarcelino/comprehensive-data-exploration-with-python),他对数据的分析以及把控让现在的我难以望其项背，给了我非常大的启发；以及[@Serigne](https://www.kaggle.com/serigne)和他的kernel[Stacked Regressions : Top 4% on LeaderBoard](https://www.kaggle.com/serigne/stacked-regressions-top-4-on-leaderboard),他同样用了[@Pedro Marcelino](https://www.kaggle.com/pmarcelino)的数据分析方法，但是他在数据分析的基础上增加了模型的训练以及分析过程，帮助我学会把控自己的模型。再次对他们表示真挚的感谢。
-&nbsp;&nbsp;虽然这个项目的准确程度还可以有很大的提升，但就我现在的能力而言我决定让它暂且休息一下，好回头看看，总结总结得失。
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我真正接触Kaggle是在做《Hands-On Machine Learning with Scikit-Learn and TensorFlow》的一道练习题的时候，那道练习题使用的数据是Kaggle上一个分类数据集——[Titanic: Machine Learning from Disaster](https://www.kaggle.com/c/titanic)，当我登录这个页面的时候发现这是一个非常热门的项目，其参与团队(个人)已经达到了11223个，这对我这样一个初来乍到的人是一个不小的冲击，抱着决定在这个平台试一试的心态我开始寻找适合我的项目。
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[House-Prices-Advanced-Regression-Techniques](https://www.kaggle.com/c/house-prices-advanced-regression-techniques)是Kaggle上的一个知识性竞赛，作为一个回归问题，它提供了适量的数据以及特征供学习者使用；而作为机器学习的入门项目它帮助了很多人完成了从0到1的过程，现在上面有4746个团队(个人)提交了自己的预测结果。我作为一名学习者，也通过自己的努力在上面获得了自己的分数——0.12702，这是使用`KernelRidge`实现的模型进行预测的结果，这并不算一个很好的评分，大概排在1757名左右(前37%)，但对我来说确实一个很大的进步，这标示着从无到有的过程。
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;kaggle对于数据初学者来说确实是一个非常适合的平台，kaggler们都不吝啬自己的知识，发布着自己的kernel，表述自己的想法，借此帮助每一个需要帮助的社区成员。能完成这个项目对我来说意义非凡，在这里我特别感谢kaggle上的两位kaggler以及他们的对自己项目的无私奉献，他们分别是[@Pedro Marcelino](https://www.kaggle.com/pmarcelino)和他的kenel——[Comprehensive data exploration with Python](https://www.kaggle.com/pmarcelino/comprehensive-data-exploration-with-python),他对数据的分析以及把控让现在的我难以望其项背，给了我非常大的启发；以及[@Serigne](https://www.kaggle.com/serigne)和他的kernel——[Stacked Regressions : Top 4% on LeaderBoard](https://www.kaggle.com/serigne/stacked-regressions-top-4-on-leaderboard),他同样用了[@Pedro Marcelino](https://www.kaggle.com/pmarcelino)的数据分析方法，但是他在数据分析的基础上增加了模型的训练以及分析过程，帮助我学会把控自己的模型。再次对他们表示真挚的感谢。
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;虽然这个项目的准确程度还可以有很大的提升，但就我现在的能力而言我决定让它暂且休息一下，好回头看看，总结总结得失。
 
 # 准备工作
-
-## 准备数据
-在准备工作阶段首先应该观察数据，并对数据做一定的处理
-### 观察整个数据集
-
-
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在我个人的学习过程中，对于机器学习的理解一直都是觉得算法有多么多么重要，但当我真正着手去做的时候，发现事实其实与我想象中的大相径庭。不可否认，算法是构建模型的关键步骤，是不可逾越的一道关隘，但是其对最终模型的起到的作用其实并没有想象中的那么重要。这不经让我想到微软发布的那个关于数据和算法对模型影响的论文——[The Unreasonable Effectiveness of Data](http://static.googleusercontent.com/media/research.google.com/fr//pubs/archive/35179.pdf)，这篇论文说明了当数据量达到一定程度时，算法的优劣将被摒弃，颇有一些殊途同归的意思。而按我的理解，当数据的质量达到一定程度时，算法的优劣差异也会被一定程度上的减弱。我想这也是那么多前辈强调特征工程重要性的原因。
+## 数据篇
+&nbsp;&nbsp;&nbsp;&nbsp;当我们拿到一份数据的时侯不是将它直接塞入算法，让算法产出一个模型，而应该是先对数据有一个全局的insight，了解数据的组成成分，包括以下几点：
+1. 目标
+&nbsp;&nbsp;&nbsp;&nbsp;即分类任务或者回归任务，观察需要预测的目标的分布，可以借用`seaborn`库进行可视化
+2. 特征值
+&nbsp;&nbsp;&nbsp;&nbsp;即实例的属性，确定属性值是离散的类别标签还是连续的数值型数据，对不同类型的数据需要进行不同的处理
+3. 异常值
+&nbsp;&nbsp;&nbsp;&nbsp;不是所有的数据分布都是合理的，在数据集中可能存在部分数据的分布超过一定的阈值，这部分数据被称作异常值或者离群点，对异常值的处理需要非常谨慎，这部分数据对模型的好坏起着非常关键的作用。
+4. 空值
+&nbsp;&nbsp;&nbsp;&nbsp;空值一般是指那种数据集中缺失的值，这部分值可能代表数据的特性，如表示某种特征，也可能只是单纯的缺失值。如果是单纯的值缺失，数值类型可以使用中位数进行填充，而类别标签可以用当前特征表示某种类别数量最多的类别值填充；而如果是表示某种特征，则可以使用`None`填充类别标签，用`0`填充数值特征，表示该缺失类别
+### 观测
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;kaggle有一个非常友好的地方，那就是在每一个项目里面都有关于这个数据集的描述，这个项目的描述文件可以在[data_description.txt](https://github.com/coldJune/machineLearning/blob/master/kaggle/house_price/data_description.txt)中看到。结合描述文件和一些python代码可以对数据有一个比较清晰的认知，了解特征的特性、取值和分布，了解目标的特性以及特征和目标之间的直接关系，下面的代码用表的方式直观地展现了数据的一些特性。
 ```python
 # 导入相关数据包
 import pandas as pd
 import numpy as np
 import seaborn as sbn
 import matplotlib.pyplot as plt
-
 import warnings
+
 def ignore_warn(*args, **kwargs):
+    # 忽略警告输出
     pass
 warnings.warn = ignore_warn
-```
 
-
-```python
+# 导入数据
 data = pd.read_csv('./house_price/train.csv')
-```
-
-
-```python
+#展示数据的前5行
 data.head()
 ```
-
-
-
-
 <div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
@@ -214,14 +213,13 @@ data.head()
 <p>5 rows × 81 columns</p>
 </div>
 
-
-
-
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;由于特征过多，上述代码的展示结果存在一些缺陷，有部分特征被省略掉了，但通过和描述文件结合，可以大概知道特征存在数值和类别两种不同形式的数据，可以说这个不完整的表格是对描述文件的一个具体展示。<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;但仅有这些明显是不够的，在远距离观察之后，让我们走近一点，细细品一品这些有趣的数据。在接近它之前，还有一点点额外的工作需要做。我们知道在用`pandas`导入数据的时候，`DataFrame`会自动为我们创建`index`,而通过对数据的遥望，我们发现数据集中有一个叫`Id`的特征列是按照有序递增的方式排列的，这个特征列在描述文件中并没有提及，由此我们可以相信这是一个与数据集分布无关的列，只是每个实例的唯一标志——当然，得出这个结论其实不需要这么复杂的分析，因为它是显而易见的。因此，我们可以放弃自动生成的`index`而使用`Id`作为新的`index`。
 ```python
 data = data.set_index(['Id'])
 ```
-
-
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;现在，可以说是万事具备只欠东风了。是时候深入了解我们的数据了。我想没有什么能比图片更具有表现力了吧，现在就让我们来通过图来观察它。<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;数值型的特征有一个类别特征不具备的好处，它可以直接和目标值绘制出相关性，而接下来的代码就是做这件事的。我们首先将数值型的特征筛选出来，然后分别和`SalePrice`进行关联，`SalePrice`作为`Y`轴是因变量，特征值作为`X`轴是自变量
 ```python
 fig = plt.figure(figsize=(24, 36))
 count = 1
@@ -234,11 +232,10 @@ for x in data[data.columns[data.dtypes != 'object']]:
     count += 1
 plt.subplots_adjust(hspace=0.9, bottom=0.1, wspace=0.4)
 ```
-
-
-![png](Predict%20House%20Prices_files/Predict%20House%20Prices_5_0.png)
-
-
+![png](House-Prices-Advanced-Regression-Techniques/Predict%20House%20Prices_5_0.png)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;通过这些图，可以看出一些特征和目标有比较明显的线性关系，例如`TotalBsmtSF`、`1stFlrSF`和`2ndFlrSF`等，在进行特征值处理的时候就可以在这些数据上做些文章。<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;当然，除了数据的相关性以外，还可以看出数据的一些其它情况，例如离群点。从下面的代码中可以看出我将大部分的离群点都做过处理，但是在这里我把它注释掉了。至于原因，当然是因为这么处理之后模型训练并不理想，这是因为在训练集中虽然可以删除所有的异常值，让数据看起来非常完美，让模型的训练准确率变得很高，但是这样做是没有意义的，因为这将导致在测试的时候效果变得很差，对于测试的数据，我们总不能也将这些异常值删去不做预测吧，就像在业务场景中我们不可能抛弃一部分看起来不太合理但实际存在的客户一样，所以后面采用了其它方式处理训练集和测试集的离群点.至于保留这部分注释，也是为了保留这个思考过程。<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在众多删除异常值的代码中，唯独有一行并没有删去。这一行删除的数据是`[0, 3]`这张图的那两个异常点，是参考[@Pedro Marcelino](https://www.kaggle.com/pmarcelino)的[kenel](https://www.kaggle.com/pmarcelino/comprehensive-data-exploration-with-python)后选择保留的。刚开始保留的时候我其实并不太清楚为何[@Pedro Marcelino](https://www.kaggle.com/pmarcelino)独独要删去这两个离群点而对其它的视而不见，后来我阅读关于这个特征的描述——*Above grade (ground) living area square feet*以及后面的相关性矩阵发现这个特征和大多数的面积特征都有关系(毕竟它表示地上生活面积)，并且在去掉这两个离群点之后重新画了图，发现其它面积的离群点也一起消失了。这无疑证明了[@Pedro Marcelino](https://www.kaggle.com/pmarcelino)这种处理方式的合理性。
 
 ```python
 # data.drop(data[data['LotFrontage'] > 300].index, inplace=True)
@@ -275,7 +272,7 @@ sbn.distplot(data['SalePrice'])
 
 
 
-![png](Predict%20House%20Prices_files/Predict%20House%20Prices_7_1.png)
+![png](House-Prices-Advanced-Regression-Techniques/Predict%20House%20Prices_7_1.png)
 
 
 
@@ -659,7 +656,7 @@ for x in x_train[x_train.columns[x_train.dtypes != 'object']]:
 
 
 
-![png](Predict%20House%20Prices_files/Predict%20House%20Prices_12_1.png)
+![png](House-Prices-Advanced-Regression-Techniques/Predict%20House%20Prices_12_1.png)
 
 
 
@@ -711,7 +708,7 @@ x_train.hist(figsize=(24, 24))
 
 
 
-![png](Predict%20House%20Prices_files/Predict%20House%20Prices_13_1.png)
+![png](House-Prices-Advanced-Regression-Techniques/Predict%20House%20Prices_13_1.png)
 
 
 通过对数值型数据的各项指标的描述和直方图可以得出数据分布看出部分数据缺失，如`MSSubClass`、`LotFrontage`等，而大多数数据存在偏斜分布， 如`2ndFlrSF`、`3SsnPorch`等，对于缺失的数据，可以使用中位数进行填充，对于数据分布偏斜的问题，可以通过数据规范化进行调整
@@ -730,7 +727,7 @@ sbn.heatmap(x_train.corr(), linewidths=0.5, annot=True)
 
 
 
-![png](Predict%20House%20Prices_files/Predict%20House%20Prices_15_1.png)
+![png](House-Prices-Advanced-Regression-Techniques/Predict%20House%20Prices_15_1.png)
 
 
 通过相关性矩阵可以看出`YearBuilt`和`GarageYrBlt`、`TotRmsAbvGrd`和`GrLiveArea`、`1stFlrSF`和`TotalBsmtSF`、`GarageCars`和`GarageArea`具有很高的相关性
@@ -765,7 +762,7 @@ plt.subplots_adjust(hspace=0.9, bottom=0.1)
 ```
 
 
-![png](Predict%20House%20Prices_files/Predict%20House%20Prices_18_0.png)
+![png](House-Prices-Advanced-Regression-Techniques/Predict%20House%20Prices_18_0.png)
 
 
 通过柱状图可以观测出每个特征的具体数量以及特征中对应类别值的对应分布，从数据的描述中可以得到部分数据为`NA`的表示不具备相关特征，所以使用`None`填充，其它有缺失数据的特征可以使用当前特征中数量最多的类别进行填充；其中`Utilities`中共有1457条相同数据，1条相异数据，对模型并没有多少帮助，因此可以删去这个特征
@@ -1124,7 +1121,7 @@ plot_learning_curve(ridge, x_train, y_train)
 
 
 
-![png](Predict%20House%20Prices_files/Predict%20House%20Prices_29_3.png)
+![png](House-Prices-Advanced-Regression-Techniques/Predict%20House%20Prices_29_3.png)
 
 
 使用岭回归可以看到训练正确率有所下降，验证正确率有所上升，下面再试试`LASSO`回归
@@ -1167,7 +1164,7 @@ plot_learning_curve(lasso, x_train, y_train)
 
 
 
-![png](Predict%20House%20Prices_files/Predict%20House%20Prices_33_3.png)
+![png](House-Prices-Advanced-Regression-Techniques/Predict%20House%20Prices_33_3.png)
 
 
 可以看出`Lasso`的效果并没有岭回归好，可能是因为`Lasso`使用`l1`范数稀疏掉了过多的特征导致其泛化能力的下降
@@ -1250,7 +1247,7 @@ plot_learning_curve(en, x_train, y_train)
 
 
 
-![png](Predict%20House%20Prices_files/Predict%20House%20Prices_40_3.png)
+![png](House-Prices-Advanced-Regression-Techniques/Predict%20House%20Prices_40_3.png)
 
 
 ### KernelPCA
@@ -1389,7 +1386,7 @@ plot_learning_curve(rf, x_train, y_train)
 
 
 
-![png](Predict%20House%20Prices_files/Predict%20House%20Prices_53_3.png)
+![png](House-Prices-Advanced-Regression-Techniques/Predict%20House%20Prices_53_3.png)
 
 
 ## GBDT
@@ -1483,7 +1480,7 @@ plot_learning_curve(gbdt, x_train, y_train)
 
 
 
-![png](Predict%20House%20Prices_files/Predict%20House%20Prices_59_3.png)
+![png](House-Prices-Advanced-Regression-Techniques/Predict%20House%20Prices_59_3.png)
 
 
 ## XGBoost
@@ -1595,7 +1592,7 @@ plot_learning_curve(xg, x_train, y_train)
 
 
 
-![png](Predict%20House%20Prices_files/Predict%20House%20Prices_66_3.png)
+![png](House-Prices-Advanced-Regression-Techniques/Predict%20House%20Prices_66_3.png)
 
 
 ## stack 
@@ -1708,7 +1705,7 @@ plot_learning_curve(stack_models, x_train, y_train)
 
 
 
-![png](Predict%20House%20Prices_files/Predict%20House%20Prices_71_2.png)
+![png](House-Prices-Advanced-Regression-Techniques/Predict%20House%20Prices_71_2.png)
 
 
 ## LightGBM
@@ -1826,7 +1823,7 @@ plot_learning_curve(lgb_grid_cv.best_estimator_, x_train, y_train)
 
 
 
-![png](Predict%20House%20Prices_files/Predict%20House%20Prices_77_2.png)
+![png](House-Prices-Advanced-Regression-Techniques/Predict%20House%20Prices_77_2.png)
 
 
 ## 结合不同预测
