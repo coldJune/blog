@@ -235,7 +235,7 @@ plt.subplots_adjust(hspace=0.9, bottom=0.1, wspace=0.4)
 ![png](House-Prices-Advanced-Regression-Techniques/Predict%20House%20Prices_5_0.png)
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;通过这些图，可以看出一些特征和目标有比较明显的线性关系，例如`TotalBsmtSF`、`1stFlrSF`和`2ndFlrSF`等，在进行特征值处理的时候就可以在这些数据上做些文章。<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;当然，除了数据的相关性以外，还可以看出数据的一些其它情况，例如离群点。从下面的代码中可以看出我将大部分的离群点都做过处理，但是在这里我把它注释掉了。至于原因，当然是因为这么处理之后模型训练并不理想，这是因为在训练集中虽然可以删除所有的异常值，让数据看起来非常完美，让模型的训练准确率变得很高，但是这样做是没有意义的，因为这将导致在测试的时候效果变得很差，对于测试的数据，我们总不能也将这些异常值删去不做预测吧，就像在业务场景中我们不可能抛弃一部分看起来不太合理但实际存在的客户一样，所以后面采用了其它方式处理训练集和测试集的离群点.至于保留这部分注释，也是为了保留这个思考过程。<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在众多删除异常值的代码中，唯独有一行并没有删去。这一行删除的数据是`[0, 3]`这张图的那两个异常点，是参考[@Pedro Marcelino](https://www.kaggle.com/pmarcelino)的[kenel](https://www.kaggle.com/pmarcelino/comprehensive-data-exploration-with-python)后选择保留的。刚开始保留的时候我其实并不太清楚为何[@Pedro Marcelino](https://www.kaggle.com/pmarcelino)独独要删去这两个离群点而对其它的视而不见，后来我阅读关于这个特征的描述——*Above grade (ground) living area square feet*以及后面的相关性矩阵发现这个特征和大多数的面积特征都有关系(毕竟它表示地上生活面积)，并且在去掉这两个离群点之后重新画了图，发现其它面积的离群点也一起消失了。这无疑证明了[@Pedro Marcelino](https://www.kaggle.com/pmarcelino)这种处理方式的合理性。
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在众多删除异常值的代码中，唯独有一行并没有删去。这一行删除的数据是`[0, 3]`这张图的那两个异常点，是参考[@Pedro Marcelino](https://www.kaggle.com/pmarcelino)的[kenel](https://www.kaggle.com/pmarcelino/comprehensive-data-exploration-with-python)后选择保留的。刚开始保留的时候我其实并不太清楚为何[@Pedro Marcelino](https://www.kaggle.com/pmarcelino)独独要删去这两个离群点而对其它的视而不见，后来我阅读关于这个特征的描述——*Above grade (ground) living area square feet*以及后面的相关性矩阵发现这个特征和大多数的面积特征都有关系(毕竟它表示地上生活面积)，并且在去掉这两个离群点之后重新画了图，看到其它面积的离群点也一起消失了。这无疑证明了[@Pedro Marcelino](https://www.kaggle.com/pmarcelino)这种处理方式的合理性。
 
 ```python
 # data.drop(data[data['LotFrontage'] > 300].index, inplace=True)
@@ -257,37 +257,18 @@ data.drop(data[(data['GrLivArea'] > 4000) & (data['SalePrice']<300000)].index, i
 #     count += 1
 # plt.subplots_adjust(hspace=0.9, bottom=0.1, wspace=0.4)
 ```
-
-
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;处理完了明显的异常点之后，换个方向，看看我们的目标值。我们知道线性模型往往最简单的回归模型，而根据[奥卡姆剃刀原理](https://baike.baidu.com/item/%E5%A5%A5%E5%8D%A1%E5%A7%86%E5%89%83%E5%88%80%E5%8E%9F%E7%90%86/10900565?fr=aladdin)，当两个模型拥有一致的性能的时候，选取相对简单的那个。适用线性模型的数据往往具有[正态分布](https://baike.baidu.com/item/%E6%AD%A3%E6%80%81%E5%88%86%E5%B8%83/829892?fr=aladdin)的特性，为了明白线性模型是否适用于当前数据集，我们可以通过查看目标值是否满足这一特性。
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;通过调用`seaborn`库的`distplot`函数，能够很简单明了的发现数据存在比较明显的偏斜。为了让数据分布更加符合正态分布，可以尝试对其进行取对数操作，因为取对数并不会影响数据的相对关系，并且可以减弱数据的[异方差](https://baike.baidu.com/item/%E5%BC%82%E6%96%B9%E5%B7%AE%E6%80%A7/3206526?fromtitle=%E5%BC%82%E6%96%B9%E5%B7%AE&fromid=17503121&fr=aladdin)。通过下方的第二张图可以发现，在进行对数操作之后的数据图形更加符合正态分布。
+* 原始
 ```python
 #查看售价分布
 sbn.distplot(data['SalePrice'])
 ```
-
-
-
-
-    <matplotlib.axes._subplots.AxesSubplot at 0x114462860>
-
-
-
-
 ![png](House-Prices-Advanced-Regression-Techniques/Predict%20House%20Prices_7_1.png)
-
-
-
+* 取对数
 ```python
 sbn.distplot(np.log1p(data['SalePrice']))
 ```
-
-
-
-
-    <matplotlib.axes._subplots.AxesSubplot at 0x119522048>
-
-
-
-
 ![png](House-Prices-Advanced-Regression-Techniques/Predict%20House%20Prices_8_1.png)
 
 
