@@ -9,7 +9,7 @@ tags:
 description: 这是我第一个真正意义上完成的机器学习项目
 ---
 # 前言
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我真正接触Kaggle是在做《Hands-On Machine Learning with Scikit-Learn and TensorFlow》的一道练习题的时候，那道练习题使用的数据是Kaggle上一个分类数据集——[Titanic: Machine Learning from Disaster](https://www.kaggle.com/c/titanic)，当我登录这个页面的时候发现这是一个非常热门的项目，其参与团队(个人)已经达到了11223个，这对我这样一个初来乍到的人是一个不小的冲击，抱着决定在这个平台试一试的心态我开始寻找适合我的项目。
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我真正接触Kaggle是在做《Hands-On Machine Learning with Scikit-Learn and TensorFlow》的一道练习题的时候，那道练习题使用的数据是Kaggle上一个分类数据集——[Titanic: Machine Learning from Disaster](https://www.kaggle.com/c/titanic)，当我登录这个页面的时候后发现这是一个非常热门的项目，其参与团队(个人)已经达到了11223个，这对我这样一个初来乍到的人是一个不小的冲击，抱着决定在这个平台试一试的心态我开始寻找适合我的项目。
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[House-Prices-Advanced-Regression-Techniques](https://www.kaggle.com/c/house-prices-advanced-regression-techniques)是Kaggle上的一个知识性竞赛，作为一个回归问题，它提供了适量的数据以及特征供学习者使用；而作为机器学习的入门项目它帮助了很多人完成了从0到1的过程，现在上面有4746个团队(个人)提交了自己的预测结果。我作为一名学习者，也通过自己的努力在上面获得了自己的分数——0.12702，这是使用`KernelRidge`实现的模型进行预测的结果，这并不算一个很好的评分，大概排在1757名左右(前37%)，但对我来说确实一个很大的进步，这标示着从无到有的过程。
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;kaggle对于数据初学者来说确实是一个非常适合的平台，kaggler们都不吝啬自己的知识，发布着自己的kernel，表述自己的想法，借此帮助每一个需要帮助的社区成员。能完成这个项目对我来说意义非凡，在这里我特别感谢kaggle上的两位kaggler以及他们的对自己项目的无私奉献，他们分别是[@Pedro Marcelino](https://www.kaggle.com/pmarcelino)和他的kenel——[Comprehensive data exploration with Python](https://www.kaggle.com/pmarcelino/comprehensive-data-exploration-with-python),他对数据的分析以及把控让现在的我难以望其项背，给了我非常大的启发；以及[@Serigne](https://www.kaggle.com/serigne)和他的kernel——[Stacked Regressions : Top 4% on LeaderBoard](https://www.kaggle.com/serigne/stacked-regressions-top-4-on-leaderboard),他同样用了[@Pedro Marcelino](https://www.kaggle.com/pmarcelino)的数据分析方法，但是他在数据分析的基础上增加了模型的训练以及分析过程，帮助我学会把控自己的模型。再次对他们表示真挚的感谢。
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;虽然这个项目的准确程度还可以有很大的提升，但就我现在的能力而言我决定让它暂且休息一下，好回头看看，总结总结得失。
@@ -270,14 +270,12 @@ sbn.distplot(data['SalePrice'])
 sbn.distplot(np.log1p(data['SalePrice']))
 ```
 ![png](House-Prices-Advanced-Regression-Techniques/Predict%20House%20Prices_8_1.png)
-
-
-
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;现在，我们对数据集已经有了一个大概的了解，包括特征值和目标值，并知道了需要对目标值做相应的处理(上面的取对数操作)，是时候将目标值取出来放在旁边了。
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;使用`DataFrame`提供的切片操作，将数据的特征和目标划分开并分别定义为`x_train`(特征)和`y_train`(目标)。在完成这个步骤之后，通过`info()`函数查看特征值的类型和数量关系，明确哪类特征有多少缺失值，方便后序处理。当我看见特征列中有部分数据存在大量缺失的时候，如`PoolQC`、`Fence`等，第一反应是直接删除这些数据，当然这种方式是欠考虑的；正如前文所述，在处理缺失值的时候我们应该考虑它是否代表该特征的部分特性以便做特殊处理。(后面未被删去的注释代码体现了这一思考过程)。
 ```python
 x_train, y_train = data.loc[:,:'SaleCondition'], np.log1p(data['SalePrice']).get_values()
 x_train.info()
 ```
-
     <class 'pandas.core.frame.DataFrame'>
     Int64Index: 1458 entries, 1 to 1460
     Data columns (total 79 columns):
@@ -362,11 +360,8 @@ x_train.info()
     SaleCondition    1458 non-null object
     dtypes: float64(3), int64(33), object(43)
     memory usage: 911.2+ KB
-
-
+## 数据分类   
 ### 数值型数据
-
-
 ```python
 x_train.describe()
 ```
