@@ -360,15 +360,13 @@ x_train.info()
     SaleCondition    1458 non-null object
     dtypes: float64(3), int64(33), object(43)
     memory usage: 911.2+ KB
-## 数据分类   
+## 数据分类
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;全局的审视已经告一段落了，是时候关注一些局部的细节了。正如前文已经提到的，特征一般分为两类，而现在就是要对两类数据分开讨论了。<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在这里，我们将会分别讨论数值型和类别型特征，包括数据分布，数值特征、数量关系等
 ### 数值型数据
 ```python
 x_train.describe()
 ```
-
-
-
-
 <div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
@@ -607,10 +605,6 @@ x_train.describe()
 </table>
 <p>8 rows × 36 columns</p>
 </div>
-
-
-
-
 ```python
 fig = plt.figure(figsize=(24, 24))
 count = 1
@@ -620,70 +614,11 @@ for x in x_train[x_train.columns[x_train.dtypes != 'object']]:
     ax.set_title(x)
     count += 1
 ```
-
-    /usr/local/lib/python3.7/site-packages/matplotlib/cbook/__init__.py:1246: RuntimeWarning: invalid value encountered in less_equal
-      wiskhi = np.compress(x <= hival, x)
-    /usr/local/lib/python3.7/site-packages/matplotlib/cbook/__init__.py:1253: RuntimeWarning: invalid value encountered in greater_equal
-      wisklo = np.compress(x >= loval, x)
-    /usr/local/lib/python3.7/site-packages/matplotlib/cbook/__init__.py:1261: RuntimeWarning: invalid value encountered in less
-      np.compress(x < stats['whislo'], x),
-    /usr/local/lib/python3.7/site-packages/matplotlib/cbook/__init__.py:1262: RuntimeWarning: invalid value encountered in greater
-      np.compress(x > stats['whishi'], x)
-
-
-
 ![png](House-Prices-Advanced-Regression-Techniques/Predict%20House%20Prices_12_1.png)
-
-
 
 ```python
 x_train.hist(figsize=(24, 24))
 ```
-
-
-
-
-    array([[<matplotlib.axes._subplots.AxesSubplot object at 0x117c66748>,
-            <matplotlib.axes._subplots.AxesSubplot object at 0x11af6b470>,
-            <matplotlib.axes._subplots.AxesSubplot object at 0x11af4e6d8>,
-            <matplotlib.axes._subplots.AxesSubplot object at 0x11aed6940>,
-            <matplotlib.axes._subplots.AxesSubplot object at 0x11aedb0b8>,
-            <matplotlib.axes._subplots.AxesSubplot object at 0x11aebc630>],
-           [<matplotlib.axes._subplots.AxesSubplot object at 0x11ac11ba8>,
-            <matplotlib.axes._subplots.AxesSubplot object at 0x118889860>,
-            <matplotlib.axes._subplots.AxesSubplot object at 0x118889898>,
-            <matplotlib.axes._subplots.AxesSubplot object at 0x11ace1c50>,
-            <matplotlib.axes._subplots.AxesSubplot object at 0x11ae2a208>,
-            <matplotlib.axes._subplots.AxesSubplot object at 0x11afc0a20>],
-           [<matplotlib.axes._subplots.AxesSubplot object at 0x1188c9cf8>,
-            <matplotlib.axes._subplots.AxesSubplot object at 0x11b0b99e8>,
-            <matplotlib.axes._subplots.AxesSubplot object at 0x11b095828>,
-            <matplotlib.axes._subplots.AxesSubplot object at 0x11b061a20>,
-            <matplotlib.axes._subplots.AxesSubplot object at 0x11ad6af98>,
-            <matplotlib.axes._subplots.AxesSubplot object at 0x11ac68550>],
-           [<matplotlib.axes._subplots.AxesSubplot object at 0x11b107ac8>,
-            <matplotlib.axes._subplots.AxesSubplot object at 0x11fa1b080>,
-            <matplotlib.axes._subplots.AxesSubplot object at 0x11fa445f8>,
-            <matplotlib.axes._subplots.AxesSubplot object at 0x11fa6bb70>,
-            <matplotlib.axes._subplots.AxesSubplot object at 0x11fa9e128>,
-            <matplotlib.axes._subplots.AxesSubplot object at 0x11fac56a0>],
-           [<matplotlib.axes._subplots.AxesSubplot object at 0x11faefc18>,
-            <matplotlib.axes._subplots.AxesSubplot object at 0x11fb1d1d0>,
-            <matplotlib.axes._subplots.AxesSubplot object at 0x11fb48748>,
-            <matplotlib.axes._subplots.AxesSubplot object at 0x11fb6ecc0>,
-            <matplotlib.axes._subplots.AxesSubplot object at 0x11fba0278>,
-            <matplotlib.axes._subplots.AxesSubplot object at 0x11fbc67f0>],
-           [<matplotlib.axes._subplots.AxesSubplot object at 0x11fbeed68>,
-            <matplotlib.axes._subplots.AxesSubplot object at 0x11fc1e320>,
-            <matplotlib.axes._subplots.AxesSubplot object at 0x11fc48898>,
-            <matplotlib.axes._subplots.AxesSubplot object at 0x11fc6fe10>,
-            <matplotlib.axes._subplots.AxesSubplot object at 0x11fca43c8>,
-            <matplotlib.axes._subplots.AxesSubplot object at 0x11fcc9940>]],
-          dtype=object)
-
-
-
-
 ![png](House-Prices-Advanced-Regression-Techniques/Predict%20House%20Prices_13_1.png)
 
 
