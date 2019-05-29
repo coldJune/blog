@@ -40,7 +40,8 @@ def ignore_warn(*args, **kwargs):
     # 忽略警告输出
     pass
 warnings.warn = ignore_warn
-
+# 设置最大显示列数
+pd.set_option("display.max_columns",500)
 # 导入数据
 data = pd.read_csv('./house_price/train.csv')
 #展示数据的前5行
@@ -74,7 +75,67 @@ data.head()
       <th>LotShape</th>
       <th>LandContour</th>
       <th>Utilities</th>
-      <th>...</th>
+      <th>LotConfig</th>
+      <th>LandSlope</th>
+      <th>Neighborhood</th>
+      <th>Condition1</th>
+      <th>Condition2</th>
+      <th>BldgType</th>
+      <th>HouseStyle</th>
+      <th>OverallQual</th>
+      <th>OverallCond</th>
+      <th>YearBuilt</th>
+      <th>YearRemodAdd</th>
+      <th>RoofStyle</th>
+      <th>RoofMatl</th>
+      <th>Exterior1st</th>
+      <th>Exterior2nd</th>
+      <th>MasVnrType</th>
+      <th>MasVnrArea</th>
+      <th>ExterQual</th>
+      <th>ExterCond</th>
+      <th>Foundation</th>
+      <th>BsmtQual</th>
+      <th>BsmtCond</th>
+      <th>BsmtExposure</th>
+      <th>BsmtFinType1</th>
+      <th>BsmtFinSF1</th>
+      <th>BsmtFinType2</th>
+      <th>BsmtFinSF2</th>
+      <th>BsmtUnfSF</th>
+      <th>TotalBsmtSF</th>
+      <th>Heating</th>
+      <th>HeatingQC</th>
+      <th>CentralAir</th>
+      <th>Electrical</th>
+      <th>1stFlrSF</th>
+      <th>2ndFlrSF</th>
+      <th>LowQualFinSF</th>
+      <th>GrLivArea</th>
+      <th>BsmtFullBath</th>
+      <th>BsmtHalfBath</th>
+      <th>FullBath</th>
+      <th>HalfBath</th>
+      <th>BedroomAbvGr</th>
+      <th>KitchenAbvGr</th>
+      <th>KitchenQual</th>
+      <th>TotRmsAbvGrd</th>
+      <th>Functional</th>
+      <th>Fireplaces</th>
+      <th>FireplaceQu</th>
+      <th>GarageType</th>
+      <th>GarageYrBlt</th>
+      <th>GarageFinish</th>
+      <th>GarageCars</th>
+      <th>GarageArea</th>
+      <th>GarageQual</th>
+      <th>GarageCond</th>
+      <th>PavedDrive</th>
+      <th>WoodDeckSF</th>
+      <th>OpenPorchSF</th>
+      <th>EnclosedPorch</th>
+      <th>3SsnPorch</th>
+      <th>ScreenPorch</th>
       <th>PoolArea</th>
       <th>PoolQC</th>
       <th>Fence</th>
@@ -100,7 +161,67 @@ data.head()
       <td>Reg</td>
       <td>Lvl</td>
       <td>AllPub</td>
-      <td>...</td>
+      <td>Inside</td>
+      <td>Gtl</td>
+      <td>CollgCr</td>
+      <td>Norm</td>
+      <td>Norm</td>
+      <td>1Fam</td>
+      <td>2Story</td>
+      <td>7</td>
+      <td>5</td>
+      <td>2003</td>
+      <td>2003</td>
+      <td>Gable</td>
+      <td>CompShg</td>
+      <td>VinylSd</td>
+      <td>VinylSd</td>
+      <td>BrkFace</td>
+      <td>196.0</td>
+      <td>Gd</td>
+      <td>TA</td>
+      <td>PConc</td>
+      <td>Gd</td>
+      <td>TA</td>
+      <td>No</td>
+      <td>GLQ</td>
+      <td>706</td>
+      <td>Unf</td>
+      <td>0</td>
+      <td>150</td>
+      <td>856</td>
+      <td>GasA</td>
+      <td>Ex</td>
+      <td>Y</td>
+      <td>SBrkr</td>
+      <td>856</td>
+      <td>854</td>
+      <td>0</td>
+      <td>1710</td>
+      <td>1</td>
+      <td>0</td>
+      <td>2</td>
+      <td>1</td>
+      <td>3</td>
+      <td>1</td>
+      <td>Gd</td>
+      <td>8</td>
+      <td>Typ</td>
+      <td>0</td>
+      <td>NaN</td>
+      <td>Attchd</td>
+      <td>2003.0</td>
+      <td>RFn</td>
+      <td>2</td>
+      <td>548</td>
+      <td>TA</td>
+      <td>TA</td>
+      <td>Y</td>
+      <td>0</td>
+      <td>61</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
       <td>0</td>
       <td>NaN</td>
       <td>NaN</td>
@@ -124,7 +245,67 @@ data.head()
       <td>Reg</td>
       <td>Lvl</td>
       <td>AllPub</td>
-      <td>...</td>
+      <td>FR2</td>
+      <td>Gtl</td>
+      <td>Veenker</td>
+      <td>Feedr</td>
+      <td>Norm</td>
+      <td>1Fam</td>
+      <td>1Story</td>
+      <td>6</td>
+      <td>8</td>
+      <td>1976</td>
+      <td>1976</td>
+      <td>Gable</td>
+      <td>CompShg</td>
+      <td>MetalSd</td>
+      <td>MetalSd</td>
+      <td>None</td>
+      <td>0.0</td>
+      <td>TA</td>
+      <td>TA</td>
+      <td>CBlock</td>
+      <td>Gd</td>
+      <td>TA</td>
+      <td>Gd</td>
+      <td>ALQ</td>
+      <td>978</td>
+      <td>Unf</td>
+      <td>0</td>
+      <td>284</td>
+      <td>1262</td>
+      <td>GasA</td>
+      <td>Ex</td>
+      <td>Y</td>
+      <td>SBrkr</td>
+      <td>1262</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1262</td>
+      <td>0</td>
+      <td>1</td>
+      <td>2</td>
+      <td>0</td>
+      <td>3</td>
+      <td>1</td>
+      <td>TA</td>
+      <td>6</td>
+      <td>Typ</td>
+      <td>1</td>
+      <td>TA</td>
+      <td>Attchd</td>
+      <td>1976.0</td>
+      <td>RFn</td>
+      <td>2</td>
+      <td>460</td>
+      <td>TA</td>
+      <td>TA</td>
+      <td>Y</td>
+      <td>298</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
       <td>0</td>
       <td>NaN</td>
       <td>NaN</td>
@@ -148,7 +329,67 @@ data.head()
       <td>IR1</td>
       <td>Lvl</td>
       <td>AllPub</td>
-      <td>...</td>
+      <td>Inside</td>
+      <td>Gtl</td>
+      <td>CollgCr</td>
+      <td>Norm</td>
+      <td>Norm</td>
+      <td>1Fam</td>
+      <td>2Story</td>
+      <td>7</td>
+      <td>5</td>
+      <td>2001</td>
+      <td>2002</td>
+      <td>Gable</td>
+      <td>CompShg</td>
+      <td>VinylSd</td>
+      <td>VinylSd</td>
+      <td>BrkFace</td>
+      <td>162.0</td>
+      <td>Gd</td>
+      <td>TA</td>
+      <td>PConc</td>
+      <td>Gd</td>
+      <td>TA</td>
+      <td>Mn</td>
+      <td>GLQ</td>
+      <td>486</td>
+      <td>Unf</td>
+      <td>0</td>
+      <td>434</td>
+      <td>920</td>
+      <td>GasA</td>
+      <td>Ex</td>
+      <td>Y</td>
+      <td>SBrkr</td>
+      <td>920</td>
+      <td>866</td>
+      <td>0</td>
+      <td>1786</td>
+      <td>1</td>
+      <td>0</td>
+      <td>2</td>
+      <td>1</td>
+      <td>3</td>
+      <td>1</td>
+      <td>Gd</td>
+      <td>6</td>
+      <td>Typ</td>
+      <td>1</td>
+      <td>TA</td>
+      <td>Attchd</td>
+      <td>2001.0</td>
+      <td>RFn</td>
+      <td>2</td>
+      <td>608</td>
+      <td>TA</td>
+      <td>TA</td>
+      <td>Y</td>
+      <td>0</td>
+      <td>42</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
       <td>0</td>
       <td>NaN</td>
       <td>NaN</td>
@@ -172,7 +413,67 @@ data.head()
       <td>IR1</td>
       <td>Lvl</td>
       <td>AllPub</td>
-      <td>...</td>
+      <td>Corner</td>
+      <td>Gtl</td>
+      <td>Crawfor</td>
+      <td>Norm</td>
+      <td>Norm</td>
+      <td>1Fam</td>
+      <td>2Story</td>
+      <td>7</td>
+      <td>5</td>
+      <td>1915</td>
+      <td>1970</td>
+      <td>Gable</td>
+      <td>CompShg</td>
+      <td>Wd Sdng</td>
+      <td>Wd Shng</td>
+      <td>None</td>
+      <td>0.0</td>
+      <td>TA</td>
+      <td>TA</td>
+      <td>BrkTil</td>
+      <td>TA</td>
+      <td>Gd</td>
+      <td>No</td>
+      <td>ALQ</td>
+      <td>216</td>
+      <td>Unf</td>
+      <td>0</td>
+      <td>540</td>
+      <td>756</td>
+      <td>GasA</td>
+      <td>Gd</td>
+      <td>Y</td>
+      <td>SBrkr</td>
+      <td>961</td>
+      <td>756</td>
+      <td>0</td>
+      <td>1717</td>
+      <td>1</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>3</td>
+      <td>1</td>
+      <td>Gd</td>
+      <td>7</td>
+      <td>Typ</td>
+      <td>1</td>
+      <td>Gd</td>
+      <td>Detchd</td>
+      <td>1998.0</td>
+      <td>Unf</td>
+      <td>3</td>
+      <td>642</td>
+      <td>TA</td>
+      <td>TA</td>
+      <td>Y</td>
+      <td>0</td>
+      <td>35</td>
+      <td>272</td>
+      <td>0</td>
+      <td>0</td>
       <td>0</td>
       <td>NaN</td>
       <td>NaN</td>
@@ -196,7 +497,67 @@ data.head()
       <td>IR1</td>
       <td>Lvl</td>
       <td>AllPub</td>
-      <td>...</td>
+      <td>FR2</td>
+      <td>Gtl</td>
+      <td>NoRidge</td>
+      <td>Norm</td>
+      <td>Norm</td>
+      <td>1Fam</td>
+      <td>2Story</td>
+      <td>8</td>
+      <td>5</td>
+      <td>2000</td>
+      <td>2000</td>
+      <td>Gable</td>
+      <td>CompShg</td>
+      <td>VinylSd</td>
+      <td>VinylSd</td>
+      <td>BrkFace</td>
+      <td>350.0</td>
+      <td>Gd</td>
+      <td>TA</td>
+      <td>PConc</td>
+      <td>Gd</td>
+      <td>TA</td>
+      <td>Av</td>
+      <td>GLQ</td>
+      <td>655</td>
+      <td>Unf</td>
+      <td>0</td>
+      <td>490</td>
+      <td>1145</td>
+      <td>GasA</td>
+      <td>Ex</td>
+      <td>Y</td>
+      <td>SBrkr</td>
+      <td>1145</td>
+      <td>1053</td>
+      <td>0</td>
+      <td>2198</td>
+      <td>1</td>
+      <td>0</td>
+      <td>2</td>
+      <td>1</td>
+      <td>4</td>
+      <td>1</td>
+      <td>Gd</td>
+      <td>9</td>
+      <td>Typ</td>
+      <td>1</td>
+      <td>TA</td>
+      <td>Attchd</td>
+      <td>2000.0</td>
+      <td>RFn</td>
+      <td>3</td>
+      <td>836</td>
+      <td>TA</td>
+      <td>TA</td>
+      <td>Y</td>
+      <td>192</td>
+      <td>84</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
       <td>0</td>
       <td>NaN</td>
       <td>NaN</td>
@@ -210,10 +571,9 @@ data.head()
     </tr>
   </tbody>
 </table>
-<p>5 rows × 81 columns</p>
 </div>
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;由于特征过多，上述代码的展示结果存在一些缺陷，有部分特征被省略掉了，但通过和描述文件结合，可以大概知道特征存在数值和类别两种不同形式的数据，可以说这个不完整的表格是对描述文件的一个具体展示。<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;上表将所有的特征列都展示了出来，通过和描述文件结合，可以大概知道特征存在数值和类别两种不同形式的数据。<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;但仅有这些明显是不够的，在远距离观察之后，让我们走近一点，细细品一品这些有趣的数据。在接近它之前，还有一点点额外的工作需要做。我们知道在用`pandas`导入数据的时候，`DataFrame`会自动为我们创建`index`,而通过对数据的遥望，我们发现数据集中有一个叫`Id`的特征列是按照有序递增的方式排列的，这个特征列在描述文件中并没有提及，由此我们可以相信这是一个与数据集分布无关的列，只是每个实例的唯一标志——当然，得出这个结论其实不需要这么复杂的分析，因为它是显而易见的。因此，我们可以放弃自动生成的`index`而使用`Id`作为新的`index`。
 ```python
 data = data.set_index(['Id'])
@@ -362,8 +722,9 @@ x_train.info()
     memory usage: 911.2+ KB
 ## 数据分类
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;全局的审视已经告一段落了，是时候关注一些局部的细节了。正如前文已经提到的，特征一般分为两类，而现在就是要对两类数据分开讨论了。<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在这里，我们将会分别讨论数值型和类别型特征，包括数据分布，数值特征、数量关系等
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在这里，我们将会分别讨论数值型和类别型特征，包括数据分布，数值特征、数量关系等。
 ### 数值型数据
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在之前的分析中，我们已经其实已经对数值型的数据有一个大概的了解了，现在我们需要进行具体的数值分析。数值型的数据有很多的指标可以进行分析，通过平均数、中位数、分位数、总数、标准差等可以得到不少有用的信息。而这些指标可以使用`describe`方法直接求的，下面便是计算之后的结果：
 ```python
 x_train.describe()
 ```
@@ -395,7 +756,22 @@ x_train.describe()
       <th>MasVnrArea</th>
       <th>BsmtFinSF1</th>
       <th>BsmtFinSF2</th>
-      <th>...</th>
+      <th>BsmtUnfSF</th>
+      <th>TotalBsmtSF</th>
+      <th>1stFlrSF</th>
+      <th>2ndFlrSF</th>
+      <th>LowQualFinSF</th>
+      <th>GrLivArea</th>
+      <th>BsmtFullBath</th>
+      <th>BsmtHalfBath</th>
+      <th>FullBath</th>
+      <th>HalfBath</th>
+      <th>BedroomAbvGr</th>
+      <th>KitchenAbvGr</th>
+      <th>TotRmsAbvGrd</th>
+      <th>Fireplaces</th>
+      <th>GarageYrBlt</th>
+      <th>GarageCars</th>
       <th>GarageArea</th>
       <th>WoodDeckSF</th>
       <th>OpenPorchSF</th>
@@ -421,7 +797,22 @@ x_train.describe()
       <td>1450.000000</td>
       <td>1458.000000</td>
       <td>1458.000000</td>
-      <td>...</td>
+      <td>1458.000000</td>
+      <td>1458.000000</td>
+      <td>1458.000000</td>
+      <td>1458.000000</td>
+      <td>1458.000000</td>
+      <td>1458.000000</td>
+      <td>1458.000000</td>
+      <td>1458.000000</td>
+      <td>1458.000000</td>
+      <td>1458.00000</td>
+      <td>1458.000000</td>
+      <td>1458.000000</td>
+      <td>1458.000000</td>
+      <td>1458.000000</td>
+      <td>1377.000000</td>
+      <td>1458.000000</td>
       <td>1458.000000</td>
       <td>1458.000000</td>
       <td>1458.000000</td>
@@ -445,7 +836,22 @@ x_train.describe()
       <td>102.753793</td>
       <td>438.827160</td>
       <td>46.613169</td>
-      <td>...</td>
+      <td>567.096708</td>
+      <td>1052.537037</td>
+      <td>1158.851166</td>
+      <td>345.762003</td>
+      <td>5.852538</td>
+      <td>1510.465706</td>
+      <td>0.423868</td>
+      <td>0.057613</td>
+      <td>1.563786</td>
+      <td>0.38203</td>
+      <td>2.866255</td>
+      <td>1.046639</td>
+      <td>6.510974</td>
+      <td>0.611111</td>
+      <td>1978.464052</td>
+      <td>1.766118</td>
       <td>472.050069</td>
       <td>94.084362</td>
       <td>46.245542</td>
@@ -469,7 +875,22 @@ x_train.describe()
       <td>179.442156</td>
       <td>432.969094</td>
       <td>161.420729</td>
-      <td>...</td>
+      <td>442.087187</td>
+      <td>414.982320</td>
+      <td>372.039498</td>
+      <td>435.423924</td>
+      <td>48.655960</td>
+      <td>507.878508</td>
+      <td>0.517404</td>
+      <td>0.238907</td>
+      <td>0.549891</td>
+      <td>0.50271</td>
+      <td>0.816323</td>
+      <td>0.220483</td>
+      <td>1.615880</td>
+      <td>0.641988</td>
+      <td>24.682879</td>
+      <td>0.747104</td>
       <td>212.239248</td>
       <td>125.350021</td>
       <td>65.312932</td>
@@ -493,7 +914,22 @@ x_train.describe()
       <td>0.000000</td>
       <td>0.000000</td>
       <td>0.000000</td>
-      <td>...</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>334.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>334.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.00000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>2.000000</td>
+      <td>0.000000</td>
+      <td>1900.000000</td>
+      <td>0.000000</td>
       <td>0.000000</td>
       <td>0.000000</td>
       <td>0.000000</td>
@@ -517,7 +953,22 @@ x_train.describe()
       <td>0.000000</td>
       <td>0.000000</td>
       <td>0.000000</td>
-      <td>...</td>
+      <td>223.000000</td>
+      <td>795.250000</td>
+      <td>882.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>1128.500000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>1.000000</td>
+      <td>0.00000</td>
+      <td>2.000000</td>
+      <td>1.000000</td>
+      <td>5.000000</td>
+      <td>0.000000</td>
+      <td>1961.000000</td>
+      <td>1.000000</td>
       <td>331.500000</td>
       <td>0.000000</td>
       <td>0.000000</td>
@@ -541,7 +992,22 @@ x_train.describe()
       <td>0.000000</td>
       <td>382.000000</td>
       <td>0.000000</td>
-      <td>...</td>
+      <td>477.500000</td>
+      <td>991.000000</td>
+      <td>1086.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>1461.500000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>2.000000</td>
+      <td>0.00000</td>
+      <td>3.000000</td>
+      <td>1.000000</td>
+      <td>6.000000</td>
+      <td>1.000000</td>
+      <td>1980.000000</td>
+      <td>2.000000</td>
       <td>479.500000</td>
       <td>0.000000</td>
       <td>24.500000</td>
@@ -565,7 +1031,22 @@ x_train.describe()
       <td>164.750000</td>
       <td>711.000000</td>
       <td>0.000000</td>
-      <td>...</td>
+      <td>808.000000</td>
+      <td>1296.750000</td>
+      <td>1390.750000</td>
+      <td>728.000000</td>
+      <td>0.000000</td>
+      <td>1776.000000</td>
+      <td>1.000000</td>
+      <td>0.000000</td>
+      <td>2.000000</td>
+      <td>1.00000</td>
+      <td>3.000000</td>
+      <td>1.000000</td>
+      <td>7.000000</td>
+      <td>1.000000</td>
+      <td>2002.000000</td>
+      <td>2.000000</td>
       <td>576.000000</td>
       <td>168.000000</td>
       <td>68.000000</td>
@@ -589,7 +1070,22 @@ x_train.describe()
       <td>1600.000000</td>
       <td>2188.000000</td>
       <td>1474.000000</td>
-      <td>...</td>
+      <td>2336.000000</td>
+      <td>3206.000000</td>
+      <td>3228.000000</td>
+      <td>2065.000000</td>
+      <td>572.000000</td>
+      <td>4476.000000</td>
+      <td>3.000000</td>
+      <td>2.000000</td>
+      <td>3.000000</td>
+      <td>2.00000</td>
+      <td>8.000000</td>
+      <td>3.000000</td>
+      <td>14.000000</td>
+      <td>3.000000</td>
+      <td>2010.000000</td>
+      <td>4.000000</td>
       <td>1390.000000</td>
       <td>857.000000</td>
       <td>547.000000</td>
@@ -603,8 +1099,16 @@ x_train.describe()
     </tr>
   </tbody>
 </table>
-<p>8 rows × 36 columns</p>
 </div>
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;通过**count**行可以比上面的全局更直观地看到哪些数据存在缺失，哪些没有；**mean**可以知道相应特征的平均值；**std**是指的标准差；**min**和**max**分别表示最小值和最大值；剩下对应的行是相对应的分位数。
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;通过最大最小值可以得到数据的分布区间，比如`LotArea`的最大值为   *215245*而最小值为*1300*而`Fireplaces`最大值为*3*最小值为*0*。不同的区间会导致模型的性能不佳，所以需要进行标准化。标准化的方法有很多，有**Min-Max标准化**[^1]和**Z-score标准化**，而这里用的是`StandardScaler`提供的**Z-score标准化**:
+$$z = \frac{x - u}{s}$$
+* z: 标准化后的值
+* x: 原始值
+* u: 对应特征列的平均值
+* s: 对应特征列的标准差
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;上述的的标准化已经基本使用到了除了分位数的所有指标，那么分位数又有什么用呢？先让我们画出箱线图吧。
 ```python
 fig = plt.figure(figsize=(24, 24))
 count = 1
@@ -1774,13 +2278,6 @@ pred_df = pd.DataFrame({'Id':index,
 pred_df.to_csv('./house_price/prediction.csv', index='')
 ```
 
-
-```python
-
-```
-
-
-```python
-
-```
+****
+[^1]: $$z = \frac{m - min}{max - min}$$
 
