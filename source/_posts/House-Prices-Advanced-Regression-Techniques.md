@@ -1108,6 +1108,7 @@ $$z = \frac{x - u}{s}$$
 * x: 原始值
 * u: 对应特征列的平均值
 * s: 对应特征列的标准差
+
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;上述的的标准化已经基本使用到了除了分位数的所有指标，那么分位数又有什么用呢？先让我们画出箱线图吧。
 ```python
 fig = plt.figure(figsize=(24, 24))
@@ -1119,7 +1120,24 @@ for x in x_train[x_train.columns[x_train.dtypes != 'object']]:
     count += 1
 ```
 ![png](House-Prices-Advanced-Regression-Techniques/Predict%20House%20Prices_12_1.png)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;上面的图就是是所有数值型特征的箱线图，我想你也看到了这些图基本上都具有一箱三线多点的特征。提到箱线图就不得不说一下它的依据了，它是根据计算**IQR(四分位距)**来绘制的，这里先列出它的计算公式：
+$$IQR = Q_3 -Q_1$$
+* $Q_3$表示上四分位数即$\frac{3}{4}$分位数
+* $Q_1$表示下四分位数即$\frac{1}{4}$分位数
 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;箱线图中的矩形表示的就是**IQR**，矩形的上下边界分别就是指的$Q_3$和$Q_1$，而矩形中间的一条线是**中位数**；上下的线段分别叫做上极限和下极限，而超出这个界限的那些点就被视为异常点，下面是上下极限的计算方法：
+* 上极限$upper = Q_3+ 1.5IQR$
+* 下极限$down = Q_1 - 1.5IQR$
+下面是我在网上找的一张关于箱线图的详解
+![png](House-Prices-Advanced-Regression-Techniques/箱线图.jpeg)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;箱线图可以比较直观的观察数据的分布，知道其是否出现异常值，有多少异常值，数据是否偏斜等。通过上面的图，可以发现几乎每个特征都存在异常值，还有部分数据存在严重的偏斜。对于异常值，我们有多种处理方式：
+1. 删除异常值
+2. 用平均数或中位数修正
+3. 采用处理缺失值的方法
+4. 取对数减少极值影响
+5. 压缩极值到上下极限
+6. 不处理
+可以根据不同情况选取上述方式。而偏斜的数据我们之前其实已经做过处理，便是使用自然对数。
 ```python
 x_train.hist(figsize=(24, 24))
 ```
@@ -2278,6 +2296,6 @@ pred_df = pd.DataFrame({'Id':index,
 pred_df.to_csv('./house_price/prediction.csv', index='')
 ```
 
-****
-[^1]: $$z = \frac{m - min}{max - min}$$
+
+[^1]: $z = \frac{m - min}{max - min}$
 
