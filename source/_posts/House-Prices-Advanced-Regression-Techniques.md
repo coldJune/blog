@@ -1144,25 +1144,15 @@ $$IQR = Q_3 -Q_1$$
 x_train.hist(figsize=(24, 24))
 ```
 ![png](House-Prices-Advanced-Regression-Techniques/Predict%20House%20Prices_13_1.png)
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;通过上图我们可以看到部分数据具有明显的正态分布，比如`OverallQual`、`TotRmsAbvGrd`，再结合箱线图发现他们的中位数缺失是靠近数据的中点的，这样的数据除了标准化就不用进行太多处理；但是像`BsmtUnfSF`和`2ndFlrSF`等就存在数据偏斜的问题，这部分数据除了需要进行归一化，可能还需要进行取对数平滑等操作来降低其可能带来的误差；除了上述的分布以外，我们还可以看到诸如`YrSold`的均匀分布和`3SsnPorch`这样的比较极端的分布，对于均匀分布我们不需要做太多处理，而对于那些比较极端分布可以根据数据的数量关系和对目标的影响来决定是否保留或做其它处理。
-
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;通过上图我们可以看到部分数据具有明显的正态分布，比如`OverallQual`、`TotRmsAbvGrd`，再结合箱线图发现他们的中位数缺失是靠近数据的中点的，这样的数据除了标准化就不用进行太多处理；但是像`BsmtUnfSF`和`2ndFlrSF`等就存在数据偏斜的问题，这部分数据除了需要进行归一化，可能还需要进行取对数平滑等操作来降低其可能带来的误差；除了上述的分布以外，我们还可以看到诸如`YrSold`的均匀分布和`3SsnPorch`这样的比较极端的分布，对于均匀分布我们不需要做太多处理，而对于那些比较极端分布可以根据数据的数量关系和对目标的影响来决定是否保留或做其它处理。<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;之前我们使用散点图观察了数值型特征和目标之间的相关性并且排除了两个异常点，现在我们需要了解的是特征之间的相关性。关于相关性我们依然可以沿用散点图来进行观测，但是这里一共有**36**个特征，如果要绘制出两两之间的散点图，那么一共需要绘制**1260**张图，这是非常不利于观察和总结的。因此我们这里摒弃了这种方式，而是使用`seaborn`的`heatmap`方法来绘制出相关性矩阵的热力图。
 ```python
 plt.figure(figsize=(24, 24))
 sbn.heatmap(x_train.corr(), linewidths=0.5, annot=True)
 ```
-
-
-
-
-    <matplotlib.axes._subplots.AxesSubplot at 0x11b0dd898>
-
-
-
-
 ![png](House-Prices-Advanced-Regression-Techniques/Predict%20House%20Prices_15_1.png)
 
-
-通过相关性矩阵可以看出`YearBuilt`和`GarageYrBlt`、`TotRmsAbvGrd`和`GrLiveArea`、`1stFlrSF`和`TotalBsmtSF`、`GarageCars`和`GarageArea`具有很高的相关性
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;通过上图我们可以看到有部分特征具有很高的相关性，比如`YearBuilt`和`GarageYrBlt``TotRmsAbvGrd`和`GrLiveArea`等。对于相关性高的数据，我们可以采用整合数据为新的特征列、留一去一等方式，这需要根据实际情况来决定。但是相关性矩阵有一个缺点就是其只能表示线性相关，而不能体现其它相关性，如多项式、指数等，但是往往线性相关就已经能能够说明问题。对于诸如多项式之类的可以在训练中使用核技巧(*如果必要*)来弥补这部分缺陷。
 
 ### 非数值型数据
 数值型数据无论是填充缺失值还是做规整化都是比较容易的，但非数值型数据的分析就稍显复杂了，首先是要确定非数值型数据的取值，然后是明晰每个取值的分布情况，即数量关系
