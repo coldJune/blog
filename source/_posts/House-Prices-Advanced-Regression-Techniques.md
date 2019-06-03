@@ -1181,9 +1181,15 @@ plt.subplots_adjust(hspace=0.9, bottom=0.1)
 ![png](House-Prices-Advanced-Regression-Techniques/Predict%20House%20Prices_18_0.png)
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;柱状图以每个特征的取值为横坐标，相应取值的数量为纵坐标，可以比较清晰地看到数据的数量关系。其中`Utilities`中共有1457条取值为`AllPub`的数据，1条取值为`NoSeWa`的数据，对训练并不会有什么帮助，因此可以删去这个特征。而其它的特征虽然也存在明显的偏斜，但是为了保证训练出来的模型不至于过拟合，还是应该适当保留这些特征而不应为了使数据完美而删去这部分特征。
 ## 处理数据
-在这个阶段，结合以上对数据的观察与分析，着手对数据的预处理，包括填充空值，处理类别数据，筛选特征等
-
-
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;对于数据的分析已经告一段落，接下来需要做的是结合之前的分析确定数据的处理方式了。这里使用创建**estimator**类的方式来统筹数据处理，让我们依此来看下面类的作用：
+1. `FeaturePreProcessing`
+这个类用于对所有的特征进行预处理，主要是转换数据的类别，因为有些数据虽然是数值类型，但是其表示的意义是一种类别关系，如果把其当成数字特征就隐含了大小关系，而这种特征是没有这种关系的，就会使模型进度下降，所以需要将这类数据的类型从`float`或`int`转换为`str`。同时，这里添加了使用`TotalBsmtSF`、`1stFlrSF`和`2ndFlrSF`添加了一个`TotalSF`组合特征，这是因为通过描述文件提供的信息可以得知这三个特征包含了一个的所有楼层建面信息。
+2. `FeatureSelect`
+`FeatureSelect`类的作用比较简单，其目的只是单纯地为了分离数值型特征和非数值型特征以便后面分别进行处理。
+3. `NumericalImputer`
+对于数值型的数据，在之前进行处理的时候一开始是直接使用`sklearn`的`SimpleImputer`进行处理的，但后来比对描述文件，发现对空值不能这么一概而论，所以增加了这个类用于处理特定的数值特征空值(*用0填充*)
+4. `StringImputer`
+犹如分析时一样，处理完了数值型的特征便是处理非数值型的了。非数值型的特征缺失值有两种处理方式，第一种是根据描述文件表述的意思将`NA`替换为`None`，第二种是根据频率最高的填充。
 ```python
 from sklearn.base import BaseEstimator, TransformerMixin
 from sklearn.model_selection import learning_curve
@@ -1223,7 +1229,7 @@ class NumericalImputer(BaseEstimator, TransformerMixin):
         for attribute in self.attributes:
             X[attribute].fillna(0.0, inplace=True)
         # 添加总面积特征
-        X['TotalSF'] = X['TotalBsmtSF'] + X['1stFlrSF'] + X['2ndFlrSF']
+        # X['TotalSF'] = X['TotalBsmtSF'] + X['1stFlrSF'] + X['2ndFlrSF']
         return X
 
 class StringImputer(BaseEstimator, TransformerMixin):
@@ -1429,7 +1435,6 @@ def plot_learning_curve(model, X, y):
     plt.ylabel('acc', fontsize=14)
     plt.legend(loc='lower right')
 ```
-
 
 ```python
 from sklearn.pipeline import Pipeline
