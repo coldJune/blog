@@ -1435,7 +1435,12 @@ def plot_learning_curve(model, X, y):
     plt.ylabel('acc', fontsize=14)
     plt.legend(loc='lower right')
 ```
-
+5. `DropFeature`
+在进行数据分析的时候，我们有提到特征删除的情况，这个类就是为了处理这种情况，将筛选出需要删除的特征列作为它的处理对象，最后返回去除对应特征的特征
+6. `RemoveOutlier`
+正如整个代码所呈现的，该类中存在大量被注释的代码，这些就是前文所提到的删除异常值的尝试，但由于其不理想的效果，最后替换为根据**IQR**来处理异常值，即将界限外的值统一压缩到界限上。
+7. `plot_learning_curve`
+最后的是一个公用方法，其采用的是`sklearn.model_selection`的`learning_curve`方法计算出测试分数和训练分数，并根据这两个值画出对应的学习曲线，用这个曲线可以直观地评估模型的优劣，以便对模型做进一步分析。
 ```python
 from sklearn.pipeline import Pipeline
 from sklearn.pipeline import FeatureUnion
