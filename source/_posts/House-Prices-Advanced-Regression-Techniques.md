@@ -1181,7 +1181,7 @@ plt.subplots_adjust(hspace=0.9, bottom=0.1)
 ![png](House-Prices-Advanced-Regression-Techniques/Predict%20House%20Prices_18_0.png)
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;柱状图以每个特征的取值为横坐标，相应取值的数量为纵坐标，可以比较清晰地看到数据的数量关系。其中`Utilities`中共有1457条取值为`AllPub`的数据，1条取值为`NoSeWa`的数据，对训练并不会有什么帮助，因此可以删去这个特征。而其它的特征虽然也存在明显的偏斜，但是为了保证训练出来的模型不至于过拟合，还是应该适当保留这些特征而不应为了使数据完美而删去这部分特征。
 ## 处理数据
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;对于数据的分析已经告一段落，接下来需要做的是结合之前的分析确定数据的处理方式了。这里使用创建**estimator**类的方式来统筹数据处理，让我们依此来看下面类的作用：
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;对于数据的分析已经告一段落，接下来需要做的是结合之前的分析确定数据的处理方式了。这里使用创建**Transformers**类的方式来统筹数据处理，让我们依此来看下面类的作用：
 1. `FeaturePreProcessing`
 这个类用于对所有的特征进行预处理，主要是转换数据的类别，因为有些数据虽然是数值类型，但是其表示的意义是一种类别关系，如果把其当成数字特征就隐含了大小关系，而这种特征是没有这种关系的，就会使模型进度下降，所以需要将这类数据的类型从`float`或`int`转换为`str`。同时，这里添加了使用`TotalBsmtSF`、`1stFlrSF`和`2ndFlrSF`添加了一个`TotalSF`组合特征，这是因为通过描述文件提供的信息可以得知这三个特征包含了一个的所有楼层建面信息。
 2. `FeatureSelect`
@@ -1441,6 +1441,8 @@ def plot_learning_curve(model, X, y):
 正如整个代码所呈现的，该类中存在大量被注释的代码，这些就是前文所提到的删除异常值的尝试，但由于其不理想的效果，最后替换为根据**IQR**来处理异常值，即将界限外的值统一压缩到界限上。
 7. `plot_learning_curve`
 最后的是一个公用方法，其采用的是`sklearn.model_selection`的`learning_curve`方法计算出测试分数和训练分数，并根据这两个值画出对应的学习曲线，用这个曲线可以直观地评估模型的优劣，以便对模型做进一步分析。
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;之前提到数据的处理是通过创建相应的**Transformers**来完成的，而为什么需要这么做却没有进行说明。**Transformers**的作用主要是对数据集进行处理和转换，具体的可以查看*[sklearn](https://scikit-learn.org/stable/modules/generated/sklearn.base.TransformerMixin.html#sklearn.base.TransformerMixin)*的官方文档。**Transformers**可以统一训练集、测试集乃至最后的预测数据处理方式，而不用单独对每一个数据集建立重复的处理代码，这显著地提高了代码的复用性；同时**Transformers**可以与`Pipeline`有效结合在一起，将整个数据处理简化成一个管道顺序进行，从而使数据处理更加简洁易懂。
 ```python
 from sklearn.pipeline import Pipeline
 from sklearn.pipeline import FeatureUnion
@@ -1476,6 +1478,13 @@ full_pipeline = Pipeline([
 
 x_train = full_pipeline.fit_transform(x_train)
 ```
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;上面的代码便是使用`Pipeline`对不同特征进行不同的处理，其中我们创建的自不必多说，我们需要重点解释的是`sklearn.preprocessing`中导入的`StandardScaler`和`OneHotEncoder`以及`sklearn.impute`的`SimpleImputer`。
+1. `StandardScaler`
+`StandardScaler`是一个用于标准化的**Transformer**，其使用的是我们前面提到的**Z-score标准化**
+2. `OneHotEncoder`
+在讨论分数值型特征的时候我们只看了数据的分布情况，而没有谈到对数据的处理方式。其实对于非数值型的特征一般分为两类，一种是将有明显大小关系的的特征转化为数值类特征，而另一种就是`OneHotEncoder`做的——将特征转化为**OneHot**向量。**OneHot**向量可以摒弃数值类数据的相关性，而只是单纯地作为不相关的类别进行使用。
+3. `SimpleImputer`
+和我们自己创建的`StringImputer`功能类似，只不过其是为了填充剩下(除`NumericalImputer`处理之外的)的数值类型特征，这里使用中位数`median`作为填充策略。
 
 # 模型选择
 这里将尝试数个模型，比较它们的性能，来选择最优的模型
