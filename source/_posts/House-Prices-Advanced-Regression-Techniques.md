@@ -1490,29 +1490,129 @@ x_train = full_pipeline.fit_transform(x_train)
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;到目前为止我们已经花了大量的时间去分析处理数据，希望这些工作没有让你忘记我们一开始的目的——训练模型，之前所有的特征工程都是为了在最后能得到一个最优化模型，让我们能够使用这个模型预测未知的数据集。下面我将我进行过尝试的模型全部罗列了出来，让我们来一一地解读它们吧。
 
 ## 随机梯度下降
-
-
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在使用随机梯度下降算法之前，我最先训练的是基于最小二乘法的`LinearRegression`，但是其效果实在是差强人意，而**sklearn**提供的`LinearRegression`是基于最简单的最小二乘——`scipy.linalg.lstsq`——实现的，没有什么可以调节的参数来使模型具有更好的性能，因此我便想到使用`SGDRegressor`来替换。
 ```python
 from sklearn.linear_model import SGDRegressor
 from sklearn.model_selection import cross_val_predict
 from sklearn.metrics import mean_squared_error
 from sklearn.preprocessing import PolynomialFeatures
 from sklearn.pipeline import Pipeline
+from sklearn.model_selection import RandomizedSearchCV
 # lr_pipline = Pipeline([
-# #     ('poly', PolynomialFeatures(degree=2)),
-#     ('lr', SGDRegressor(alpha=0.000, penalty='elasticnet'))
+#       ('poly', PolynomialFeatures(degree=2)),
+#     ('lr', SGDRegressor(alpha=0.001, eta0=0.01,penalty='None', learning_rate='constant'))
 # ])
 # lr_pipline.fit(x_train, y_train)
 # lr_pred = cross_val_predict(lr_pipline, x_train, y_train, 
 #                             verbose=True, n_jobs=-1, cv=3)
 # lr_mse = mean_squared_error(lr_pred, y_train)
 # np.sqrt(lr_mse)
+sgd = SGDRegressor(loss='huber', early_stopping=True, max_iter=5000)
+sgd_grid_params = {
+    'penalty': ['None', 'l1', 'l2', 'elasticnet'],
+    'alpha': np.linspace(1e-3, 0.01),
+    'l1_ratio': np.linspace(0, 1),
+    'learning_rate': ['constant', 'optimal', 'invscaling', 'adaptive'],
+    'eta0': np.linspace(1e-3, 1),
+    'power_t': np.linspace(1e-3, 1),
+    'epsilon': np.linspace(1e-3, 1)
+}
+sgd_rnd_cv = RandomizedSearchCV(sgd, param_distributions=sgd_grid_params, cv=5, 
+                                verbose=True, n_jobs=-1)
+sgd_rnd_cv.fit(x_train, y_train)
 ```
+    Fitting 5 folds for each of 10 candidates, totalling 50 fits
 
+    [Parallel(n_jobs=-1)]: Using backend LokyBackend with 4 concurrent workers.
+    [Parallel(n_jobs=-1)]: Done  42 tasks      | elapsed:  3.4min
+    [Parallel(n_jobs=-1)]: Done  50 out of  50 | elapsed:  4.2min finished
+
+    RandomizedSearchCV(cv=5, error_score='raise-deprecating',
+              estimator=SGDRegressor(alpha=0.0001, average=False, early_stopping=True, epsilon=0.1,
+           eta0=0.01, fit_intercept=True, l1_ratio=0.15,
+           learning_rate='invscaling', loss='huber', max_iter=5000,
+           n_iter=None, n_iter_no_change=5, penalty='l2', power_t=0.25,
+           random_state=None, shuffle=True, tol=None, validation_fraction=0.1,
+           verbose=0, warm_start=False),
+              fit_params=None, iid='warn', n_iter=10, n_jobs=-1,
+              param_distributions={'penalty': ['None', 'l1', 'l2', 'elasticnet'], 'alpha': array([0.001  , 0.00118, 0.00137, 0.00155, 0.00173, 0.00192, 0.0021 ,
+           0.00229, 0.00247, 0.00265, 0.00284, 0.00302, 0.0032 , 0.00339,
+           0.00357, 0.00376, 0.00394, 0.00412, 0.00431, 0.00449, 0.00467,
+           0.0048...51, 0.8369 ,
+           0.85729, 0.87767, 0.89806, 0.91845, 0.93884, 0.95922, 0.97961,
+           1.     ])},
+              pre_dispatch='2*n_jobs', random_state=None, refit=True,
+              return_train_score='warn', scoring=None, verbose=True)
 
 ```python
-# plot_learning_curve(lr_pipline, x_train, y_train)
+sgd_rnd_cv.best_score_
 ```
+    0.9010049934685431
+
+```python
+sgd_rnd_cv.best_estimator_
+```
+    SGDRegressor(alpha=0.0017346938775510204, average=False, early_stopping=True,
+           epsilon=0.6941836734693878, eta0=0.1437142857142857,
+           fit_intercept=True, l1_ratio=0.5510204081632653,
+           learning_rate='optimal', loss='huber', max_iter=5000, n_iter=None,
+           n_iter_no_change=5, penalty='l1', power_t=0.5922448979591837,
+           random_state=None, shuffle=True, tol=None, validation_fraction=0.1,
+           verbose=0, warm_start=False)
+
+```python
+sgd_pred = cross_val_predict(sgd_rnd_cv.best_estimator_, x_train, y_train, 
+                            verbose=True, n_jobs=-1, cv=3)
+sgd_mse = mean_squared_error(sgd_pred, y_train)
+np.sqrt(sgd_mse)
+```
+    [Parallel(n_jobs=-1)]: Using backend LokyBackend with 4 concurrent workers.
+    [Parallel(n_jobs=-1)]: Done   3 out of   3 | elapsed:   20.7s finished
+
+    0.12857487720273592
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`SGDRegressor`使用随机梯度下降来最小化损失函数，它拥有多种参数可供调节，具体可以参考[官方文档](https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.SGDRegressor.html#sklearn.linear_model.SGDRegressor)。在我直接使用`SGDRegressor`默认参数进行训练的时候，发现误差非常大，后来加了各种参数，使用`RandomizedSearchCV`来进行参数搜索之后依然没有降低这种误差；直到我增加`max_iter`这一参数，才使得学习曲线逼近并趋近于*0.9*，这让我意识到之前之所以会出现这种量级的误差可能是训练数据集过小，导致结果无法收敛，而在[文档](https://scikit-learn.org/stable/modules/sgd.html#regression)中也确实明确说明了随机梯度下降适用于实例数量大于$10^4$的数据集。
+
+```python
+plot_learning_curve(sgd_rnd_cv.best_estimator_, x_train, y_train)
+```
+    [learning_curve] Training set sizes: [ 131  426  721 1016 1312]
+
+    [Parallel(n_jobs=-1)]: Using backend LokyBackend with 4 concurrent workers.
+    [Parallel(n_jobs=-1)]: Done  50 out of  50 | elapsed:  3.2min finished
+
+![png](House-Prices-Advanced-Regression-Techniques/Predict%20House%20Prices_30_2.png)
+### 比对线性回归
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;之前提到`LinearRegression`是我尝试的第一个训练算法，但由于其不太好的表现效果被我弃置不顾，在我训练完`SGDRegressor`之后我又对`LinearRegression`进行了一些不同的尝试，比如这里将线性模型通过`PolynomialFeatures`将其变成一个二次型的多项式模型，这样的改变取得还算不错的成绩，只是其学习曲线反应出了它的明显缺陷，比如过拟合、验证结果波动等。这说明只是简单地使用多项式模型还是有不小的瑕疵的。
+```python
+from sklearn.linear_model import LinearRegression
+from sklearn.model_selection import cross_val_predict
+from sklearn.metrics import mean_squared_error
+from sklearn.preprocessing import PolynomialFeatures
+lr_pipline = Pipeline([
+    ('poly', PolynomialFeatures(degree=2)),
+    ('lr', LinearRegression())
+])
+lr_pipline.fit(x_train, y_train)
+lr_pred = cross_val_predict(lr_pipline, x_train, y_train, 
+                            verbose=True, n_jobs=-1, cv=3)
+lr_mse = mean_squared_error(lr_pred, y_train)
+np.sqrt(lr_mse)
+```
+    [Parallel(n_jobs=-1)]: Using backend LokyBackend with 4 concurrent workers.
+    [Parallel(n_jobs=-1)]: Done   3 out of   3 | elapsed:   52.8s finished
+
+    0.14167592407063873
+
+```python
+plot_learning_curve(lr_pipline, x_train, y_train)
+```
+    [learning_curve] Training set sizes: [ 131  426  721 1016 1312]
+
+    [Parallel(n_jobs=-1)]: Using backend LokyBackend with 4 concurrent workers.
+    [Parallel(n_jobs=-1)]: Done  50 out of  50 | elapsed: 12.8min finished
+![png](House-Prices-Advanced-Regression-Techniques/Predict%20House%20Prices_33_2.png)
+
 
 ## 岭回归
 
