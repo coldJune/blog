@@ -1490,7 +1490,7 @@ x_train = full_pipeline.fit_transform(x_train)
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;到目前为止我们已经花了大量的时间去分析处理数据，希望这些工作没有让你忘记我们一开始的目的——训练模型，之前所有的特征工程都是为了在最后能得到一个最优化模型，让我们能够使用这个模型预测未知的数据集。下面我将我进行过尝试的模型全部罗列了出来，让我们来一一地解读它们吧。
 
 ## 随机梯度下降
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在使用随机梯度下降算法之前，我最先训练的是基于最小二乘法的`LinearRegression`，但是其效果实在是差强人意，而**sklearn**提供的`LinearRegression`是基于最简单的最小二乘——`scipy.linalg.lstsq`——实现的，没有什么可以调节的参数来使模型具有更好的性能，因此我便想到使用`SGDRegressor`来替换。
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在使用随机梯度下降算法之前，我最先训练的是基于最小二乘法[^2]的`LinearRegression`，但是其效果实在是差强人意，而**sklearn**提供的`LinearRegression`是基于最简单的最小二乘——`scipy.linalg.lstsq`——实现的，没有什么可以调节的参数来使模型具有更好的性能，因此我便想到使用`SGDRegressor`来替换。
 ```python
 from sklearn.linear_model import SGDRegressor
 from sklearn.model_selection import cross_val_predict
@@ -1615,8 +1615,10 @@ plot_learning_curve(lr_pipline, x_train, y_train)
 
 
 ## 岭回归
-
-
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;既然说到最小二乘法，就不得不提一下它的变体了。最小二乘法通过最小化均方误差来最小化损失函数，而它的变体体现在使用不同的正则化方法。岭回归便是使用二范数[^3]来进行正则化(即**l2正则**)：
+$$\min_{w} || X w - y||_2^2 + \alpha ||w||_2^2$$
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;通过选取不同的$\alpha$来对系数做不同的限制$w$，当$\alpha$足够小时，会使得一些作用不大的系数变得非常小但又不会为0，这即减小了过拟合的风险又保证了模型的复杂性，不至于损失过多的特征。
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这里选用的是`sklearn.kernel_ridge`的`KernelRidge`，该种实现使用到了核技巧[^4]来使数据线性可分。由于前面的线性回归中使用多项式回归取得了一定的效果，所以这里选用了**二次的多项式核**。
 ```python
 from sklearn.kernel_ridge import KernelRidge
 
@@ -1626,37 +1628,18 @@ ridge_pred = cross_val_predict(ridge, x_train, y_train,
 ridge_mse = mean_squared_error(y_train, ridge_pred)
 np.sqrt(ridge_mse)
 ```
-
     [Parallel(n_jobs=-1)]: Using backend LokyBackend with 4 concurrent workers.
     [Parallel(n_jobs=-1)]: Done   3 out of   3 | elapsed:    1.5s finished
 
-
-
-
-
     0.11650866851364311
-
-
-
-
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;下面便是岭回归的学习曲线，我们可以发现其表现效果远好于上面的线性回归，就准确度而言也高于自己调试的随机梯度下降，但是也可以发现它的训练曲线和验证曲线相比梯度下降来说有一定间隙，可以判定其存在一定程度的过拟合。解决过拟合的方法有很多，比如增加数据量，降低模型复杂度等。
 ```python
 plot_learning_curve(ridge, x_train, y_train)
 ```
-
     [Parallel(n_jobs=-1)]: Using backend LokyBackend with 4 concurrent workers.
-
-
     [learning_curve] Training set sizes: [ 131  426  721 1016 1312]
-
-
     [Parallel(n_jobs=-1)]: Done  50 out of  50 | elapsed:    1.3s finished
-
-
-
 ![png](House-Prices-Advanced-Regression-Techniques/Predict%20House%20Prices_29_3.png)
-
-
-使用岭回归可以看到训练正确率有所下降，验证正确率有所上升，下面再试试`LASSO`回归
 
 ## LASSO回归
 
@@ -2397,4 +2380,6 @@ pred_df.to_csv('./house_price/prediction.csv', index='')
 
 
 [^1]: $z = \frac{m - min}{max - min}$
-
+[^2]: $\min_{w} || X w - y||_2^2$
+[^3]: 空间上两个向量矩阵的直线距离
+[^4]: 将低维空间的数据通过核函数映射到高维空间
