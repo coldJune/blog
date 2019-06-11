@@ -1642,7 +1642,9 @@ plot_learning_curve(ridge, x_train, y_train)
 ![png](House-Prices-Advanced-Regression-Techniques/Predict%20House%20Prices_29_3.png)
 
 ## LASSO回归
-
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;既然讨论了使用**l2正则**的*Ridge*，又怎么能忘了使用**l1**正则的*Lasso*呢。*Lasso和*Ridge*唯一不同的地方是它使用了一范数来代替而范数也就是使用绝对值来代替平方：
+$$\min_{w} { \frac{1}{2n_{\text{samples}}} ||X w - y||_2 ^ 2 + \alpha ||w||_1}$$
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**l1正则**在训练过程中会使得相关的系数择一保留，这使得最后的系数保留了大量的0而产生一个稀疏向量，这能有效地减少特征，降低纬度。虽然这能有效缓解过拟合的问题，但是也可能造成精度丧失，而使得模型的泛化能力不足的情况。
 
 ```python
 from sklearn.linear_model import Lasso
@@ -1652,37 +1654,20 @@ lasso_pred = cross_val_predict(lasso, x_train, y_train,
 lasso_mse = mean_squared_error(lasso_pred, y_train)
 np.sqrt(lasso_mse)
 ```
-
     [Parallel(n_jobs=-1)]: Using backend LokyBackend with 4 concurrent workers.
     [Parallel(n_jobs=-1)]: Done   3 out of   3 | elapsed:    0.2s finished
 
-
-
-
-
     0.1165640368257087
-
-
-
-
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我们已经对*Lasso*的原理做了一个简单的介绍，下面来看看它的效果如何。在上面的代码中我们只设置了`alpha`这个关键参数，这个参数起的作用和*Ridge*中一样，在此便不在多做赘述。*Lasso*和*Ridge*最后的结果似乎非常接近，但是就模型复杂度而言*Ridge*不仅保留了所有的系数，同时还使用了核技巧将模型转化为二次型多项式，而*Lasso*完全没有任何其它的操作，根据奥卡姆剃刀原理，如果就两者中选择似乎应该优先选择*Lasso*。
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我们再看看学习曲线，*Lasso*和*Ridge*的学习曲线表现出的准确度和上面的均方误差一样都很接近，但是也可以明显地看到*Lasso*训练和验证两条线更为靠近，这有理由让我们相信它已经优化了*Ridge*的过拟合问题。
 ```python
 plot_learning_curve(lasso, x_train, y_train)
 ```
-
     [Parallel(n_jobs=-1)]: Using backend LokyBackend with 4 concurrent workers.
-
-
     [learning_curve] Training set sizes: [ 131  426  721 1016 1312]
-
-
     [Parallel(n_jobs=-1)]: Done  50 out of  50 | elapsed:    2.5s finished
 
-
-
 ![png](House-Prices-Advanced-Regression-Techniques/Predict%20House%20Prices_33_3.png)
-
-
-可以看出`Lasso`的效果并没有岭回归好，可能是因为`Lasso`使用`l1`范数稀疏掉了过多的特征导致其泛化能力的下降
 
 ## Elastic Net
 
