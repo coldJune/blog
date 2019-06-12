@@ -1670,84 +1670,76 @@ plot_learning_curve(lasso, x_train, y_train)
 ![png](House-Prices-Advanced-Regression-Techniques/Predict%20House%20Prices_33_3.png)
 
 ## Elastic Net
-
-
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**l1**和**l2**我们都已经单独进行训练和分析，并且发现两种方式都能取得不错的效果，既然如此，何不将两种方式结合起来试试呢。**Elastic Net**就是将两者结合起来的产物，其公式如下：
+$$\min_{w} { \frac{1}{2n_{\text{samples}}} ||X w - y||_2 ^ 2 + \alpha \rho ||w||_1 + \frac{\alpha(1-\rho)}{2} ||w||_2 ^ 2}$$
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;其中$\rho$用于控制**l1**和**l2**的权衡，这样的方式使得训练过程中如果有多个相关性很高的系数会可能保留多个而不是像**Lasso**那样随机选取一个，同时也能拥有**Ridge**在应对数据旋转时的稳定性。
 ```python
 from sklearn.linear_model import ElasticNet
 from sklearn.metrics import mean_squared_error
 from sklearn.model_selection import cross_val_predict
-from sklearn.model_selection import RandomizedSearchCV
+from sklearn.model_selection import GridSearchCV
 
-# en = ElasticNet()
-# en_param = {
-#     'l1_ratio': np.linspace(0.3, 0.8),
-#     'alpha': np.linspace(0, 0.01)
-# }
-# en_grid_cv = RandomizedSearchCV(en, param_distributions=en_param, verbose=True, 
-#                                 cv=3, n_jobs=-1)
-# en_grid_cv.fit(x_train, y_train)
-en = ElasticNet(alpha=0.0012244897959183673, copy_X=True, fit_intercept=True,
-      l1_ratio=0.3, max_iter=1000, normalize=False, positive=False,
-      precompute=False, random_state=None, selection='cyclic', tol=0.0001,
-      warm_start=False)
-en.fit(x_train, y_train)
+en = ElasticNet(max_iter=5000, selection='random')
+en_param = {
+    'l1_ratio': np.linspace(0.01, 1, 11),
+    'alpha': np.linspace(0.0005, 0.1,11)
+}
+en_grid_cv = GridSearchCV(en, param_grid=en_param, verbose=True, 
+                                cv=5, n_jobs=-1)
+en_grid_cv.fit(x_train, y_train)
+# en = ElasticNet(alpha=0.0005, copy_X=True, fit_intercept=True,
+#       l1_ratio=0.3, max_iter=1000, normalize=False, positive=False,
+#       precompute=False, random_state=None, selection='cyclic', tol=0.0001,
+#       warm_start=False)
+# en.fit(x_train, y_train)
 ```
+    Fitting 5 folds for each of 121 candidates, totalling 605 fits
 
+    [Parallel(n_jobs=-1)]: Using backend LokyBackend with 4 concurrent workers.
+    [Parallel(n_jobs=-1)]: Done  42 tasks      | elapsed:   13.3s
+    [Parallel(n_jobs=-1)]: Done 500 tasks      | elapsed:   19.2s
+    [Parallel(n_jobs=-1)]: Done 605 out of 605 | elapsed:   19.9s finished
 
-
-
-    ElasticNet(alpha=0.0012244897959183673, copy_X=True, fit_intercept=True,
-          l1_ratio=0.3, max_iter=1000, normalize=False, positive=False,
-          precompute=False, random_state=None, selection='cyclic', tol=0.0001,
-          warm_start=False)
-
-
-
+    GridSearchCV(cv=5, error_score='raise-deprecating',
+           estimator=ElasticNet(alpha=1.0, copy_X=True, fit_intercept=True, l1_ratio=0.5,
+          max_iter=5000, normalize=False, positive=False, precompute=False,
+          random_state=None, selection='random', tol=0.0001, warm_start=False),
+           fit_params=None, iid='warn', n_jobs=-1,
+           param_grid={'l1_ratio': array([0.01 , 0.109, 0.208, 0.307, 0.406, 0.505, 0.604, 0.703, 0.802,
+           0.901, 1.   ]), 'alpha': array([0.0005 , 0.01045, 0.0204 , 0.03035, 0.0403 , 0.05025, 0.0602 ,
+           0.07015, 0.0801 , 0.09005, 0.1    ])},
+           pre_dispatch='2*n_jobs', refit=True, return_train_score='warn',
+           scoring=None, verbose=True)
 
 ```python
-# en_grid_cv.best_estimator_
+en = en_grid_cv.best_estimator_
+en_grid_cv.best_estimator_
 ```
-
+    ElasticNet(alpha=0.0005, copy_X=True, fit_intercept=True, l1_ratio=1.0,
+          max_iter=5000, normalize=False, positive=False, precompute=False,
+          random_state=None, selection='random', tol=0.0001, warm_start=False)
 
 ```python
 # en_grid_cv.best_score_
 ```
-
-
 ```python
 en_pred = cross_val_predict(en, x_train, y_train, 
                             verbose=True, n_jobs=-1, cv=3)
 mse = mean_squared_error(y_train, en_pred)
 np.sqrt(mse)
 ```
-
     [Parallel(n_jobs=-1)]: Using backend LokyBackend with 4 concurrent workers.
-    [Parallel(n_jobs=-1)]: Done   3 out of   3 | elapsed:    0.3s finished
+    [Parallel(n_jobs=-1)]: Done   3 out of   3 | elapsed:    0.1s finished
 
-
-
-
-
-    0.11718105973133436
-
-
-
-
+    0.11655822747866447
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;虽然上面说了**Elastic Net**的优点，但是在针对这个数据集的时候其最后得出的模型却与预期背道而驰。它最后选择的`l1_ration`也就是$\rho$为1，这也就意味着这个模型完全没有使用**l2**，而是只使用了**l1**，最后退化成了**Lasso**。从最后的均方误差和学习曲线也可以看出其和**Lasso**非常接近。
 ```python
 plot_learning_curve(en, x_train, y_train)
 ```
-
     [Parallel(n_jobs=-1)]: Using backend LokyBackend with 4 concurrent workers.
-
-
     [learning_curve] Training set sizes: [ 131  426  721 1016 1312]
-
-
-    [Parallel(n_jobs=-1)]: Done  50 out of  50 | elapsed:    2.9s finished
-
-
-
-![png](House-Prices-Advanced-Regression-Techniques/Predict%20House%20Prices_40_3.png)
+    [Parallel(n_jobs=-1)]: Done  50 out of  50 | elapsed:    2.8s finished
+![png](House-Prices-Advanced-Regression-Techniques/Predict%20House%20Prices_47_3.png)
 
 
 ### KernelPCA
