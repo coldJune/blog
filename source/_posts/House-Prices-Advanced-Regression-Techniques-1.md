@@ -1,5 +1,5 @@
 ---
-title: 'House-Prices-Advanced-Regression-Techniques'
+title: 'House-Prices-Advanced-Regression-Techniques-1'
 date: 2019-05-25 08:57:50
 categories: 机器学习
 copyright: true
@@ -47,7 +47,7 @@ data = pd.read_csv('./house_price/train.csv')
 #展示数据的前5行
 data.head()
 ```
-<div>
+<div style="overflow:scroll;">
 <style scoped>
     .dataframe tbody tr th:only-of-type {
         vertical-align: middle;
@@ -592,7 +592,7 @@ for x in data[data.columns[data.dtypes != 'object']]:
     count += 1
 plt.subplots_adjust(hspace=0.9, bottom=0.1, wspace=0.4)
 ```
-![png](House-Prices-Advanced-Regression-Techniques/Predict%20House%20Prices_5_0.png)
+![png](House-Prices-Advanced-Regression-Techniques-1/Predict%20House%20Prices_5_0.png)
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;通过这些图，可以看出一些特征和目标有比较明显的线性关系，例如`TotalBsmtSF`、`1stFlrSF`和`2ndFlrSF`等，在进行特征值处理的时候就可以在这些数据上做些文章。<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;当然，除了数据的相关性以外，还可以看出数据的一些其它情况，例如离群点。从下面的代码中可以看出我将大部分的离群点都做过处理，但是在这里我把它注释掉了。至于原因，当然是因为这么处理之后模型训练并不理想，这是因为在训练集中虽然可以删除所有的异常值，让数据看起来非常完美，让模型的训练准确率变得很高，但是这样做是没有意义的，因为这将导致在测试的时候效果变得很差，对于测试的数据，我们总不能也将这些异常值删去不做预测吧，就像在业务场景中我们不可能抛弃一部分看起来不太合理但实际存在的客户一样，所以后面采用了其它方式处理训练集和测试集的离群点.至于保留这部分注释，也是为了保留这个思考过程。<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在众多删除异常值的代码中，唯独有一行并没有删去。这一行删除的数据是`[0, 3]`这张图的那两个异常点，是参考[@Pedro Marcelino](https://www.kaggle.com/pmarcelino)的[kenel](https://www.kaggle.com/pmarcelino/comprehensive-data-exploration-with-python)后选择保留的。刚开始保留的时候我其实并不太清楚为何[@Pedro Marcelino](https://www.kaggle.com/pmarcelino)独独要删去这两个离群点而对其它的视而不见，后来我阅读关于这个特征的描述——*Above grade (ground) living area square feet*以及后面的相关性矩阵发现这个特征和大多数的面积特征都有关系(毕竟它表示地上生活面积)，并且在去掉这两个离群点之后重新画了图，看到其它面积的离群点也一起消失了。这无疑证明了[@Pedro Marcelino](https://www.kaggle.com/pmarcelino)这种处理方式的合理性。
@@ -624,12 +624,12 @@ data.drop(data[(data['GrLivArea'] > 4000) & (data['SalePrice']<300000)].index, i
 #查看售价分布
 sbn.distplot(data['SalePrice'])
 ```
-![png](House-Prices-Advanced-Regression-Techniques/Predict%20House%20Prices_7_1.png)
+![png](House-Prices-Advanced-Regression-Techniques-1/Predict%20House%20Prices_7_1.png)
 * 取对数
 ```python
 sbn.distplot(np.log1p(data['SalePrice']))
 ```
-![png](House-Prices-Advanced-Regression-Techniques/Predict%20House%20Prices_8_1.png)
+![png](House-Prices-Advanced-Regression-Techniques-1/Predict%20House%20Prices_8_1.png)
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;现在，我们对数据集已经有了一个大概的了解，包括特征值和目标值，并知道了需要对目标值做相应的处理(上面的取对数操作)，是时候将目标值取出来放在旁边了。
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;使用`DataFrame`提供的切片操作，将数据的特征和目标划分开并分别定义为`x_train`(特征)和`y_train`(目标)。在完成这个步骤之后，通过`info()`函数查看特征值的类型和数量关系，明确哪类特征有多少缺失值，方便后序处理。当我看见特征列中有部分数据存在大量缺失的时候，如`PoolQC`、`Fence`等，第一反应是直接删除这些数据，当然这种方式是欠考虑的；正如前文所述，在处理缺失值的时候我们应该考虑它是否代表该特征的部分特性以便做特殊处理。(后面未被删去的注释代码体现了这一思考过程)。
 ```python
@@ -728,7 +728,7 @@ x_train.info()
 ```python
 x_train.describe()
 ```
-<div>
+<div style="overflow:scroll;">
 <style scoped>
     .dataframe tbody tr th:only-of-type {
         vertical-align: middle;
@@ -1119,7 +1119,7 @@ for x in x_train[x_train.columns[x_train.dtypes != 'object']]:
     ax.set_title(x)
     count += 1
 ```
-![png](House-Prices-Advanced-Regression-Techniques/Predict%20House%20Prices_12_1.png)
+![png](House-Prices-Advanced-Regression-Techniques-1/Predict%20House%20Prices_12_1.png)
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;上面的图就是是所有数值型特征的箱线图，我想你也看到了这些图基本上都具有一箱三线多点的特征。提到箱线图就不得不说一下它的依据了，它是根据计算**IQR(四分位距)**来绘制的，这里先列出它的计算公式：
 $$IQR = Q_3 -Q_1$$
 * $Q_3$表示上四分位数即$\frac{3}{4}$分位数
@@ -1129,7 +1129,7 @@ $$IQR = Q_3 -Q_1$$
 * 上极限$upper = Q_3+ 1.5IQR$
 * 下极限$down = Q_1 - 1.5IQR$
 下面是我在网上找的一张关于箱线图的详解
-![png](House-Prices-Advanced-Regression-Techniques/箱线图.jpeg)
+![png](House-Prices-Advanced-Regression-Techniques-1/箱线图.jpeg)
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;箱线图可以比较直观的观察数据的分布，知道其是否出现异常值，有多少异常值，数据是否偏斜等。通过上面的图，可以发现几乎每个特征都存在异常值，还有部分数据存在严重的偏斜。对于异常值，我们有多种处理方式：
 1. 删除异常值
 2. 用平均数或中位数修正
@@ -1143,14 +1143,14 @@ $$IQR = Q_3 -Q_1$$
 ```python
 x_train.hist(figsize=(24, 24))
 ```
-![png](House-Prices-Advanced-Regression-Techniques/Predict%20House%20Prices_13_1.png)
+![png](House-Prices-Advanced-Regression-Techniques-1/Predict%20House%20Prices_13_1.png)
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;通过上图我们可以看到部分数据具有明显的正态分布，比如`OverallQual`、`TotRmsAbvGrd`，再结合箱线图发现他们的中位数缺失是靠近数据的中点的，这样的数据除了标准化就不用进行太多处理；但是像`BsmtUnfSF`和`2ndFlrSF`等就存在数据偏斜的问题，这部分数据除了需要进行归一化，可能还需要进行取对数平滑等操作来降低其可能带来的误差；除了上述的分布以外，我们还可以看到诸如`YrSold`的均匀分布和`3SsnPorch`这样的比较极端的分布，对于均匀分布我们不需要做太多处理，而对于那些比较极端分布可以根据数据的数量关系和对目标的影响来决定是否保留或做其它处理。<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;之前我们使用散点图观察了数值型特征和目标之间的相关性并且排除了两个异常点，现在我们需要了解的是特征之间的相关性。关于相关性我们依然可以沿用散点图来进行观测，但是这里一共有**36**个特征，如果要绘制出两两之间的散点图，那么一共需要绘制**1260**张图，这是非常不利于观察和总结的。因此我们这里摒弃了这种方式，而是使用`seaborn`的`heatmap`方法来绘制出相关性矩阵的热力图。
 ```python
 plt.figure(figsize=(24, 24))
 sbn.heatmap(x_train.corr(), linewidths=0.5, annot=True)
 ```
-![png](House-Prices-Advanced-Regression-Techniques/Predict%20House%20Prices_15_1.png)
+![png](House-Prices-Advanced-Regression-Techniques-1/Predict%20House%20Prices_15_1.png)
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;通过上图我们可以看到有部分特征具有很高的相关性，比如`YearBuilt`和`GarageYrBlt``TotRmsAbvGrd`和`GrLiveArea`等。对于相关性高的数据，我们可以采用整合数据为新的特征列、留一去一等方式，这需要根据实际情况来决定。但是相关性矩阵有一个缺点就是其只能表示线性相关，而不能体现其它相关性，如多项式、指数等，但是往往线性相关就已经能能够说明问题。对于诸如多项式之类的可以在训练中使用核技巧(*如果必要*)来弥补这部分缺陷。
 
@@ -1178,7 +1178,7 @@ for x in x_train.columns[x_train.dtypes == 'object']:
     
 plt.subplots_adjust(hspace=0.9, bottom=0.1)
 ```
-![png](House-Prices-Advanced-Regression-Techniques/Predict%20House%20Prices_18_0.png)
+![png](House-Prices-Advanced-Regression-Techniques-1/Predict%20House%20Prices_18_0.png)
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;柱状图以每个特征的取值为横坐标，相应取值的数量为纵坐标，可以比较清晰地看到数据的数量关系。其中`Utilities`中共有1457条取值为`AllPub`的数据，1条取值为`NoSeWa`的数据，对训练并不会有什么帮助，因此可以删去这个特征。而其它的特征虽然也存在明显的偏斜，但是为了保证训练出来的模型不至于过拟合，还是应该适当保留这些特征而不应为了使数据完美而删去这部分特征。
 ## 处理数据
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;对于数据的分析已经告一段落，接下来需要做的是结合之前的分析确定数据的处理方式了。这里使用创建**Transformers**类的方式来统筹数据处理，让我们依此来看下面类的作用：
@@ -1581,7 +1581,7 @@ plot_learning_curve(sgd_rnd_cv.best_estimator_, x_train, y_train)
     [Parallel(n_jobs=-1)]: Using backend LokyBackend with 4 concurrent workers.
     [Parallel(n_jobs=-1)]: Done  50 out of  50 | elapsed:  3.2min finished
 
-![png](House-Prices-Advanced-Regression-Techniques/Predict%20House%20Prices_30_2.png)
+![png](House-Prices-Advanced-Regression-Techniques-1/Predict%20House%20Prices_30_2.png)
 ### 比对线性回归
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;之前提到`LinearRegression`是我尝试的第一个训练算法，但由于其不太好的表现效果被我弃置不顾，在我训练完`SGDRegressor`之后我又对`LinearRegression`进行了一些不同的尝试，比如这里将线性模型通过`PolynomialFeatures`将其变成一个二次型的多项式模型，这样的改变取得还算不错的成绩，只是其学习曲线反应出了它的明显缺陷，比如过拟合、验证结果波动等。这说明只是简单地使用多项式模型还是有不小的瑕疵的。
 ```python
@@ -1611,7 +1611,7 @@ plot_learning_curve(lr_pipline, x_train, y_train)
 
     [Parallel(n_jobs=-1)]: Using backend LokyBackend with 4 concurrent workers.
     [Parallel(n_jobs=-1)]: Done  50 out of  50 | elapsed: 12.8min finished
-![png](House-Prices-Advanced-Regression-Techniques/Predict%20House%20Prices_33_2.png)
+![png](House-Prices-Advanced-Regression-Techniques-1/Predict%20House%20Prices_33_2.png)
 
 
 ## 岭回归
@@ -1639,7 +1639,7 @@ plot_learning_curve(ridge, x_train, y_train)
     [Parallel(n_jobs=-1)]: Using backend LokyBackend with 4 concurrent workers.
     [learning_curve] Training set sizes: [ 131  426  721 1016 1312]
     [Parallel(n_jobs=-1)]: Done  50 out of  50 | elapsed:    1.3s finished
-![png](House-Prices-Advanced-Regression-Techniques/Predict%20House%20Prices_29_3.png)
+![png](House-Prices-Advanced-Regression-Techniques-1/Predict%20House%20Prices_29_3.png)
 
 ## LASSO回归
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;既然讨论了使用**l2正则**的*Ridge*，又怎么能忘了使用**l1**正则的*Lasso*呢。*Lasso和*Ridge*唯一不同的地方是它使用了一范数来代替而范数也就是使用绝对值来代替平方：
@@ -1667,7 +1667,7 @@ plot_learning_curve(lasso, x_train, y_train)
     [learning_curve] Training set sizes: [ 131  426  721 1016 1312]
     [Parallel(n_jobs=-1)]: Done  50 out of  50 | elapsed:    2.5s finished
 
-![png](House-Prices-Advanced-Regression-Techniques/Predict%20House%20Prices_33_3.png)
+![png](House-Prices-Advanced-Regression-Techniques-1/Predict%20House%20Prices_33_3.png)
 
 ## Elastic Net
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**l1**和**l2**我们都已经单独进行训练和分析，并且发现两种方式都能取得不错的效果，既然如此，何不将两种方式结合起来试试呢。**Elastic Net**就是将两者结合起来的产物，其公式如下：
@@ -1739,10 +1739,10 @@ plot_learning_curve(en, x_train, y_train)
     [Parallel(n_jobs=-1)]: Using backend LokyBackend with 4 concurrent workers.
     [learning_curve] Training set sizes: [ 131  426  721 1016 1312]
     [Parallel(n_jobs=-1)]: Done  50 out of  50 | elapsed:    2.8s finished
-![png](House-Prices-Advanced-Regression-Techniques/Predict%20House%20Prices_47_3.png)
+![png](House-Prices-Advanced-Regression-Techniques-1/Predict%20House%20Prices_47_3.png)
 
 ## 小结
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;说是小结，其实是对突然决定分篇的一个阐述。因为后面的模型都是集成模型，但是在训练时都有明显的过拟合问题，因此我又尝试重新训练这些模型，而最后当然是以失败告终了。在不停地尝试，搜索最佳参数的过程中，我突然意识到或许我只是在碰运气，而没有具体地去分析这些参数对模型最后的影响，所以失败是不言而喻的。基于此，我决定先写到这儿，待我将剩下的模型都一一分析透彻之后再单开一篇专门来专门叙述。
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;说是小结，其实是对突然决定分篇的一个阐述。因为后面的模型都是集成模型，但是在训练时都有明显的过拟合问题，因此我又尝试重新训练这些模型，而最后当然是以失败告终了。在不停地尝试，搜索最佳参数的过程中，我突然意识到或许我只是在碰运气，而没有具体地去分析这些参数对模型最后的影响，所以失败是不言而喻的。基于此，我决定先写到这儿，待我将剩下的模型都一一分析透彻之后再单开一篇专门来专门叙述。
 
 
 [^1]: $z = \frac{m - min}{max - min}$
