@@ -17,7 +17,7 @@ description: 接上一篇，主要记录集成模型的训练过程
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;集成学习还有很多细节上的东西，包括**Boosting**和**Bagging**的训练过程，最后结果的结合方式等等，在这里就不再进行一一陈述了。下面让我们进入主题——集成模型的训练吧。
 
 # 模型选择
-
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在进入正式的调参之前，我先创建了一个公用方法，其目的是为了画出网格搜索($GridSearch$)过程中的平均准确率和准确率的变异系数[^1]。这两个分数是比较简单的用于衡量一个模型好坏的指标，这里将测试和训练进行了对比展示，从而对模型的泛化能力进行评估，对参数选择做出决断。
 ```
 def plot_acc_4_grid(grid_cv, param):
         fig = plt.figure(figsize=(10, 10))
@@ -2558,3 +2558,4 @@ pred_df.to_csv('./house_price/prediction.csv', index='')
 ```
 
 ```
+[^1]: 又称离散系数，这里是标准差系数，其反应的是单位均值上的各指标观测值的离散程度。
