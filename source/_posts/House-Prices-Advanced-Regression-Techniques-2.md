@@ -4,19 +4,25 @@ date: 2019-06-27 19:30:00
 categories: 机器学习
 copyright: true
 mathjax: true
-tags: 
+tags:
     - kaggle
 description: 接上一篇，主要记录集成模型的训练过程
 ---
 
-# 集成学习
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;书接上文，在前文中我们已经基本看到了机器学习需要经历的基本过程，其中占据大部分篇幅的是数据分析和处理的部分，模型的训练反而占比不大。这其中的原因除了因为特征工程在整个机器学习中应有如此大的比重之外，还因为之前训练的模型都是一些简单模型，并不涉及到大量参数的调试。而现在，我们使用的集成学习，将会涉及到不少的参数需要调节。
+# 集成学习概述
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;既然都单独将这部分内容拿出来描述了，那么在正式进入调参之前，我们先简要看看集成学习是个什么东西吧。
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**集成学习**通过构建并结合多个学习器来完成学习任务，其先产生一组“个体学习器”，再用某种策略将它们结合起来。集成的方式又分为**同质集成**和**异质集成**。**同质集成**只包含相同类型的个体学习器，其个体学习器也称为“基学习器”；**异质集成**中的个体学习器是不同类型的，其被称为“组件学习器”。
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;根据个体学习器的生成方式可以分为两大类，一种是串行生成的序列化方法，其个体学习器之间存在强依赖关系，代表为*Boosting*；另一种是同时生成的并行化方法，其个体学习器之间不存在强依赖关系，代表有*Bagging*和*Random Forest*。*Boosting*是一族可将弱学习器提升为强学习器的算法，它先从初始训练集训练出一个基学习器，再根据其表现调整训练样本的分布，即重新分配每个样本的权重，使表现不好的样本在下次训练时得到更多的关注，直至达到预定的训练次数，最后将所有的基学习器进行加权结合；*Boosting*每一次都是使用的全量数据，而*Bagging*却并不是，它采用有放回的采样的方式来生成训练集，每个基学习器使用不同的训练集来进行训练，有放回的采样使得同一个数据集能够被多次使用训练出不同的模型，最后可以通过投票(分类)和平均(回归)来结合各个基学习器的结果；*Random Forest*是在*Bagging*的基础上进一步在决策树的训练过程中引入随机属性选择,传统的决策树选择划分属性时是在当前节点的属性集合中选择一个最优属性，而在*RF*中是先从该结点的属性集合中随机选择一个包含$k$个属性的子集，再从子集中选择最优属性。
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;集成学习还有很多细节上的东西，包括**Boosting**和**Bagging**的训练过程，最后结果的结合方式等等，在这里就不再进行一一陈述了。下面让我们进入主题——集成模型的训练吧。
 
+# 模型选择
 
 ```
 def plot_acc_4_grid(grid_cv, param):
         fig = plt.figure(figsize=(10, 10))
         mean_acc = fig.add_subplot(2,1,1)
-        std_acc = fig.add_subplot(2,1,2) 
+        std_acc = fig.add_subplot(2,1,2)
         # 训练参数个数
         params_num = len(grid_cv.cv_results_['params'])
         x_ticks = np.arange(params_num)
@@ -28,7 +34,7 @@ def plot_acc_4_grid(grid_cv, param):
         # 方差
         std_train_score = grid_cv.cv_results_['std_train_score']
         std_test_score = grid_cv.cv_results_['std_test_score']
-        
+
         mean_acc.plot(mean_train_score, 'r-o', label='mean_train_score')
         mean_acc.plot(mean_test_score , 'b-o', label='mean_test_score')
         mean_acc.set_title('mean_acc@'+param, fontsize=18)
@@ -38,7 +44,7 @@ def plot_acc_4_grid(grid_cv, param):
         mean_acc.set_ylabel('mean_acc', fontsize=18)
         mean_acc.legend(loc='best', fontsize=18)
         mean_acc.grid()
-        
+
         std_acc.plot(std_train_score,'r-*', label='std_train_score')
         std_acc.plot(std_test_score, 'b-*', label='std_test_score')
         std_acc.set_title('std_acc@'+param, fontsize=18)
@@ -48,7 +54,7 @@ def plot_acc_4_grid(grid_cv, param):
         std_acc.set_ylabel('std_acc', fontsize=18)
         std_acc.legend(loc='best', fontsize=18)
         std_acc.grid()
-        
+
         plt.subplots_adjust(hspace=0.5)
 ```
 
@@ -243,7 +249,7 @@ plot_acc_4_grid(rf_grid_cv, 'max_depth')
 rf_param = {
     'max_features': np.arange(1, 345, 10)
 }
-rf_grid_cv = GridSearchCV(RandomForestRegressor(n_estimators=160, max_depth=5), 
+rf_grid_cv = GridSearchCV(RandomForestRegressor(n_estimators=160, max_depth=5),
                           param_grid=rf_param, cv=3, verbose=True, n_jobs=-1)
 rf_grid_cv.fit(x_train, y_train)
 ```
@@ -291,7 +297,7 @@ plot_acc_4_grid(rf_grid_cv, 'max_features')
 rf_param = {
     'min_samples_split': np.arange(2,100, 10),
 }
-rf_grid_cv = GridSearchCV(RandomForestRegressor(n_estimators=160, max_depth=5, max_features='auto'), 
+rf_grid_cv = GridSearchCV(RandomForestRegressor(n_estimators=160, max_depth=5, max_features='auto'),
                           param_grid=rf_param, cv=3, verbose=True, n_jobs=-1)
 rf_grid_cv.fit(x_train, y_train)
 ```
@@ -334,7 +340,7 @@ plot_acc_4_grid(rf_grid_cv, 'min_samples_split')
 rf_param = {
     'min_samples_split': np.arange(2,22),
 }
-rf_grid_cv = GridSearchCV(RandomForestRegressor(n_estimators=160, max_depth=5, max_features='auto'), 
+rf_grid_cv = GridSearchCV(RandomForestRegressor(n_estimators=160, max_depth=5, max_features='auto'),
                           param_grid=rf_param, cv=3, verbose=True, n_jobs=-1)
 rf_grid_cv.fit(x_train, y_train)
 ```
@@ -476,7 +482,7 @@ rf_param = {
     'min_weight_fraction_leaf': np.linspace(0, 0.5, 10)
 }
 rf_grid_cv = GridSearchCV(RandomForestRegressor(n_estimators=160, max_depth=5, max_features='auto',
-                                               min_samples_split=2, max_leaf_nodes=22 ), 
+                                               min_samples_split=2, max_leaf_nodes=22 ),
                           param_grid=rf_param, cv=3, verbose=True, n_jobs=-1)
 rf_grid_cv.fit(x_train, y_train)
 ```
@@ -523,7 +529,7 @@ rf_param = {
     'min_samples_leaf': np.arange(1, 100, 10)
 }
 rf_grid_cv = GridSearchCV(RandomForestRegressor(n_estimators=160, max_depth=5, max_features='auto',
-                                               min_samples_split=2, max_leaf_nodes=22, min_weight_fraction_leaf=0 ), 
+                                               min_samples_split=2, max_leaf_nodes=22, min_weight_fraction_leaf=0 ),
                           param_grid=rf_param, cv=3, verbose=True, n_jobs=-1)
 rf_grid_cv.fit(x_train, y_train)
 ```
@@ -666,7 +672,7 @@ rf = RandomForestRegressor(n_estimators=160, max_depth=5, max_features='auto',
 
 
 ```
-rf_pred = cross_val_predict(rf, x_train, y_train, 
+rf_pred = cross_val_predict(rf, x_train, y_train,
                                  verbose=True, n_jobs=-1, cv=3)
 mse = mean_squared_error(y_train, rf_pred)
 np.sqrt(mse)
@@ -712,7 +718,7 @@ from sklearn.model_selection import GridSearchCV
 gbdt_param = {
     'n_estimators': np.arange(1, 3000, 100),
 }
-gbdt_grid_cv = GridSearchCV(GradientBoostingRegressor(), 
+gbdt_grid_cv = GridSearchCV(GradientBoostingRegressor(),
                             param_grid=gbdt_param, verbose=True, cv=3, n_jobs=-1)
 gbdt_grid_cv.fit(x_train, y_train)
 ```
@@ -757,7 +763,7 @@ plot_acc_4_grid(gbdt_grid_cv, 'n_estimators')
 gbdt_param = {
     'n_estimators': np.arange(1, 200),
 }
-gbdt_grid_cv = GridSearchCV(GradientBoostingRegressor(), 
+gbdt_grid_cv = GridSearchCV(GradientBoostingRegressor(),
                             param_grid=gbdt_param, verbose=True, cv=3, n_jobs=-1)
 gbdt_grid_cv.fit(x_train, y_train)
 ```
@@ -803,7 +809,7 @@ plot_acc_4_grid(gbdt_grid_cv, 'n_estimators')
 gbdt_param = {
     'n_estimators': np.arange(10, 70),
 }
-gbdt_grid_cv = GridSearchCV(GradientBoostingRegressor(), 
+gbdt_grid_cv = GridSearchCV(GradientBoostingRegressor(),
                             param_grid=gbdt_param, verbose=True, cv=3, n_jobs=-1)
 gbdt_grid_cv.fit(x_train, y_train)
 ```
@@ -852,7 +858,7 @@ plot_acc_4_grid(gbdt_grid_cv, 'n_estimators')
 gbdt_param = {
     'max_depth': np.arange(1, 100),
 }
-gbdt_grid_cv = GridSearchCV(GradientBoostingRegressor(n_estimators=23), 
+gbdt_grid_cv = GridSearchCV(GradientBoostingRegressor(n_estimators=23),
                             param_grid=gbdt_param, verbose=True, cv=3, n_jobs=-1)
 gbdt_grid_cv.fit(x_train, y_train)
 ```
@@ -899,7 +905,7 @@ plot_acc_4_grid(gbdt_grid_cv, 'max_depth')
 gbdt_param = {
     'max_features': np.arange(1, 345, 10),
 }
-gbdt_grid_cv = GridSearchCV(GradientBoostingRegressor(n_estimators=23, max_depth=8), 
+gbdt_grid_cv = GridSearchCV(GradientBoostingRegressor(n_estimators=23, max_depth=8),
                             param_grid=gbdt_param, verbose=True, cv=3, n_jobs=-1)
 gbdt_grid_cv.fit(x_train, y_train)
 ```
@@ -945,7 +951,7 @@ plot_acc_4_grid(gbdt_grid_cv, 'max_features')
 gbdt_param = {
     'max_features': np.arange(61, 81),
 }
-gbdt_grid_cv = GridSearchCV(GradientBoostingRegressor(n_estimators=23, max_depth=8), 
+gbdt_grid_cv = GridSearchCV(GradientBoostingRegressor(n_estimators=23, max_depth=8),
                             param_grid=gbdt_param, verbose=True, cv=3, n_jobs=-1)
 gbdt_grid_cv.fit(x_train, y_train)
 ```
@@ -992,7 +998,7 @@ plot_acc_4_grid(gbdt_grid_cv, 'max_features')
 gbdt_param = {
     'min_samples_split': np.arange(2,100),
 }
-gbdt_grid_cv = GridSearchCV(GradientBoostingRegressor(n_estimators=23, max_depth=8, max_features='auto'), 
+gbdt_grid_cv = GridSearchCV(GradientBoostingRegressor(n_estimators=23, max_depth=8, max_features='auto'),
                             param_grid=gbdt_param, verbose=True, cv=3, n_jobs=-1)
 gbdt_grid_cv.fit(x_train, y_train)
 ```
@@ -1039,8 +1045,8 @@ plot_acc_4_grid(gbdt_grid_cv, 'min_samples_split')
 gbdt_param = {
     'max_leaf_nodes': np.arange(2,1000, 10),
 }
-gbdt_grid_cv = GridSearchCV(GradientBoostingRegressor(n_estimators=23, max_depth=8, max_features='auto', 
-                                                      min_samples_split=2), 
+gbdt_grid_cv = GridSearchCV(GradientBoostingRegressor(n_estimators=23, max_depth=8, max_features='auto',
+                                                      min_samples_split=2),
                             param_grid=gbdt_param, verbose=True, cv=3, n_jobs=-1)
 gbdt_grid_cv.fit(x_train, y_train)
 ```
@@ -1085,8 +1091,8 @@ plot_acc_4_grid(gbdt_grid_cv, 'max_leaf_nodes')
 gbdt_param = {
     'max_leaf_nodes': np.arange(2,100),
 }
-gbdt_grid_cv = GridSearchCV(GradientBoostingRegressor(n_estimators=23, max_depth=8, max_features='auto', 
-                                                      min_samples_split=2), 
+gbdt_grid_cv = GridSearchCV(GradientBoostingRegressor(n_estimators=23, max_depth=8, max_features='auto',
+                                                      min_samples_split=2),
                             param_grid=gbdt_param, verbose=True, cv=3, n_jobs=-1)
 gbdt_grid_cv.fit(x_train, y_train)
 ```
@@ -1133,8 +1139,8 @@ plot_acc_4_grid(gbdt_grid_cv, 'max_leaf_nodes')
 gbdt_param = {
     'min_weight_fraction_leaf': np.linspace(0,0.5, 10),
 }
-gbdt_grid_cv = GridSearchCV(GradientBoostingRegressor(n_estimators=23, max_depth=8, max_features='auto', 
-                                                      min_samples_split=2, max_leaf_nodes=12), 
+gbdt_grid_cv = GridSearchCV(GradientBoostingRegressor(n_estimators=23, max_depth=8, max_features='auto',
+                                                      min_samples_split=2, max_leaf_nodes=12),
                             param_grid=gbdt_param, verbose=True, cv=3, n_jobs=-1)
 gbdt_grid_cv.fit(x_train, y_train)
 ```
@@ -1180,8 +1186,8 @@ plot_acc_4_grid(gbdt_grid_cv, 'min_weight_fraction_leaf')
 gbdt_param = {
     'min_samples_leaf': np.arange(1,100, 10),
 }
-gbdt_grid_cv = GridSearchCV(GradientBoostingRegressor(n_estimators=23, max_depth=8, max_features='auto', 
-                                                      min_samples_split=2, max_leaf_nodes=12, min_weight_fraction_leaf=0), 
+gbdt_grid_cv = GridSearchCV(GradientBoostingRegressor(n_estimators=23, max_depth=8, max_features='auto',
+                                                      min_samples_split=2, max_leaf_nodes=12, min_weight_fraction_leaf=0),
                             param_grid=gbdt_param, verbose=True, cv=3, n_jobs=-1)
 gbdt_grid_cv.fit(x_train, y_train)
 ```
@@ -1226,9 +1232,9 @@ plot_acc_4_grid(gbdt_grid_cv, 'min_samples_leaf')
 gbdt_param = {
     'subsample': np.linspace(1e-7, 1, 100),
 }
-gbdt_grid_cv = GridSearchCV(GradientBoostingRegressor(n_estimators=23, max_depth=8, max_features='auto', 
+gbdt_grid_cv = GridSearchCV(GradientBoostingRegressor(n_estimators=23, max_depth=8, max_features='auto',
                                                       min_samples_split=2, max_leaf_nodes=12, min_weight_fraction_leaf=0,
-                                                     min_samples_leaf=1), 
+                                                     min_samples_leaf=1),
                             param_grid=gbdt_param, verbose=True, cv=3, n_jobs=-1)
 gbdt_grid_cv.fit(x_train, y_train)
 ```
@@ -1273,9 +1279,9 @@ plot_acc_4_grid(gbdt_grid_cv, 'subsample')
 gbdt_param = {
     'subsample': np.linspace(1e-7,2.22222e-01, 100),
 }
-gbdt_grid_cv = GridSearchCV(GradientBoostingRegressor(n_estimators=23, max_depth=8, max_features='auto', 
+gbdt_grid_cv = GridSearchCV(GradientBoostingRegressor(n_estimators=23, max_depth=8, max_features='auto',
                                                       min_samples_split=2, max_leaf_nodes=12, min_weight_fraction_leaf=0,
-                                                     min_samples_leaf=1), 
+                                                     min_samples_leaf=1),
                             param_grid=gbdt_param, verbose=True, cv=3, n_jobs=-1)
 gbdt_grid_cv.fit(x_train, y_train)
 ```
@@ -1317,7 +1323,7 @@ plot_acc_4_grid(gbdt_grid_cv, 'subsample')
 
 
 ```
-gbdt = GradientBoostingRegressor(n_estimators=23, max_depth=8, max_features='auto', 
+gbdt = GradientBoostingRegressor(n_estimators=23, max_depth=8, max_features='auto',
                                                       min_samples_split=2, max_leaf_nodes=12, min_weight_fraction_leaf=0,
                                                      min_samples_leaf=1, subsample=1)
 ```
@@ -1454,7 +1460,7 @@ from xgboost import XGBRegressor
 xg_param = {
     'n_estimators': np.arange(100, 1000,100),
 }
-xg_grid_cv = GridSearchCV(XGBRegressor(objective='reg:squarederror', booster='gbtree'), 
+xg_grid_cv = GridSearchCV(XGBRegressor(objective='reg:squarederror', booster='gbtree'),
                             param_grid=xg_param, verbose=True, cv=3, n_jobs=-1)
 xg_grid_cv.fit(x_train, y_train)
 ```
@@ -1498,7 +1504,7 @@ plot_acc_4_grid(xg_grid_cv, 'n_estimators')
 xg_param = {
     'n_estimators': np.arange(100, 2000, 100),
 }
-xg_grid_cv = GridSearchCV(XGBRegressor(objective='reg:squarederror', booster='gbtree'), 
+xg_grid_cv = GridSearchCV(XGBRegressor(objective='reg:squarederror', booster='gbtree'),
                             param_grid=xg_param, verbose=True, cv=3, n_jobs=-1)
 xg_grid_cv.fit(x_train, y_train)
 ```
@@ -1544,7 +1550,7 @@ plot_acc_4_grid(xg_grid_cv, 'n_estimators')
 xg_param = {
     'n_estimators': np.arange(450, 600, 10),
 }
-xg_grid_cv = GridSearchCV(XGBRegressor(objective='reg:squarederror', booster='gbtree'), 
+xg_grid_cv = GridSearchCV(XGBRegressor(objective='reg:squarederror', booster='gbtree'),
                             param_grid=xg_param, verbose=True, cv=3, n_jobs=-1)
 xg_grid_cv.fit(x_train, y_train)
 ```
@@ -1589,7 +1595,7 @@ plot_acc_4_grid(xg_grid_cv, 'n_estimators')
 xg_param = {
     'n_estimators': np.arange(460, 480),
 }
-xg_grid_cv = GridSearchCV(XGBRegressor(objective='reg:squarederror', booster='gbtree'), 
+xg_grid_cv = GridSearchCV(XGBRegressor(objective='reg:squarederror', booster='gbtree'),
                             param_grid=xg_param, verbose=True, cv=3, n_jobs=-1)
 xg_grid_cv.fit(x_train, y_train)
 ```
@@ -1733,7 +1739,7 @@ xg_grid_cv.cv_results_
 xg_param = {
     'max_depth': np.arange(1, 100),
 }
-xg_grid_cv = GridSearchCV(XGBRegressor(objective='reg:squarederror', booster='gbtree', n_estimators=470), 
+xg_grid_cv = GridSearchCV(XGBRegressor(objective='reg:squarederror', booster='gbtree', n_estimators=470),
                             param_grid=xg_param, verbose=True, cv=3, n_jobs=-1)
 xg_grid_cv.fit(x_train, y_train)
 ```
@@ -1781,8 +1787,8 @@ plot_acc_4_grid(xg_grid_cv, 'max_depth')
 xg_param = {
     'reg_lambda': np.linspace(0, 1),
 }
-xg_grid_cv = GridSearchCV(XGBRegressor(objective='reg:squarederror', booster='gbtree', n_estimators=470, 
-                                       max_depth=2), 
+xg_grid_cv = GridSearchCV(XGBRegressor(objective='reg:squarederror', booster='gbtree', n_estimators=470,
+                                       max_depth=2),
                             param_grid=xg_param, verbose=True, cv=3, n_jobs=-1)
 xg_grid_cv.fit(x_train, y_train)
 ```
@@ -1834,8 +1840,8 @@ plot_acc_4_grid(xg_grid_cv, 'reg_lambda')
 xg_param = {
     'reg_alpha': np.linspace(0, 1),
 }
-xg_grid_cv = GridSearchCV(XGBRegressor(objective='reg:squarederror', booster='gbtree', n_estimators=470, 
-                                       max_depth=2, reg_lambda=1), 
+xg_grid_cv = GridSearchCV(XGBRegressor(objective='reg:squarederror', booster='gbtree', n_estimators=470,
+                                       max_depth=2, reg_lambda=1),
                             param_grid=xg_param, verbose=True, cv=3, n_jobs=-1)
 xg_grid_cv.fit(x_train, y_train)
 ```
@@ -1887,8 +1893,8 @@ plot_acc_4_grid(xg_grid_cv, 'reg_alpha')
 xg_param = {
     'colsample_bylevel': np.linspace(0, 1),
 }
-xg_grid_cv = GridSearchCV(XGBRegressor(objective='reg:squarederror', booster='gbtree', n_estimators=470, 
-                                       max_depth=2, reg_lambda=0, reg_alpha=0.08163), 
+xg_grid_cv = GridSearchCV(XGBRegressor(objective='reg:squarederror', booster='gbtree', n_estimators=470,
+                                       max_depth=2, reg_lambda=0, reg_alpha=0.08163),
                             param_grid=xg_param, verbose=True, cv=3, n_jobs=-1)
 xg_grid_cv.fit(x_train, y_train)
 ```
@@ -1940,8 +1946,8 @@ plot_acc_4_grid(xg_grid_cv, 'colsample_bylevel')
 xg_param = {
     'colsample_bynode': np.linspace(0, 1),
 }
-xg_grid_cv = GridSearchCV(XGBRegressor(objective='reg:squarederror', booster='gbtree', n_estimators=470, 
-                                       max_depth=2, reg_lambda=0, reg_alpha=0.08163, colsample_bylevel=0.06122), 
+xg_grid_cv = GridSearchCV(XGBRegressor(objective='reg:squarederror', booster='gbtree', n_estimators=470,
+                                       max_depth=2, reg_lambda=0, reg_alpha=0.08163, colsample_bylevel=0.06122),
                             param_grid=xg_param, verbose=True, cv=3, n_jobs=-1)
 xg_grid_cv.fit(x_train, y_train)
 ```
@@ -1991,8 +1997,8 @@ plot_acc_4_grid(xg_grid_cv, 'colsample_bynode')
 xg_param = {
     'colsample_bynode': np.linspace(0.91837, 1),
 }
-xg_grid_cv = GridSearchCV(XGBRegressor(objective='reg:squarederror', booster='gbtree', n_estimators=470, 
-                                       max_depth=2, reg_lambda=0, reg_alpha=0.08163, colsample_bylevel=0.06122), 
+xg_grid_cv = GridSearchCV(XGBRegressor(objective='reg:squarederror', booster='gbtree', n_estimators=470,
+                                       max_depth=2, reg_lambda=0, reg_alpha=0.08163, colsample_bylevel=0.06122),
                             param_grid=xg_param, verbose=True, cv=3, n_jobs=-1)
 xg_grid_cv.fit(x_train, y_train)
 ```
@@ -2044,9 +2050,9 @@ plot_acc_4_grid(xg_grid_cv, 'colsample_bynode')
 xg_param = {
     'colsample_bytree': np.linspace(0, 1),
 }
-xg_grid_cv = GridSearchCV(XGBRegressor(objective='reg:squarederror', booster='gbtree', n_estimators=470, 
+xg_grid_cv = GridSearchCV(XGBRegressor(objective='reg:squarederror', booster='gbtree', n_estimators=470,
                                        max_depth=2, reg_lambda=0, reg_alpha=0.08163, colsample_bylevel=0.06122,
-                                      colsample_bynode=0), 
+                                      colsample_bynode=0),
                             param_grid=xg_param, verbose=True, cv=3, n_jobs=-1)
 xg_grid_cv.fit(x_train, y_train)
 ```
@@ -2098,9 +2104,9 @@ plot_acc_4_grid(xg_grid_cv, 'colsample_bytree')
 xg_param = {
     'min_child_weight': np.arange(1, 100),
 }
-xg_grid_cv = GridSearchCV(XGBRegressor(objective='reg:squarederror', booster='gbtree', n_estimators=470, 
+xg_grid_cv = GridSearchCV(XGBRegressor(objective='reg:squarederror', booster='gbtree', n_estimators=470,
                                        max_depth=2, reg_lambda=0, reg_alpha=0.08163, colsample_bylevel=0.06122,
-                                      colsample_bynode=0, colsample_bytree=1), 
+                                      colsample_bynode=0, colsample_bytree=1),
                             param_grid=xg_param, verbose=True, cv=3, n_jobs=-1)
 xg_grid_cv.fit(x_train, y_train)
 ```
@@ -2143,7 +2149,7 @@ plot_acc_4_grid(xg_grid_cv, 'min_child_weight')
 
 
 ```
-xg = XGBRegressor(objective='reg:squarederror', booster='gbtree', n_estimators=470, 
+xg = XGBRegressor(objective='reg:squarederror', booster='gbtree', n_estimators=470,
                                        max_depth=2, reg_lambda=0, reg_alpha=0.08163, colsample_bylevel=0.06122,
                                       colsample_bynode=0, colsample_bytree=1, min_child_weight=1)
 xg_pred = cross_val_predict(xg, x_train, y_train,
@@ -2250,7 +2256,7 @@ xg.fit(x_train, y_train)
 
 
 ```
-xg_pred = cross_val_predict(xg, x_train, y_train, 
+xg_pred = cross_val_predict(xg, x_train, y_train,
                             cv=3, verbose=True, n_jobs=-1)
 ```
 
@@ -2289,7 +2295,7 @@ plot_learning_curve(xg, x_train, y_train)
 ![png](House-Prices-Advanced-Regression-Techniques-2/Predict%20House%20Prices_181_3.png)
 
 
-## stack 
+## stack
 
 
 ```
@@ -2301,12 +2307,12 @@ class StackModel(BaseEstimator, TransformerMixin, RegressorMixin):
         self.base_models = base_models
         self.final_model = final_model
         self.n_folds = n_folds
-        
+
     def fit(self, X, y):
         self.base_models_ = [list() for i in self.base_models]
         self.final_model_ = clone(self.final_model)
         kfold = KFold(n_splits=self.n_folds, shuffle=True, random_state=42)
-        
+
         out_predictions = np.zeros((X.shape[0], len(self.base_models)))
         for i, model in enumerate(self.base_models):
             for train_index, holdout_index in kfold.split(X, y):
@@ -2315,17 +2321,17 @@ class StackModel(BaseEstimator, TransformerMixin, RegressorMixin):
                 instance.fit(X[train_index], y[train_index])
                 y_pred = instance.predict(X[holdout_index])
                 out_predictions[holdout_index, i] = y_pred
-        
+
         self.final_model_.fit(out_predictions, y)
         return self
-                
+
     def predict(self, X):
         final_feature = np.column_stack([
             np.column_stack([model.predict(X) for model in base_models]).mean(axis=1)
             for base_models in self.base_models_
         ])
         return self.final_model_.predict(final_feature)
-        
+
 ```
 
 
@@ -2337,7 +2343,7 @@ from sklearn.ensemble import GradientBoostingRegressor
 ridge = KernelRidge(degree=2, alpha=0.05, kernel='polynomial')
 lasso = Lasso(alpha=0.0005)
 en = ElasticNet(max_iter=5000, selection='random')
-gbdt = GradientBoostingRegressor(n_estimators=49, max_depth=5, max_features='auto', 
+gbdt = GradientBoostingRegressor(n_estimators=49, max_depth=5, max_features='auto',
                                                       min_samples_split=2, max_leaf_nodes=7, min_weight_fraction_leaf=0,
                                                      min_samples_leaf=1, subsample=1)
 
@@ -2413,7 +2419,7 @@ lgb_params = {
     'min_sum_hessian_in_leaf': np.linspace(1e-3, 20),
     'max_depth': np.arange(10, 20)
 }
-lgb_grid_cv = RandomizedSearchCV(LGBMRegressor(objective='regression', feature_fraction_seed=42, bagging_seed=42), 
+lgb_grid_cv = RandomizedSearchCV(LGBMRegressor(objective='regression', feature_fraction_seed=42, bagging_seed=42),
                                 param_distributions=lgb_params, cv=5,
                                 n_jobs=-1, verbose=True)
 lgb_grid_cv.fit(x_train, y_train)
@@ -2482,7 +2488,7 @@ lgb_grid_cv.best_params_
 
 
 ```
-lgb_pred = cross_val_predict(lgb_grid_cv.best_estimator_, x_train, y_train, 
+lgb_pred = cross_val_predict(lgb_grid_cv.best_estimator_, x_train, y_train,
                   cv=3, n_jobs=-1)
 mse = mean_squared_error(y_train, lgb_pred)
 np.sqrt(mse)
