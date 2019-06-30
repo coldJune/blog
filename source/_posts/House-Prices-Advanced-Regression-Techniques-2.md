@@ -59,10 +59,113 @@ def plot_acc_4_grid(grid_cv, param):
 ```
 
 ## 随机森林
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我们先来尝试一下上面提到的随机森林，这里主要关注的是影响性能的几个参数，罗列如下：
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+        text-align: left;
+        word-wrap:break-word;
+    	word-break:break-all;
+    	white-space:normal;
+    	max-width:650px;
+        font-family:SimSun;
+    }
+
+    .dataframe thead th {
+        text-align: middle;
+    }
+</style>
+<div style="text-align: center;">
+    <table class='dataframe' style='margin: auto; width:100%'>
+        <thead>
+            <tr>
+                <th>参数</th>
+                <th>详情</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th>n_estimators</th>
+                <th>子模型的数量<br>&nbsp;&nbsp;&nbsp;&nbsp;• integer(n_estimators≥1)<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;* 默认值为10
+                </th>
+            </tr>
+            <tr>
+                <th>max_depth</th>
+                <th>树的最大深度<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;• integer(max_depth≥1)<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;• None(树会生长到所有叶子节点都分到一个类或者某节点所代表的样本数据已小于min_samples_split)<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;* 默认值为None
+                </th>
+            </tr>
+            <tr>
+                <th>max_features</th>
+                <th>在寻找最佳划分时考虑的最大特征数<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;• integer(n_features≥max_features≥1)<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;• float(占所有特征的百分比)<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;• "auto"(n_features，即所有特征)<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;• "sqrt"(max_features=sqrt(n_features)<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;• "log2"(max_features=log2(n_features))<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;• None(n_features，即所有特征)<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;* 默认值为"auto"
+                </th>
+            </tr>
+            <tr>
+                <th>min_samples_split</th>
+                <th>内部节点分裂所需的最小样本数<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;• integer(min_samples_split≥2)<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;• float(ceil(min_samples_split * n_samples)，即占所有样本的百分比向下取整)<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;* 默认值为2
+                </th>
+            </tr>
+            <tr>
+                <th>max_leaf_nodes</th>
+                <th>最大叶节点数<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;• integer(max_leaf_nodes≥1)<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;• None(不限制叶节点个数)<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;* 默认值为None
+                </th>
+            </tr>
+            <tr>
+                <th>min_weight_fraction_leaf</th>
+                <th>叶节点最小样本权重总值<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;• float(权重总值)<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;* 默认值为0
+                </th>
+            </tr>
+            <tr>
+                <th>min_samples_leaf</th>
+                <th>叶节点最小样本数<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;• integer(min_samples_leaf≥1)<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;• float(ceil(min_samples_leaf * n_samples)，即占所有样本的百分比向下取整)<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;* 默认值为1
+                </th>
+            </tr>
+            <tr>
+                <th>bootstrap</th>
+                <th>是否使用bootstrap对样本进行采样<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;• False(所有子模型的样本一致，子模型强相关)<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;• True(每个子模型的样本从总样本中有放回采样)<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;* 默认值为True
+                </th>
+            </tr>
+            <tr>
+                <th>criterion</th>
+                <th>判断节点是否分裂的使用的计算方法<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;• "mse"(均方误差)<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;• "mae"(平均绝对误差)<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;* 默认值为"mse"
+                </th>
+            </tr>
+        </tbody>
+    </table>
+</div>
 
 * n_estimators
-
-
 ```
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.model_selection import GridSearchCV
