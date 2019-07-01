@@ -168,7 +168,9 @@ def plot_acc_4_grid(grid_cv, param):
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;其中的`n_estimators`的值一般来说是越大性能越好，泛化能力越强，是单调递增的，但随着子模型的数量增加，训练算法所消耗的资源和时间将会急剧增加。其它数值型参数对性能的影响都呈现出有增有减的，而枚举型的例如`criterion`则需要视情况而定了。
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我们已经对需要调节的参数有了一个直观的认识，知道每个参数代表的含义。但是我们怎么来调节他们呢？在一开始的时候，我选择了一种非常笨重的方式，我通过直接将所有参数塞进`GridSearchCV`，而这导致训练需要花费大量的时间，不如设想有*3*个参数需要调节，每个参数取*10*个待定值，最后需要尝试的组合高达**1000**个之多，而这里的参数有`9`个之多，如果是更复杂的神经网络，那基本上就是望山跑死马的事了。我后知后觉得意识到网格查找的局限性，又想起书里提到的随机方法`RandomizedSearchCV`，我马上进行了尝试，并一度以为这样就能完美解决问题，但显然我是过于乐观了——最后训练出的模型基本上都是过拟合的，而且参数可控性极低。
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这里最后尝试的方法是一种基于贪心策略的坐标下降法，即每一次只调节一个参数，然后选择最优的参数固定下来继续训练下一个参数，这可以大大减少训练所需的资源和时间——将上面的**1000**减少到**30**，只要能保证每个参数对性能的提升都是单调递增的，就能取得不错的效果。下面让我们来一探究竟吧。
+
 * n_estimators
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;首先进行调节的是`n_estimators`这个参数，正如前文所述，这是一个使性能单调递增的参数，我们首先在粗粒度对它训练，观察训练的整体趋势。
 ```
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.model_selection import GridSearchCV
@@ -179,17 +181,10 @@ rf_grid_cv = GridSearchCV(RandomForestRegressor(n_estimators=50), param_grid=rf_
                          cv=3, verbose=True, n_jobs=-1)
 rf_grid_cv.fit(x_train, y_train)
 ```
-
     Fitting 3 folds for each of 10 candidates, totalling 30 fits
-
 
     [Parallel(n_jobs=-1)]: Using backend LokyBackend with 4 concurrent workers.
     [Parallel(n_jobs=-1)]: Done  30 out of  30 | elapsed:  1.8min finished
-
-
-
-
-
     GridSearchCV(cv=3, error_score='raise-deprecating',
            estimator=RandomForestRegressor(bootstrap=True, criterion='mse', max_depth=None,
                max_features='auto', max_leaf_nodes=None,
@@ -202,18 +197,13 @@ rf_grid_cv.fit(x_train, y_train)
            pre_dispatch='2*n_jobs', refit=True, return_train_score='warn',
            scoring=None, verbose=True)
 
-
-
-
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;下面是这*10*个模型得分的最终情况，我们可以训练得分和验证得分有比较大的差距，但是两者的提升都是同步的，不曾出现此消彼长的情况；在子模型数为*1~101*时两个得分的提高最为明显，之后增加子模型数量对分数并未有任何贡献，虽然如此，但是通过观察变异系数发现验证集的得分的离散程度还有一定幅度的减小，这意味子模型数量的增加虽然无异于提高分数，但是其使模型更加稳定，得分更加一致。
 ```
 plot_acc_4_grid(rf_grid_cv, 'n_estimators')
 ```
-
-
 ![png](House-Prices-Advanced-Regression-Techniques-2/Predict%20House%20Prices_60_0.png)
 
-
-
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;上面进行了粗粒度的训练，但是这样大刀阔斧地调参会忽视掉许多细节，比如是否两个取值点刚好错过了可能存在之间的波峰或者波谷，结果是否存在波动等。基于此我们接下来根据上面得到的返回进行更加细粒度的调节。
 ```
 rf_param = {
     'n_estimators': np.arange(100, 200, 10),
@@ -222,17 +212,10 @@ rf_grid_cv = GridSearchCV(RandomForestRegressor(n_estimators=50), param_grid=rf_
                          cv=3, verbose=True, n_jobs=-1)
 rf_grid_cv.fit(x_train, y_train)
 ```
-
     Fitting 3 folds for each of 10 candidates, totalling 30 fits
-
 
     [Parallel(n_jobs=-1)]: Using backend LokyBackend with 4 concurrent workers.
     [Parallel(n_jobs=-1)]: Done  30 out of  30 | elapsed:   35.4s finished
-
-
-
-
-
     GridSearchCV(cv=3, error_score='raise-deprecating',
            estimator=RandomForestRegressor(bootstrap=True, criterion='mse', max_depth=None,
                max_features='auto', max_leaf_nodes=None,
@@ -245,16 +228,11 @@ rf_grid_cv.fit(x_train, y_train)
            pre_dispatch='2*n_jobs', refit=True, return_train_score='warn',
            scoring=None, verbose=True)
 
-
-
-
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;不出所料，这里的变异系数就存在明显的波动，而最终得分却没什么提升，说明`n_estimators`是一个适合在粗粒度上进行调节的参数，这里我们就选取验证变异系数最小的取值*160*作为模型中`n_estimators`参数的最终取值。
 ```
 plot_acc_4_grid(rf_grid_cv, 'n_estimators')
 ```
-
-
 ![png](House-Prices-Advanced-Regression-Techniques-2/Predict%20House%20Prices_62_0.png)
-
 
 * max_depth
 
