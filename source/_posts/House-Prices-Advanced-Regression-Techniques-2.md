@@ -235,7 +235,7 @@ plot_acc_4_grid(rf_grid_cv, 'n_estimators')
 ![png](House-Prices-Advanced-Regression-Techniques-2/Predict%20House%20Prices_62_0.png)
 
 * max_depth
-
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`max_depth`控制着每棵树的深度，随着树的深度越升，子模型的偏差降低而方差升高，当方差升高到一定程度的时候将会使泛化性能下降，也就是出现过拟合现象。如果是一颗完全二叉树，则最后叶节点将为$2^{n-1}$，这里使用的训练集的数量只需要一颗深度为*10*的树基本就能满足每个叶节点一个实例，最后的结果显然不会如此理想，所以现将深度的查找范围扩大到*100*进行训练。
 
 ```
 rf_param = {
@@ -245,18 +245,12 @@ rf_grid_cv = GridSearchCV(RandomForestRegressor(n_estimators=160), param_grid=rf
                          cv=3, verbose=True, n_jobs=-1)
 rf_grid_cv.fit(x_train, y_train)
 ```
-
     Fitting 3 folds for each of 99 candidates, totalling 297 fits
-
 
     [Parallel(n_jobs=-1)]: Using backend LokyBackend with 4 concurrent workers.
     [Parallel(n_jobs=-1)]: Done  42 tasks      | elapsed:   31.3s
     [Parallel(n_jobs=-1)]: Done 192 tasks      | elapsed:  3.5min
     [Parallel(n_jobs=-1)]: Done 297 out of 297 | elapsed:  5.5min finished
-
-
-
-
 
     GridSearchCV(cv=3, error_score='raise-deprecating',
            estimator=RandomForestRegressor(bootstrap=True, criterion='mse', max_depth=None,
@@ -270,18 +264,12 @@ rf_grid_cv.fit(x_train, y_train)
            pre_dispatch='2*n_jobs', refit=True, return_train_score='warn',
            scoring=None, verbose=True)
 
-
-
-
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;下面让我们来看看这些模型的整体表现如何，通过第一张图可以清晰的看到随着深度的增加，模型在变得越来越好，但是我们并不能因此而沾沾自喜，和在训练`n_estimators`时一样，我们还要考察它的变异系数。前期随着模型得分越来越高，变异系数也在稳步下降，但是在`max_depth`增长到*5*的时候，得分的增幅明显放缓，到*9*之后更是基本保持不变了，而反观验证得分的变异系数，它也基本在同样的节点发生了逆转，在`max_depth`为*6*时达到波谷，而后便开始逐步上升，在*12*之后出现明显的波动，这说明得分开始趋于不稳定，调节这一部分取值并不会有多大好处。
 ```
 plot_acc_4_grid(rf_grid_cv, 'max_depth')
 ```
-
-
 ![png](House-Prices-Advanced-Regression-Techniques-2/Predict%20House%20Prices_65_0.png)
-
-
-
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在确定这个参数之前，为了更准确地估计，我把参数调节的范围缩小到了*1~20*，希望这能带来更清楚的认识。
 ```
 rf_param = {
     'max_depth': np.arange(1, 20),
@@ -290,17 +278,11 @@ rf_grid_cv = GridSearchCV(RandomForestRegressor(n_estimators=160), param_grid=rf
                          cv=3, verbose=True, n_jobs=-1)
 rf_grid_cv.fit(x_train, y_train)
 ```
-
     Fitting 3 folds for each of 19 candidates, totalling 57 fits
-
 
     [Parallel(n_jobs=-1)]: Using backend LokyBackend with 4 concurrent workers.
     [Parallel(n_jobs=-1)]: Done  42 tasks      | elapsed:   28.9s
     [Parallel(n_jobs=-1)]: Done  57 out of  57 | elapsed:   44.3s finished
-
-
-
-
 
     GridSearchCV(cv=3, error_score='raise-deprecating',
            estimator=RandomForestRegressor(bootstrap=True, criterion='mse', max_depth=None,
@@ -315,16 +297,11 @@ rf_grid_cv.fit(x_train, y_train)
            pre_dispatch='2*n_jobs', refit=True, return_train_score='warn',
            scoring=None, verbose=True)
 
-
-
-
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;现在我们可以看到上面产生变化的那一部分的放大版了，现在我们可以明确地说明验证得分的变异系数发生转变是在`max_depth`为*5*的时候，在为*12*的时候开始出现波动。至于最后的取值，我们依然遵循前面的原则，分数尽可能高，而变异系数尽可能低，当然并不是说取对应的分数高和编译系数最低的，因为可能存在变异系数在低谷时得分并不高的情况。最后经过考虑之后暂时选择了$max_depth$为*5*。
 ```
 plot_acc_4_grid(rf_grid_cv, 'max_depth')
 ```
-
-
 ![png](House-Prices-Advanced-Regression-Techniques-2/Predict%20House%20Prices_67_0.png)
-
 
 * max_features
 
