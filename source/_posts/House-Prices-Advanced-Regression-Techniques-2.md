@@ -304,8 +304,7 @@ plot_acc_4_grid(rf_grid_cv, 'max_depth')
 ![png](House-Prices-Advanced-Regression-Techniques-2/Predict%20House%20Prices_67_0.png)
 
 * max_features
-
-
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`max_features`决定了算法在分裂节点时需要考虑的最大特征数，其可以通过内置的枚举值来计算个数也可以通过直接设置数值计算。因为这里的特征数量并不是很多，加上$OneHot$向量一共有345个，所以我采用了设置数值的方式，这样能够清晰地看到不同取值对模型的影响以及确定影响的具体数值。
 ```
 rf_param = {
     'max_features': np.arange(1, 345, 10)
@@ -314,17 +313,11 @@ rf_grid_cv = GridSearchCV(RandomForestRegressor(n_estimators=160, max_depth=5),
                           param_grid=rf_param, cv=3, verbose=True, n_jobs=-1)
 rf_grid_cv.fit(x_train, y_train)
 ```
-
     Fitting 3 folds for each of 35 candidates, totalling 105 fits
-
 
     [Parallel(n_jobs=-1)]: Using backend LokyBackend with 4 concurrent workers.
     [Parallel(n_jobs=-1)]: Done  42 tasks      | elapsed:    6.3s
     [Parallel(n_jobs=-1)]: Done 105 out of 105 | elapsed:   26.2s finished
-
-
-
-
 
     GridSearchCV(cv=3, error_score='raise-deprecating',
            estimator=RandomForestRegressor(bootstrap=True, criterion='mse', max_depth=5,
@@ -340,14 +333,10 @@ rf_grid_cv.fit(x_train, y_train)
            pre_dispatch='2*n_jobs', refit=True, return_train_score='warn',
            scoring=None, verbose=True)
 
-
-
-
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我想这幅图应该是目前为止最直观最简单的一副图了，其趋势非常明显——得分不断上升，变异系数不断下降，由此可知，只要`max_feature`设置为最大值就可以了。甚至还可以在特征工程中人工增加一些特征来提升模型的性能。
 ```
 plot_acc_4_grid(rf_grid_cv, 'max_features')
 ```
-
-
 ![png](House-Prices-Advanced-Regression-Techniques-2/Predict%20House%20Prices_70_0.png)
 
 
