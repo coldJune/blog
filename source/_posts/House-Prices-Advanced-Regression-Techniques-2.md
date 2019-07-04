@@ -341,7 +341,7 @@ plot_acc_4_grid(rf_grid_cv, 'max_features')
 
 
 * min_samples_split
-
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`min_samples_split`同样是一个影响模型偏差/方差的参数，它限定了一个节点需要分裂所需的最小样本数，其值越大模型越简单，偏差越大方差越小，而调节这个参数就是为了在这之间做一个权衡。`min_samples_split`参数最小取值为*2*，基于和`max_depth`一样的道理，这里将取值限定在*2~100*。
 
 ```
 rf_param = {
@@ -351,16 +351,10 @@ rf_grid_cv = GridSearchCV(RandomForestRegressor(n_estimators=160, max_depth=5, m
                           param_grid=rf_param, cv=3, verbose=True, n_jobs=-1)
 rf_grid_cv.fit(x_train, y_train)
 ```
-
     Fitting 3 folds for each of 10 candidates, totalling 30 fits
-
 
     [Parallel(n_jobs=-1)]: Using backend LokyBackend with 4 concurrent workers.
     [Parallel(n_jobs=-1)]: Done  30 out of  30 | elapsed:   14.2s finished
-
-
-
-
 
     GridSearchCV(cv=3, error_score='raise-deprecating',
            estimator=RandomForestRegressor(bootstrap=True, criterion='mse', max_depth=5,
@@ -373,19 +367,14 @@ rf_grid_cv.fit(x_train, y_train)
            param_grid={'min_samples_split': array([ 2, 12, 22, 32, 42, 52, 62, 72, 82, 92])},
            pre_dispatch='2*n_jobs', refit=True, return_train_score='warn',
            scoring=None, verbose=True)
-
-
-
-
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这幅图有一个有趣的地方，虽然得分在不断地下降，但是变异系数存在一个低谷，如果训练到此为止，似乎有理由去选择这个值，因为其有不差的评分和相对较低的变异系数。但事实真的如此吗？
 ```
 plot_acc_4_grid(rf_grid_cv, 'min_samples_split')
 ```
-
-
 ![png](House-Prices-Advanced-Regression-Techniques-2/Predict%20House%20Prices_73_0.png)
 
 
-
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;为了验证上面的假设，我们将取值范围进一步缩小，同时将它的步长从*10*降低到*1*，让我们来看看训练效果如何。
 ```
 rf_param = {
     'min_samples_split': np.arange(2,22),
@@ -394,17 +383,11 @@ rf_grid_cv = GridSearchCV(RandomForestRegressor(n_estimators=160, max_depth=5, m
                           param_grid=rf_param, cv=3, verbose=True, n_jobs=-1)
 rf_grid_cv.fit(x_train, y_train)
 ```
-
     Fitting 3 folds for each of 20 candidates, totalling 60 fits
-
 
     [Parallel(n_jobs=-1)]: Using backend LokyBackend with 4 concurrent workers.
     [Parallel(n_jobs=-1)]: Done  42 tasks      | elapsed:   21.7s
     [Parallel(n_jobs=-1)]: Done  60 out of  60 | elapsed:   28.4s finished
-
-
-
-
 
     GridSearchCV(cv=3, error_score='raise-deprecating',
            estimator=RandomForestRegressor(bootstrap=True, criterion='mse', max_depth=5,
@@ -418,15 +401,10 @@ rf_grid_cv.fit(x_train, y_train)
            19, 20, 21])},
            pre_dispatch='2*n_jobs', refit=True, return_train_score='warn',
            scoring=None, verbose=True)
-
-
-
-
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;没错，上面解释过的现象又再次出现了，在上面训练中的波谷并不是全局的波谷，而且可以明显地发现其振荡的现象，但其总体趋势是在升高。因此可以得出结论，`min_samples_split`在这里并不适合调节，只需要将其设置为默认值就行了。
 ```
 plot_acc_4_grid(rf_grid_cv, 'min_samples_split')
 ```
-
-
 ![png](House-Prices-Advanced-Regression-Techniques-2/Predict%20House%20Prices_75_0.png)
 
 
