@@ -475,10 +475,8 @@ plot_acc_4_grid(rf_grid_cv, 'max_leaf_nodes')
 ```
 ![png](House-Prices-Advanced-Regression-Techniques-2/Predict%20House%20Prices_80_0.png)
 
-
 * min_weight_fraction_leaf
-
-
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;叶节点最小权重总值限制了叶子节点所有样本权重的最小值，如果小于这个值，则会和其他叶子节点一起被剪枝，提高模型偏差，降低方差。如果样本的分布存在偏斜或者有较多的缺失值可以考虑引入权重。由于之前已经在特征工程中处理了相应的问题，所以这里的调参对提升模型不会有什么作用，但是并不妨碍我们一窥究竟。
 ```
 rf_param = {
     'min_weight_fraction_leaf': np.linspace(0, 0.5, 10)
@@ -488,16 +486,10 @@ rf_grid_cv = GridSearchCV(RandomForestRegressor(n_estimators=160, max_depth=5, m
                           param_grid=rf_param, cv=3, verbose=True, n_jobs=-1)
 rf_grid_cv.fit(x_train, y_train)
 ```
-
     Fitting 3 folds for each of 10 candidates, totalling 30 fits
-
 
     [Parallel(n_jobs=-1)]: Using backend LokyBackend with 4 concurrent workers.
     [Parallel(n_jobs=-1)]: Done  30 out of  30 | elapsed:    7.9s finished
-
-
-
-
 
     GridSearchCV(cv=3, error_score='raise-deprecating',
            estimator=RandomForestRegressor(bootstrap=True, criterion='mse', max_depth=5,
@@ -511,15 +503,10 @@ rf_grid_cv.fit(x_train, y_train)
            0.38889, 0.44444, 0.5    ])},
            pre_dispatch='2*n_jobs', refit=True, return_train_score='warn',
            scoring=None, verbose=True)
-
-
-
-
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我想这是这篇文章到此为止第二个如此直观的图了，那么我便不在做过多的解释，直接确定取值了。
 ```
 plot_acc_4_grid(rf_grid_cv, 'min_weight_fraction_leaf')
 ```
-
-
 ![png](House-Prices-Advanced-Regression-Techniques-2/Predict%20House%20Prices_83_0.png)
 
 
