@@ -406,11 +406,8 @@ rf_grid_cv.fit(x_train, y_train)
 plot_acc_4_grid(rf_grid_cv, 'min_samples_split')
 ```
 ![png](House-Prices-Advanced-Regression-Techniques-2/Predict%20House%20Prices_75_0.png)
-
-
 * max_leaf_nodes
-
-
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`max_leaf_nodes`规定了最大叶节点数，与`min_samples_split`相反， `max_leaf_nodes`越大模型越复杂，方差越高。甚至可以不限制它的数量，任由其生长，基于此，我们这里选用一个较大的范围去观察它的整体趋势，然后再如同前面一样在细粒度上去进行调节。
 ```
 rf_param = {
     'max_leaf_nodes': np.arange(2, 1000, 10)
@@ -420,18 +417,12 @@ rf_grid_cv = GridSearchCV(RandomForestRegressor(n_estimators=160, max_depth=5, m
                           param_grid=rf_param, cv=3, verbose=True, n_jobs=-1)
 rf_grid_cv.fit(x_train, y_train)
 ```
-
     Fitting 3 folds for each of 100 candidates, totalling 300 fits
-
 
     [Parallel(n_jobs=-1)]: Using backend LokyBackend with 4 concurrent workers.
     [Parallel(n_jobs=-1)]: Done  42 tasks      | elapsed:   25.9s
     [Parallel(n_jobs=-1)]: Done 192 tasks      | elapsed:  2.0min
     [Parallel(n_jobs=-1)]: Done 300 out of 300 | elapsed:  3.0min finished
-
-
-
-
 
     GridSearchCV(cv=3, error_score='raise-deprecating',
            estimator=RandomForestRegressor(bootstrap=True, criterion='mse', max_depth=5,
@@ -445,18 +436,12 @@ rf_grid_cv.fit(x_train, y_train)
            pre_dispatch='2*n_jobs', refit=True, return_train_score='warn',
            scoring=None, verbose=True)
 
-
-
-
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;和前面大多数参数的表现一样，这里也是在取值较小时似乎就已经达到了比较不错的效果，后面的取值对结果也没有提升，反而徒增资源的消耗。
 ```
 plot_acc_4_grid(rf_grid_cv, 'max_leaf_nodes')
 ```
-
-
 ![png](House-Prices-Advanced-Regression-Techniques-2/Predict%20House%20Prices_78_0.png)
-
-
-
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;依葫芦画瓢地，我们缩小参数返回进行细粒度的调参，可以发现其在取值为*22*时表现已趋于稳定。
 ```
 rf_param = {
     'max_leaf_nodes': np.arange(2, 200, 10)
@@ -466,17 +451,11 @@ rf_grid_cv = GridSearchCV(RandomForestRegressor(n_estimators=160, max_depth=5, m
                           param_grid=rf_param, cv=3, verbose=True, n_jobs=-1)
 rf_grid_cv.fit(x_train, y_train)
 ```
-
     Fitting 3 folds for each of 20 candidates, totalling 60 fits
-
 
     [Parallel(n_jobs=-1)]: Using backend LokyBackend with 4 concurrent workers.
     [Parallel(n_jobs=-1)]: Done  42 tasks      | elapsed:   26.0s
     [Parallel(n_jobs=-1)]: Done  60 out of  60 | elapsed:   35.6s finished
-
-
-
-
 
     GridSearchCV(cv=3, error_score='raise-deprecating',
            estimator=RandomForestRegressor(bootstrap=True, criterion='mse', max_depth=5,
@@ -491,14 +470,9 @@ rf_grid_cv.fit(x_train, y_train)
            pre_dispatch='2*n_jobs', refit=True, return_train_score='warn',
            scoring=None, verbose=True)
 
-
-
-
 ```
 plot_acc_4_grid(rf_grid_cv, 'max_leaf_nodes')
 ```
-
-
 ![png](House-Prices-Advanced-Regression-Techniques-2/Predict%20House%20Prices_80_0.png)
 
 
