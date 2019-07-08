@@ -542,10 +542,9 @@ plot_acc_4_grid(rf_grid_cv, 'min_samples_leaf')
 ```
 ![png](House-Prices-Advanced-Regression-Techniques-2/Predict%20House%20Prices_86_0.png)
 
-
 * bootstrap
-
-
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;到目前为止，我们已经通过以上的步骤训练完了直接影响子模型结构的参数(除了`n_estimators`)，现在我们稍微站高一点，尝试一下对`booststrap`这个参数取不同的值，看看最后的效果如何。
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`bootstrap`决定了是否对样本进行抽样，也就是说它对训练使用什么哪些样本起着至关重要的作用。一般而言，使用子采样会降低子模型之间的关联度，降低最终模型的方差，这也是**bagging**的做法。
 ```
 rf_param = {
     'bootstrap': [True, False]
@@ -556,17 +555,11 @@ rf_grid_cv = GridSearchCV(RandomForestRegressor(n_estimators=160, max_depth=5, m
                           param_grid=rf_param, cv=3, verbose=True, n_jobs=-1)
 rf_grid_cv.fit(x_train, y_train)
 ```
-
     Fitting 3 folds for each of 2 candidates, totalling 6 fits
-
 
     [Parallel(n_jobs=-1)]: Using backend LokyBackend with 4 concurrent workers.
     [Parallel(n_jobs=-1)]: Done   6 out of   6 | elapsed:    4.4s remaining:    0.0s
     [Parallel(n_jobs=-1)]: Done   6 out of   6 | elapsed:    4.4s finished
-
-
-
-
 
     GridSearchCV(cv=3, error_score='raise-deprecating',
            estimator=RandomForestRegressor(bootstrap=True, criterion='mse', max_depth=5,
@@ -578,21 +571,15 @@ rf_grid_cv.fit(x_train, y_train)
            fit_params=None, iid='warn', n_jobs=-1,
            param_grid={'bootstrap': [True, False]}, pre_dispatch='2*n_jobs',
            refit=True, return_train_score='warn', scoring=None, verbose=True)
-
-
-
-
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;经过验证，在这里展现出的结果也确实如此。那么我很有什么理由不使用默认值呢。
 ```
 plot_acc_4_grid(rf_grid_cv, 'bootstrap')
 ```
-
-
 ![png](House-Prices-Advanced-Regression-Techniques-2/Predict%20House%20Prices_89_0.png)
 
 
 * criterion
-
-
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在**scikit-learn**的*0.18*版中，`mae`作为新的计算方法被添加进来，以前都是使用`mse`来做为判断是否分裂节点的计算方法。既然如此我们也来尝试一下吧。
 ```
 rf_param = {
     'criterion': ['mse', 'mae']
@@ -603,17 +590,11 @@ rf_grid_cv = GridSearchCV(RandomForestRegressor(n_estimators=160, max_depth=5, m
                           param_grid=rf_param, cv=3, verbose=True, n_jobs=-1)
 rf_grid_cv.fit(x_train, y_train)
 ```
-
     Fitting 3 folds for each of 2 candidates, totalling 6 fits
-
 
     [Parallel(n_jobs=-1)]: Using backend LokyBackend with 4 concurrent workers.
     [Parallel(n_jobs=-1)]: Done   6 out of   6 | elapsed:   59.7s remaining:    0.0s
     [Parallel(n_jobs=-1)]: Done   6 out of   6 | elapsed:   59.7s finished
-
-
-
-
 
     GridSearchCV(cv=3, error_score='raise-deprecating',
            estimator=RandomForestRegressor(bootstrap=True, criterion='mse', max_depth=5,
@@ -626,16 +607,10 @@ rf_grid_cv.fit(x_train, y_train)
            param_grid={'criterion': ['mse', 'mae']}, pre_dispatch='2*n_jobs',
            refit=True, return_train_score='warn', scoring=None, verbose=True)
 
-
-
-
 ```
 plot_acc_4_grid(rf_grid_cv, 'criterion')
 ```
-
-
 ![png](House-Prices-Advanced-Regression-Techniques-2/Predict%20House%20Prices_92_0.png)
-
 
 * RandomForestRegressor
 
