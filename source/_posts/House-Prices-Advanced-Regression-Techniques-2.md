@@ -11,9 +11,9 @@ description: 接上一篇，主要记录集成模型的训练过程
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;书接上文，在前文中我们已经基本看到了机器学习需要经历的基本过程，其中占据大部分篇幅的是数据分析和处理的部分，模型的训练反而占比不大。这其中的原因除了因为特征工程在整个机器学习中应有如此大的比重之外，还因为之前训练的模型都是一些简单模型，并不涉及到大量参数的调试。而现在，我们使用的集成学习，将会涉及到不少的参数需要调节。
 # 集成学习概述
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;既然都单独将这部分内容拿出来描述了，那么在正式进入调参之前，我们先简要看看集成学习是个什么东西吧。
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**集成学习**通过构建并结合多个学习器来完成学习任务，其先产生一组“个体学习器”，再用某种策略将它们结合起来。集成的方式又分为**同质集成**和**异质集成**。**同质集成**只包含相同类型的个体学习器，其个体学习器也称为“基学习器”；**异质集成**中的个体学习器是不同类型的，其被称为“组件学习器”。
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;根据个体学习器的生成方式可以分为两大类，一种是串行生成的序列化方法，其个体学习器之间存在强依赖关系，代表为*Boosting*；另一种是同时生成的并行化方法，其个体学习器之间不存在强依赖关系，代表有*Bagging*和*Random Forest*。*Boosting*是一族可将弱学习器提升为强学习器的算法，它先从初始训练集训练出一个基学习器，再根据其表现调整训练样本的分布，即重新分配每个样本的权重，使表现不好的样本在下次训练时得到更多的关注，直至达到预定的训练次数，最后将所有的基学习器进行加权结合；*Boosting*每一次都是使用的全量数据，而*Bagging*却并不是，它采用有放回的采样的方式来生成训练集，每个基学习器使用不同的训练集来进行训练，有放回的采样使得同一个数据集能够被多次使用训练出不同的模型，最后可以通过投票(分类)和平均(回归)来结合各个基学习器的结果；*Random Forest*是在*Bagging*的基础上进一步在决策树的训练过程中引入随机属性选择,传统的决策树选择划分属性时是在当前节点的属性集合中选择一个最优属性，而在*RF*中是先从该结点的属性集合中随机选择一个包含$k$个属性的子集，再从子集中选择最优属性。
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;既然都单独将这部分内容拿出来描述了，那么在正式进入调参之前，我们先简要看看集成学习是个什么东西吧。<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**集成学习**通过构建并结合多个学习器来完成学习任务，其先产生一组“个体学习器”，再用某种策略将它们结合起来。集成的方式又分为**同质集成**和**异质集成**。**同质集成**只包含相同类型的个体学习器，其个体学习器也称为“基学习器”；**异质集成**中的个体学习器是不同类型的，其被称为“组件学习器”。<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;根据个体学习器的生成方式可以分为两大类，一种是串行生成的序列化方法，其个体学习器之间存在强依赖关系，代表为*Boosting*；另一种是同时生成的并行化方法，其个体学习器之间不存在强依赖关系，代表有*Bagging*和*Random Forest*。*Boosting*是一族可将弱学习器提升为强学习器的算法，它先从初始训练集训练出一个基学习器，再根据其表现调整训练样本的分布，即重新分配每个样本的权重，使表现不好的样本在下次训练时得到更多的关注，直至达到预定的训练次数，最后将所有的基学习器进行加权结合；*Boosting*每一次都是使用的全量数据，而*Bagging*却并不是，它采用有放回的采样的方式来生成训练集，每个基学习器使用不同的训练集来进行训练，有放回的采样使得同一个数据集能够被多次使用训练出不同的模型，最后可以通过投票(分类)和平均(回归)来结合各个基学习器的结果；*Random Forest*是在*Bagging*的基础上进一步在决策树的训练过程中引入随机属性选择,传统的决策树选择划分属性时是在当前节点的属性集合中选择一个最优属性，而在*RF*中是先从该结点的属性集合中随机选择一个包含$k$个属性的子集，再从子集中选择最优属性。<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;集成学习还有很多细节上的东西，包括**Boosting**和**Bagging**的训练过程，最后结果的结合方式等等，在这里就不再进行一一陈述了。下面让我们进入主题——集成模型的训练吧。
 
 # 模型选择
@@ -165,11 +165,12 @@ def plot_acc_4_grid(grid_cv, param):
     </table>
 </div>
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;其中的`n_estimators`的值一般来说是越大性能越好，泛化能力越强，是单调递增的，但随着子模型的数量增加，训练算法所消耗的资源和时间将会急剧增加。其它数值型参数对性能的影响都呈现出有增有减的，而枚举型的例如`criterion`则需要视情况而定了。
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我们已经对需要调节的参数有了一个直观的认识，知道每个参数代表的含义。但是我们怎么来调节他们呢？在一开始的时候，我选择了一种非常笨重的方式，我通过直接将所有参数塞进`GridSearchCV`，而这导致训练需要花费大量的时间，不如设想有*3*个参数需要调节，每个参数取*10*个待定值，最后需要尝试的组合高达**1000**个之多，而这里的参数有`9`个之多，如果是更复杂的神经网络，那基本上就是望山跑死马的事了。我后知后觉得意识到网格查找的局限性，又想起书里提到的随机方法`RandomizedSearchCV`，我马上进行了尝试，并一度以为这样就能完美解决问题，但显然我是过于乐观了——最后训练出的模型基本上都是过拟合的，而且参数可控性极低。
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;其中的`n_estimators`的值一般来说是越大性能越好，泛化能力越强，是单调递增的，但随着子模型的数量增加，训练算法所消耗的资源和时间将会急剧增加。其它数值型参数对性能的影响都呈现出有增有减的，而枚举型的例如`criterion`则需要视情况而定了。<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我们已经对需要调节的参数有了一个直观的认识，知道每个参数代表的含义。但是我们怎么来调节他们呢？在一开始的时候，我选择了一种非常笨重的方式，我通过直接将所有参数塞进`GridSearchCV`，而这导致训练需要花费大量的时间，不如设想有*3*个参数需要调节，每个参数取*10*个待定值，最后需要尝试的组合高达**1000**个之多，而这里的参数有`9`个之多，如果是更复杂的神经网络，那基本上就是望山跑死马的事了。我后知后觉得意识到网格查找的局限性，又想起书里提到的随机方法`RandomizedSearchCV`，我马上进行了尝试，并一度以为这样就能完美解决问题，但显然我是过于乐观了——最后训练出的模型基本上都是过拟合的，而且参数可控性极低。<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这里最后尝试的方法是一种基于贪心策略的坐标下降法，即每一次只调节一个参数，然后选择最优的参数固定下来继续训练下一个参数，这可以大大减少训练所需的资源和时间——将上面的**1000**减少到**30**，只要能保证每个参数对性能的提升都是单调递增的，就能取得不错的效果。下面让我们来一探究竟吧。
 
 * n_estimators
+
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;首先进行调节的是`n_estimators`这个参数，正如前文所述，这是一个使性能单调递增的参数，我们首先在粗粒度对它训练，观察训练的整体趋势。
 ```
 from sklearn.ensemble import RandomForestRegressor
@@ -235,6 +236,7 @@ plot_acc_4_grid(rf_grid_cv, 'n_estimators')
 ![png](House-Prices-Advanced-Regression-Techniques-2/Predict%20House%20Prices_62_0.png)
 
 * max_depth
+
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`max_depth`控制着每棵树的深度，随着树的深度越升，子模型的偏差降低而方差升高，当方差升高到一定程度的时候将会使泛化性能下降，也就是出现过拟合现象。如果是一颗完全二叉树，则最后叶节点将为$2^{n-1}$，这里使用的训练集的数量只需要一颗深度为*10*的树基本就能满足每个叶节点一个实例，最后的结果显然不会如此理想，所以现将深度的查找范围扩大到*100*进行训练。
 
 ```
@@ -269,6 +271,7 @@ rf_grid_cv.fit(x_train, y_train)
 plot_acc_4_grid(rf_grid_cv, 'max_depth')
 ```
 ![png](House-Prices-Advanced-Regression-Techniques-2/Predict%20House%20Prices_65_0.png)
+
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在确定这个参数之前，为了更准确地估计，我把参数调节的范围缩小到了*1~20*，希望这能带来更清楚的认识。
 ```
 rf_param = {
@@ -304,6 +307,7 @@ plot_acc_4_grid(rf_grid_cv, 'max_depth')
 ![png](House-Prices-Advanced-Regression-Techniques-2/Predict%20House%20Prices_67_0.png)
 
 * max_features
+
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`max_features`决定了算法在分裂节点时需要考虑的最大特征数，其可以通过内置的枚举值来计算个数也可以通过直接设置数值计算。因为这里的特征数量并不是很多，加上$OneHot$向量一共有345个，所以我采用了设置数值的方式，这样能够清晰地看到不同取值对模型的影响以及确定影响的具体数值。
 ```
 rf_param = {
@@ -341,6 +345,7 @@ plot_acc_4_grid(rf_grid_cv, 'max_features')
 
 
 * min_samples_split
+
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`min_samples_split`同样是一个影响模型偏差/方差的参数，它限定了一个节点需要分裂所需的最小样本数，其值越大模型越简单，偏差越大方差越小，而调节这个参数就是为了在这之间做一个权衡。`min_samples_split`参数最小取值为*2*，基于和`max_depth`一样的道理，这里将取值限定在*2~100*。
 
 ```
@@ -367,6 +372,7 @@ rf_grid_cv.fit(x_train, y_train)
            param_grid={'min_samples_split': array([ 2, 12, 22, 32, 42, 52, 62, 72, 82, 92])},
            pre_dispatch='2*n_jobs', refit=True, return_train_score='warn',
            scoring=None, verbose=True)
+
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这幅图有一个有趣的地方，虽然得分在不断地下降，但是变异系数存在一个低谷，如果训练到此为止，似乎有理由去选择这个值，因为其有不差的评分和相对较低的变异系数。但事实真的如此吗？
 ```
 plot_acc_4_grid(rf_grid_cv, 'min_samples_split')
@@ -401,12 +407,15 @@ rf_grid_cv.fit(x_train, y_train)
            19, 20, 21])},
            pre_dispatch='2*n_jobs', refit=True, return_train_score='warn',
            scoring=None, verbose=True)
+
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;没错，上面解释过的现象又再次出现了，在上面训练中的波谷并不是全局的波谷，而且可以明显地发现其振荡的现象，但其总体趋势是在升高。因此可以得出结论，`min_samples_split`在这里并不适合调节，只需要将其设置为默认值就行了。
 ```
 plot_acc_4_grid(rf_grid_cv, 'min_samples_split')
 ```
 ![png](House-Prices-Advanced-Regression-Techniques-2/Predict%20House%20Prices_75_0.png)
+
 * max_leaf_nodes
+
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`max_leaf_nodes`规定了最大叶节点数，与`min_samples_split`相反， `max_leaf_nodes`越大模型越复杂，方差越高。甚至可以不限制它的数量，任由其生长，基于此，我们这里选用一个较大的范围去观察它的整体趋势，然后再如同前面一样在细粒度上去进行调节。
 ```
 rf_param = {
@@ -441,6 +450,7 @@ rf_grid_cv.fit(x_train, y_train)
 plot_acc_4_grid(rf_grid_cv, 'max_leaf_nodes')
 ```
 ![png](House-Prices-Advanced-Regression-Techniques-2/Predict%20House%20Prices_78_0.png)
+
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;依葫芦画瓢地，我们缩小参数返回进行细粒度的调参，可以发现其在取值为*22*时表现已趋于稳定。
 ```
 rf_param = {
@@ -476,6 +486,7 @@ plot_acc_4_grid(rf_grid_cv, 'max_leaf_nodes')
 ![png](House-Prices-Advanced-Regression-Techniques-2/Predict%20House%20Prices_80_0.png)
 
 * min_weight_fraction_leaf
+
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;叶节点最小权重总值限制了叶子节点所有样本权重的最小值，如果小于这个值，则会和其他叶子节点一起被剪枝，提高模型偏差，降低方差。如果样本的分布存在偏斜或者有较多的缺失值可以考虑引入权重。由于之前已经在特征工程中处理了相应的问题，所以这里的调参对提升模型不会有什么作用，但是并不妨碍我们一窥究竟。
 ```
 rf_param = {
@@ -503,6 +514,7 @@ rf_grid_cv.fit(x_train, y_train)
            0.38889, 0.44444, 0.5    ])},
            pre_dispatch='2*n_jobs', refit=True, return_train_score='warn',
            scoring=None, verbose=True)
+
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我想这是这篇文章到此为止第二个如此直观的图了，那么我便不在做过多的解释，直接确定取值了。
 ```
 plot_acc_4_grid(rf_grid_cv, 'min_weight_fraction_leaf')
@@ -510,6 +522,7 @@ plot_acc_4_grid(rf_grid_cv, 'min_weight_fraction_leaf')
 ![png](House-Prices-Advanced-Regression-Techniques-2/Predict%20House%20Prices_83_0.png)
 
 * min_samples_leaf
+
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`min_samples_leaf`是我们训练的最后一个关于子模型结构的参数了，它表示叶节点的最小样本树。关于这个描述如果返回前面去看我们已经训练过的参数，会发现一个和它非常相似的参数，就是`min_samples_split`，这两个参树可以说是直接限定定了叶节点样本个数的范围。下面让我们仿照`min_samples_split`的训练过程对`min_samples_leaf`的参数进行设定。
 ```
 rf_param = {
@@ -536,6 +549,7 @@ rf_grid_cv.fit(x_train, y_train)
            param_grid={'min_samples_leaf': array([ 1, 11, 21, 31, 41, 51, 61, 71, 81, 91])},
            pre_dispatch='2*n_jobs', refit=True, return_train_score='warn',
            scoring=None, verbose=True)
+
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如图所示，虽然在较粗粒度的层面上进行调参，但是其总体趋势确实非常明显，所以这里便不再多做赘述，直接将值取为*1*。
 ```
 plot_acc_4_grid(rf_grid_cv, 'min_samples_leaf')
@@ -543,7 +557,8 @@ plot_acc_4_grid(rf_grid_cv, 'min_samples_leaf')
 ![png](House-Prices-Advanced-Regression-Techniques-2/Predict%20House%20Prices_86_0.png)
 
 * bootstrap
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;到目前为止，我们已经通过以上的步骤训练完了直接影响子模型结构的参数(除了`n_estimators`)，现在我们稍微站高一点，尝试一下对`booststrap`这个参数取不同的值，看看最后的效果如何。
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;到目前为止，我们已经通过以上的步骤训练完了直接影响子模型结构的参数(除了`n_estimators`)，现在我们稍微站高一点，尝试一下对`booststrap`这个参数取不同的值，看看最后的效果如何。<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`bootstrap`决定了是否对样本进行抽样，也就是说它对训练使用什么哪些样本起着至关重要的作用。一般而言，使用子采样会降低子模型之间的关联度，降低最终模型的方差，这也是**bagging**的做法。
 ```
 rf_param = {
@@ -571,6 +586,7 @@ rf_grid_cv.fit(x_train, y_train)
            fit_params=None, iid='warn', n_jobs=-1,
            param_grid={'bootstrap': [True, False]}, pre_dispatch='2*n_jobs',
            refit=True, return_train_score='warn', scoring=None, verbose=True)
+
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;经过验证，在这里展现出的结果也确实如此。那么我很有什么理由不使用默认值呢。
 ```
 plot_acc_4_grid(rf_grid_cv, 'bootstrap')
@@ -579,6 +595,7 @@ plot_acc_4_grid(rf_grid_cv, 'bootstrap')
 
 
 * criterion
+
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在**scikit-learn**的*0.18*版中，`mae`作为新的计算方法被添加进来，以前都是使用`mse`来做为判断是否分裂节点的计算方法。既然如此我们也来尝试一下吧。
 ```
 rf_param = {
@@ -614,49 +631,32 @@ plot_acc_4_grid(rf_grid_cv, 'criterion')
 
 * RandomForestRegressor
 
-
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;经过繁琐的步骤，我们终于可以着手训练一个完整的随机森林模型了。将上面的参数一一对应，直接使用训练数据划分验证测试。
 ```
 rf = RandomForestRegressor(n_estimators=160, max_depth=5, max_features='auto',
                            min_samples_split=2, max_leaf_nodes=22, min_weight_fraction_leaf=0,
                           min_samples_leaf=1, bootstrap=True)
 ```
-
-
 ```
 rf_pred = cross_val_predict(rf, x_train, y_train,
                                  verbose=True, n_jobs=-1, cv=3)
 mse = mean_squared_error(y_train, rf_pred)
 np.sqrt(mse)
 ```
-
     [Parallel(n_jobs=-1)]: Using backend LokyBackend with 4 concurrent workers.
     [Parallel(n_jobs=-1)]: Done   3 out of   3 | elapsed:    1.7s finished
 
-
-
-
-
     0.16115609724602975
-
-
-
-
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;就这样，我们最后得到了一个自己亲手调试的集成模型。对这最后的成果我们可以做一个简要的分析。首先相比之前我多次尝试训练的随机森林，它有着一个极大的改变，那就是它的训练曲线不在是一条接近*1*的水平线了，good job！！！这说明通过调参已经有效的缓解了严重的过拟合现象；其次，我们也可以发现一些问题，模型似乎仍然存在一定程度的过拟合(两条线靠得并不太近)，同时模型的准确率似乎有着明显的下降。
 ```
 plot_learning_curve(rf, x_train, y_train)
 ```
-
     [Parallel(n_jobs=-1)]: Using backend LokyBackend with 4 concurrent workers.
 
-
     [learning_curve] Training set sizes: [ 131  426  721 1016 1312]
-
-
     [Parallel(n_jobs=-1)]: Done  50 out of  50 | elapsed:   20.1s finished
-
-
-
 ![png](House-Prices-Advanced-Regression-Techniques-2/Predict%20House%20Prices_96_3.png)
-
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;虽然最后的模型看起来并不是很完美的解决方案，但这至少可以作为一个里程碑，它证明了贪心策略的可行性同时产出了一个完整的集成模型。
 
 ## GBDT
 
