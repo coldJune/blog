@@ -509,10 +509,8 @@ plot_acc_4_grid(rf_grid_cv, 'min_weight_fraction_leaf')
 ```
 ![png](House-Prices-Advanced-Regression-Techniques-2/Predict%20House%20Prices_83_0.png)
 
-
 * min_samples_leaf
-
-
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`min_samples_leaf`是我们训练的最后一个关于子模型结构的参数了，它表示叶节点的最小样本树。关于这个描述如果返回前面去看我们已经训练过的参数，会发现一个和它非常相似的参数，就是`min_samples_split`，这两个参树可以说是直接限定定了叶节点样本个数的范围。下面让我们仿照`min_samples_split`的训练过程对`min_samples_leaf`的参数进行设定。
 ```
 rf_param = {
     'min_samples_leaf': np.arange(1, 100, 10)
@@ -522,16 +520,10 @@ rf_grid_cv = GridSearchCV(RandomForestRegressor(n_estimators=160, max_depth=5, m
                           param_grid=rf_param, cv=3, verbose=True, n_jobs=-1)
 rf_grid_cv.fit(x_train, y_train)
 ```
-
     Fitting 3 folds for each of 10 candidates, totalling 30 fits
-
 
     [Parallel(n_jobs=-1)]: Using backend LokyBackend with 4 concurrent workers.
     [Parallel(n_jobs=-1)]: Done  30 out of  30 | elapsed:   13.5s finished
-
-
-
-
 
     GridSearchCV(cv=3, error_score='raise-deprecating',
            estimator=RandomForestRegressor(bootstrap=True, criterion='mse', max_depth=5,
@@ -544,15 +536,10 @@ rf_grid_cv.fit(x_train, y_train)
            param_grid={'min_samples_leaf': array([ 1, 11, 21, 31, 41, 51, 61, 71, 81, 91])},
            pre_dispatch='2*n_jobs', refit=True, return_train_score='warn',
            scoring=None, verbose=True)
-
-
-
-
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如图所示，虽然在较粗粒度的层面上进行调参，但是其总体趋势确实非常明显，所以这里便不再多做赘述，直接将值取为*1*。
 ```
 plot_acc_4_grid(rf_grid_cv, 'min_samples_leaf')
 ```
-
-
 ![png](House-Prices-Advanced-Regression-Techniques-2/Predict%20House%20Prices_86_0.png)
 
 
