@@ -656,529 +656,16 @@ plot_learning_curve(rf, x_train, y_train)
     [learning_curve] Training set sizes: [ 131  426  721 1016 1312]
     [Parallel(n_jobs=-1)]: Done  50 out of  50 | elapsed:   20.1s finished
 ![png](House-Prices-Advanced-Regression-Techniques-2/Predict%20House%20Prices_96_3.png)
+
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;虽然最后的模型看起来并不是很完美的解决方案，但这至少可以作为一个里程碑，它证明了贪心策略的可行性同时产出了一个完整的集成模型。
 
 ## GBDT
-
-* n_estimators
-
-
-```
-from sklearn.ensemble import GradientBoostingRegressor
-from sklearn.model_selection import GridSearchCV
-gbdt_param = {
-    'n_estimators': np.arange(1, 3000, 100),
-}
-gbdt_grid_cv = GridSearchCV(GradientBoostingRegressor(),
-                            param_grid=gbdt_param, verbose=True, cv=3, n_jobs=-1)
-gbdt_grid_cv.fit(x_train, y_train)
-```
-
-    Fitting 3 folds for each of 30 candidates, totalling 90 fits
-
-
-    [Parallel(n_jobs=-1)]: Using backend LokyBackend with 4 concurrent workers.
-    [Parallel(n_jobs=-1)]: Done  90 out of  90 | elapsed:  6.8min finished
-
-
-
-
-
-    GridSearchCV(cv=3, error_score='raise-deprecating',
-           estimator=GradientBoostingRegressor(alpha=0.9, criterion='friedman_mse', init=None,
-                 learning_rate=0.1, loss='ls', max_depth=3, max_features=None,
-                 max_leaf_nodes=None, min_impurity_decrease=0.0,
-                 min_impurity_split=None, min_samples_leaf=1,
-                 min_sampl...=None, subsample=1.0, tol=0.0001,
-                 validation_fraction=0.1, verbose=0, warm_start=False),
-           fit_params=None, iid='warn', n_jobs=-1,
-           param_grid={'n_estimators': array([   1,  101,  201,  301,  401,  501,  601,  701,  801,  901, 1001,
-           1101, 1201, 1301, 1401, 1501, 1601, 1701, 1801, 1901, 2001, 2101,
-           2201, 2301, 2401, 2501, 2601, 2701, 2801, 2901])},
-           pre_dispatch='2*n_jobs', refit=True, return_train_score='warn',
-           scoring=None, verbose=True)
-
-
-
-
-```
-plot_acc_4_grid(gbdt_grid_cv, 'n_estimators')
-```
-
-
-![png](House-Prices-Advanced-Regression-Techniques-2/Predict%20House%20Prices_100_0.png)
-
-
-
-```
-gbdt_param = {
-    'n_estimators': np.arange(1, 200),
-}
-gbdt_grid_cv = GridSearchCV(GradientBoostingRegressor(),
-                            param_grid=gbdt_param, verbose=True, cv=3, n_jobs=-1)
-gbdt_grid_cv.fit(x_train, y_train)
-```
-
-    Fitting 3 folds for each of 199 candidates, totalling 597 fits
-
-
-    [Parallel(n_jobs=-1)]: Using backend LokyBackend with 4 concurrent workers.
-    [Parallel(n_jobs=-1)]: Done  42 tasks      | elapsed:    3.0s
-    [Parallel(n_jobs=-1)]: Done 192 tasks      | elapsed:   24.4s
-    [Parallel(n_jobs=-1)]: Done 442 tasks      | elapsed:  1.8min
-    [Parallel(n_jobs=-1)]: Done 597 out of 597 | elapsed:  3.3min finished
-
-
-
-
-
-    GridSearchCV(cv=3, error_score='raise-deprecating',
-           estimator=GradientBoostingRegressor(alpha=0.9, criterion='friedman_mse', init=None,
-                 learning_rate=0.1, loss='ls', max_depth=3, max_features=None,
-                 max_leaf_nodes=None, min_impurity_decrease=0.0,
-                 min_impurity_split=None, min_samples_leaf=1,
-                 min_sampl...=None, subsample=1.0, tol=0.0001,
-                 validation_fraction=0.1, verbose=0, warm_start=False),
-           fit_params=None, iid='warn', n_jobs=-1,
-           param_grid={'n_estimators': array([  1,   2, ..., 198, 199])},
-           pre_dispatch='2*n_jobs', refit=True, return_train_score='warn',
-           scoring=None, verbose=True)
-
-
-
-
-```
-plot_acc_4_grid(gbdt_grid_cv, 'n_estimators')
-```
-
-
-![png](House-Prices-Advanced-Regression-Techniques-2/Predict%20House%20Prices_102_0.png)
-
-
-
-```
-gbdt_param = {
-    'n_estimators': np.arange(10, 70),
-}
-gbdt_grid_cv = GridSearchCV(GradientBoostingRegressor(),
-                            param_grid=gbdt_param, verbose=True, cv=3, n_jobs=-1)
-gbdt_grid_cv.fit(x_train, y_train)
-```
-
-    Fitting 3 folds for each of 60 candidates, totalling 180 fits
-
-
-    [Parallel(n_jobs=-1)]: Using backend LokyBackend with 4 concurrent workers.
-    [Parallel(n_jobs=-1)]: Done  42 tasks      | elapsed:    3.7s
-    [Parallel(n_jobs=-1)]: Done 180 out of 180 | elapsed:   25.3s finished
-
-
-
-
-
-    GridSearchCV(cv=3, error_score='raise-deprecating',
-           estimator=GradientBoostingRegressor(alpha=0.9, criterion='friedman_mse', init=None,
-                 learning_rate=0.1, loss='ls', max_depth=3, max_features=None,
-                 max_leaf_nodes=None, min_impurity_decrease=0.0,
-                 min_impurity_split=None, min_samples_leaf=1,
-                 min_sampl...=None, subsample=1.0, tol=0.0001,
-                 validation_fraction=0.1, verbose=0, warm_start=False),
-           fit_params=None, iid='warn', n_jobs=-1,
-           param_grid={'n_estimators': array([10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26,
-           27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43,
-           44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60,
-           61, 62, 63, 64, 65, 66, 67, 68, 69])},
-           pre_dispatch='2*n_jobs', refit=True, return_train_score='warn',
-           scoring=None, verbose=True)
-
-
-
-
-```
-plot_acc_4_grid(gbdt_grid_cv, 'n_estimators')
-```
-
-
-![png](House-Prices-Advanced-Regression-Techniques-2/Predict%20House%20Prices_104_0.png)
-
-
-* max_depth
-
-
-```
-gbdt_param = {
-    'max_depth': np.arange(1, 100),
-}
-gbdt_grid_cv = GridSearchCV(GradientBoostingRegressor(n_estimators=23),
-                            param_grid=gbdt_param, verbose=True, cv=3, n_jobs=-1)
-gbdt_grid_cv.fit(x_train, y_train)
-```
-
-    Fitting 3 folds for each of 99 candidates, totalling 297 fits
-
-
-    [Parallel(n_jobs=-1)]: Using backend LokyBackend with 4 concurrent workers.
-    [Parallel(n_jobs=-1)]: Done  55 tasks      | elapsed:   32.4s
-    [Parallel(n_jobs=-1)]: Done 205 tasks      | elapsed:  3.0min
-    [Parallel(n_jobs=-1)]: Done 297 out of 297 | elapsed:  4.7min finished
-
-
-
-
-
-    GridSearchCV(cv=3, error_score='raise-deprecating',
-           estimator=GradientBoostingRegressor(alpha=0.9, criterion='friedman_mse', init=None,
-                 learning_rate=0.1, loss='ls', max_depth=3, max_features=None,
-                 max_leaf_nodes=None, min_impurity_decrease=0.0,
-                 min_impurity_split=None, min_samples_leaf=1,
-                 min_sampl...=None, subsample=1.0, tol=0.0001,
-                 validation_fraction=0.1, verbose=0, warm_start=False),
-           fit_params=None, iid='warn', n_jobs=-1,
-           param_grid={'max_depth': array([ 1,  2, ..., 98, 99])},
-           pre_dispatch='2*n_jobs', refit=True, return_train_score='warn',
-           scoring=None, verbose=True)
-
-
-
-
-```
-plot_acc_4_grid(gbdt_grid_cv, 'max_depth')
-```
-
-
-![png](House-Prices-Advanced-Regression-Techniques-2/Predict%20House%20Prices_107_0.png)
-
-
-* max_features
-
-
-```
-gbdt_param = {
-    'max_features': np.arange(1, 345, 10),
-}
-gbdt_grid_cv = GridSearchCV(GradientBoostingRegressor(n_estimators=23, max_depth=8),
-                            param_grid=gbdt_param, verbose=True, cv=3, n_jobs=-1)
-gbdt_grid_cv.fit(x_train, y_train)
-```
-
-    Fitting 3 folds for each of 35 candidates, totalling 105 fits
-
-
-    [Parallel(n_jobs=-1)]: Using backend LokyBackend with 4 concurrent workers.
-    [Parallel(n_jobs=-1)]: Done  88 tasks      | elapsed:   19.7s
-    [Parallel(n_jobs=-1)]: Done 105 out of 105 | elapsed:   26.2s finished
-
-
-
-
-
-    GridSearchCV(cv=3, error_score='raise-deprecating',
-           estimator=GradientBoostingRegressor(alpha=0.9, criterion='friedman_mse', init=None,
-                 learning_rate=0.1, loss='ls', max_depth=8, max_features=None,
-                 max_leaf_nodes=None, min_impurity_decrease=0.0,
-                 min_impurity_split=None, min_samples_leaf=1,
-                 min_sampl...=None, subsample=1.0, tol=0.0001,
-                 validation_fraction=0.1, verbose=0, warm_start=False),
-           fit_params=None, iid='warn', n_jobs=-1,
-           param_grid={'max_features': array([  1,  11,  21,  31,  41,  51,  61,  71,  81,  91, 101, 111, 121,
-           131, 141, 151, 161, 171, 181, 191, 201, 211, 221, 231, 241, 251,
-           261, 271, 281, 291, 301, 311, 321, 331, 341])},
-           pre_dispatch='2*n_jobs', refit=True, return_train_score='warn',
-           scoring=None, verbose=True)
-
-
-
-
-```
-plot_acc_4_grid(gbdt_grid_cv, 'max_features')
-```
-
-
-![png](House-Prices-Advanced-Regression-Techniques-2/Predict%20House%20Prices_110_0.png)
-
-
-
-```
-gbdt_param = {
-    'max_features': np.arange(61, 81),
-}
-gbdt_grid_cv = GridSearchCV(GradientBoostingRegressor(n_estimators=23, max_depth=8),
-                            param_grid=gbdt_param, verbose=True, cv=3, n_jobs=-1)
-gbdt_grid_cv.fit(x_train, y_train)
-```
-
-    Fitting 3 folds for each of 20 candidates, totalling 60 fits
-
-
-    [Parallel(n_jobs=-1)]: Using backend LokyBackend with 4 concurrent workers.
-    [Parallel(n_jobs=-1)]: Done  42 tasks      | elapsed:    5.6s
-    [Parallel(n_jobs=-1)]: Done  60 out of  60 | elapsed:    7.6s finished
-
-
-
-
-
-    GridSearchCV(cv=3, error_score='raise-deprecating',
-           estimator=GradientBoostingRegressor(alpha=0.9, criterion='friedman_mse', init=None,
-                 learning_rate=0.1, loss='ls', max_depth=8, max_features=None,
-                 max_leaf_nodes=None, min_impurity_decrease=0.0,
-                 min_impurity_split=None, min_samples_leaf=1,
-                 min_sampl...=None, subsample=1.0, tol=0.0001,
-                 validation_fraction=0.1, verbose=0, warm_start=False),
-           fit_params=None, iid='warn', n_jobs=-1,
-           param_grid={'max_features': array([61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77,
-           78, 79, 80])},
-           pre_dispatch='2*n_jobs', refit=True, return_train_score='warn',
-           scoring=None, verbose=True)
-
-
-
-
-```
-plot_acc_4_grid(gbdt_grid_cv, 'max_features')
-```
-
-
-![png](House-Prices-Advanced-Regression-Techniques-2/Predict%20House%20Prices_112_0.png)
-
-
-* min_samples_split
-
-
-```
-gbdt_param = {
-    'min_samples_split': np.arange(2,100),
-}
-gbdt_grid_cv = GridSearchCV(GradientBoostingRegressor(n_estimators=23, max_depth=8, max_features='auto'),
-                            param_grid=gbdt_param, verbose=True, cv=3, n_jobs=-1)
-gbdt_grid_cv.fit(x_train, y_train)
-```
-
-    Fitting 3 folds for each of 98 candidates, totalling 294 fits
-
-
-    [Parallel(n_jobs=-1)]: Using backend LokyBackend with 4 concurrent workers.
-    [Parallel(n_jobs=-1)]: Done  42 tasks      | elapsed:   15.1s
-    [Parallel(n_jobs=-1)]: Done 192 tasks      | elapsed:   49.9s
-    [Parallel(n_jobs=-1)]: Done 294 out of 294 | elapsed:  1.2min finished
-
-
-
-
-
-    GridSearchCV(cv=3, error_score='raise-deprecating',
-           estimator=GradientBoostingRegressor(alpha=0.9, criterion='friedman_mse', init=None,
-                 learning_rate=0.1, loss='ls', max_depth=8,
-                 max_features='auto', max_leaf_nodes=None,
-                 min_impurity_decrease=0.0, min_impurity_split=None,
-                 min_samples_leaf=1, min_sam...       subsample=1.0, tol=0.0001, validation_fraction=0.1, verbose=0,
-                 warm_start=False),
-           fit_params=None, iid='warn', n_jobs=-1,
-           param_grid={'min_samples_split': array([ 2,  3, ..., 98, 99])},
-           pre_dispatch='2*n_jobs', refit=True, return_train_score='warn',
-           scoring=None, verbose=True)
-
-
-
-
-```
-plot_acc_4_grid(gbdt_grid_cv, 'min_samples_split')
-```
-
-
-![png](House-Prices-Advanced-Regression-Techniques-2/Predict%20House%20Prices_115_0.png)
-
-
-* max_leaf_nodes
-
-
-```
-gbdt_param = {
-    'max_leaf_nodes': np.arange(2,1000, 10),
-}
-gbdt_grid_cv = GridSearchCV(GradientBoostingRegressor(n_estimators=23, max_depth=8, max_features='auto',
-                                                      min_samples_split=2),
-                            param_grid=gbdt_param, verbose=True, cv=3, n_jobs=-1)
-gbdt_grid_cv.fit(x_train, y_train)
-```
-
-    Fitting 3 folds for each of 100 candidates, totalling 300 fits
-
-
-    [Parallel(n_jobs=-1)]: Using backend LokyBackend with 4 concurrent workers.
-    [Parallel(n_jobs=-1)]: Done  42 tasks      | elapsed:   27.4s
-    [Parallel(n_jobs=-1)]: Done 192 tasks      | elapsed:  2.8min
-    [Parallel(n_jobs=-1)]: Done 300 out of 300 | elapsed:  4.7min finished
-
-
-
-
-
-    GridSearchCV(cv=3, error_score='raise-deprecating',
-           estimator=GradientBoostingRegressor(alpha=0.9, criterion='friedman_mse', init=None,
-                 learning_rate=0.1, loss='ls', max_depth=8,
-                 max_features='auto', max_leaf_nodes=None,
-                 min_impurity_decrease=0.0, min_impurity_split=None,
-                 min_samples_leaf=1, min_sam...       subsample=1.0, tol=0.0001, validation_fraction=0.1, verbose=0,
-                 warm_start=False),
-           fit_params=None, iid='warn', n_jobs=-1,
-           param_grid={'max_leaf_nodes': array([  2,  12, ..., 982, 992])},
-           pre_dispatch='2*n_jobs', refit=True, return_train_score='warn',
-           scoring=None, verbose=True)
-
-
-
-
-```
-plot_acc_4_grid(gbdt_grid_cv, 'max_leaf_nodes')
-```
-
-
-![png](House-Prices-Advanced-Regression-Techniques-2/Predict%20House%20Prices_118_0.png)
-
-
-
-```
-gbdt_param = {
-    'max_leaf_nodes': np.arange(2,100),
-}
-gbdt_grid_cv = GridSearchCV(GradientBoostingRegressor(n_estimators=23, max_depth=8, max_features='auto',
-                                                      min_samples_split=2),
-                            param_grid=gbdt_param, verbose=True, cv=3, n_jobs=-1)
-gbdt_grid_cv.fit(x_train, y_train)
-```
-
-    Fitting 3 folds for each of 98 candidates, totalling 294 fits
-
-
-    [Parallel(n_jobs=-1)]: Using backend LokyBackend with 4 concurrent workers.
-    [Parallel(n_jobs=-1)]: Done  42 tasks      | elapsed:    7.0s
-    [Parallel(n_jobs=-1)]: Done 192 tasks      | elapsed:  1.3min
-    [Parallel(n_jobs=-1)]: Done 294 out of 294 | elapsed:  2.4min finished
-
-
-
-
-
-    GridSearchCV(cv=3, error_score='raise-deprecating',
-           estimator=GradientBoostingRegressor(alpha=0.9, criterion='friedman_mse', init=None,
-                 learning_rate=0.1, loss='ls', max_depth=8,
-                 max_features='auto', max_leaf_nodes=None,
-                 min_impurity_decrease=0.0, min_impurity_split=None,
-                 min_samples_leaf=1, min_sam...       subsample=1.0, tol=0.0001, validation_fraction=0.1, verbose=0,
-                 warm_start=False),
-           fit_params=None, iid='warn', n_jobs=-1,
-           param_grid={'max_leaf_nodes': array([ 2,  3, ..., 98, 99])},
-           pre_dispatch='2*n_jobs', refit=True, return_train_score='warn',
-           scoring=None, verbose=True)
-
-
-
-
-```
-plot_acc_4_grid(gbdt_grid_cv, 'max_leaf_nodes')
-```
-
-
-![png](House-Prices-Advanced-Regression-Techniques-2/Predict%20House%20Prices_120_0.png)
-
-
-* min_weight_fraction_leaf
-
-
-```
-gbdt_param = {
-    'min_weight_fraction_leaf': np.linspace(0,0.5, 10),
-}
-gbdt_grid_cv = GridSearchCV(GradientBoostingRegressor(n_estimators=23, max_depth=8, max_features='auto',
-                                                      min_samples_split=2, max_leaf_nodes=12),
-                            param_grid=gbdt_param, verbose=True, cv=3, n_jobs=-1)
-gbdt_grid_cv.fit(x_train, y_train)
-```
-
-    Fitting 3 folds for each of 10 candidates, totalling 30 fits
-
-
-    [Parallel(n_jobs=-1)]: Using backend LokyBackend with 4 concurrent workers.
-    [Parallel(n_jobs=-1)]: Done  30 out of  30 | elapsed:    2.4s finished
-
-
-
-
-
-    GridSearchCV(cv=3, error_score='raise-deprecating',
-           estimator=GradientBoostingRegressor(alpha=0.9, criterion='friedman_mse', init=None,
-                 learning_rate=0.1, loss='ls', max_depth=8,
-                 max_features='auto', max_leaf_nodes=12,
-                 min_impurity_decrease=0.0, min_impurity_split=None,
-                 min_samples_leaf=1, min_sampl...       subsample=1.0, tol=0.0001, validation_fraction=0.1, verbose=0,
-                 warm_start=False),
-           fit_params=None, iid='warn', n_jobs=-1,
-           param_grid={'min_weight_fraction_leaf': array([0.     , 0.05556, 0.11111, 0.16667, 0.22222, 0.27778, 0.33333,
-           0.38889, 0.44444, 0.5    ])},
-           pre_dispatch='2*n_jobs', refit=True, return_train_score='warn',
-           scoring=None, verbose=True)
-
-
-
-
-```
-plot_acc_4_grid(gbdt_grid_cv, 'min_weight_fraction_leaf')
-```
-
-
-![png](House-Prices-Advanced-Regression-Techniques-2/Predict%20House%20Prices_123_0.png)
-
-
-* min_samples_leaf
-
-
-```
-gbdt_param = {
-    'min_samples_leaf': np.arange(1,100, 10),
-}
-gbdt_grid_cv = GridSearchCV(GradientBoostingRegressor(n_estimators=23, max_depth=8, max_features='auto',
-                                                      min_samples_split=2, max_leaf_nodes=12, min_weight_fraction_leaf=0),
-                            param_grid=gbdt_param, verbose=True, cv=3, n_jobs=-1)
-gbdt_grid_cv.fit(x_train, y_train)
-```
-
-    Fitting 3 folds for each of 10 candidates, totalling 30 fits
-
-
-    [Parallel(n_jobs=-1)]: Using backend LokyBackend with 4 concurrent workers.
-    [Parallel(n_jobs=-1)]: Done  30 out of  30 | elapsed:    5.0s finished
-
-
-
-
-
-    GridSearchCV(cv=3, error_score='raise-deprecating',
-           estimator=GradientBoostingRegressor(alpha=0.9, criterion='friedman_mse', init=None,
-                 learning_rate=0.1, loss='ls', max_depth=8,
-                 max_features='auto', max_leaf_nodes=12,
-                 min_impurity_decrease=0.0, min_impurity_split=None,
-                 min_samples_leaf=1, min_sampl...       subsample=1.0, tol=0.0001, validation_fraction=0.1, verbose=0,
-                 warm_start=False),
-           fit_params=None, iid='warn', n_jobs=-1,
-           param_grid={'min_samples_leaf': array([ 1, 11, 21, 31, 41, 51, 61, 71, 81, 91])},
-           pre_dispatch='2*n_jobs', refit=True, return_train_score='warn',
-           scoring=None, verbose=True)
-
-
-
-
-```
-plot_acc_4_grid(gbdt_grid_cv, 'min_samples_leaf')
-```
-
-
-![png](House-Prices-Advanced-Regression-Techniques-2/Predict%20House%20Prices_126_0.png)
-
-
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**梯度提升树**是一种*Boosting*方法，每个子模型拟合的是上一个子模型的预测结果与真实结果的残差，即先训练一个弱分类器，然后用这个弱分类器去预测数据集，得到的预测结果和正确的结果取差，然后将得到的残差作为数据集新的预测目标，下一个分类器再去你和这个残差，如此反复，最后将所有的弱分类器加权求和得到最终分类器，所以说梯度提升树是一种基于加法模型的算法。<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GBDT通常采用高偏差低方差的基函数，一般是*CART Tree(分类回归树)*。因为是基于树的集成模型，那么它同样涉及到树的生成问题，例如深度、叶子节点个数、分隔所需最小样本树等等。基于此，对这部分参数的训练可以直接仿照*Random Forest*的训练过程，所以便不再占用大量的篇幅去描述。
 * subsample
 
-
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;相比于随机森林，GBDT多训练了一个叫做`subsample`的参数，这个参数的中文名叫做子采样率，它表示每一次训练弱分类器所使用的样本比例，如果$\lt 1.0$表示使用随机梯度提升，同时也能降低方差提高偏差。下面让我们看看它的训练效果。<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我们将值限定在一个极小数与*1*之间，然后取了*100*个值，查看它们的具体表现。
 ```
 gbdt_param = {
     'subsample': np.linspace(1e-7, 1, 100),
@@ -1189,18 +676,12 @@ gbdt_grid_cv = GridSearchCV(GradientBoostingRegressor(n_estimators=23, max_depth
                             param_grid=gbdt_param, verbose=True, cv=3, n_jobs=-1)
 gbdt_grid_cv.fit(x_train, y_train)
 ```
-
     Fitting 3 folds for each of 100 candidates, totalling 300 fits
-
 
     [Parallel(n_jobs=-1)]: Using backend LokyBackend with 4 concurrent workers.
     [Parallel(n_jobs=-1)]: Done  90 tasks      | elapsed:    8.1s
     [Parallel(n_jobs=-1)]: Done 240 tasks      | elapsed:   29.4s
     [Parallel(n_jobs=-1)]: Done 300 out of 300 | elapsed:   39.7s finished
-
-
-
-
 
     GridSearchCV(cv=3, error_score='raise-deprecating',
            estimator=GradientBoostingRegressor(alpha=0.9, criterion='friedman_mse', init=None,
@@ -1213,19 +694,13 @@ gbdt_grid_cv.fit(x_train, y_train)
            param_grid={'subsample': array([1.00000e-07, 1.01011e-02, ..., 9.89899e-01, 1.00000e+00])},
            pre_dispatch='2*n_jobs', refit=True, return_train_score='warn',
            scoring=None, verbose=True)
-
-
-
-
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我们可以发现随着`subsample`的取值越大，得分总体呈上升趋势并趋于平稳，变异系数整体呈下降趋势，然后开始震荡。
 ```
 plot_acc_4_grid(gbdt_grid_cv, 'subsample')
 ```
-
-
 ![png](House-Prices-Advanced-Regression-Techniques-2/Predict%20House%20Prices_129_0.png)
 
-
-
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;现在让我们把目光集中在急速下降的地方，放大它的内部表现。
 ```
 gbdt_param = {
     'subsample': np.linspace(1e-7,2.22222e-01, 100),
@@ -1236,18 +711,12 @@ gbdt_grid_cv = GridSearchCV(GradientBoostingRegressor(n_estimators=23, max_depth
                             param_grid=gbdt_param, verbose=True, cv=3, n_jobs=-1)
 gbdt_grid_cv.fit(x_train, y_train)
 ```
-
     Fitting 3 folds for each of 100 candidates, totalling 300 fits
-
 
     [Parallel(n_jobs=-1)]: Using backend LokyBackend with 4 concurrent workers.
     [Parallel(n_jobs=-1)]: Done 136 tasks      | elapsed:    9.1s
     [Parallel(n_jobs=-1)]: Done 286 tasks      | elapsed:   24.6s
     [Parallel(n_jobs=-1)]: Done 300 out of 300 | elapsed:   25.8s finished
-
-
-
-
 
     GridSearchCV(cv=3, error_score='raise-deprecating',
            estimator=GradientBoostingRegressor(alpha=0.9, criterion='friedman_mse', init=None,
@@ -1261,55 +730,40 @@ gbdt_grid_cv.fit(x_train, y_train)
            pre_dispatch='2*n_jobs', refit=True, return_train_score='warn',
            scoring=None, verbose=True)
 
-
-
-
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;没错，和上面的趋势几乎如出一辙。这同时说明该参数不太适合在过小的粒度上进行调节。
 ```
 plot_acc_4_grid(gbdt_grid_cv, 'subsample')
 ```
-
-
 ![png](House-Prices-Advanced-Regression-Techniques-2/Predict%20House%20Prices_131_0.png)
 
-
+* GBDT
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;没错，我们又得到了一个集成模型，现在让我们再看看这个模型的表现。
 
 ```
 gbdt = GradientBoostingRegressor(n_estimators=23, max_depth=8, max_features='auto',
                                                       min_samples_split=2, max_leaf_nodes=12, min_weight_fraction_leaf=0,
                                                      min_samples_leaf=1, subsample=1)
 ```
-
-
 ```
 gbdt_pred = cross_val_predict(gbdt, x_train, y_train)
 mse = mean_squared_error(y_train, gbdt_pred)
 np.sqrt(mse)
 ```
-
-
-
-
     0.1558966244053635
-
-
-
-
 ```
 plot_learning_curve(gbdt, x_train, y_train)
 ```
-
     [learning_curve] Training set sizes: [ 131  426  721 1016 1312]
-
 
     [Parallel(n_jobs=-1)]: Using backend LokyBackend with 4 concurrent workers.
     [Parallel(n_jobs=-1)]: Done  50 out of  50 | elapsed:    8.1s finished
 
-
-
 ![png](House-Prices-Advanced-Regression-Techniques-2/Predict%20House%20Prices_134_2.png)
 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;相比于随机森林而言，它的均方误差变小了,同时准确率也有所提高。
 
-
+### GBDT历史版本
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;同时，这里将之前使用`RandomizedSearchCV`的版本罗列了出来，可以发现两者的巨大差异，虽然该版本的均方误差更低，但是其明显的过拟合现象就说明这不是一个好的模型了。
 ```
 from sklearn.ensemble import GradientBoostingRegressor
 from sklearn.model_selection import RandomizedSearchCV
@@ -1335,10 +789,6 @@ gbdt = GradientBoostingRegressor(alpha=0.9, criterion='friedman_mse', init=None,
              validation_fraction=0.1, verbose=0, warm_start=False)
 gbdt.fit(x_train, y_train)
 ```
-
-
-
-
     GradientBoostingRegressor(alpha=0.9, criterion='friedman_mse', init=None,
                  learning_rate=0.1, loss='ls', max_depth=4,
                  max_features='auto', max_leaf_nodes=None,
@@ -1349,19 +799,12 @@ gbdt.fit(x_train, y_train)
                  subsample=0.5736842105263158, tol=0.0001,
                  validation_fraction=0.1, verbose=0, warm_start=False)
 
-
-
-
 ```
 # gbdt_grid_cv.best_estimator_
 ```
-
-
 ```
 # gbdt_grid_cv.best_score_
 ```
-
-
 ```
 from sklearn.model_selection import cross_val_predict
 from sklearn.metrics import mean_squared_error
@@ -1371,33 +814,19 @@ gbdt_pred = cross_val_predict(gbdt, x_train, y_train,
 mse = mean_squared_error(y_train, gbdt_pred)
 np.sqrt(mse)
 ```
-
     [Parallel(n_jobs=-1)]: Using backend LokyBackend with 4 concurrent workers.
     [Parallel(n_jobs=-1)]: Done   5 out of   5 | elapsed:   58.5s finished
 
-
-
-
-
     0.12245307114524771
-
-
-
 
 ```
 plot_learning_curve(gbdt, x_train, y_train)
 ```
-
     [Parallel(n_jobs=-1)]: Using backend LokyBackend with 4 concurrent workers.
-
 
     [learning_curve] Training set sizes: [ 131  426  721 1016 1312]
 
-
     [Parallel(n_jobs=-1)]: Done  50 out of  50 | elapsed:  4.5min finished
-
-
-
 ![png](House-Prices-Advanced-Regression-Techniques-2/Predict%20House%20Prices_139_3.png)
 
 
