@@ -831,9 +831,10 @@ plot_learning_curve(gbdt, x_train, y_train)
 
 
 ## XGBoost
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;现在，我们已经使用相同的方式训练了两个集成模型，当然，我还尝试了一些其他模型，比如这里的[**XGBoost**](https://xgboost.readthedocs.io/en/latest/)。如果我们还按照上面的行文方式，那么就会变成记流水账了。既然训练方法和过程都已经熟悉，那么这里便直接给出训练后的结果，转而把重心转向介绍算法本身。
-
-
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;现在，我们已经使用相同的方式训练了两个集成模型，当然，我还尝试了一些其他模型，比如这里的[**XGBoost**](https://xgboost.readthedocs.io/en/latest/)。如果我们还按照上面的行文方式，那么就会变成记流水账了。既然训练方法和过程都已经熟悉，那么这里便直接给出训练后的结果，转而介绍一下XGBoost吧。<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*XGBoost*是在*GBDT*的基础上改进而来的一种*Boosting*算法，虽然是Boosting算法，但是其可以使用特征上的并行计算提升训练效率。它在训练之前会对数据进行排序，然后保存为*block*结构以便在后序地迭代中使用。同样因为该结构的存在，在节点分裂需要计算每个特征值的增益的时候，就可以多线程地进行。<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*XGBoost*相比与*GBDT*还在代价函数中还加入了正则化方法用于控制模型的复杂度，这里正则化方法同样是降低模型的方差达到防止过拟合的目的。同时*XGBoost*不仅仅只是使用*CART*（`booster='gbtree'`）作为基分类器,还同时引入了线性分类器（`booster='gblinear'`）,当使用线性分类器时就如同带有*l1*或*l2*正则的逻辑斯蒂回归（分类）和线性回归（回归）。<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;同时，*XGBoost*还支持列抽样、自动学习缺失值的分裂方向等。*XGBoost*是一个非常优秀的模型，我这里只是大概做了一个梳理，想要完全掌握这个算法实在是还差得很远。具体的内容可以查看[官方文档](https://xgboost.readthedocs.io/en/latest/tutorials/model.html)，也可一去翻看论文。
 ```
 xg = XGBRegressor(objective='reg:squarederror', booster='gbtree', n_estimators=470,
                                        max_depth=2, reg_lambda=0, reg_alpha=0.08163, colsample_bylevel=0.06122,
@@ -848,6 +849,7 @@ np.sqrt(mse)
 
     0.1472574980184566
 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;最后我们来看看最终训练的模型的表现情况，可以发现它比之前的*GBDT*在结果上有不小的提升，两条曲线非常接近，也没有严重的过拟合问题，这可以说是一个不错的结果了。
 ```
 plot_learning_curve(xg, x_train, y_train)
 ```
@@ -857,7 +859,6 @@ plot_learning_curve(xg, x_train, y_train)
     [Parallel(n_jobs=-1)]: Done  50 out of  50 | elapsed:  1.1min finished
 
 ![png](House-Prices-Advanced-Regression-Techniques-2/Predict%20House%20Prices_175_2.png)
-
 
 
 ## stack
