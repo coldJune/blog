@@ -862,8 +862,13 @@ plot_learning_curve(xg, x_train, y_train)
 
 
 ## stack
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在文章的开头我们对集成学习做了一个概述，其中省略了关于子模型结果结合的方法，现在便对其做一个补充。在对具体的结合策略进行表述之前，先来说是使用结合策略可以带来哪些好处：
+1. 因为目标的假设空间很大，可能有多个假设在训练集上达到相同的性能，因此结合多个学习器可以减小单个学习器因误选而导致泛化性能不佳的风险
+2. 由于局部极小值的存在，而单个学习器在有的局部极小值对应的泛化性能很差，多次训练学习器并对结果进行结合可以降低陷入糟糕局部极小值的风险
+3. 目标的真是假设空间可能不在当前算法所考虑的假设空间中，多个学习器可以将相应的假设空间扩大从而摒除单个学习器无效的情况
 
-
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;综上所述，结合策略的使用可以提高泛化性能，扩大相应的假设空间，使得模型的性能变得更好。下面就让我们看看有哪些具体的策略吧。<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;首先最容易想到的便是针对回归的平均法和针对分类的投票法。其中平均法又分为简单平均和加权平均。所谓简单平均就是求所有学习器的总平均值，加权平均就是对每一个分类器分配一个权重($\sum ^{T}_{i=1}w_i = 1$)再求和，而简单平均是加权平均权重为$\frac{1}{T}$的特例。投票法
 ```
 from sklearn.base import BaseEstimator, TransformerMixin, RegressorMixin, clone
 from sklearn.model_selection import KFold
