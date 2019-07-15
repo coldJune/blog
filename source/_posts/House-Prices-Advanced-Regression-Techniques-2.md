@@ -868,7 +868,11 @@ plot_learning_curve(xg, x_train, y_train)
 3. 目标的真是假设空间可能不在当前算法所考虑的假设空间中，多个学习器可以将相应的假设空间扩大从而摒除单个学习器无效的情况
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;综上所述，结合策略的使用可以提高泛化性能，扩大相应的假设空间，使得模型的性能变得更好。下面就让我们看看有哪些具体的策略吧。<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;首先最容易想到的便是针对回归的平均法和针对分类的投票法。其中平均法又分为简单平均和加权平均。所谓简单平均就是求所有学习器的总平均值，加权平均就是对每一个分类器分配一个权重($\sum ^{T}_{i=1}w_i = 1$)再求和，而简单平均是加权平均权重为$\frac{1}{T}$的特例。投票法
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;首先最容易想到的便是针对回归的平均法和针对分类的投票法。其中平均法又分为简单平均和加权平均。所谓简单平均就是求所有学习器的总平均值，加权平均就是对每一个分类器分配一个权重($\sum ^{T}_{i=1}w_i = 1$)再求和，而简单平均是加权平均权重为$\frac{1}{T}$的特例。投票法与平均法类似，分为绝对多数投票法、相对多数投票法和加权投票法，其中加权投票法和加权平均法类似，只是一个取的是加权后的计数最大值的作为最终标记而另一个取的是平均值作为预测结果。绝对多数投票法和相对多数投票法可以说是兄弟了，它们都会通过标记计数大小来预测结果，但是绝对多数取的是预测过半的标记，如果没有则可以拒绝预测，而相对多数投票法就是少数服从多数的完美诠释了，即去数量最多的标记作为预测结果，如果绝对多数投票法不允许拒绝预测，要求必须有一个预测值，那么它将退化为相对多数投票法。<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;除此之外，还有一种更为强大的结合策略就是**学习法**。学习法通过额外的学习器(次级学习器)来结合基学习器的预测结果。其中的典型代表就是下面使用的**Stacking**[^2]，其一般步骤如下：
+1. 从数据集训练出基学习器
+2. 使用基学习器生成新的数据集，新数据集中的特征为基学习器的输出，标记不变
+3. 在新的数据集上使用次级学习器训练
 ```
 from sklearn.base import BaseEstimator, TransformerMixin, RegressorMixin, clone
 from sklearn.model_selection import KFold
@@ -921,10 +925,6 @@ gbdt = GradientBoostingRegressor(n_estimators=49, max_depth=5, max_features='aut
 stack_models = StackModel(base_models=(ridge, gbdt, en), final_model=lasso)
 stack_models.fit(x_train, y_train)
 ```
-
-
-
-
     StackModel(base_models=(KernelRidge(alpha=0.05, coef0=1, degree=2, gamma=None, kernel='polynomial',
           kernel_params=None), GradientBoostingRegressor(alpha=0.9, criterion='friedman_mse', init=None,
                  learning_rate=0.1, loss='ls', max_depth=5,
@@ -937,8 +937,6 @@ stack_models.fit(x_train, y_train)
           n_folds=5)
 
 
-
-
 ```
 from sklearn.metrics import mean_squared_error
 from sklearn.model_selection import cross_val_predict
@@ -946,13 +944,7 @@ stack_pred = stack_models.predict(x_train)
 mse = mean_squared_error(stack_pred, y_train)
 np.sqrt(mse)
 ```
-
-
-
-
     0.08064604349182854
-
-
 
 
 ```
@@ -1022,16 +1014,9 @@ lgb_grid_cv.fit(x_train, y_train)
               pre_dispatch='2*n_jobs', random_state=None, refit=True,
               return_train_score='warn', scoring=None, verbose=True)
 
-
-
-
 ```
 lgb_grid_cv.best_score_
 ```
-
-
-
-
     0.9038911706779178
 
 
@@ -1129,4 +1114,5 @@ pred_df.to_csv('./house_price/prediction.csv', index='')
 ```
 
 ```
-[^1]: 又称离散系数，这里是标准差系数，其反应的是单位均值上的各指标观测值的离散程度。
+[^1]: 又称离散系数，这里是标准差系数，其反应的是单位均值上的各指标观测值的离散程度
+[^2]: 本身是一种集成学习方法，这里作为一种特殊的结合策略
