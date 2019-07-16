@@ -874,7 +874,11 @@ plot_learning_curve(xg, x_train, y_train)
 2. 使用初级学习器生成新的数据集，新数据集中的特征为初级学习器的输出，标记不变
 3. 在新的数据集上使用次级学习器训练
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;学习法在使用过程中为了降低过拟合的风险，在训练初级学习器时使用交叉验证的方式，通过训练初级学习器时未使用的数据来生成数据集。
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;学习法在使用过程中为了降低过拟合的风险，在训练初级学习器时使用交叉验证的方式，通过训练初级学习器时未使用的数据来生成新的数据集。
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;下面是*Stacking*的一个[实现版本](https://www.kaggle.com/serigne/stacked-regressions-top-4-on-leaderboard)，其实我一开始也并没有太懂为什么要这样处理，直到我回过头再去审视这段代码，才有了一定的体会。我们首先来看一下它的构造。在初始化阶段(`__init__`)我们传入了`base_models`作为初级学习器，`final_models`作为次级学习器，即用`base_models`生成数据，`final_model`做最后的预测，`n_folds`表示交叉验证中使用的折数。
+* `fit`
+
+
 
 ```
 from sklearn.base import BaseEstimator, TransformerMixin, RegressorMixin, clone
