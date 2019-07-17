@@ -877,8 +877,8 @@ plot_learning_curve(xg, x_train, y_train)
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;学习法在使用过程中为了降低过拟合的风险，在训练初级学习器时使用交叉验证的方式，通过训练初级学习器时未使用的数据来生成新的数据集。
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;下面是*Stacking*的一个[实现版本](https://www.kaggle.com/serigne/stacked-regressions-top-4-on-leaderboard)，其实我一开始也并没有太懂为什么要这样处理，直到我回过头再去审视这段代码，才有了一定的体会。我们首先来看一下它的构造。在初始化阶段(`__init__`)我们传入了`base_models`作为初级学习器，`final_models`作为次级学习器，即用`base_models`生成数据，`final_model`做最后的预测，`n_folds`表示交叉验证中使用的折数。
 * `fit`
-
-
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在这里`fit`不再只是单纯地去训练模型了，它还包括了生成数据集的步骤。前两行代码首先使用`base_models`生成了一个空列表用于存储训练使用的*model*，使用`clone`函数是因为对象传递进来是引用，如果直接在上面进行操作会影响外部的模型，所以要创建一个备份用于该类内使用。接下来便是创建交叉验证的划分折数，然后根据初级学习器的数量创建一个大小为(n, n_models)[^3]的`numpy`数组用于存储新的数据集。第一层`for`循环遍历初级学习器，第二层`循环`使用交叉验证训练初级学习器，并保存每一折的训练后的模型，然后使用初级学习器对为参与训练的数据进行预测，最后使用预测值填充上面的`numpy`数组对应的位置。在数据生成之后，再用这些数据去训练次级学习器。
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;训练阶段同样需要做一些预处理，顺序地从保存模型的列表中取出对应的模型列表(即对应模型每一折的训练成果)，然后计算该类模型预测的平均值，最后将所有的模型预测结合起来作为最后预测需要的数据，然后再调用次级学习器进行预测。
 
 ```
 from sklearn.base import BaseEstimator, TransformerMixin, RegressorMixin, clone
@@ -1123,3 +1123,4 @@ pred_df.to_csv('./house_price/prediction.csv', index='')
 ```
 [^1]: 又称离散系数，这里是标准差系数，其反应的是单位均值上的各指标观测值的离散程度
 [^2]: 本身是一种集成学习方法，这里作为一种特殊的结合策略
+[^3]: *n*为样本数量，*n_models*为初级学习器个数
