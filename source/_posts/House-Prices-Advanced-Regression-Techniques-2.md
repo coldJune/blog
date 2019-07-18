@@ -878,8 +878,8 @@ plot_learning_curve(xg, x_train, y_train)
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;下面是*Stacking*的一个[实现版本](https://www.kaggle.com/serigne/stacked-regressions-top-4-on-leaderboard)，其实我一开始也并没有太懂为什么要这样处理，直到我回过头再去审视这段代码，才有了一定的体会。我们首先来看一下它的构造。在初始化阶段(`__init__`)我们传入了`base_models`作为初级学习器，`final_models`作为次级学习器，即用`base_models`生成数据，`final_model`做最后的预测，`n_folds`表示交叉验证中使用的折数。
 * `fit`
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在这里`fit`不再只是单纯地去训练模型了，它还包括了生成数据集的步骤。前两行代码首先使用`base_models`生成了一个空列表用于存储训练使用的*model*，使用`clone`函数是因为对象传递进来是引用，如果直接在上面进行操作会影响外部的模型，所以要创建一个备份用于该类内使用。接下来便是创建交叉验证的划分折数，然后根据初级学习器的数量创建一个大小为(n, n_models)[^3]的`numpy`数组用于存储新的数据集。第一层`for`循环遍历初级学习器，第二层`循环`使用交叉验证训练初级学习器，并保存每一折的训练后的模型，然后使用初级学习器对为参与训练的数据进行预测，最后使用预测值填充上面的`numpy`数组对应的位置。在数据生成之后，再用这些数据去训练次级学习器。
+* `predict`
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;训练阶段同样需要做一些预处理，顺序地从保存模型的列表中取出对应的模型列表(即对应模型每一折的训练成果)，然后计算该类模型预测的平均值，最后将所有的模型预测结合起来作为最后预测需要的数据，然后再调用次级学习器进行预测。
-
 ```
 from sklearn.base import BaseEstimator, TransformerMixin, RegressorMixin, clone
 from sklearn.model_selection import KFold
@@ -916,7 +916,7 @@ class StackModel(BaseEstimator, TransformerMixin, RegressorMixin):
 
 ```
 
-
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我们已经证实在简单模型中`Lasso`在该数据集上的表现更好，同时由于*Stacking*用多响应线性回归作为次级学习算法效果会比较好，所以这里选用该模型作为次级学习器。其它的初级学习器为我们之前使用或调参之后的模型。
 ```
 from sklearn.linear_model import  Lasso, ElasticNet
 from sklearn.kernel_ridge import KernelRidge
@@ -943,7 +943,7 @@ stack_models.fit(x_train, y_train)
        selection='cyclic', tol=0.0001, warm_start=False),
           n_folds=5)
 
-
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;显而易见的，使用*Stacking*之后的均方误差更小，而其得分也达到了*90%*以上，可以说相当于之前的集成模型或者单一模型有着飞跃性的提升。
 ```
 from sklearn.metrics import mean_squared_error
 from sklearn.model_selection import cross_val_predict
@@ -953,18 +953,13 @@ np.sqrt(mse)
 ```
     0.08064604349182854
 
-
 ```
 plot_learning_curve(stack_models, x_train, y_train)
 ```
-
     [learning_curve] Training set sizes: [ 131  426  721 1016 1312]
-
 
     [Parallel(n_jobs=-1)]: Using backend LokyBackend with 4 concurrent workers.
     [Parallel(n_jobs=-1)]: Done  50 out of  50 | elapsed:   49.9s finished
-
-
 
 ![png](House-Prices-Advanced-Regression-Techniques-2/Predict%20House%20Prices_186_2.png)
 
