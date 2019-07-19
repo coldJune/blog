@@ -963,158 +963,24 @@ plot_learning_curve(stack_models, x_train, y_train)
 
 ![png](House-Prices-Advanced-Regression-Techniques-2/Predict%20House%20Prices_186_2.png)
 
-
-## LightGBM
-
-
-```
-from  lightgbm import LGBMRegressor
-from sklearn.metrics import mean_squared_error
-from sklearn.model_selection import cross_val_predict
-from sklearn.model_selection import RandomizedSearchCV
-lgb_params = {
-    'n_estimators': np.arange(500, 3000, 100),
-    'num_leaves': np.arange(3, 100),
-    'learning_rate': np.linspace(1e-3, 0.1),
-    'max_bin': np.arange(10, 100),
-    'bagging_fraction': np.linspace(1e-3, 1),
-    'bagging_freq': np.arange(1, 10),
-    'feature_fraction': np.linspace(1e-3, 1),
-    'min_data_in_leaf': np.arange(1, 20),
-    'min_sum_hessian_in_leaf': np.linspace(1e-3, 20),
-    'max_depth': np.arange(10, 20)
-}
-lgb_grid_cv = RandomizedSearchCV(LGBMRegressor(objective='regression', feature_fraction_seed=42, bagging_seed=42),
-                                param_distributions=lgb_params, cv=5,
-                                n_jobs=-1, verbose=True)
-lgb_grid_cv.fit(x_train, y_train)
-```
-
-    Fitting 5 folds for each of 10 candidates, totalling 50 fits
-
-
-    [Parallel(n_jobs=-1)]: Using backend LokyBackend with 4 concurrent workers.
-    [Parallel(n_jobs=-1)]: Done  42 tasks      | elapsed:   17.1s
-    [Parallel(n_jobs=-1)]: Done  50 out of  50 | elapsed:   18.4s finished
-
-
-
-
-
-    RandomizedSearchCV(cv=5, error_score='raise-deprecating',
-              estimator=LGBMRegressor(bagging_seed=42, boosting_type='gbdt', class_weight=None,
-           colsample_bytree=1.0, feature_fraction_seed=42,
-           importance_type='split', learning_rate=0.1, max_depth=-1,
-           min_child_samples=20, min_child_weight=0.001, min_split_gain=0.0,
-           n_estimators=100, n_jobs=-1, num_leaves=31, objective='regression',
-           random_state=None, reg_alpha=0.0, reg_lambda=0.0, silent=True,
-           subsample=1.0, subsample_for_bin=200000, subsample_freq=0),
-              fit_params=None, iid='warn', n_iter=10, n_jobs=-1,
-              param_distributions={'n_estimators': array([ 500,  600,  700,  800,  900, 1000, 1100, 1200, 1300, 1400, 1500,
-           1600, 1700, 1800, 1900, 2000, 2100, 2200, 2300, 2400, 2500, 2600,
-           2700, 2800, 2900]), 'num_leaves': array([ 3,  4, ..., 98, 99]), 'learning_rate': array([0.001  , 0.00302, 0.00...91837e+01, 1.95919e+01, 2.00000e+01]), 'max_depth': array([10, 11, 12, 13, 14, 15, 16, 17, 18, 19])},
-              pre_dispatch='2*n_jobs', random_state=None, refit=True,
-              return_train_score='warn', scoring=None, verbose=True)
-
-```
-lgb_grid_cv.best_score_
-```
-    0.9038911706779178
-
-
-
-
-```
-lgb_grid_cv.best_params_
-```
-
-
-
-
-    {'num_leaves': 3,
-     'n_estimators': 2300,
-     'min_sum_hessian_in_leaf': 2.858,
-     'min_data_in_leaf': 14,
-     'max_depth': 13,
-     'max_bin': 27,
-     'learning_rate': 0.011102040816326531,
-     'feature_fraction': 1.0,
-     'bagging_freq': 5,
-     'bagging_fraction': 0.775734693877551}
-
-
-
-
-```
-lgb_pred = cross_val_predict(lgb_grid_cv.best_estimator_, x_train, y_train,
-                  cv=3, n_jobs=-1)
-mse = mean_squared_error(y_train, lgb_pred)
-np.sqrt(mse)
-```
-
-
-
-
-    0.12889382465830496
-
-
-
-
-```
-plot_learning_curve(lgb_grid_cv.best_estimator_, x_train, y_train)
-```
-
-    [learning_curve] Training set sizes: [ 131  426  721 1016 1312]
-
-
-    [Parallel(n_jobs=-1)]: Using backend LokyBackend with 4 concurrent workers.
-    [Parallel(n_jobs=-1)]: Done  50 out of  50 | elapsed:   11.1s finished
-
-
-
-![png](House-Prices-Advanced-Regression-Techniques-2/Predict%20House%20Prices_192_2.png)
-
-
-## 结合不同预测
-
-
-```
-ensemble_pred = stack_pred*0.8 + xg_pred*0.2
-mse = mean_squared_error(ensemble_pred, y_train)
-np.sqrt(mse)
-```
-
-
-
-
-    0.07707245327525736
-
-
-
 # 预测
-
-
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;终于到了验证成果的时候了，在做预测之前，我们需要先加载需要预测的数据，并使用之前的规则对数据进行特征处理。
 ```
 test = pd.read_csv('house_price/test.csv')
 index = np.array(test[['Id']])[:,0]
 test = test.set_index(['Id'])
 x_test = full_pipeline.transform(test)
 ```
-
-
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;一如既往地，训练模型、数据预测，结合，最后将预测结果按照格式输出。这里稍稍需要说一下的是结合策略，因为在上面的模型中，*XGBoost*应该是除了*Stacking*之外的表现最好的模型，所以在这里将两者进行加权平均，最后得出预测值。这里的比例是随机选取的，当然也可以通过构建新的模型来训练这个比重，这里便不再多做赘述。最后还有一个需要值得注意的地方，就是最后的预测值还取了指数，这是因为在之前使用的训练集中为了解决数据目标值分布偏移的问题而进行了取对数处理，那么结果自然需要进行还原。
 ```
-# ridge.fit(x_train, y_train)
-pre =  stack_models.predict(x_test)
-# xg_pre = xg.predict(x_test)
-# ensemble_pred = stack_pre*0.8 + xg_pre*0.2
+stack_models.fit(x_train, y_train)
+stack_pre =  stack_models.predict(x_test)
+xg.fit(x_train, y_train)
+xg_pre = xg.predict(x_test)
+ensemble_pred = stack_pre*0.8 + xg_pre*0.2
 pred_df = pd.DataFrame({'Id':index,
-                       'SalePrice':np.expm1(pre)})
+                       'SalePrice':np.expm1(ensemble_pred)})
 pred_df.to_csv('./house_price/prediction.csv', index='')
-```
-
-
-```
-
 ```
 [^1]: 又称离散系数，这里是标准差系数，其反应的是单位均值上的各指标观测值的离散程度
 [^2]: 本身是一种集成学习方法，这里作为一种特殊的结合策略
