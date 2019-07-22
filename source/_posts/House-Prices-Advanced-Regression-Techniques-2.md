@@ -198,13 +198,13 @@ rf_grid_cv.fit(x_train, y_train)
            pre_dispatch='2*n_jobs', refit=True, return_train_score='warn',
            scoring=None, verbose=True)
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;下面是这*10*个模型得分的最终情况，我们可以训练得分和验证得分有比较大的差距，但是两者的提升都是同步的，不曾出现此消彼长的情况；在子模型数为*1~101*时两个得分的提高最为明显，之后增加子模型数量对分数并未有任何贡献，虽然如此，但是通过观察变异系数发现验证集的得分的离散程度还有一定幅度的减小，这意味子模型数量的增加虽然无异于提高分数，但是其使模型更加稳定，得分更加一致。
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;下面是这*10*个模型的最终得分情况，我们可以发现训练得分和验证得分有比较大的差距，但是两者的提升都是同步的，不曾出现此消彼长的情况；在子模型数为*1~101*时两个得分的提高最为明显，之后增加子模型数量对平均分数并未有任何贡献，可见子模型数量带来的性能提升是有瓶颈的。虽然如此，通过观察变异系数可以发现验证集的得分的离散程度还有一定幅度的减小，这意味子模型数量的增加虽然无异于提高分数，但是其使模型更加稳定。
 ```
 plot_acc_4_grid(rf_grid_cv, 'n_estimators')
 ```
 ![png](House-Prices-Advanced-Regression-Techniques-2/Predict%20House%20Prices_60_0.png)
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;上面进行了粗粒度的训练，但是这样大刀阔斧地调参会忽视掉许多细节，比如是否两个取值点刚好错过了可能存在之间的波峰或者波谷，结果是否存在波动等。基于此我们接下来根据上面得到的返回进行更加细粒度的调节。
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;大刀阔斧地调参会忽视掉许多细节，比如是否两个取值点刚好错过了可能存在于两者之间的波峰或者波谷，结果是否存在波动等。基于此我们接下来根据上面得到的返回结果确定细粒度调节的区间。
 ```
 rf_param = {
     'n_estimators': np.arange(100, 200, 10),
@@ -229,7 +229,7 @@ rf_grid_cv.fit(x_train, y_train)
            pre_dispatch='2*n_jobs', refit=True, return_train_score='warn',
            scoring=None, verbose=True)
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;不出所料，这里的变异系数就存在明显的波动，而最终得分却没什么提升，说明`n_estimators`是一个适合在粗粒度上进行调节的参数，这里我们就选取验证变异系数最小的取值*160*作为模型中`n_estimators`参数的最终取值。
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;不出所料，这里的变异系数存在明显的波动，而最终得分却没什么提升，说明`n_estimators`是一个适合在粗粒度上进行调节的参数。最后我们选取验证变异系数最小的取值*160*作为模型中`n_estimators`参数的最终取值。
 ```
 plot_acc_4_grid(rf_grid_cv, 'n_estimators')
 ```
@@ -237,7 +237,7 @@ plot_acc_4_grid(rf_grid_cv, 'n_estimators')
 
 * max_depth
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`max_depth`控制着每棵树的深度，随着树的深度越升，子模型的偏差降低而方差升高，当方差升高到一定程度的时候将会使泛化性能下降，也就是出现过拟合现象。如果是一颗完全二叉树，则最后叶节点将为$2^{n-1}$，这里使用的训练集的数量只需要一颗深度为*10*的树基本就能满足每个叶节点一个实例，最后的结果显然不会如此理想，所以现将深度的查找范围扩大到*100*进行训练。
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`max_depth`控制着每棵树的深度，随着树的深度越深，子模型的偏差降低而方差升高，当方差升高到一定程度的时候将会使泛化性能下降，也就是出现过拟合现象。如果是一颗完全二叉树，其叶节点的数目为$2^{n-1}$，则这里使用的训练集的数量只需要一颗深度为*10*的树基本就能将所有实例分布在不同的叶节点上。当然树的结构显然不会如此理想，所以现将深度的查找范围扩大到*100*进行训练。
 
 ```
 rf_param = {
@@ -266,13 +266,13 @@ rf_grid_cv.fit(x_train, y_train)
            pre_dispatch='2*n_jobs', refit=True, return_train_score='warn',
            scoring=None, verbose=True)
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;下面让我们来看看这些模型的整体表现如何，通过第一张图可以清晰的看到随着深度的增加，模型在变得越来越好，但是我们并不能因此而沾沾自喜，和在训练`n_estimators`时一样，我们还要考察它的变异系数。前期随着模型得分越来越高，变异系数也在稳步下降，但是在`max_depth`增长到*5*的时候，得分的增幅明显放缓，到*9*之后更是基本保持不变了，而反观验证得分的变异系数，它也基本在同样的节点发生了逆转，在`max_depth`为*6*时达到波谷，而后便开始逐步上升，在*12*之后出现明显的波动，这说明得分开始趋于不稳定，调节这一部分取值并不会有多大好处。
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;让我们来看看这些模型的整体表现如何，通过第一张图可以清晰的看到随着深度的增加，模型在变得越来越好，但是我们并不能因此而沾沾自喜，和在训练`n_estimators`时一样，我们还要考察它的变异系数。前期随着模型得分越来越高，变异系数也在稳步下降，但是在`max_depth`增长到*5*的时候，得分的增幅明显放缓，到*9*之后更是基本保持不变了，而反观验证得分的变异系数，它也基本在同样的节点发生了逆转，在`max_depth`为*6*时达到波谷，而后便开始逐步上升，在*12*之后出现明显的波动，这说明得分开始趋于不稳定，调节这一部分取值并不会有多大好处。
 ```
 plot_acc_4_grid(rf_grid_cv, 'max_depth')
 ```
 ![png](House-Prices-Advanced-Regression-Techniques-2/Predict%20House%20Prices_65_0.png)
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在确定这个参数之前，为了更准确地估计，我把参数调节的范围缩小到了*1~20*，希望这能带来更清楚的认识。
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;到这里我们已经能够基本得到我们想要的取值了，但在确定这个参数之前，为了更准确地估计，我把参数调节的范围缩小到了*1~20*，希望这能带来更清楚的认识。
 ```
 rf_param = {
     'max_depth': np.arange(1, 20),
@@ -300,7 +300,7 @@ rf_grid_cv.fit(x_train, y_train)
            pre_dispatch='2*n_jobs', refit=True, return_train_score='warn',
            scoring=None, verbose=True)
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;现在我们可以看到上面产生变化的那一部分的放大版了，现在我们可以明确地说明验证得分的变异系数发生转变是在`max_depth`为*5*的时候，在为*12*的时候开始出现波动。至于最后的取值，我们依然遵循前面的原则，分数尽可能高，而变异系数尽可能低，当然并不是说取对应的分数高和编译系数最低的，因为可能存在变异系数在低谷时得分并不高的情况。最后经过考虑之后暂时选择了$max_depth$为*5*。
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;现在我们可以看到上面产生极具变化的那一部分的局部放大版了，这时候可以清除地看到验证得分的变异系数发生转变是在`max_depth`为*5*的时候，在为*12*的时候开始出现波动。至于取什么值，我们依然遵循前面的原则，分数尽可能高，而变异系数尽可能低，当然并不是说取对应的分数高和编译系数最低的，因为可能存在变异系数在低谷时得分并不高的情况。最后经过考虑之后暂时选择了`max_depth`为*5*。
 ```
 plot_acc_4_grid(rf_grid_cv, 'max_depth')
 ```
@@ -308,7 +308,7 @@ plot_acc_4_grid(rf_grid_cv, 'max_depth')
 
 * max_features
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`max_features`决定了算法在分裂节点时需要考虑的最大特征数，其可以通过内置的枚举值来计算个数也可以通过直接设置数值计算。因为这里的特征数量并不是很多，加上$OneHot$向量一共有345个，所以我采用了设置数值的方式，这样能够清晰地看到不同取值对模型的影响以及确定影响的具体数值。
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`max_features`决定了算法在分裂节点时需要考虑的最大特征数，其可以通过内置的枚举值通过计算取值也可以通过直接设置数值取值。因为这里的特征数量并不是很多，加上$OneHot$向量后一共有345个，所以我采用了设置数值的方式，这样既能够清晰地看到不同取值对模型的影响，又方便确定具体数值。
 ```
 rf_param = {
     'max_features': np.arange(1, 345, 10)
@@ -337,7 +337,7 @@ rf_grid_cv.fit(x_train, y_train)
            pre_dispatch='2*n_jobs', refit=True, return_train_score='warn',
            scoring=None, verbose=True)
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我想这幅图应该是目前为止最直观最简单的一副图了，其趋势非常明显——得分不断上升，变异系数不断下降，由此可知，只要`max_feature`设置为最大值就可以了。甚至还可以在特征工程中人工增加一些特征来提升模型的性能。
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我想这幅图应该是目前为止最直观最简单的一副图了，其趋势非常明显——得分不断上升，变异系数不断下降。由此可知，只要`max_features`设置为最大值就可以了。甚至还可以在特征工程中人工增加一些特征来提升模型复杂度，充分发挥`max_features`带来的性能提升。
 ```
 plot_acc_4_grid(rf_grid_cv, 'max_features')
 ```
@@ -346,7 +346,7 @@ plot_acc_4_grid(rf_grid_cv, 'max_features')
 
 * min_samples_split
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`min_samples_split`同样是一个影响模型偏差/方差的参数，它限定了一个节点需要分裂所需的最小样本数，其值越大模型越简单，偏差越大方差越小，而调节这个参数就是为了在这之间做一个权衡。`min_samples_split`参数最小取值为*2*，基于和`max_depth`一样的道理，这里将取值限定在*2~100*。
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`min_samples_split`同样是一个影响模型偏差/方差的参数，它限定了一个节点分裂所需的最小样本数，其值越大模型越简单，偏差越大方差越小，而调节这个参数就是为了在这之间做一个权衡。`min_samples_split`参数最小取值为*2*，基于和训练`max_depth`时一样的原因，这里将取值限定在*2~100*。
 
 ```
 rf_param = {
@@ -380,7 +380,7 @@ plot_acc_4_grid(rf_grid_cv, 'min_samples_split')
 ![png](House-Prices-Advanced-Regression-Techniques-2/Predict%20House%20Prices_73_0.png)
 
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;为了验证上面的假设，我们将取值范围进一步缩小，同时将它的步长从*10*降低到*1*，让我们来看看训练效果如何。
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;为了验证上面的假设，我们将取值范围集中在低谷附近，同时将它的步长从*10*降低到*1*，让我们来看看训练效果如何。
 ```
 rf_param = {
     'min_samples_split': np.arange(2,22),
@@ -408,7 +408,7 @@ rf_grid_cv.fit(x_train, y_train)
            pre_dispatch='2*n_jobs', refit=True, return_train_score='warn',
            scoring=None, verbose=True)
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;没错，上面解释过的现象又再次出现了，在上面训练中的波谷并不是全局的波谷，而且可以明显地发现其振荡的现象，但其总体趋势是在升高。因此可以得出结论，`min_samples_split`在这里并不适合调节，只需要将其设置为默认值就行了。
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;没错，上面解释过的现象又再次出现了，这里的波谷并不是全局的波谷，可以明显地发现其振荡的现象，但其总体趋势是在升高。因此可以得出结论，`min_samples_split`在这里并不适合调节，只需要将其设置为默认值就行了。
 ```
 plot_acc_4_grid(rf_grid_cv, 'min_samples_split')
 ```
@@ -523,7 +523,7 @@ plot_acc_4_grid(rf_grid_cv, 'min_weight_fraction_leaf')
 
 * min_samples_leaf
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`min_samples_leaf`是我们训练的最后一个关于子模型结构的参数了，它表示叶节点的最小样本树。关于这个描述如果返回前面去看我们已经训练过的参数，会发现一个和它非常相似的参数，就是`min_samples_split`，这两个参树可以说是直接限定定了叶节点样本个数的范围。下面让我们仿照`min_samples_split`的训练过程对`min_samples_leaf`的参数进行设定。
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`min_samples_leaf`是我们训练的最后一个关于子模型结构的参数了，它表示叶节点的最小样本树。如果返回前面去看我们已经训练过的参数，会发现一个和它非常相似的参数，就是`min_samples_split`，这两个参树可以说是直接限定定了叶节点样本个数的范围。下面让我们仿照`min_samples_split`的训练过程对`min_samples_leaf`的取值进行设定。
 ```
 rf_param = {
     'min_samples_leaf': np.arange(1, 100, 10)
@@ -647,7 +647,7 @@ np.sqrt(mse)
     [Parallel(n_jobs=-1)]: Done   3 out of   3 | elapsed:    1.7s finished
 
     0.16115609724602975
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;就这样，我们最后得到了一个自己亲手调试的集成模型。对这最后的成果我们可以做一个简要的分析。首先相比之前我多次尝试训练的随机森林，它有着一个极大的改变，那就是它的训练曲线不在是一条接近*1*的水平线了，good job！！！这说明通过调参已经有效的缓解了严重的过拟合现象；其次，我们也可以发现一些问题，模型似乎仍然存在一定程度的过拟合(两条线靠得并不太近)，同时模型的准确率似乎有着明显的下降。
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;就这样，我们最后得到了一个自己亲手调试的集成模型。对这最后的成果我们可以做一个简要的分析。首先相比之前我多次尝试训练的随机森林，它有着一个极大的改变，那就是它的训练曲线不再是一条接近*1*的水平线了，good job！！！这说明通过调参已经有效的缓解了严重的过拟合现象；其次，我们也可以发现一些问题，模型似乎仍然存在一定程度的过拟合(两条线靠得并不太近)，同时模型的准确度似乎有着明显的下降。
 ```
 plot_learning_curve(rf, x_train, y_train)
 ```
@@ -657,7 +657,7 @@ plot_learning_curve(rf, x_train, y_train)
     [Parallel(n_jobs=-1)]: Done  50 out of  50 | elapsed:   20.1s finished
 ![png](House-Prices-Advanced-Regression-Techniques-2/Predict%20House%20Prices_96_3.png)
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;虽然最后的模型看起来并不是很完美的解决方案，但这至少可以作为一个里程碑，它证明了贪心策略的可行性同时产出了一个完整的集成模型。
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;虽然最后的模型看起来并不是很完美的解决方案，但这至少可以作为一个里程碑，它证明了贪心策略的可行性的同时也产出了一个完整的集成模型。
 
 ## GBDT
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**梯度提升树**是一种*Boosting*方法，每个子模型拟合的是上一个子模型的预测结果与真实结果的残差，即先训练一个弱分类器，然后用这个弱分类器去预测数据集，得到的预测结果和正确的结果取差，然后将得到的残差作为数据集新的预测目标，下一个分类器再去你和这个残差，如此反复，最后将所有的弱分类器加权求和得到最终分类器，所以说梯度提升树是一种基于加法模型的算法。<br/>
