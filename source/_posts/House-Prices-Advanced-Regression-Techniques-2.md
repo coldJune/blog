@@ -660,12 +660,12 @@ plot_learning_curve(rf, x_train, y_train)
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;虽然最后的模型看起来并不是很完美的解决方案，但这至少可以作为一个里程碑，它证明了贪心策略的可行性的同时也产出了一个完整的集成模型。
 
 ## GBDT
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**梯度提升树**是一种*Boosting*方法，每个子模型拟合的是上一个子模型的预测结果与真实结果的残差，即先训练一个弱分类器，然后用这个弱分类器去预测数据集，得到的预测结果和正确的结果取差，然后将得到的残差作为数据集新的预测目标，下一个分类器再去你和这个残差，如此反复，最后将所有的弱分类器加权求和得到最终分类器，所以说梯度提升树是一种基于加法模型的算法。<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**梯度提升树**是一种*Boosting*方法，每个子模型拟合的是上一个子模型的预测结果与真实结果的残差，即先训练一个弱分类器，然后用这个弱分类器去预测数据集，得到的预测结果和真实的结果取差，然后将得到的残差作为数据集新的预测目标，下一个分类器再去拟合这个残差，如此反复，最后将所有的弱分类器加权求和得到最终分类器，所以说梯度提升树是一种基于加法模型的算法。<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GBDT通常采用高偏差低方差的基函数，一般是*CART Tree(分类回归树)*。因为是基于树的集成模型，那么它同样涉及到树的生成问题，例如深度、叶子节点个数、分隔所需最小样本树等等。基于此，对这部分参数的训练可以直接仿照*Random Forest*的训练过程，所以便不再占用大量的篇幅去描述。
 * subsample
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;相比于随机森林，GBDT多训练了一个叫做`subsample`的参数，这个参数的中文名叫做子采样率，它表示每一次训练弱分类器所使用的样本比例，如果$\lt 1.0$表示使用随机梯度提升，同时也能降低方差提高偏差。下面让我们看看它的训练效果。<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我们将值限定在一个极小数与*1*之间，然后取了*100*个值，查看它们的具体表现。
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;相比于随机森林，GBDT多训练了一个叫做`subsample`的参数，这个参数的中文名叫做子采样率，它表示每一次训练弱分类器所使用的样本比例，如果$\lt 1.0$表示使用随机梯度提升，能降低方差提高偏差，有效防止过拟合的发生。下面让我们看看它的训练效果。<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我们将值限定在一个极小数与*1*之间，然后取了*100*个值。
 ```
 gbdt_param = {
     'subsample': np.linspace(1e-7, 1, 100),
@@ -700,7 +700,7 @@ plot_acc_4_grid(gbdt_grid_cv, 'subsample')
 ```
 ![png](House-Prices-Advanced-Regression-Techniques-2/Predict%20House%20Prices_129_0.png)
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;现在让我们把目光集中在急速下降的地方，放大它的内部表现。
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;同理，让我们把目光集中在急速下降的地方，放大它的内部表现。
 ```
 gbdt_param = {
     'subsample': np.linspace(1e-7,2.22222e-01, 100),
@@ -730,7 +730,7 @@ gbdt_grid_cv.fit(x_train, y_train)
            pre_dispatch='2*n_jobs', refit=True, return_train_score='warn',
            scoring=None, verbose=True)
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;没错，和上面的趋势几乎如出一辙。这同时说明该参数不太适合在过小的粒度上进行调节。
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;和上面的趋势几乎如出一辙。这同样说明该参数不太适合在过小的粒度上进行调节。
 ```
 plot_acc_4_grid(gbdt_grid_cv, 'subsample')
 ```
