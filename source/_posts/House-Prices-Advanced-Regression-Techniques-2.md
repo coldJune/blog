@@ -965,14 +965,14 @@ plot_learning_curve(stack_models, x_train, y_train)
 ![png](House-Prices-Advanced-Regression-Techniques-2/Predict%20House%20Prices_186_2.png)
 
 # 预测
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;终于到了验证成果的时候了，在做预测之前，我们需要先加载需要预测的数据，并使用之前的规则对数据进行特征处理。
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;终于到了验证成果的时候了，在做预测之前，我们先加载需要预测的数据，并使用与处理训练数据相同的规则对数据进行特征处理。
 ```
 test = pd.read_csv('house_price/test.csv')
 index = np.array(test[['Id']])[:,0]
 test = test.set_index(['Id'])
 x_test = full_pipeline.transform(test)
 ```
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;一如既往地，训练模型、数据预测，结合，最后将预测结果按照格式输出。这里稍稍需要说一下的是结合策略，因为在上面的模型中，*XGBoost*应该是除了*Stacking*之外的表现最好的模型，所以在这里将两者进行加权平均，最后得出预测值。这里的比例是随机选取的，当然也可以通过构建新的模型来训练这个比重，这里便不再多做赘述。最后还有一个需要值得注意的地方，就是最后的预测值还取了指数，这是因为在之前使用的训练集中为了解决数据目标值分布偏移的问题而进行了取对数处理，那么结果自然需要进行还原。
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;一如既往地，训练模型、数据预测，结合，最后将预测结果按照指定的格式输出到文件。这里需要稍微说一下的是结合策略，因为在上面的模型中，*XGBoost*应该是除了*Stacking*之外的表现最好的模型，所以在这里将这两者的结果进行加权平均，得出最后的预测值。这里的比例是随机选取的，当然也可以通过构建新的模型来训练这个比重，这里便不再多做赘述。最后还有一个需要注意的地方，那就是对模型预测的结果还取了指数，这是因为在之前分析训练集时为了解决目标值分布偏移的问题而对其进行了取对数操作，这使得所有的预测结果其实都是以此为基准的，为了得到真实的结果那么自然需要进行还原。
 ```
 stack_models.fit(x_train, y_train)
 stack_pre =  stack_models.predict(x_test)
