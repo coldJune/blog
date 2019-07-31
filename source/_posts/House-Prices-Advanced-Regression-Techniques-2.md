@@ -76,94 +76,93 @@ def plot_acc_4_grid(grid_cv, param):
     }
 
     .dataframe thead th {
-        text-align: middle;
+        text-align: center;
     }
 </style>
-<div style="text-align: center;">
-    <table class='dataframe' style='margin: auto; width:100%'>
-        <thead>
-            <tr>
-                <th>参数</th>
-                <th>详情</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <th>n_estimators</th>
-                <th>子模型的数量<br>&nbsp;&nbsp;&nbsp;&nbsp;• integer(n_estimators≥1)<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;* 默认值为10
-                </th>
-            </tr>
-            <tr>
-                <th>max_depth</th>
-                <th>树的最大深度<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;• integer(max_depth≥1)<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;• None(树会生长到所有叶子节点都分到一个类或者某节点所代表的样本数据已小于min_samples_split)<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;* 默认值为None
-                </th>
-            </tr>
-            <tr>
-                <th>max_features</th>
-                <th>在寻找最佳划分时考虑的最大特征数<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;• integer(n_features≥max_features≥1)<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;• float(占所有特征的百分比)<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;• "auto"(n_features，即所有特征)<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;• "sqrt"(max_features=sqrt(n_features)<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;• "log2"(max_features=log2(n_features))<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;• None(n_features，即所有特征)<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;* 默认值为"auto"
-                </th>
-            </tr>
-            <tr>
-                <th>min_samples_split</th>
-                <th>内部节点分裂所需的最小样本数<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;• integer(min_samples_split≥2)<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;• float(ceil(min_samples_split * n_samples)，即占所有样本的百分比向下取整)<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;* 默认值为2
-                </th>
-            </tr>
-            <tr>
-                <th>max_leaf_nodes</th>
-                <th>最大叶节点数<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;• integer(max_leaf_nodes≥1)<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;• None(不限制叶节点个数)<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;* 默认值为None
-                </th>
-            </tr>
-            <tr>
-                <th>min_weight_fraction_leaf</th>
-                <th>叶节点最小样本权重总值<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;• float(权重总值)<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;* 默认值为0
-                </th>
-            </tr>
-            <tr>
-                <th>min_samples_leaf</th>
-                <th>叶节点最小样本数<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;• integer(min_samples_leaf≥1)<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;• float(ceil(min_samples_leaf * n_samples)，即占所有样本的百分比向下取整)<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;* 默认值为1
-                </th>
-            </tr>
-            <tr>
-                <th>bootstrap</th>
-                <th>是否使用bootstrap对样本进行采样<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;• False(所有子模型的样本一致，子模型强相关)<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;• True(每个子模型的样本从总样本中有放回采样)<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;* 默认值为True
-                </th>
-            </tr>
-            <tr>
-                <th>criterion</th>
-                <th>判断节点是否分裂的使用的计算方法<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;• "mse"(均方误差)<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;• "mae"(平均绝对误差)<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;* 默认值为"mse"
-                </th>
-            </tr>
-        </tbody>
-    </table>
-</div>
+
+<table class='dataframe' style='margin:auto; width:100%;'>
+    <thead>
+        <tr>
+            <th>参数</th>
+            <th>详情</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <th>n_estimators</th>
+            <th>子模型的数量<br>&nbsp;&nbsp;&nbsp;&nbsp;• integer(n_estimators≥1)<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;* 默认值为10
+            </th>
+        </tr>
+        <tr>
+            <th>max_depth</th>
+            <th>树的最大深度<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;• integer(max_depth≥1)<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;• None(树会生长到所有叶子节点都分到一个类或者某节点所代表的样本数据已小于min_samples_split)<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;* 默认值为None
+            </th>
+        </tr>
+        <tr>
+            <th>max_features</th>
+            <th>在寻找最佳划分时考虑的最大特征数<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;• integer(n_features≥max_features≥1)<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;• float(占所有特征的百分比)<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;• "auto"(n_features，即所有特征)<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;• "sqrt"(max_features=sqrt(n_features)<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;• "log2"(max_features=log2(n_features))<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;• None(n_features，即所有特征)<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;* 默认值为"auto"
+            </th>
+        </tr>
+        <tr>
+            <th>min_samples_split</th>
+            <th>内部节点分裂所需的最小样本数<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;• integer(min_samples_split≥2)<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;• float(ceil(min_samples_split * n_samples)，即占所有样本的百分比向下取整)<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;* 默认值为2
+            </th>
+        </tr>
+        <tr>
+            <th>max_leaf_nodes</th>
+            <th>最大叶节点数<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;• integer(max_leaf_nodes≥1)<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;• None(不限制叶节点个数)<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;* 默认值为None
+            </th>
+        </tr>
+        <tr>
+            <th>min_weight_fraction_leaf</th>
+            <th>叶节点最小样本权重总值<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;• float(权重总值)<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;* 默认值为0
+            </th>
+        </tr>
+        <tr>
+            <th>min_samples_leaf</th>
+            <th>叶节点最小样本数<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;• integer(min_samples_leaf≥1)<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;• float(ceil(min_samples_leaf * n_samples)，即占所有样本的百分比向下取整)<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;* 默认值为1
+            </th>
+        </tr>
+        <tr>
+            <th>bootstrap</th>
+            <th>是否使用bootstrap对样本进行采样<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;• False(所有子模型的样本一致，子模型强相关)<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;• True(每个子模型的样本从总样本中有放回采样)<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;* 默认值为True
+            </th>
+        </tr>
+        <tr>
+            <th>criterion</th>
+            <th>判断节点是否分裂的使用的计算方法<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;• "mse"(均方误差)<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;• "mae"(平均绝对误差)<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;* 默认值为"mse"
+            </th>
+        </tr>
+    </tbody>
+</table>
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;其中的`n_estimators`的值一般来说是越大性能越好，泛化能力越强，是单调递增的，但随着子模型的数量增加，训练算法所消耗的资源和时间将会急剧增加，而其性能的提升也会到达瓶颈。其它数值型参数对性能的影响都呈现出有增有减的，而枚举型的例如`criterion`则需要视情况而定了，需要在实际应用时灵活调整。<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我们已经对需要调节的参数有了一个直观的认识，知道每个参数代表的含义。但是我们怎么来调节他们呢？在一开始的时候，我选择了一种非常笨重的方式——直接将所有参数塞进`GridSearchCV`，这导致训练花费了大量的时间。举个例子，不如设想有*3*个参数需要调节，每个参数取*10*个待定值，最后需要尝试的组合高达**1000**个之多，而这里的参数有`9`个，如果是更复杂的神经网络，那基本上就是望山跑死马的事了。我后知后觉得意识到了网格查找的局限性，于是我马上尝试书里提到的随机方法`RandomizedSearchCV`，并一度以为这样就能完美解决问题，但显然是我过于乐观——最后训练出的模型基本上都是过拟合的，而且参数可控性极低。<br/>
