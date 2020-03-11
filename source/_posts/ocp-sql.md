@@ -58,3 +58,33 @@ description: 学习Oracle OCP课程
 * `variance`方差
 * `group by`聚合条件和查询字段相同，分组之前考虑好以哪个字段进行分组
 * `having` 对分组以后的结果进行条件筛选，先分组产生结果后再进行筛选
+
+# 多表查询
+* 笛卡尔积($m*n$)
+* 等值链接(`join...on...`，`inner join...on...`,`,`)，可以控制笛卡尔积的产生
+* 不等值连接(`join...between...and...`)
+* 自然连接：基于两个表中名称相同的所有列；两个表相同的列数据类型不同无法成立；两个表在所有匹配列中具有相等值的行
+* 自连接：条件出现在同一个表中
+* 外连接：左连接(`left [out] join`)左表为驱动表，右表为匹配表，右连接(`right [out] join`)右表为驱动表，左表为匹配表，而谁为驱动表就显示谁的所有数据，所以左连接显示左表的全部数据，右连接显示右表的全部数据；全连接(`full [out] join`)两侧表都为驱动表，所以显示两侧表的全部数据
+
+# 子查询
+* 单行子查询
+* 多行子查询(`IN`,`ANY`,`ALL`,`SOME`)
+* 子查询会出现在`where`后、`where`和`from`之间、`select`和`from`之间
+
+# 集合操作
+* 并集(`UNION`、`UNION ALL`)：`UNINO`合并输出会去重，`UNION ALL`不去重
+* 交集(`INTERSECT`)：只显示两个或多个结果集中的重复部分
+* 差集(`MINUS`)：减去两个结果集中相同的部分，剩余显示被减结果集中的数据
+
+# DML
+* CTAS语句：
+  * `CREATE TABLE XXX AS  SELECT * FROM 表名 WHERE 1=1;`复制表结构和数据
+  * `CREATE TABLE XXX AS  SELECT * FROM 表名 WHERE 1=2;`复制表结构
+* `DELETE`是DML，删除表中所有内容，是逻辑删除，将表中所有数据进行标记，标记为不可用；`TRUNCATE`是DDL，删除表中所有内容，是物理删除，彻底删除表中的数据，释放表空间
+* 提交方式分为显示提交和隐式提交，显示提交触发`commit`或`rollback`，使用DDL语句隐式触发`commit`;
+* `savepoint`设置回滚点
+* `for update`锁定选定的行
+
+# DDL
+* `LONG`类型不建议使用
