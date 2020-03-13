@@ -69,6 +69,16 @@ description: 学习Oracle OCP课程的体系结构
 * LREG(监听注册进程):监听注册进程，注册有关实例到监听程序上(动态监听)
 * ARCn(归档进程):发生日志切换后将redo log文件存储到指定的存储设备上；收集事务重做的数据并传递数据到备用目标
 
+## 数据库存储体系
+* 数据块是Oracle中最小的逻辑单元，而系统块是操作系统中最小的存储物理操作单元
+![oracle_sp](ocp-architecture/oracle_storage.png)
+
+* 多个系统块构成一个数据块，多个数据块构成一个分区，多个分区构成一个段，多个分区组成一个数据文件，多个数据文件构成一个段，多个段构成一个表空间，多个表空间构成一个数据库；表空间和段有三种状态(持久、临时、undo)
+![oracle_sp](ocp-architecture/oracle_storage2.png)
+
+* SYSTEM和SYSAUX表空间在创建数据库时必须创建并且必须保证一直在线
+* ASM(Oracle自动存储管理):经常在RAID上使用；移植性好；将裸设备按文件系统的方式进程管理，提升了可维护性；可以跨磁盘传输数据进行负载均衡
+![oracle_sp](ocp-architecture/oracle_asm.png)
 
 
 
