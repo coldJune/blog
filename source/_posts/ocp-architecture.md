@@ -34,8 +34,8 @@ description: 学习Oracle OCP课程的体系结构
 
 #### Redo Log Buffer
 * 保存有关数据所有改动信息，包含所有重做语句条目
-* 通过lgwr后台进程协会REDO日志文件
-* PGA告诉log buffer数据已经改变
+* 通过lgwr后台进程写回REDO日志文件
+* PGA告诉log buffer数据已经改变，重做条目是Oracle server process从用户数据(User session data)中拷贝过去的
   
 ![oracle_sp](ocp-architecture/oracle_logbuffer.png)
 
@@ -45,6 +45,31 @@ description: 学习Oracle OCP课程的体系结构
 
 #### Java Pool
 * 用于在JVM中存储所有会话运行的java代码数据
+
+#### In-Memory Column Store
+* 12.1.0.2的新特性
+* 大表在任何列上的查询速度更快
+* 使用扫描、连接和聚合
+* 不使用索引（因为在内存中）
+
+### PGA
+* 对每一个连接分配一块独立的PGA空间
+* 记录相关会话，记录相关语句，与SGA进行沟通，与Server Process连接
+
+### 进程结构(Process Architecture)
+* 用户进程结构、数据库进程结构、守护进程
+#### 数据库进程结构
+* 包括Server Process、后台进程
+* DBWn(数据库写进程):异步、与检查点有关
+* LGWR(日志写进程):写redo log buffer，只有一个进程
+* CKPT(检查点进程):记录相关相关检查点信息，根据SN号的改变做记录(SN号在数据库是一直向推进的)，往控制文件中和每个数据文件的文件头写，具体写操作的控制单元
+* SMON(系统监视器):清理临时段、启动时执行恢复
+* PMON(进程监控):清理数据库数据缓存、监视空闲Session和超时Session
+* RECO(恢复进程与):分布式数据库其它使用、自动连接其它分布式环境中的数据库，自动解决所有不确定的事务、删除与不确定事务的相关的所有行
+* LREG(监听注册进程):监听注册进程，注册有关实例到监听程序上(动态监听)
+* ARCn(归档进程):发生日志切换后将redo log文件存储到指定的存储设备上；收集事务重做的数据并传递数据到备用目标
+
+
 
 
 
