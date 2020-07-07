@@ -40,3 +40,19 @@ description:  Spring相关知识点总结
 * 容器：控制容器的行为
 * 外部化配置：属性配置、XML配置等
 * 托管的资源(Java Beans或其他资源)：Bean、外部容器、线程池等
+
+## IoC容器的实现
+### Java EE
+* Java Beans
+* Java ServiceLoader SPI
+* JNDI (Java Naming and Directory Interface)
+
+### Java EE
+* EJB(Enterprise Java Beans)
+* Servlet
+
+### 开源
+* ~~[Apache Avalon](http://avalon.apache.org/closed.html)~~
+* [PicoContainer](http://picocontainer.com/)
+* [Google Guice](https://github.com/google/guice)
+* [Spring Framework](https://spring.io/projects/spring-framework)
