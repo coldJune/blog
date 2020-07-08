@@ -56,3 +56,16 @@ description:  Spring相关知识点总结
 * [PicoContainer](http://picocontainer.com/)
 * [Google Guice](https://github.com/google/guice)
 * [Spring Framework](https://spring.io/projects/spring-framework)
+
+## Java Beans作为IoC容器
+## 特性
+* 依赖查找
+* 生命周期管理
+* 配置元信息
+* 事件：和GUI进行结合/PropetyDescriptor允许添加属性编辑器PropertyEditor
+* 自定义（方法、属性、类型转换）
+* 资源管理
+* 持久化
+
+## Spring中的使用
+`PropetyDescriptor`（BeanInfo.java）在Spring中应用广泛,`PropetyDescriptor`允许添加属性编辑器`PropertyEditor`，在Spring3.0之前大量的实践是基于`PropertyEditorSupport`来进行操作，既能满足元数据或元信息编程，也是一些类型配置和转换的根据
