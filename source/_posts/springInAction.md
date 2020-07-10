@@ -58,6 +58,7 @@ description:  Spring相关知识点总结
 * [Spring Framework](https://spring.io/projects/spring-framework)
 
 ## Java Beans作为IoC容器
+Java beans 是一种综合需求的基础，它包含 Bean 自省（Bean 内部描述），Bean 时间，Bean 的内容修改（编辑）等等，并且由 BeanContext 统一托管 Bean 示例，简单地说，Spring 有部分思想是借鉴了 Java Beans
 ## 特性
 * 依赖查找
 * 生命周期管理
