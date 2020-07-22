@@ -125,3 +125,13 @@ Java beans 是一种综合需求的基础，它包含 Bean 自省（Bean 内部�
 * 能更大程度地面向对象
 * 更大化地产品化(即关注效率)
 * 更好的可测试性
+
+## Spring作为IoC容器的优势
+* 典型的IoC管理：依赖查找和依赖注入
+* AOP抽象
+* 事务抽象
+* 事件机制：基于Java标准事件`EventObject`类和`EventListener`接口
+* SPI扩展：`BeanPostProcessor`Bean的扩展、`BeanFactoryPostProcessor`IoC容器(BeanFactory)的扩展、工厂扩展机制(Spring Factories)
+* 强大的第三方整合：ORM、JDBC、Spring Data等
+* 易测试性：spring test
+* 更好的面向对象
