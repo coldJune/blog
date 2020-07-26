@@ -138,7 +138,7 @@ Java beans 是一种综合需求的基础，它包含 Bean 自省（Bean 内部�
 
 # Spring IoC
 ## 概述
-### Spring IoC的依赖查找
+### [Spring IoC的依赖查找](https://github.com/coldJune/spring/tree/master/thinkInSpring/ioc-container-overview/src/main/java/com/jun/ioc/overview/dependency/lookup)
 * 根据Bean名称查找
   * 实时查找
   * 延迟查找
@@ -147,7 +147,16 @@ Java beans 是一种综合需求的基础，它包含 Bean 自省（Bean 内部�
   * 集合Bean对象
 * 根据Bean名称+类型查找
 * 根据Java注解查找
-  * 单个Bean对象
+  * 单个Bean对象d
   * 集合Bean对象
 
-
+### [Spring IoC依赖注入](https://github.com/coldJune/spring/tree/master/thinkInSpring/ioc-container-overview/src/main/java/com/jun/ioc/overview/dependency/injection)
+* 根据Bean名称注入
+* 根据Bean类型注入
+  * 单个Bean对象
+  * 集合Bean对象
+* 注入容器内建Bean对象
+* 注入非Bean对象
+* 注入类型
+  * 实时注入
+  * 延迟注入
