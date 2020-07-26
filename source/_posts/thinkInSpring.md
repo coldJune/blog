@@ -135,3 +135,19 @@ Java beans 是一种综合需求的基础，它包含 Bean 自省（Bean 内部�
 * 强大的第三方整合：ORM、JDBC、Spring Data等
 * 易测试性：spring test
 * 更好的面向对象
+
+# Spring IoC
+## 概述
+### Spring IoC的依赖查找
+* 根据Bean名称查找
+  * 实时查找
+  * 延迟查找
+* 根据Bean类型查找
+  * 单个Bean对象
+  * 集合Bean对象
+* 根据Bean名称+类型查找
+* 根据Java注解查找
+  * 单个Bean对象
+  * 集合Bean对象
+
+
