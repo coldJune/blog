@@ -178,3 +178,8 @@ Java beans 是一种综合需求的基础，它包含 Bean 自省（Bean 内部�
   * 基于Java API
 * 外部化属性配置
   * 基于Java注解
+
+## Spring IoC容器
+>BeanFacotry和ApplicationContext谁才是IoC容器
+
+* `BeanFactory`是底层的IoC容器，`ApplicationContext`在之上增加了一些特性，`ApplicationContext`是`BeanFactory`的一个超集，它在底层是通过组合引入了一个`beanFactory`，当要获取`beanFactory`时需要调`getBeanFactory`方法获取真正的`beanFactory`
