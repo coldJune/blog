@@ -164,3 +164,17 @@ Java beans 是一种综合需求的基础，它包含 Bean 自省（Bean 内部�
 * 自定义Bean
 * 容器内建Bean对象
 * 容器内建依赖
+
+
+## Spring IoC配置元信息
+* Bean定义配置
+  * 基于XML配置
+  * 基于Properties配置
+  * 基于Java注解
+  * 基于Java API
+* IoC容器配置
+  * 基于XML配置
+  * 基于Java注解
+  * 基于Java API
+* 外部化属性配置
+  * 基于Java注解
