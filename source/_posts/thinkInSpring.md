@@ -193,3 +193,30 @@ ApplicationContext除了IoC容器还提供：
 * 国际化(i18n)
 * 注解(Annotation)
 * Environment抽象(Environment Abstraction)
+
+# Spring Bean
+## Spring Bean 的定义
+BeanDefinition是Spring Framework中定义Bean的配置元信息接口，包含：
+* Bean的类名
+* Bean行为配置元素，如作用域、自动绑定的模式、生命周期回调
+* 其他Bean引用(合作者*Collaborators*或者依赖*Dependencies*)
+* 配置设置，比如Bean属性(Properties)
+
+## BeanDefinition元信息
+### BeanDefinition元信息
+
+|属性(Property)|说明|
+|:--:|:--:|
+|Class|Bean全类名，必须是具体类，不能是抽象类或接口|
+|Name|Bean的名称或者ID|
+|Scope|Bean的作用域(如:sigleton、prototype等)|
+|Constructor arguments|Bean构造器参数(用于依赖注入)|
+|Properties|Bean属性设计(用于依赖注入)|
+|Autowriting mode|Bean自动绑定模式(如:通过名称byName)|
+|Lazy initialization mode|Bean延迟初始化模式(延迟和非延迟)|
+|Initialization method|Bean初始化回调方法名称|
+|Destruction method|Bean销毁回调方法名称|
+
+### BeanDefintion构建
+* 通过`BeanDefinitionBuilder`
+* 通过`AbstractBeanDefinition`以及派生类
