@@ -220,3 +220,17 @@ BeanDefinition是Spring Framework中定义Bean的配置元信息接口，包含�
 ### BeanDefintion构建
 * 通过`BeanDefinitionBuilder`
 * 通过`AbstractBeanDefinition`以及派生类
+
+## Bean命名
+* 在Bean**所在的容器**必须是唯一的
+* xml中使用`id`或`name`属性指定
+* 为空容器会自动生成
+
+### Bean名称生成器(BeanNameGenerator)
+* `DefaultBeanNameGenerator`:默认通用的BeanNameGenerator实现
+* `AnnotationBeanNameGenerator`:基于注解扫描的BeanNameGenerator实现
+
+### Bean别名(Alias)
+#### 价值
+* 复用现有的BeanDefinition
+* 更具有场景化的命名方法
