@@ -234,3 +234,15 @@ BeanDefinition是Spring Framework中定义Bean的配置元信息接口，包含�
 #### 价值
 * 复用现有的BeanDefinition
 * 更具有场景化的命名方法
+
+## 注册Spring Bean
+* XMl配置元信息
+`<bean name="" .../>`
+* Java注解配置元信息
+  * `@Bean`
+  * `@Component`
+  * `@Import`
+* Java API配置元信息
+  * 命名方式:`BeanDefinitionRegistry#registerBeanDefinition(String,BeanDefinition)`
+  * 非命名方式:`BeanDefinitionReaderUtils#registerWithGeneratedName(AbstractBeanDefinition,BeanDefinitionRegistry)`
+  * 配置类信息:`AnnotatedBeanDefinitionReader#register(Class)`
