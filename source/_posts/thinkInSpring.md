@@ -258,3 +258,12 @@ BeanDefinition是Spring Framework中定义Bean的配置元信息接口，包含�
 * 通过`ServiceLoaderFactoryBean`（配置元信息：XML、Java注解和Java API）
 * 通过`AutowireCapableBeanFactory#createBean(java.lang.Class,int,boolean)`
 * 通过`BeanDefinitionRegistry#registerBeanDefinition(String,BeanDefinition)`
+
+## Bean初始化
+* `@PostContruct`标注方法
+* 实现`InitializingBean`接口的`afterPropertiesSet()`
+* 自定义初始化方法
+  * XML配置:`<bean init-method="init" .../>`
+  * Java注解:`@Bean(initMethod="init")`
+  * Java API:`AbstractBeanDefinition#setInitMethodName(String)`
+> 同时定义，优先级顺序为`@PostContruct`->`afterPropertiesSet`->自定义初始化方法
