@@ -272,3 +272,12 @@ BeanDefinition是Spring Framework中定义Bean的配置元信息接口，包含�
 * XML配置:`<bean lazy-init="true" ...>`
 * Java注解:`@Lazy(value=true)`
 >延迟初始化和非延迟初始化的区别在于延迟初始化使用时才进行初始化，非延迟初始化在容器启动时就进行初始化
+
+## Bean 销毁
+* `@PreDestroy`标注方法
+* 实现`DisposableBean`接口的`destroy()`方法
+* 自定义销毁方法
+  * XML配置:`<bean destroy-method="destroy" .../>`
+  * Java注解:`@Bean(destroyMethod="destroy")`
+  * Java API:`AbstractBeanDefinition#setDestroyMethodName(String)`
+> 同时定义，优先级顺序为`@PreDestroy`->`destroy()`->自定义初始化方法
