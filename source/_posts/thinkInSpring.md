@@ -281,3 +281,8 @@ BeanDefinition是Spring Framework中定义Bean的配置元信息接口，包含�
   * Java注解:`@Bean(destroyMethod="destroy")`
   * Java API:`AbstractBeanDefinition#setDestroyMethodName(String)`
 > 同时定义，优先级顺序为`@PreDestroy`->`destroy()`->自定义初始化方法
+
+##  Bean的垃圾回收(GC)
+1. 关闭Spring容器(上下文)
+2. 执行GC
+3. Spring Bean覆盖的`finalize()`被回调
