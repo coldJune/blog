@@ -286,3 +286,21 @@ BeanDefinition是Spring Framework中定义Bean的配置元信息接口，包含�
 1. 关闭Spring容器(上下文)
 2. 执行GC
 3. Spring Bean覆盖的`finalize()`被回调
+
+# Spring IoC依赖查找
+## 单一类型依赖查找(`BeanFactory`)
+### 根据Bean名称查找
+* `getBean(String)`
+* Spring 2.5覆盖默认参数：`getBean(String, Object ...)`
+
+### 根据Bean类型查找
+#### Bean实时查找
+* Spring 3.0 `getBean(Class)`
+* Spring 4.1 覆盖默认参数：`getBean(Class, Object...)`
+
+#### Spring 5.1 Bean 延迟查找
+* `getBeanPeovider(Class)`
+* `getBeanProvider(ResolvableType)`
+
+### 根据Bean名称+类型查找
+* `getBean(String,Class)`
