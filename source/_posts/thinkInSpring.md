@@ -304,3 +304,19 @@ BeanDefinition是Spring Framework中定义Bean的配置元信息接口，包含�
 
 ### 根据Bean名称+类型查找
 * `getBean(String,Class)`
+
+## 集合类型依赖查找(`ListableBeanFactory`)
+### 根据Bean类型查找
+* 获取同类型Bean名称列表
+  * `getBeanNamesForType(Class)`
+  * Spring 4.2 `getBeanNamesForType(ResolvableType)`
+* 获取同类型Bean实例列表
+  * `getBeansOfType(Class)`以及重载方法
+
+### 通过注解类型查找
+* Spring 3.0 获取标注类型Bean名称列表
+  * `getBeanNamesForAnnotation(Class<? extends Annotation>)`
+* Spring 3.0 获取标注类型Bean实例列表
+  * `getBeanWithAnnotation(Class <? extends Annotation>)`
+* Spring 3.0 获取指定名称 + 标注类型Bean实例
+  * `findAnnotationOnBean(String, Class<? extends Annotation>)`
