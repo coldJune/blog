@@ -320,3 +320,15 @@ BeanDefinition是Spring Framework中定义Bean的配置元信息接口，包含�
   * `getBeanWithAnnotation(Class <? extends Annotation>)`
 * Spring 3.0 获取指定名称 + 标注类型Bean实例
   * `findAnnotationOnBean(String, Class<? extends Annotation>)`
+
+## 层次性依赖查找(`HierarchicalBeanFactory`)
+* 双亲 BeanFactory：`getParentBeanFactory()`
+
+### 层次性查找
+* 根据Bean名称查找
+  * 基于`containsLocalBean`方法实现
+* 根据Bean类型查找实例列表
+  * 单一类型：`BeanFactoryUtils#beanOfType`
+  * 集合类型：`BeanFactoryUtils#beansOfTypeIncludingAncestors`
+* 根据Java注解查找名称列表
+  * `BeanFactoryUtils#beanNamesForTypeIncludingAncestors`
