@@ -332,3 +332,12 @@ BeanDefinition是Spring Framework中定义Bean的配置元信息接口，包含�
   * 集合类型：`BeanFactoryUtils#beansOfTypeIncludingAncestors`
 * 根据Java注解查找名称列表
   * `BeanFactoryUtils#beanNamesForTypeIncludingAncestors`
+
+## 延迟依赖查找
+* Bean 延迟依赖查找接口
+  * `org.springframework.beans.factory.ObjectFactory`
+  * `org.springframework.beans.factory.ObjectProvider`
+    * Spring 5 对Java 8特性扩展
+      * `getIfAvailable(Supplier)`
+      * `ifAvailable(Consumer)`
+    * Stream扩展-`stream()`
