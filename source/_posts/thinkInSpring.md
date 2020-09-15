@@ -341,3 +341,16 @@ BeanDefinition是Spring Framework中定义Bean的配置元信息接口，包含�
       * `getIfAvailable(Supplier)`
       * `ifAvailable(Consumer)`
     * Stream扩展-`stream()`
+
+## 安全依赖查找
+
+|依赖查找类型|代表实现|是否安全|
+|:--:|:--:|:--:|
+|单一类型查找|BeanFactory#getBean|否|
+|单一类型查找|ObjectFactory#getObjedc|否|
+|单一类型查找|ObjectProvider#getIfAvailable|是|
+||||
+|集合类型查找|ListableBeanFactory#getBeansOfType|是|
+|集合类型查找| ObjectProvider#Stream|是|
+
+**层次性依赖查找的安全性取决于其扩展的单一或集合类型的BeanFactory接口**
