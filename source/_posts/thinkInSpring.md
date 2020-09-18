@@ -377,3 +377,12 @@ BeanDefinition是Spring Framework中定义Bean的配置元信息接口，包含�
 |org.springframework.context.annotation.internalEventListenerAnnotationProcessor|EventListenerMethodProcessor 对象|处理标注@EventListener的Spring事件监听方法|
 |org.springframework.context.annotation.internalEventListenerFactory|DefaultEventListenerFactory 对象|@EventListener的Spring事件监听方法适配为ApplicationListener|
 |org.springframework.context.annotation.internalPersistenceAnnotationProcessor|PersistenceAnnotationBeanPostProcessor 对象|(条件激活)处理JPA注解|
+
+## 依赖查找中的经典异常
+|异常类型|触发条件(举例)|场景举例|
+|:--:|:--:|:--:|
+|NoSuchBeanDefinitionException|当查找Bean不存在与IoC容器时|BeanFactory#getBean,ObjectFactory#getObject|
+|NoUniqueBeanDefinitionException|类型依赖查找时，IoC容器存在多个Bean实例|BeanFactory#getBean(Class)|
+|BeanInstantiationException|当Bean所对应的类型非具体类时|BeanFactory#getBean|
+|BeanCreationException|当Bean初始化过程中|Bean初始化方法执行异常时|
+|BeanDefinitionStoreException|当BeanDefinition配置元信息非法时|XML配置资源无法打开时|
