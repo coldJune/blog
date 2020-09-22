@@ -386,3 +386,22 @@ BeanDefinition是Spring Framework中定义Bean的配置元信息接口，包含�
 |BeanInstantiationException|当Bean所对应的类型非具体类时|BeanFactory#getBean|
 |BeanCreationException|当Bean初始化过程中|Bean初始化方法执行异常时|
 |BeanDefinitionStoreException|当BeanDefinition配置元信息非法时|XML配置资源无法打开时|
+
+# Spring IoC依赖注入
+## 依赖注入的模式和类型
+### 模式
+* 手动模式 - 配置或者编程的方式，提前安排注入规则
+  * XML资源配置元信息
+  * Java注解配置元信息
+  * API配置元信息
+* 自动模式 - 实现方提供依赖自动关联的方式，按照内建的注入规则
+  * Autowiring(自动绑定)
+
+### 类型
+|依赖注入类型|配置元数据举例|
+|:--:|:--:|
+|Setter方法|<property name="user" ref="userBean"/>|
+|构造器|<construct-arg name="user" ref="userBean"/>|
+|字段|@Autowired User user;|
+|方法|@Autowired public void user(User user){...}|
+|接口回调|class MyBean implements BeanFactoryAware{...}|
