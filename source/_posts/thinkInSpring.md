@@ -423,3 +423,13 @@ BeanDefinition是Spring Framework中定义Bean的配置元信息接口，包含�
 3. 是一种猜测性的，缺乏精确性
 4. 绑定的信息无法在一些工具上进行呈现
 5. 上下文存在多个Bean，会产生歧义
+
+## Setter方法注入
+### 实现方法
+* 手动模式
+  * XML 资源配置元信息
+  * Java 注解配置元信息
+  * API 配置元信息
+* 自动模式
+  * byName
+  * byType
