@@ -433,3 +433,27 @@ BeanDefinition是Spring Framework中定义Bean的配置元信息接口，包含�
 * 自动模式
   * byName
   * byType
+
+## 构造器注入
+### 实现方法
+* 手动模式
+  * XML 资源配置元信息
+  * Java 注解配置元信息
+  * API 配置元信息
+* 自动模式
+  * constructor
+
+## 字段注入
+### 实现方法(手动模式)
+* Java注解配置元信息
+  * `@Autowired`
+  * `@Resource`
+  * `@Inject`(可选)
+
+## 方法注入
+### 实现方法(手动模式)
+* Java注解配置元信息
+  * `@Autowired`
+  * `@Resource`
+  * `@Inject`(可选)
+  * `@Bean`
