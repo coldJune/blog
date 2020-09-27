@@ -457,3 +457,27 @@ BeanDefinition是Spring Framework中定义Bean的配置元信息接口，包含�
   * `@Resource`
   * `@Inject`(可选)
   * `@Bean`
+
+## 接口回调注入
+### Aware系列接口回调
+
+|内建接口|说明|
+|:--:|:--:|
+|BeanFactory|获取IoC容器-BeanFactory|
+|ApplicationContextAware|获取Spring应用上下文-ApplicationContext对象|
+|EnvironmentAware|获取Environment对象|
+|ResourceLoaderAware|获取资源加载器对象-ResourceLoader|
+|BeanClassLoaderAware|获取当前Bean Class的ClassLoader|
+|BeanNameAware|获取当前Bean的名称|
+|MessageSourceAware|获取MessageSource对象，用于Spring国际化|
+|ApplicationEventPublisherAware|获取ApplicationEventPublisherAware对象，用于Spring事件|
+|EmbeddedValueResolverAware|获取StringValueResolver对象，用于占位符处理|
+
+## 依赖注入类型选型
+
+|注入方式|优先考虑场景|
+|:--:|:--:|
+|构造器注入|低依赖|
+|Setter方法注入|多依赖|
+|字段注入|便利性|
+|方法注入|声明类|
