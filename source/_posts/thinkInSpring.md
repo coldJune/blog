@@ -481,3 +481,15 @@ BeanDefinition是Spring Framework中定义Bean的配置元信息接口，包含�
 |Setter方法注入|多依赖|
 |字段注入|便利性|
 |方法注入|声明类|
+
+## 基础类型注入
+* 原生类型(Primitive):boolean、byte、char、short、int、float、long、double
+* 标量类型(Scalar):Number、Character、Boolean、Enum、Locale、Charset、Currency、Properties、UUID
+* 常规类型(General):Object、String、TimeZone、Calender、Optional等
+* Spring类型:Resource、InputSource、Formatter等
+
+## 集合类型注入
+* 数组类型(Array):原生类型、标量类型、常规类型、Spring类型
+* 集合类型(Collection)
+  * Collection:List、Set(SortedSet、NavigableSet、EnumSet)
+  * Map: Properties
