@@ -493,3 +493,10 @@ BeanDefinition是Spring Framework中定义Bean的配置元信息接口，包含�
 * 集合类型(Collection)
   * Collection:List、Set(SortedSet、NavigableSet、EnumSet)
   * Map: Properties
+
+## 限定注入
+* 使用注解`@Qualifier`限定
+  * 通过Bean名称限定
+  * 通过分组限定
+* 基于注解`@Qualifier`扩展限定
+  * 自定义注解 (如Spring Cloud @LoadBalanced)
