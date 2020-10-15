@@ -500,3 +500,11 @@ BeanDefinition是Spring Framework中定义Bean的配置元信息接口，包含�
   * 通过分组限定
 * 基于注解`@Qualifier`扩展限定
   * 自定义注解 (如Spring Cloud @LoadBalanced)
+
+## 延迟依赖注入
+* 使用API `ObjectFactory`延迟注入
+  * 单一类型
+  * 集合类型
+* 使用API `ObjectProvider`延迟注入(推荐)
+  * 单一类型
+  * 集合类型
