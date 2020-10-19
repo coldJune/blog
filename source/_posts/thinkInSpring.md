@@ -508,3 +508,8 @@ BeanDefinition是Spring Framework中定义Bean的配置元信息接口，包含�
 * 使用API `ObjectProvider`延迟注入(推荐)
   * 单一类型
   * 集合类型
+
+## 依赖处理过程
+* 入口：`DefaultListableBeanFacotry#resolveDependency`
+* 依赖描述符：`DependencyDescriptor`
+* 自定绑定候选对象处理器：`AutowireCandidateResolver`
