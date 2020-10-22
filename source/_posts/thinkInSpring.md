@@ -513,3 +513,24 @@ BeanDefinition是Spring Framework中定义Bean的配置元信息接口，包含�
 * 入口：`DefaultListableBeanFacotry#resolveDependency`
 * 依赖描述符：`DependencyDescriptor`
 * 自定绑定候选对象处理器：`AutowireCandidateResolver`
+
+## @Autowired和@Injdect
+### @Autowired注入过程
+1. 元信息解析
+2. 依赖查找
+3. 依赖注入(字段、方法)
+
+### @Injdect注入过程
+1. 如果JSR-330存在于ClassPath中，复用`AutowiredAnnotationBeanPostProcessor`实现
+
+## Java通用注解注入原理
+`CommonAnnotationBeanPostProcessor`
+### 注入注解
+1. `javax.xml.ws.WebServiceRef`
+2. `javax.ejb.EJB`
+3. `javax.annotation.Resource`
+
+### 生命周期注解
+1. `javax.annotation.PostConstruct`
+2. `javax.annotation.PreDestory`
+
