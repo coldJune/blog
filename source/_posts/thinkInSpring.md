@@ -534,3 +534,12 @@ BeanDefinition是Spring Framework中定义Bean的配置元信息接口，包含�
 1. `javax.annotation.PostConstruct`
 2. `javax.annotation.PreDestory`
 
+## 自定义依赖注入注解
+* 基于`AutowiredAnnotationBeanPostProcessor`实现
+* 自定义实现
+  * 生命周期处理
+    * `InstantiationAwareBeanPostProcessor`
+    * `MergedBeanDefinitionPostProcessor`
+  * 元数据
+    * `InjectedElement`
+    * `InjectionMetadata`
