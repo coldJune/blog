@@ -543,3 +543,32 @@ BeanDefinition是Spring Framework中定义Bean的配置元信息接口，包含�
   * 元数据
     * `InjectedElement`
     * `InjectionMetadata`
+
+# Spring IoC依赖来源
+## 依赖查找来源
+|来源|配置元信息|
+|:--:|:--:|
+|Spring BeanDefinition|<bean id="book" class="....">|
+||@Bean public Book book(){...}|
+||BeanDefinitionBuilder|
+|单例对象|API实现|
+
+### Spring内建BeanDefintion
+|Bean名称|Bean实例|使用场景|
+|:--:|:--:|:--:|
+|org.springframework.context.annotation.internalConfigurationAnnotationProcessor|ConfigurationClassPostProcessor 对象|处理Spring配置类|
+|org.springframework.context.annotation.internalAutowiredAnnotationProcessor|AutowiredAnnotationBeanPostProcessor 对象|处理@Autowired和@Value注解|
+|org.springframework.context.annotation.internalCommonAnnotationProcessor|CommonAnnotationBeanPostProcessor 对象|(条件激活)处理JSR-250注解，如@PostConstruct等|
+|org.springframework.context.annotation.internalEventListenerAnnotationProcessor|EventListenerMethodProcessor 对象|处理标注@EventListener的Spring事件监听方法|
+|org.springframework.context.annotation.internalEventListenerFactory|DefaultEventListenerFactory 对象|@EventListener的Spring事件监听方法适配为ApplicationListener|
+|org.springframework.context.annotation.internalPersistenceAnnotationProcessor|PersistenceAnnotationBeanPostProcessor 对象|(条件激活)处理JPA注解|
+
+### Spring内建单例对象
+|Bean名称|Bean实例|使用场景|
+|:--:|:--:|:--:|
+|environment|Environment 对象|外部化配置以及Profiles| 
+|systemProperties|java.util.Properties 对象|Java系统属性|
+|systemEnvironment|java.util.Map 对象|操作系统环境变量|
+|messageSource|MessageSource 对象|国际化文案|
+|lifecycleProcessor|LifecycleProcessor 对象|Lifecycle Bean 处理器|
+|applicationEventMulticaster|ApplicationEventMulticaster 对象|Spring事件广播器| 
