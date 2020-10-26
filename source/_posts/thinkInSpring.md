@@ -572,3 +572,13 @@ BeanDefinition是Spring Framework中定义Bean的配置元信息接口，包含�
 |messageSource|MessageSource 对象|国际化文案|
 |lifecycleProcessor|LifecycleProcessor 对象|Lifecycle Bean 处理器|
 |applicationEventMulticaster|ApplicationEventMulticaster 对象|Spring事件广播器| 
+
+## 依赖注入来源
+
+|来源|配置元信息|
+|:--:|:--:|
+|Spring BeanDefinition|<bean id="book" class="....">|
+||@Bean public Book book(){...}|
+||BeanDefinitionBuilder|
+|单例对象|API实现|
+|非Spring容器管理对象||
