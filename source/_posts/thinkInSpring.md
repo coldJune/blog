@@ -582,3 +582,18 @@ BeanDefinition是Spring Framework中定义Bean的配置元信息接口，包含�
 ||BeanDefinitionBuilder|
 |单例对象|API实现|
 |非Spring容器管理对象||
+
+## Spring容器管理和游离对象
+
+|来源|Spring Bean对象|生命周期管理|配置元信息|使用场景|
+|:--:|:--:|:--:|:--:|:--:|
+|Spring BeanDefinition|是|是|有|依赖查找、依赖注入|
+|单体对象|是|否|无|依赖查找、依赖注入|
+|ResolveDependency(非Spring容器管理对象)|否|否|无|依赖注入|
+
+### Spring BeanDefinition作为依赖来源
+* 要素
+  1. 元数据：`BeanDefinition`
+  2. 注册：`BeanDefinitionRegistry#registerBeanDefinition`
+  3. 类型：延迟和非延迟
+  4. 顺序：Bean生命周期顺序按照注册顺序
