@@ -605,3 +605,11 @@ BeanDefinition是Spring Framework中定义Bean的配置元信息接口，包含�
 * 限制
   * 无生命周期管理
   * 无法实现延迟初始化Bean
+
+### 非Spring容器管理对象作为依赖来源
+* 要素
+  * 注册：`ConfigurableListableBeanFactory#registerResolvableDependency`
+* 限制
+  * 无生命周期管理
+  * 无法实现延迟初始化Bean
+  * 无法通过依赖查找
