@@ -621,3 +621,12 @@ BeanDefinition是Spring Framework中定义Bean的配置元信息接口，包含�
   * 无生命周期管理
   * 无法实现延迟初始化Bean
   * 无法通过依赖查找
+
+# Spring Bean作用域
+|作用域|说明|
+|:--:|:--:|
+|singleton|默认Spring Bean作用域，一个BeanFactory有且仅有一个实例|
+|prototype|原型作用域，每次依赖查找和依赖注入生成新的Bean对象|
+|request|将Spring Bean存储在ServletRequest上下文中|
+|session|将Spring Bean存储在HttpSession中|
+|application|将Spring Bean存储在ServletContext中|
