@@ -632,3 +632,21 @@ BeanDefinition是Spring Framework中定义Bean的配置元信息接口，包含�
 |application|将Spring Bean存储在ServletContext中|
 
 > Spring容器没有办法管理 prototype Bean的完整生命周期，也没有办法记录实例的存在。销毁回调方法将不会执行，可以利用`BeanPostProcessor`进行清扫工作，但不合理；也可以在管理Bean的对象中统一进行销毁。
+
+## 自定义Bean作用域
+* 实现Scope
+  * `org.springframework.beans.factory.config.Scope`
+* 注册Scope
+  * API - `org.springframework.beans.factory.config.CustomScopeConfigurer`
+  * 配置
+    
+    ```
+    <bean class="org.springframework.beans.factory.config.CustomScopeConfigurer">
+      <property name="scopes>
+        <map>
+          <entry key="...">
+          </entry>
+        </map>
+      </property>
+    </bean>
+    ```
