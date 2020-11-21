@@ -650,3 +650,12 @@ BeanDefinition是Spring Framework中定义Bean的配置元信息接口，包含�
       </property>
     </bean>
     ```
+
+  # Spring Bean生命周期
+  ## Spring Bean元信息配置阶段
+  * BeanDefinition配置
+    * 面向资源
+      * XML配置
+      * Properties资源配置
+    * 面向注解
+    * 面向API
