@@ -651,11 +651,21 @@ BeanDefinition是Spring Framework中定义Bean的配置元信息接口，包含�
     </bean>
     ```
 
-  # Spring Bean生命周期
-  ## Spring Bean元信息配置阶段
-  * BeanDefinition配置
-    * 面向资源
-      * XML配置
-      * Properties资源配置
-    * 面向注解
-    * 面向API
+# Spring Bean生命周期
+## Spring Bean元信息配置阶段
+* BeanDefinition配置
+  * 面向资源
+    * XML配置
+    * Properties资源配置
+  * 面向注解
+  * 面向API
+
+## Spring Bean元数据解析阶段
+* 面向资源BeanDefinition解析
+  * `BeandefinitionReader`
+  * XML解析器-`BeanDefinitionParser`
+* 面向注解BeanDefinition解析
+  * `AnnotatedBeanDefinitionReader`
+
+## Spring Bean注册阶段
+* BeanDefinition注册接口：`BeanDefinitionRegistry`
