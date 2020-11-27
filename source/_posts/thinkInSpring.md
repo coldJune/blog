@@ -669,3 +669,13 @@ BeanDefinition是Spring Framework中定义Bean的配置元信息接口，包含�
 
 ## Spring Bean注册阶段
 * BeanDefinition注册接口：`BeanDefinitionRegistry`
+
+## Spring BeanDefinition合并阶段
+* 父子BeanDefinition合并
+  * 当前BeanFactory查找
+  * 层次性BeanFactory查找
+
+## Spring Bean Class 加载阶段
+* ClassLoader类加载
+* Java Security安全控制
+* `ConfigurableBeanFactory`临时ClassLoader
