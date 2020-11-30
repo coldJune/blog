@@ -679,3 +679,11 @@ BeanDefinition是Spring Framework中定义Bean的配置元信息接口，包含�
 * ClassLoader类加载
 * Java Security安全控制
 * `ConfigurableBeanFactory`临时ClassLoader
+
+## Spring Bean 实例化前阶段
+`InstantiationAwareBeanPostProcessor#postProcessBeforeInstantiation`
+
+## Spring Bean 实例化阶段
+* 实例化方式
+  * 传统实例化方式：实例化策略-`InstantiationStrategy`
+* 构造器依赖注入
