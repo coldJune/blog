@@ -687,3 +687,6 @@ BeanDefinition是Spring Framework中定义Bean的配置元信息接口，包含�
 * 实例化方式
   * 传统实例化方式：实例化策略-`InstantiationStrategy`
 * 构造器依赖注入
+
+## Spring Bean 实例化后阶段
+* Bean 属性赋值(Populate)判断：`InstantiationAwareBeanPostProcessor#postProcessAfterInstantiation`
