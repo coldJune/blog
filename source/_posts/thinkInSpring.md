@@ -690,3 +690,9 @@ BeanDefinition是Spring Framework中定义Bean的配置元信息接口，包含�
 
 ## Spring Bean 实例化后阶段
 * Bean 属性赋值(Populate)判断：`InstantiationAwareBeanPostProcessor#postProcessAfterInstantiation`
+
+## Spring Bean 属性赋值前阶段
+* Bean 属性值元信息：`PropertyValues`
+* Bean 属性赋值前回调：
+  * Spring 1.2 -5.0:`InstantiationAwareBeanPostProcessor#postProcessPropertyValues`
+  * Spring 5.1:`InstantiationAwareBeanPostProcessor#postProcessProperties`
