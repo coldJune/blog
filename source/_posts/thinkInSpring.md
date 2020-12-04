@@ -696,3 +696,27 @@ BeanDefinition是Spring Framework中定义Bean的配置元信息接口，包含�
 * Bean 属性赋值前回调：
   * Spring 1.2 -5.0:`InstantiationAwareBeanPostProcessor#postProcessPropertyValues`
   * Spring 5.1:`InstantiationAwareBeanPostProcessor#postProcessProperties`
+
+## Spring Bean Aware接口回调阶段
+1. `BeanNameAware`
+2. `BeanClassLoaderAware`
+3. `BeanFactoryAware`
+4. `EnviromentAware`
+5. `EmbeddedValueResolverAware`
+6. `ResourceLoaderAware`
+7. `ApplicationEventPublisherAware`
+8. `MessageSourceAware`
+9. `ApplicationContextAware`
+
+## Spring Bean 初始化前阶段
+* 已完成
+  * Bean实例化
+  * Bean属性赋值
+  * Bean Aware接口回调
+* 方法回调
+  * `org.springframework.beans.factory.config.BeanPostProcessor#postProcessBeforeInitialization`
+
+## Spring Bean 初始化阶段
+* `@PostConstruct`标注方法
+* 实现`InitializingBean`接口的`afterPropertiesSet()`方法
+* 自定义初始化方法
