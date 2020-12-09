@@ -726,3 +726,16 @@ BeanDefinition是Spring Framework中定义Bean的配置元信息接口，包含�
 
 ## Spring Bean 初始化完成阶段
 * Spring4.1+:`SmartInitializingSingleton#afterSingletonsInstantiated`
+
+## Spring Bean 销毁前阶段
+* `DestructionAwareBeanPostProcessor#postProcessBeforeDestruction`
+
+## Spring Bean 销毁阶段
+* `@PostDestroy`标注方法
+* 实现`DisposableBean`接口的`destroy()`方法
+* 自定义销毁方法
+
+## Spring Bean 垃圾回收(GC)
+1. 关闭Spring容器(应用上下文)
+2. 执行GC
+3. Spring Bean 覆盖的`finalize()`方法被回调
