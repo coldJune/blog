@@ -739,3 +739,21 @@ BeanDefinition是Spring Framework中定义Bean的配置元信息接口，包含�
 1. 关闭Spring容器(应用上下文)
 2. 执行GC
 3. Spring Bean 覆盖的`finalize()`方法被回调
+
+## BeanFactory 怎么处理Bean 生命周期
+> BeanFactory的默认实现DefaultListableBeanFactory
+
+1. BeanDefinition注册阶段-`registerBeanDefinition`
+2. BeanDefinition合并阶段-`getMergedBeanDefinition`
+3. Bean 实例化前阶段-`resolveBeforeInstantiation`
+4. Bean 实例化阶段-`createBeanInstance`
+5. Bean 实例化后阶段-`populateBean`
+6. Bean 属性赋值前阶段-`populateBean`
+7. Bean 属性赋值阶段-`populateBean`
+8. Bean Aware 接口回调阶段-`initializeBean`
+9. Bean 初始化前阶段-`initializeBean`
+10. Bean 初始化阶段-`initializeBean`
+11. Bean 初始化后阶段-`initializeBean`
+12. Bean 初始化完成阶段-`preInstantiateSingletons`
+13. Bean 销毁前阶段-`destoryBean`
+14. Bean 销毁阶段-`destoryBean`
