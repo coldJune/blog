@@ -757,3 +757,17 @@ BeanDefinition是Spring Framework中定义Bean的配置元信息接口，包含�
 12. Bean 初始化完成阶段-`preInstantiateSingletons`
 13. Bean 销毁前阶段-`destoryBean`
 14. Bean 销毁阶段-`destoryBean`
+
+# Spring 配置元信息
+
+* Spring Bean 配置元信息 - `BeanDefinition`
+* Spring Bean 属性元信息 - `PropertyValues`
+* Spring 容器配置元信息
+* Spring 外部化配置元信息 - `PropertySource`
+* Spring Profile 元信息 - `@Profile`
+
+## Spring Bean 配置元信息：BeanDefinition
+
+* `GenericBeanDefinition`:通用型 BeanDefinition
+* `RootBeanDefinition`:无 parent 的 BeanDefinition 或者合并后 BeanDefinition
+* `AnnotatedBeanDefinition`: 注解标准的 BeanDefinition
