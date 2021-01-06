@@ -771,3 +771,10 @@ BeanDefinition是Spring Framework中定义Bean的配置元信息接口，包含�
 * `GenericBeanDefinition`:通用型 BeanDefinition
 * `RootBeanDefinition`:无 parent 的 BeanDefinition 或者合并后 BeanDefinition
 * `AnnotatedBeanDefinition`: 注解标准的 BeanDefinition
+
+## Spring Bean 配置元信息：PropertyValues
+* Bean 属性元信息 - `PropertyValues`
+  * 可修改实现 - `MutablePropertyValues`
+  * 元素成员 - `PropertyValue`
+* Bean 属性上下文存储 - `AttributeAccessor`
+* Bean 元信息元素 - `BeanMetadataElement`
