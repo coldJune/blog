@@ -778,3 +778,28 @@ BeanDefinition是Spring Framework中定义Bean的配置元信息接口，包含�
   * 元素成员 - `PropertyValue`
 * Bean 属性上下文存储 - `AttributeAccessor`
 * Bean 元信息元素 - `BeanMetadataElement`
+
+## Spring容器配置元信息
+* beans元素相关
+
+|beans元素属性|默认值|使用场景|
+|:--:|:--:|:--:|
+|profile|null(留空)|Spring Profiles配置值|
+|default-lazy-init|default|当 outter beans “default-lazy-init”属性存在时，继承该值，否则为false|
+|default-merge|default|当 outter beans “default-merge”属性存在时，继承该值，否则为false|
+|default-autowire|default|当 outter beans “default-autowire”属性存在时，继承该值，否则为false|
+|default-autowire-candidates|null(留空)|默认Spring Beans名称pattern|
+|default-init-method|null(留空)|默认Spring Beans自定义初始化方法|
+|default-destroy-method|null(留空)|默认Spring Beans自定义销毁方法|
+
+* 应用上下文相关
+
+|XML元素|使用场景|
+|:--:|:--:|
+|<context:annotation-config/>|激活Spring注解驱动|
+|<context:component-scan/>|Spring @Component以及自定义注解扫描|
+|<context:load-time-weaver/>|激活Spring LoadTimeWeaver|
+|<context:mbean-export/>|暴露Spring Beans作为JMX Beans|
+|<context:mbean-server/>|将当前平台作为MBeanServer|
+|<context:property-placeholder/>|加载外部化配置资源作为Spring属性配置|
+|<context:property-override/>|利用外部化配置资源覆盖Spring属性值|
