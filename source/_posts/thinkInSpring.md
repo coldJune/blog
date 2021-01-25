@@ -803,3 +803,13 @@ BeanDefinition是Spring Framework中定义Bean的配置元信息接口，包含�
 |<context:mbean-server/>|将当前平台作为MBeanServer|
 |<context:property-placeholder/>|加载外部化配置资源作为Spring属性配置|
 |<context:property-override/>|利用外部化配置资源覆盖Spring属性值|
+
+* Spring Bean 配置元信息
+> 底层实现- `XmlBeanDefinitionReader`
+
+|XML元素|使用场景|
+|:--:|:--:|
+|<beans:beans />|单XML资源下的多个Spring Beans配置|
+|<beans:bean />|单个Spring Bean定义(BeanDefinition)配置|
+|<beans:alias />|为Spring Bean定义(BeanDefinition)映射别名|
+|<beans:import />|加载外部Spring XML配置资源|
