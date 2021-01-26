@@ -804,7 +804,7 @@ BeanDefinition是Spring Framework中定义Bean的配置元信息接口，包含�
 |<context:property-placeholder/>|加载外部化配置资源作为Spring属性配置|
 |<context:property-override/>|利用外部化配置资源覆盖Spring属性值|
 
-* Spring Bean 配置元信息
+* XML配置元信息
 > 底层实现- `XmlBeanDefinitionReader`
 
 |XML元素|使用场景|
@@ -813,3 +813,17 @@ BeanDefinition是Spring Framework中定义Bean的配置元信息接口，包含�
 |<beans:bean />|单个Spring Bean定义(BeanDefinition)配置|
 |<beans:alias />|为Spring Bean定义(BeanDefinition)映射别名|
 |<beans:import />|加载外部Spring XML配置资源|
+
+* Properties配置元信息
+> 底层实现-`PropertiesBeanDefinitionReader`
+
+
+|Properties属性名|使用场景|
+|:--:|:--:|
+|(class)|Bean 类全限定名|
+|(abstract)|是否为抽象的BeanDefinition|
+|(parent)|指定parent BeanDefinition|
+|(lazy-init)|是否为延迟初始化|
+|(ref)|引用其他Bean的名称|
+|(scope)|设置Bean的scope属性|
+|${n}|n表示n+1个构造器参数|
