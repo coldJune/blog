@@ -827,3 +827,24 @@ BeanDefinition是Spring Framework中定义Bean的配置元信息接口，包含�
 |(ref)|引用其他Bean的名称|
 |(scope)|设置Bean的scope属性|
 |${n}|n表示n+1个构造器参数|
+
+* Java注解装载配置元信息
+
+|Spring注解|场景说明|
+|:--:|:--:|
+|`@Repository`|数据仓储模式注解|
+|`@Component`|通用组件模式注解|
+|`@Service`|服务模式注解|
+|`@Controller`|Web控制器模式注解|
+|`@Configuration`|配置类模式注解|
+|`@Autowired`|Bean依赖注入，支持多种依赖查找方式|
+|`@Qualifier`|细粒度的`@Autowired`依赖查找|
+|`@Profile`|配置话条件装配|
+|`@Conditional`|编程条件装配|
+|`@PostConstruct`|替换XML元素<bean init-method="...">或InitializingBean|
+|`@PreDestroy`|替换XML元素<bean destroy-method="...">或DiposableBean|
+
+|Java 注解|场景说明|
+|:--:|:--:|
+|`@Resource`|类似于`@Autowired`|
+|`@Inject`|类似于`@Autowired`|
