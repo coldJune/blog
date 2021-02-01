@@ -848,3 +848,42 @@ BeanDefinition是Spring Framework中定义Bean的配置元信息接口，包含�
 |:--:|:--:|
 |`@Resource`|类似于`@Autowired`|
 |`@Inject`|类似于`@Autowired`|
+
+## Spring Bean 配置元信息底层实现
+* Spring BeanDefinition解析与注册
+
+|实现场景|实现类|
+|:--:|:--:|
+|XML资源|`XmlBeanDefinitionReader`|
+|Properties资源|`PropertiesBeanDefinitionReader`|
+|Java注解|`AnnotatedBeanDefinitionReader`|
+
+### Spring XML资源BeanDefinition解析与注册
+> 核心API - `XmlBeanDefinitionReader`
+
+* 资源 - `Resource`
+* 底层 - `BeanDefinitionDocumentReader`
+  * XML 解析 - Java DOM Level 3 API
+  * BeanDefinition 解析 - `BeanDefinitionParserDelegate`
+
+### Spring Properties资源BeanDefinition解析与注册
+> 核心API - `PropertiesBeanDefinitionReader`
+
+* 资源
+  * 字节流 - `Resource`
+  * 字符流 - `EncodedResource`
+* 底层
+  * 存储 - `java.util.Properties`
+  * BeanDefinition 解析 - API内部实现
+  * BeanDefinition 注册 - `BeanDefinitionRegistry`
+
+### Spring Java注册BeanDefinition解析与注册
+> 核心API - `AnnotatedBeanDefinitionReader`
+
+* 资源 - `java.lang.Class`
+* 底层 
+  * 条件评估 - `ConditionEvaluator`
+  * Bean 范围解析 - `ScopeMetadataResolver`
+  * BeanDefinition 解析 - 内部 API实现
+  * BeanDefinition 解析 - `AnnotationConfigUtils.processCommonDefinitionAnnotations`
+  * BeanDefinition 注册 - `BeanDefinitionRegistry`
