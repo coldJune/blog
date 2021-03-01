@@ -911,3 +911,10 @@ BeanDefinition是Spring Framework中定义Bean的配置元信息接口，包含�
 |@ComponnentScan|扫描指定package 下标注Spring模式注解的类|
 |@PropertySource|配置属性抽象PropertySource注解|
 |@PropertySources|@PropertySource集合注解|
+
+### 基于 Extensible XML authoring 扩展Spring XML元素
+
+1. 编写 XML Schema 文件：定义XML结构
+2. 自定义 NamespaceHandler 实现：命名空间绑定
+3. 自定义 BeanDefinitionParser 实现： XML元素与 BeanDefinition 解析
+4. 注册 XML 扩展：命名空间与XML Schema 映射
