@@ -918,3 +918,11 @@ BeanDefinition是Spring Framework中定义Bean的配置元信息接口，包含�
 2. 自定义 NamespaceHandler 实现：命名空间绑定
 3. 自定义 BeanDefinitionParser 实现： XML元素与 BeanDefinition 解析
 4. 注册 XML 扩展：命名空间与XML Schema 映射
+
+* 原理
+
+核心流程 `org.springframework.beans.factory.xml.BeanDefinitionParserDelegate#parseCustomElement(org.w3c.dom.Element, org.springframework.beans.factory.config.BeanDefinition)`
+1. 获取namespace
+2. 通过namespace 解析 NamespaceHandler
+3. 构造 ParserContext
+4. 解析元素，获取 BeanDefinition
