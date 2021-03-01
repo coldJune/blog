@@ -887,3 +887,27 @@ BeanDefinition是Spring Framework中定义Bean的配置元信息接口，包含�
   * BeanDefinition 解析 - 内部 API实现
   * BeanDefinition 解析 - `AnnotationConfigUtils.processCommonDefinitionAnnotations`
   * BeanDefinition 注册 - `BeanDefinitionRegistry`
+
+### 装载Spring IoC容器配置元信息
+
+* 基于XML资源装载
+
+|命名空间|所属模块|Schema资源URL|
+|:--:|:--:|:--:|
+|beans|spring-beans|https://www.springframework.org/schema/beans/spring-beans.xsd|
+|context|spring-context|https://www.springframework.org/schema/context/spring-context.xsd|
+|aop|spring-aop|https://www.springframework.org/schema/aop/spring-aop.xsd|
+|tx|spring-tx|https://www.springframework.org/schema/tx/spring-tx.xsd|
+|util|spring-util|https://www.springframework.org/schema/util/spring-util.xsd|
+|tool|spring-tool|https://www.springframework.org/schema/tool/spring-tool.xsd|
+|beans|spring-beans|https://www.springframework.org/schema/beans/spring-beans.xsd|
+
+* 基于Java注解装载
+
+|Spring注解|场景说明|
+|:--:|:--:|
+|@ImportResource|替换XML元素<import>|
+|@import|导入Configuration Class|
+|@ComponnentScan|扫描指定package 下标注Spring模式注解的类|
+|@PropertySource|配置属性抽象PropertySource注解|
+|@PropertySources|@PropertySource集合注解|
