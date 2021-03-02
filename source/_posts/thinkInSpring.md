@@ -926,3 +926,15 @@ BeanDefinition是Spring Framework中定义Bean的配置元信息接口，包含�
 2. 通过namespace 解析 NamespaceHandler
 3. 构造 ParserContext
 4. 解析元素，获取 BeanDefinition
+
+### 装载外部化配置
+
+#### 基于Properties
+
+* 注解驱动
+  * `@org.springframework.context.annotation.PropertySource`
+  * `@org.springframework.context.annotation.PropertySources`
+
+* API编程
+  * `org.springframework.core.env.PropertySource`
+  * `org.springframework.core.env.PropertySources`
