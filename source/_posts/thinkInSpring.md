@@ -938,3 +938,10 @@ BeanDefinition是Spring Framework中定义Bean的配置元信息接口，包含�
 * API编程
   * `org.springframework.core.env.PropertySource`
   * `org.springframework.core.env.PropertySources`
+
+#### 基于YAML资源
+
+* API编程
+  * `org.springframework.beans.factory.config.YamlProcessor`
+    * `org.springframework.beans.factory.config.YamlMapFactoryBean`
+    * `org.springframework.beans.factory.config.YamlPropertiesFactoryBean`
