@@ -888,7 +888,7 @@ BeanDefinition是Spring Framework中定义Bean的配置元信息接口，包含�
   * BeanDefinition 解析 - `AnnotationConfigUtils.processCommonDefinitionAnnotations`
   * BeanDefinition 注册 - `BeanDefinitionRegistry`
 
-### 装载Spring IoC容器配置元信息
+## 装载Spring IoC容器配置元信息
 
 * 基于XML资源装载
 
@@ -912,7 +912,7 @@ BeanDefinition是Spring Framework中定义Bean的配置元信息接口，包含�
 |@PropertySource|配置属性抽象PropertySource注解|
 |@PropertySources|@PropertySource集合注解|
 
-### 基于 Extensible XML authoring 扩展Spring XML元素
+## 基于 Extensible XML authoring 扩展Spring XML元素
 
 1. 编写 XML Schema 文件：定义XML结构
 2. 自定义 NamespaceHandler 实现：命名空间绑定
@@ -927,9 +927,9 @@ BeanDefinition是Spring Framework中定义Bean的配置元信息接口，包含�
 3. 构造 ParserContext
 4. 解析元素，获取 BeanDefinition
 
-### 装载外部化配置
+## 装载外部化配置
 
-#### 基于Properties
+### 基于Properties
 
 * 注解驱动
   * `@org.springframework.context.annotation.PropertySource`
@@ -939,9 +939,45 @@ BeanDefinition是Spring Framework中定义Bean的配置元信息接口，包含�
   * `org.springframework.core.env.PropertySource`
   * `org.springframework.core.env.PropertySources`
 
-#### 基于YAML资源
+### 基于YAML资源
 
 * API编程
   * `org.springframework.beans.factory.config.YamlProcessor`
     * `org.springframework.beans.factory.config.YamlMapFactoryBean`
     * `org.springframework.beans.factory.config.YamlPropertiesFactoryBean`
+
+# Spring 资源管理
+
+## Java 标准资源管理
+
+* Java 标准资源定位
+
+|职责|说明|
+|:--:|:--:|
+|面向资源|文件系统、artifact(jar、war、ear文件)以及远程资源(HTTP、FTP等)|
+|API 整合|`java.lang.ClassLoader#getResource`、`java.io.File`、`java.net.URL`|
+|资源定位|`java.net.URL`、`java.net.URI`|
+|面向流式存储|`java.net.URLConnection`|
+|协议扩展|`java.net.URLStreamHandler` 或 `java.net.URLStreamHandlerFactory`|
+
+* Java URL协议扩展
+  * 基于 `java.net.URLStreamHandlerFactory`
+    ![URLStreamHandlerFactory扩展](thinkInSpring/URLStreamHandlerFactory扩展.jpg)
+  
+  * 基于 `java.net.URLStreamHandler`
+
+  |协议|实现类|
+  |:--:|:--:|
+  |file|`sun.net.www.protocol.file.Handler`|
+  |ftp|`sun.net.www.protocol.ftp.Handler`|
+  |http|`sun.net.www.protocol.http.Handler`|
+  |https|`sun.net.www.protocol.https.Handler`|
+  |jar|`sun.net.www.protocol.jar.Handler`|
+  |mailto|`sun.net.www.protocol.mailto.Handler`|
+  |netdoc|`sun.net.www.protocol.netdoc.Handler`|
+
+  * 实现类名必须为`Handler`
+    |实现类名规则|说明|
+    |:--:|:--:|
+    |默认|`sun.net.www.protocol.${protocol}.Handler`|
+    |自定义|通过 Java Properties `java.protocol.handler.pkgs`指定实现类包名，实现类名必须为`Handler`。如果存在多包名指定，通过分隔符"|"|
